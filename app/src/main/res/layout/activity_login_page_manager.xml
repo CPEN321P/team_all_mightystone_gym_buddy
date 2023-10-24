@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage">
+    tools:context=".LoginPageManager">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/UserLogIn"
+        android:text="@string/ManagerLogIn"
         android:id="@+id/login"
         android:textColor="@color/black"
         android:textSize="35dp"
@@ -45,17 +45,15 @@
         android:drawablePadding="20dp"/>
 
     <Button
-        android:id="@+id/loginbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/loginbutton"
         android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:text="@string/LogIn"
         android:backgroundTint="@color/black"
-        android:text="@string/LogIn" />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        />
 
     <TextView
         android:id="@+id/or"
@@ -103,7 +101,7 @@
         android:id="@+id/ManagerMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ManagerMode"
+        android:text="@string/UserMode"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:backgroundTint="@color/black"

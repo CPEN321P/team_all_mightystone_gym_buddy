@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Button LetsRock;
 
     private Button information;
+    private Button MFour;
 
     private static String stringName = "NONE";
     //private ActivityMainBinding binding;
@@ -111,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         SurpriceButton = findViewById(R.id.Surprise);
         SurpriceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +147,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signOut();
+            }
+        });
+
+        MFour = findViewById(R.id.mfour);
+        MFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Trying to open google maps");
+
+                Intent mfourIntent = new Intent(MainActivity.this, LoginPage.class);
+                startActivity(mfourIntent);
             }
         });
     }

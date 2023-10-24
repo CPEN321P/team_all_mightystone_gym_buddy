@@ -44,6 +44,22 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="or">OR</string>
+    <string name="DontHaveAccount">Do not have a account?</string>
+    <string name="SignIn">SIGN IN</string>
+    <string name="LogIn">LOG IN</string>
+    <string name="UserLogIn">User Login</string>
+    <string name="ManagerLogIn">Manager Login</string>
+    <string name="ManagerMode">Log in as Gym Manager</string>
+    <string name="UserMode">Log in as Gym User</string>
+    <string name="MFour">M4</string>
+    <string name="Email">Email</string>
+    <string name="ConfirmPassword">Confirm Password</string>
+    <string name="NewUser">New User!</string>
+    <string name="NoteOfNewUser">Let associate with your google account</string>
+    <string name="DONE">DONE</string>
+    <string name="LETSROCK">Lets Rock!</string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
