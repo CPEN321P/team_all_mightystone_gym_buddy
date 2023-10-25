@@ -45,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
 
     private Button information;
     private Button MFour;
+    private Button Schedule;
+
+    static final class LoginInfo{
+        String Username;
+        String Password;
+        int GoogleAccount; //0 if no, 1 if yes
+        String EmailAddress;
+        int UserOrManager; //0 if User, 1 if Manager
+    }
+
+    LoginInfo TheLoginInfo = new LoginInfo();
 
     private static String stringName = "NONE";
     //private ActivityMainBinding binding;
@@ -112,7 +123,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        Schedule = findViewById(R.id.scheduleTest);
+        Schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ScheduleIntent = new Intent(MainActivity.this, WeeklySchedule.class);
+                startActivity(ScheduleIntent);
+            }
+        });
 
         SurpriceButton = findViewById(R.id.Surprise);
         SurpriceButton.setOnClickListener(new View.OnClickListener() {

@@ -19,6 +19,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".WeekView"
+            android:exported="false" />
+        <activity
+            android:name=".CalenderCell"
+            android:exported="false" />
+        <activity
+            android:name=".EventEdit"
+            android:exported="false" />
+        <activity
+            android:name=".WeeklySchedule"
+            android:exported="false" />
+        <activity
             android:name=".LinkToGoogle"
             android:exported="false" />
         <activity

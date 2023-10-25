@@ -59,6 +59,14 @@
     <string name="NoteOfNewUser">Let associate with your google account</string>
     <string name="DONE">DONE</string>
     <string name="LETSROCK">Lets Rock!</string>
+    <string-array name="roles">
+        <item>Select Your Role</item>
+        <item>User</item>
+        <item>Manager</item>
+    </string-array>
+    <string name="WeeklySchedule">Weekly Schedule</string>
+    <string name="Left"> PREV </string>
+    <string name="Right"> NXT </string>
 
 
     <string name="lorem_ipsum">
