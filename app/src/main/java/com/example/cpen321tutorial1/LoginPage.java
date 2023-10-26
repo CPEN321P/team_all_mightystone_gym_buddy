@@ -34,13 +34,6 @@ public class LoginPage extends AppCompatActivity {
     private static String TheEmail = "NONE";
     private Button SignInButton;
 
-    private class LoginInfo{
-        String Username;
-        String Password;
-        int GoogleAccount; //0 if no, 1 if yes
-        String EmailAddress;
-    }
-
     MainActivity.LoginInfo TheLoginInfo = new MainActivity.LoginInfo();
 
     ActivityResultLauncher<Intent> activityResult =

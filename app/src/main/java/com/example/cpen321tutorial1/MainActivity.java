@@ -20,16 +20,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.cpen321tutorial1.databinding.ActivityMainBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class MainActivity extends AppCompatActivity {
     private Button locationButton;
@@ -53,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
         int GoogleAccount; //0 if no, 1 if yes
         String EmailAddress;
         int UserOrManager; //0 if User, 1 if Manager
+        int Age;
+        int Weight;
+        String Gender;
+    }
+
+    static final class Event{
+        String Name;
+        LocalTime StrTime;
+        LocalTime EndTime;
+        LocalDate Date;
     }
 
     LoginInfo TheLoginInfo = new LoginInfo();
@@ -127,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ScheduleIntent = new Intent(MainActivity.this, WeeklySchedule.class);
+                Intent ScheduleIntent = new Intent(MainActivity.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -137,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Trying to get some surprice");
-                Intent SurpriseTitleIntent = new Intent(MainActivity.this, SurpriseTitle.class);
-                startActivity(SurpriseTitleIntent);
             }
         });
 
@@ -275,6 +283,15 @@ public class MainActivity extends AppCompatActivity {
             else{
                 ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
+        }
+    }
+
+    public static int StringToInteger(String input){
+        try {
+            int number = Integer.valueOf(input);
+            return number;
+        } catch (NumberFormatException e) {
+            return 0;
         }
     }
 }

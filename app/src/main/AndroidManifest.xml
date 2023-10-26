@@ -28,7 +28,7 @@
             android:name=".EventEdit"
             android:exported="false" />
         <activity
-            android:name=".WeeklySchedule"
+            android:name=".MonthlySchedule"
             android:exported="false" />
         <activity
             android:name=".LinkToGoogle"
@@ -52,30 +52,6 @@
             android:exported="false" />
         <activity
             android:name=".Final"
-            android:exported="false" />
-        <activity
-            android:name=".Answer2"
-            android:exported="false" />
-        <activity
-            android:name=".Answer1"
-            android:exported="false" />
-        <activity
-            android:name=".SurpriseQuestion5"
-            android:exported="false" />
-        <activity
-            android:name=".SurpriseQuestion4"
-            android:exported="false" />
-        <activity
-            android:name=".SurpriseQuestion3"
-            android:exported="false" />
-        <activity
-            android:name=".SurpriseQuestion2"
-            android:exported="false" />
-        <activity
-            android:name=".SurpriseQuestion1"
-            android:exported="false" />
-        <activity
-            android:name=".SurpriseTitle"
             android:exported="false" />
         <activity
             android:name=".Information"

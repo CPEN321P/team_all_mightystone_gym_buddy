@@ -1,6 +1,5 @@
 package com.example.cpen321tutorial1;
 
-import static com.example.cpen321tutorial1.CalendarUtils.daysInMonthArray;
 import static com.example.cpen321tutorial1.CalendarUtils.daysInWeekArray;
 import static com.example.cpen321tutorial1.CalendarUtils.monthYearFromDate;
 
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,6 +23,7 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
     private Button PreviousWeek;
     private Button NextWeek;
     private Button Model;
+    private Button NewEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +34,7 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
 
         PreviousWeek = findViewById(R.id.PreviousWeekAction);
         NextWeek = findViewById(R.id.NextWeekAction);
+        NewEvent = findViewById(R.id.AddEvent);
 
         PreviousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +52,20 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
             }
         });
 
+        NewEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent WeeklyIntent = new Intent(WeekView.this, EventEdit.class);
+                startActivity(WeeklyIntent);
+            }
+        });
+
         Model = findViewById(R.id.Model);
         Model.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(WeekView.this, WeeklySchedule.class);
-                startActivity(WeeklyIntent);
+                Intent EventIntent = new Intent(WeekView.this, MonthlySchedule.class);
+                startActivity(EventIntent);
             }
         });
     }
@@ -81,7 +89,7 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
     }
     @Override
     public void onItemClick(int position, LocalDate date) {
-            CalendarUtils.selectedDate = date;
-            setWeekView();
+        CalendarUtils.selectedDate = date;
+        setWeekView();
     }
 }

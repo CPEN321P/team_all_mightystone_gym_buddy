@@ -10,15 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 //The Implementation of Schedule is base on the tutorial from Youtube
@@ -27,7 +23,7 @@ import java.util.ArrayList;
 //https://www.youtube.com/watch?v=Aig99t-gNqM&list=LL&index=6&t=238s
 //Thanks for the support from @Code With Cal
 
-public class WeeklySchedule extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class MonthlySchedule extends AppCompatActivity implements CalendarAdapter.OnItemListener{
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
@@ -68,7 +64,7 @@ public class WeeklySchedule extends AppCompatActivity implements CalendarAdapter
         Model.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(WeeklySchedule.this, WeekView.class);
+                Intent WeeklyIntent = new Intent(MonthlySchedule.this, WeekView.class);
                 startActivity(WeeklyIntent);
             }
         });
