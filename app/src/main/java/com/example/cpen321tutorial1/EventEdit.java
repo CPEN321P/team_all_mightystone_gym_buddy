@@ -28,8 +28,6 @@ public class EventEdit extends AppCompatActivity {
     private Button Cancel;
     final static String TAG = "EventEdit";
 
-    MainActivity.Event NewEvent = new MainActivity.Event();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +38,7 @@ public class EventEdit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Trying get Back");
-
-                Intent MakingEventCancelIntent = new Intent(EventEdit.this, MonthlySchedule.class);
-                startActivity(MakingEventCancelIntent);
+                finish();
             }
         });
 
@@ -63,25 +59,27 @@ public class EventEdit extends AppCompatActivity {
                     EventDate = LocalDate.parse(eventDate.getText().toString());
                     int value1 = EndTime.compareTo(LocalTime.parse("00:00:00")); //Compare the time to see is it excess 24:00
                     int value2 = EndTime.compareTo(StrTime); //Compare the time to see is it excess 24:00
+                    Log.d(TAG, "Valid time starting: " + StrTime);
+                    Log.d(TAG, "Valid time ending: " + EndTime);
+                    Log.d(TAG, "Date: " + EventDate);
                     if((value2 < 0 && value1 > 0) || NumberOfHour >= 24){
                         Toast.makeText(EventEdit.this, "Invalid time for Start Time or End Time!", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    Log.d(TAG, "Valid time starting: " + StrTime);
-                    Log.d(TAG, "Valid time ending: " + EndTime);
-                    Log.d(TAG, "Date: " + EventDate);
+
                 } catch (DateTimeParseException | NullPointerException e) {
                     Log.d(TAG, "Invalid time string for Start Time, End Time or Date!");
                     Toast.makeText(EventEdit.this, "Invalid time for Start Time or End Time!", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                NewEvent.StrTime = StrTime;
-                NewEvent.EndTime = EndTime;
-                NewEvent.Date = EventDate;
-                NewEvent.Name = eventName.getText().toString();
+                Event newEvent = new Event(eventName.getText().toString(), EventDate, StrTime, EndTime);
+                Event.eventsList.add(newEvent);
 
-
+                /////////////////////////////////////////
+                //POST the event list to the back end////
+                /////////////////////////////////////////
+                finish();
             }
         });
     }

@@ -60,7 +60,7 @@ public class MonthlySchedule extends AppCompatActivity implements CalendarAdapte
             }
         });
 
-        Model = findViewById(R.id.Model);
+        Model = findViewById(R.id.Weekly);
         Model.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

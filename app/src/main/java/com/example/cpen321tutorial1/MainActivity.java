@@ -53,12 +53,6 @@ public class MainActivity extends AppCompatActivity {
         String Role;
     }
 
-    static final class Event{
-        String Name;
-        LocalTime StrTime;
-        LocalTime EndTime;
-        LocalDate Date;
-    }
 
     AccountInfo theAccountInfo = new AccountInfo();
 

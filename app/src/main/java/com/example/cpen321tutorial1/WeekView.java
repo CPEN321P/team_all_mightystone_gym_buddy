@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -22,8 +23,12 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
     private RecyclerView calendarRecyclerView;
     private Button PreviousWeek;
     private Button NextWeek;
-    private Button Model;
+    private Button MonthlyModel;
+    private Button DailyModel;
     private Button NewEvent;
+    private ListView eventList;
+    private Button ClearEvents;
+    final static String TAG = "WeekView";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +37,6 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
         initinalWidgets();
         setWeekView();
 
-        PreviousWeek = findViewById(R.id.PreviousWeekAction);
-        NextWeek = findViewById(R.id.NextWeekAction);
-        NewEvent = findViewById(R.id.AddEvent);
 
         PreviousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +62,31 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
             }
         });
 
-        Model = findViewById(R.id.Model);
-        Model.setOnClickListener(new View.OnClickListener() {
+
+        MonthlyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent EventIntent = new Intent(WeekView.this, MonthlySchedule.class);
                 startActivity(EventIntent);
+            }
+        });
+
+        DailyModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        ClearEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Event.CleareventsForDate(CalendarUtils.selectedDate);
+
+                ////////////////////////////////////////////////////////////////////////////
+                ////DELETE the event list of the giving date(CalendarUtils.selectedDate)////
+                ////////////////////////////////////////////////////////////////////////////
+
+                setEventAdapter();
             }
         });
     }
@@ -78,6 +99,7 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+        setEventAdapter();
     }
 
 
@@ -86,10 +108,29 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
     private void initinalWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.WeekDay);
+        eventList = findViewById(R.id.eventList);
+        PreviousWeek = findViewById(R.id.PreviousWeekAction);
+        NextWeek = findViewById(R.id.NextWeekAction);
+        NewEvent = findViewById(R.id.AddEvent);
+        ClearEvents = findViewById(R.id.ClearEvent);
+        MonthlyModel = findViewById(R.id.Weekly);
+        DailyModel = findViewById(R.id.Daily);
     }
     @Override
     public void onItemClick(int position, LocalDate date) {
         CalendarUtils.selectedDate = date;
         setWeekView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setEventAdapter();
+    }
+
+    private void setEventAdapter() {
+        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+        eventList.setAdapter(eventAdapter);
     }
 }
