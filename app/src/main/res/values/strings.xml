@@ -56,13 +56,15 @@
     <string name="Email">Email</string>
     <string name="ConfirmPassword">Confirm Password</string>
     <string name="NewUser">New User!</string>
-    <string name="NoteOfNewUser">Let associate with your google account</string>
+    <string name="NoteOfNewUser">Let upload some personal profile</string>
     <string name="DONE">DONE</string>
     <string name="LETSROCK">Lets Rock!</string>
     <string-array name="roles">
-        <item>Select Your Role</item>
-        <item>User</item>
-        <item>Manager</item>
+        <item>Select Your Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+        <item>No Prefer To Say</item>
     </string-array>
     <string name="WeeklySchedule">Weekly Schedule</string>
     <string name="Left"> PREV </string>

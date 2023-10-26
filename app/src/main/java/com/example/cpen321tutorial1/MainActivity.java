@@ -32,7 +32,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class MainActivity extends AppCompatActivity {
-    private Button locationButton;
     private Button mapsButton;
     private Button signOutButton;
     final static String TAG = "MainActivity";
@@ -41,21 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
     private Button SurpriceButton;
 
-    private Button LetsRock;
-
     private Button information;
     private Button MFour;
     private Button Schedule;
 
-    static final class LoginInfo{
+    static final class AccountInfo {
         String Username;
-        String Password;
-        int GoogleAccount; //0 if no, 1 if yes
         String EmailAddress;
-        int UserOrManager; //0 if User, 1 if Manager
         int Age;
         int Weight;
         String Gender;
+        String Role;
     }
 
     static final class Event{
@@ -65,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         LocalDate Date;
     }
 
-    LoginInfo TheLoginInfo = new LoginInfo();
+    AccountInfo theAccountInfo = new AccountInfo();
 
     private static String stringName = "NONE";
     //private ActivityMainBinding binding;

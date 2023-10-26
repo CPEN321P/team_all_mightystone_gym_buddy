@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,14 +18,14 @@ import android.widget.Toast;
 public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView UserName;
-    private TextView Password;
-    private TextView ConfirmPassword;
+    private TextView Age;
+    private TextView Weight;
     private Spinner RoleSpinner;
     private Button Done;
 
     final static String TAG = "LinkActivity";
 
-    MainActivity.LoginInfo Account = new MainActivity.LoginInfo();
+    MainActivity.AccountInfo Account = new MainActivity.AccountInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,8 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
         Done = findViewById(R.id.sign_in_button);
         UserName = findViewById(R.id.username);
-        Password = findViewById(R.id.password);
-        ConfirmPassword = findViewById(R.id.ConfirmPassword);
+        Age = findViewById(R.id.Age);
+        Weight = findViewById(R.id.Weight);
 
         RoleSpinner = findViewById(R.id.planets_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.roles, android.R.layout.simple_spinner_item);
@@ -46,51 +48,59 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View view) {
                 Log.d(TAG, "Trying to Sign");
 
+                int NumberOfAge = StringToInteger(Age.getText().toString());
+                int NumberOfWeight = StringToInteger(Weight.getText().toString());
 
-                if (Password.getText().toString().equals(ConfirmPassword.getText().toString()) && UserName.getText().toString().isEmpty() == false && Password.getText().toString().isEmpty() == false) {
-
-                    if (RoleSpinner.getSelectedItem().toString().equals("User")) {
-                        Account.UserOrManager = 0;
-                    }
-                    else if (RoleSpinner.getSelectedItem().toString().equals("Manager")) {
-                        Account.UserOrManager = 1;
-                    }
-                    else{
-                        Toast.makeText(LinkToGoogle.this, "Please Select the Role", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    Account.Username = UserName.getText().toString();
-                    Account.Password = Password.getText().toString();
-                    Account.GoogleAccount = 1;
-                    //Account.EmailAddress = ;
-                    String EmailUser = LoginPage.getStringName();
-                    String EmailManager = LoginPageManager.getStringName();
-
-                    if (EmailUser.equals("NONE")){
-                        Account.EmailAddress = LoginPageManager.getStringName();
-                    }else{
-                        Account.EmailAddress = LoginPageManager.getStringName();
-                    }
-
-                    ////////////////////////////////////////////////////////
-                    Log.d(TAG, "UserName " + Account.Username);
-                    Log.d(TAG, "Password " + Account.Password);
-                    Log.d(TAG, "LinkGoogleAccount " + Account.GoogleAccount);
-                    Log.d(TAG, "UserOrManager " + Account.UserOrManager);
-                    Log.d(TAG, "Email " + Account.EmailAddress);
-                    ////////////////PUSH account into data base/////////////////
-                    Toast.makeText(LinkToGoogle.this, "Creat Account Successful!", Toast.LENGTH_SHORT).show();
-                    Intent BackToLogin = new Intent(LinkToGoogle.this, LoginPage.class);
-                    startActivity(BackToLogin);
+                if (UserName.getText().toString().isEmpty() || Age.getText().toString().isEmpty() || Weight.getText().toString().isEmpty()){
+                    Toast.makeText(LinkToGoogle.this, "Do not leave space!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                else if (UserName.getText().toString().isEmpty() || Password.getText().toString().isEmpty()){
-                    Toast.makeText(LinkToGoogle.this, "No Empty UserName or Password!", Toast.LENGTH_SHORT).show();
+
+                if (RoleSpinner.getSelectedItem().toString().equals("Select Your Gender")) {
+                    Toast.makeText(LinkToGoogle.this, "Please Select the Gender", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    Account.Gender = RoleSpinner.getSelectedItem().toString();
                 }
-                else{
-                    //Password and ConfirmPassword does not match
-                    Toast.makeText(LinkToGoogle.this, "Password and ConfirmPassword does not match!!!", Toast.LENGTH_SHORT).show();
+
+                if (NumberOfAge <= 0 || NumberOfAge >= 150)
+                {
+                    Toast.makeText(LinkToGoogle.this, "Invalid Age", Toast.LENGTH_LONG).show();
+                    return;
                 }
+                Account.Age = NumberOfAge;
+
+                if (NumberOfWeight <= 0)
+                {
+                    Toast.makeText(LinkToGoogle.this, "Invalid Weight", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Account.Weight = NumberOfWeight;
+
+
+
+
+                Account.Username = UserName.getText().toString();
+
+                if((LoginPageManager.getStringName()).equals("NONE")) {
+                    Account.EmailAddress = LoginPage.getStringName(); //User
+                    Account.Role = "User";
+                }else{
+                    Account.EmailAddress = LoginPageManager.getStringName(); //Manager
+                    Account.Role = "Manager";
+                }
+
+                ////////////////////////////////////////////////////////
+                Log.d(TAG, "UserName: " + Account.Username);
+                Log.d(TAG, "Age: " + Account.Age);
+                Log.d(TAG, "Weight: " + Account.Weight);
+                Log.d(TAG, "Email: " + Account.EmailAddress);
+                Log.d(TAG, "Gender: " + Account.Gender);
+                Log.d(TAG, "Role: " + Account.Role);
+                ////////////////PUSH account into data base/////////////////
+                Toast.makeText(LinkToGoogle.this, "Creat Account Successful!", Toast.LENGTH_SHORT).show();
+                Intent BackToLogin = new Intent(LinkToGoogle.this, LoginPage.class);
+                startActivity(BackToLogin);
             }
         });
     }

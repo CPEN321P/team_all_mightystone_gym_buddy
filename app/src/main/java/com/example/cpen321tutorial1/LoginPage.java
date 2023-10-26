@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -23,18 +22,12 @@ import com.google.android.gms.tasks.Task;
 
 public class LoginPage extends AppCompatActivity {
 
-    private Button LogInButton;
     private Button ModeButton;
     final static String TAG = "UserLogInActivity";
-    private TextView UserName;
-    private TextView Password;
-    private String RealUserName;
-    private String RealPassword;
     private GoogleSignInClient mGoogleSignInClient;
     private static String TheEmail = "NONE";
-    private Button SignInButton;
 
-    MainActivity.LoginInfo TheLoginInfo = new MainActivity.LoginInfo();
+    MainActivity.AccountInfo theAccountInfo = new MainActivity.AccountInfo();
 
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
@@ -60,11 +53,7 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        LogInButton = findViewById(R.id.loginbutton);
         ModeButton = findViewById(R.id.ManagerMode);
-        UserName = findViewById(R.id.username);
-        Password = findViewById(R.id.password);
-        SignInButton = findViewById(R.id.signinbutton);
 
         ModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,40 +66,6 @@ public class LoginPage extends AppCompatActivity {
         });
 
 
-        SignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "Trying to Sign in");
-
-                Intent SignInIntent = new Intent(LoginPage.this, SignIn.class);
-                startActivity(SignInIntent);
-            }
-        });
-
-        LogInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "Trying to Log In");
-
-                TheLoginInfo.EmailAddress = UserName.getText().toString();
-                TheLoginInfo.Password = Password.getText().toString();
-                TheLoginInfo.UserOrManager = 0;
-
-                ///Need to pull from data base to confirm///
-                RealUserName = "114514"; //Edit Later, we get from the database, if nothing, then it would be empty string
-                RealPassword = "1919810"; //Edit Later, we get from the database, if nothing, then it would be empty string
-                //////////////////////////////////////////
-
-                if(UserName.getText().toString().equals(RealUserName)
-                && Password.getText().toString().equals(RealPassword)) {
-                    //correct
-                    Toast.makeText(LoginPage.this, "Log in successful", Toast.LENGTH_SHORT).show();
-                }else{
-                    //incorrect
-                    Toast.makeText(LoginPage.this, "User Name or Password Incorrect!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -129,13 +84,6 @@ public class LoginPage extends AppCompatActivity {
         });
 
 
-    }
-
-    public static String getStringName(){
-        return TheEmail;
-    }
-    public static void ClearStringName(){
-        TheEmail = "NONE";
     }
 
     private void signIn() {
@@ -173,19 +121,24 @@ public class LoginPage extends AppCompatActivity {
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            TheLoginInfo.GoogleAccount = 1;
-            TheLoginInfo.EmailAddress = account.getEmail();
-            TheLoginInfo.UserOrManager = 0;
-            //TheLoginInfo.Username = GET from database base on the email address;
-            //TheLoginInfo.Password = GET from database base on the email address;
-            TheEmail = account.getEmail();
-            LoginPageManager.ClearStringName();
-
+            theAccountInfo.EmailAddress = account.getEmail();
+            //String TheEmail = GET from database base;
             //If the EmailAddress did not search from the database, then jump to activity_link_to_google
+
+            TheEmail = account.getEmail();      //Use for LinkToGoogle
+            LoginPageManager.ClearStringName(); //Use for LinkToGoogle
+
             Intent LinkAccountIntent = new Intent(LoginPage.this, LinkToGoogle.class);
             startActivity(LinkAccountIntent);
-            //Otherwise, jump to the home page
+            //Otherwise, jump to the User home page
         }
+    }
+
+    public static String getStringName(){
+        return TheEmail;
+    }
+    public static void ClearStringName(){
+        TheEmail = "NONE";
     }
 
 }

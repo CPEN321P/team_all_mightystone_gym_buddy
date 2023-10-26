@@ -23,18 +23,11 @@ import com.google.android.gms.tasks.Task;
 
 public class LoginPageManager extends AppCompatActivity {
 
-    private Button LogInButton;
     private Button ModeButton;
     final static String TAG = "ManagerLogInActivity";
-    private TextView UserName;
-    private TextView Password;
-    private String RealUserName;
-    private String RealPassword;
-    private static String TheEmail = "NONE";
-
-    MainActivity.LoginInfo TheLoginInfo = new MainActivity.LoginInfo();
-
+    MainActivity.AccountInfo theAccountInfo = new MainActivity.AccountInfo();
     private GoogleSignInClient mGoogleSignInClient;
+    private static String TheEmail = "NONE";
 
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
@@ -59,10 +52,7 @@ public class LoginPageManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page_manager);
 
-        LogInButton = findViewById(R.id.loginbutton);
         ModeButton = findViewById(R.id.ManagerMode);
-        UserName = findViewById(R.id.username);
-        Password = findViewById(R.id.password);
 
         ModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,33 +61,6 @@ public class LoginPageManager extends AppCompatActivity {
 
                 Intent LoginPageUserIntent = new Intent(LoginPageManager.this, LoginPage.class);
                 startActivity(LoginPageUserIntent);
-            }
-        });
-
-
-
-        LogInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "Trying to Log In");
-
-                TheLoginInfo.EmailAddress = UserName.getText().toString();
-                TheLoginInfo.Password = Password.getText().toString();
-                TheLoginInfo.UserOrManager = 1;
-
-                ///Need to pull from data base to confirm///
-                RealUserName = "114514"; //Edit Later, we get the email from the database, if nothing, then it would be empty string
-                RealPassword = "1919810"; //Edit Later, we get the password from the database, if nothing, then it would be empty string
-                //////////////////////////////////////////
-
-                if(UserName.getText().toString().equals(RealUserName)
-                        && Password.getText().toString().equals(RealPassword)) {
-                    //correct
-                    Toast.makeText(LoginPageManager.this, "Log in successful", Toast.LENGTH_SHORT).show();
-                }else{
-                    //incorrect
-                    Toast.makeText(LoginPageManager.this, "User Name or Password Incorrect!", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -143,12 +106,6 @@ public class LoginPageManager extends AppCompatActivity {
         }
     }
 
-    public static String getStringName(){
-        return TheEmail;
-    }
-    public static void ClearStringName(){
-        TheEmail = "NONE";
-    }
 
     private void updateUI(GoogleSignInAccount account) {
         if (account == null) {
@@ -161,19 +118,24 @@ public class LoginPageManager extends AppCompatActivity {
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            TheLoginInfo.GoogleAccount = 1;
-            TheLoginInfo.EmailAddress = account.getEmail();
-            TheLoginInfo.UserOrManager = 1;
+            theAccountInfo.EmailAddress = account.getEmail();
             //TheLoginInfo.Username = GET from database base on the email address;
             //TheLoginInfo.Password = GET from database base on the email address;
-            TheEmail = account.getEmail();
-            LoginPage.ClearStringName();
+            TheEmail = account.getEmail();  //Use for LinkToGoogle
+            LoginPage.ClearStringName();    //Use for LinkToGoogle
 
             //If the EmailAddress did not search from the database, then jump to activity_link_to_google
             Intent LinkAccountIntent = new Intent(LoginPageManager.this, LinkToGoogle.class);
             startActivity(LinkAccountIntent);
             //Otherwise, jump to the home page
         }
+    }
+
+    public static String getStringName(){
+        return TheEmail;
+    }
+    public static void ClearStringName(){
+        TheEmail = "NONE";
     }
 
 

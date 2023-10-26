@@ -20,98 +20,26 @@
         android:textSize="35dp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_email_24"
-        android:drawablePadding="20dp"
-        android:hint="Email"
-        android:padding="20dp"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/password"
-        android:layout_below="@+id/username"
-        android:background="#30D9DDDC"
-        android:hint="Password"
-        android:textColor="@color/black"
-        android:layout_margin="10dp"
-        android:padding="20dp"
-        android:drawableLeft="@drawable/baseline_lock_24"
-        android:drawablePadding="20dp"/>
-
-    <Button
-        android:id="@+id/loginbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/black"
-        android:text="@string/LogIn" />
-
-    <TextView
-        android:id="@+id/or"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/or"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/loginbutton"
-        android:layout_centerHorizontal="true"
-        />
-
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/or"
+        android:layout_below="@+id/login"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        />
-
-    <TextView
-        android:id="@+id/DontHaveAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/DontHaveAccount"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:layout_below="@+id/sign_in_button"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        />
-
-    <Button
-        android:id="@+id/signinbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/DontHaveAccount"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/black"
-        android:text="@string/SignIn" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp" />
 
     <Button
         android:id="@+id/ManagerMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ManagerMode"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@color/black"
+        android:layout_below="@+id/sign_in_button"
+        android:layout_marginTop="100dp"
         />
 
 

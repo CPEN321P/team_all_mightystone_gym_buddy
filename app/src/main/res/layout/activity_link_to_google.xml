@@ -19,16 +19,18 @@
         />
 
     <TextView
+        android:id="@+id/NoteOfNewUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/NoteOfNewUser"
-        android:id="@+id/NoteOfNewUser"
-        android:textColor="@color/black"
         android:layout_below="@+id/NewUser"
-        android:textSize="30dp"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
-        />
+        android:text="@string/NoteOfNewUser"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/username"
@@ -42,12 +44,12 @@
         android:background="#30D9DDDC"
         android:drawableLeft="@drawable/baseline_person_outline_24"
         android:drawablePadding="20dp"
-        android:hint="New UserName"
+        android:hint="UserName"
         android:padding="20dp"
         android:textColor="@color/black" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/Age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"
@@ -56,25 +58,25 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_lock_24"
+        android:drawableLeft="@drawable/baseline_person_24"
         android:drawablePadding="20dp"
-        android:hint="Password"
+        android:hint="Age"
         android:padding="20dp"
         android:textColor="@color/black" />
 
     <EditText
-        android:id="@+id/ConfirmPassword"
+        android:id="@+id/Weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
+        android:layout_below="@+id/Age"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_lock_24"
+        android:drawableLeft="@drawable/baseline_monitor_weight_24"
         android:drawablePadding="20dp"
-        android:hint="Confirm Password"
+        android:hint="Weight (kg)"
         android:padding="20dp"
         android:textColor="@color/black" />
 
@@ -82,7 +84,7 @@
         android:id="@+id/planets_spinner"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/ConfirmPassword"
+        android:layout_below="@+id/Weight"
         android:background="#30D9DDDC"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"

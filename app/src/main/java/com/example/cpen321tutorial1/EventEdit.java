@@ -54,7 +54,7 @@ public class EventEdit extends AppCompatActivity {
                 int NumberOfHour = StringToInteger(HowLong.getText().toString());
                 if (NumberOfHour <= 0)
                 {
-                    Toast.makeText(EventEdit.this, "Invalid time for Start Time or End Time!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EventEdit.this, "Invalid Number Of Hours", Toast.LENGTH_LONG).show();
                     return;
                 }
                 try {
