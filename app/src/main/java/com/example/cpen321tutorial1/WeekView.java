@@ -21,12 +21,13 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
+    private ListView eventList;
     private Button PreviousWeek;
     private Button NextWeek;
     private Button MonthlyModel;
     private Button DailyModel;
     private Button NewEvent;
-    private ListView eventList;
+
     private Button ClearEvents;
     final static String TAG = "WeekView";
 
@@ -74,6 +75,8 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
         DailyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent DailyIntent = new Intent(WeekView.this, DailyCalendar.class);
+                startActivity(DailyIntent);
             }
         });
 

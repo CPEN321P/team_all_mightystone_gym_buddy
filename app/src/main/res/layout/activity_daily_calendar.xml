@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MonthlySchedule">
+    tools:context=".DailyCalendar">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center">
+        android:layout_marginTop="20dp">
         <Button
-            android:id="@+id/Weekly"
+            android:id="@+id/Monthly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Monthly"
@@ -25,10 +24,10 @@
             android:layout_weight="1"
             />
         <Button
-            android:id="@+id/Daily"
+            android:id="@+id/Weekly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Daily "
+            android:text="Weekly "
             android:textStyle="bold"
             android:textSize="17dp"
             android:backgroundTint="@color/black"
@@ -43,7 +42,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp">
         <Button
-            android:id="@+id/PreviousWeekAction"
+            android:id="@+id/PreviousDayAction"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,10 +55,10 @@
             />
 
         <TextView
-            android:id="@+id/WeekDay"
+            android:id="@+id/Day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Weekly"
+            android:text="Daily"
             android:textSize="20dp"
             android:textAlignment="center"
             android:backgroundTint="@color/white"
@@ -76,87 +75,19 @@
             android:textStyle="bold"
             android:textSize="17dp"
             android:backgroundTint="@color/white"
-            android:id="@+id/NextWeekAction"
+            android:id="@+id/NextDayAction"
             android:background="@android:color/transparent"
             />
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/dayOfWeek"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/WeekDay">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SUN"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MON"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TUE"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="WED"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="THU"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="FRI"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SAT"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/calendarRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:text="Monday"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -189,7 +120,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/eventList"
+        android:id="@+id/hourEventList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"/>

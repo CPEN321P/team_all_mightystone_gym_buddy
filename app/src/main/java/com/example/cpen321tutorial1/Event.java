@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 import android.util.Log;
 
 import java.time.LocalDate;
@@ -23,6 +25,39 @@ public class Event {
         return events;
     }
 
+    public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime StartTime, LocalTime EndTime)
+    {
+        ArrayList<Event> events = new ArrayList<>();
+
+        for(Event event: eventsList)
+        {
+            /*
+            int eventMins = longToIntCast(MINUTES.between(event.StartTime, event.EndTime));
+            eventMins = round(eventMins, 30);
+            int cellMins = longToIntCast(MINUTES.between(StartTime, EndTime));
+            cellMins = round(cellMins, 30);
+
+             */
+
+            int eventMins = event.StartTime.getHour();
+            int cellMins = StartTime.getHour();
+
+
+            if(event.getDate().equals(date) && eventMins == cellMins)
+                events.add(event);
+        }
+
+        return events;
+    }
+
+    public static int round(double value, int nearest) {
+        return (int) Math.round(value / nearest) * nearest;
+    }
+
+    public static int longToIntCast(long number) {
+        return (int) number;
+    }
+
     public static void CleareventsForDate(LocalDate date)
     {
         ArrayList<Event> events = new ArrayList<>();
@@ -35,20 +70,19 @@ public class Event {
                 eventsList.remove(count);
             count++;
         }
-        Log.d(TAG, "TEST2");
     }
 
 
     private String name;
     private LocalDate date;
-    private LocalTime Starttime;
-    private LocalTime Endtime;
+    private LocalTime StartTime;
+    private LocalTime EndTime;
 
-    public Event(String name, LocalDate date, LocalTime starttime, LocalTime endtime) {
+    public Event(String name, LocalDate date, LocalTime startTime, LocalTime endtime) {
         this.name = name;
         this.date = date;
-        Starttime = starttime;
-        Endtime = endtime;
+        StartTime = startTime;
+        EndTime = endtime;
     }
 
     public static ArrayList<Event> getEventsList() {
@@ -75,19 +109,19 @@ public class Event {
         this.date = date;
     }
 
-    public LocalTime getStarttime() {
-        return Starttime;
+    public LocalTime getStartTime() {
+        return StartTime;
     }
 
-    public void setStarttime(LocalTime starttime) {
-        Starttime = starttime;
+    public void setStartTime(LocalTime startTime) {
+        StartTime = startTime;
     }
 
     public LocalTime getEndtime() {
-        return Endtime;
+        return EndTime;
     }
 
     public void setEndtime(LocalTime endtime) {
-        Endtime = endtime;
+        EndTime = endtime;
     }
 }

@@ -29,7 +29,8 @@ public class MonthlySchedule extends AppCompatActivity implements CalendarAdapte
     private RecyclerView calendarRecyclerView;
     private Button PreviousMonth;
     private Button NextMonth;
-    private Button Model;
+    private Button Weekly;
+    private Button Daily;
     final static String TAG = "Schedule";
 
     @SuppressLint("MissingInflatedId")
@@ -40,9 +41,6 @@ public class MonthlySchedule extends AppCompatActivity implements CalendarAdapte
         initinalWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
-
-        PreviousMonth = findViewById(R.id.PreviousMonthAction);
-        NextMonth = findViewById(R.id.NextMonthAction);
 
         PreviousMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +58,23 @@ public class MonthlySchedule extends AppCompatActivity implements CalendarAdapte
             }
         });
 
-        Model = findViewById(R.id.Weekly);
-        Model.setOnClickListener(new View.OnClickListener() {
+
+        Weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent = new Intent(MonthlySchedule.this, WeekView.class);
                 startActivity(WeeklyIntent);
             }
         });
+
+        Daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent DailyIntent = new Intent(MonthlySchedule.this, DailyCalendar.class);
+                startActivity(DailyIntent);
+            }
+        });
+
     }
 
     private void setMonthView() {
@@ -85,6 +92,10 @@ public class MonthlySchedule extends AppCompatActivity implements CalendarAdapte
     private void initinalWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.WeekDay);
+        PreviousMonth = findViewById(R.id.PreviousMonthAction);
+        NextMonth = findViewById(R.id.NextMonthAction);
+        Weekly = findViewById(R.id.Weekly);
+        Daily = findViewById(R.id.Daily);
     }
 
     @Override

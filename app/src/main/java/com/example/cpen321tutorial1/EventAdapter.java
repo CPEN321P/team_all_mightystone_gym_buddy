@@ -28,7 +28,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         TextView eventCell = convertView.findViewById(R.id.EventCell);
 
-        String eventTitle = event.getName() + " " + event.getStarttime() + "-" + event.getEndtime();
+        String eventTitle = event.getName() + " " + event.getStartTime() + "-" + event.getEndtime();
         eventCell.setText(eventTitle);
         return convertView;
     }
