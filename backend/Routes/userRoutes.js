@@ -1,57 +1,58 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-module.exports = (usersCollection) => {
-  // Get all users
-  router.get('/', async (req, res) => {
-    const users = await usersCollection.find().toArray();
-    res.json(users);
-  });
+const usersCollection = {};
 
-  // Create a new user
-  router.post('/', async (req, res) => {
-    const newUser = req.body;
-    const result = await usersCollection.insertOne(newUser);
-    res.json(result.ops[0]);
-  });
+// Get all users
+router.get('/', async (req, res) => {
+  const users = await usersCollection.find().toArray();
+  res.json(users);
+});
 
-  // Get a specific user by ID
-  router.get('/:userId', async (req, res) => {
-    const user = await usersCollection.findOne({ _id: ObjectId(req.params.userId) });
-    if (!user) {
-      res.status(404).send('User not found');
-      return;
-    }
-    res.json(user);
-  });
+// Create a new user
+router.post('/', async (req, res) => {
+  const newUser = req.body;
+  const result = await usersCollection.insertOne(newUser);
+  res.json(result.ops[0]);
+});
 
-  // Update a user by ID
-  router.put('/:userId', async (req, res) => {
-    const updatedUser = req.body;
-    const result = await usersCollection.updateOne(
-      { _id: ObjectId(req.params.userId) },
-      { $set: updatedUser }
-    );
+// Get a specific user by ID
+router.get('/:userId', async (req, res) => {
+  const user = await usersCollection.findOne({ _id: ObjectId(req.params.userId) });
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+  res.json(user);
+});
 
-    if (result.modifiedCount === 0) {
-      res.status(404).send('User not found');
-      return;
-    }
+// Update a user by ID
+router.put('/:userId', async (req, res) => {
+  const updatedUser = req.body;
+  const result = await usersCollection.updateOne(
+    { _id: ObjectId(req.params.userId) },
+    { $set: updatedUser }
+  );
 
-    res.json(updatedUser);
-  });
+  if (result.modifiedCount === 0) {
+    res.status(404).send('User not found');
+    return;
+  }
 
-  // Delete a user by ID
-  router.delete('/:userId', async (req, res) => {
-    const result = await usersCollection.deleteOne({ _id: ObjectId(req.params.userId) });
+  res.json(updatedUser);
+});
 
-    if (result.deletedCount === 0) {
-      res.status(404).send('User not found');
-      return;
-    }
+// Delete a user by ID
+router.delete('/:userId', async (req, res) => {
+  const result = await usersCollection.deleteOne({ _id: ObjectId(req.params.userId) });
 
-    res.send('User deleted successfully');
-  });
+  if (result.deletedCount === 0) {
+    res.status(404).send('User not found');
+    return;
+  }
 
-  return router;
-};
+  res.send('User deleted successfully');
+});
+
+export default router;

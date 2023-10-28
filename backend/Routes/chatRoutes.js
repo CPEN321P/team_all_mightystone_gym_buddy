@@ -1,57 +1,58 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-module.exports = (chatCollection) => {
-  // Get all chat messages
-  router.get('/', async (req, res) => {
-    const messages = await chatCollection.find().toArray();
-    res.json(messages);
-  });
+const chatCollection = {};
 
-  // Create a new chat message
-  router.post('/', async (req, res) => {
-    const newMessage = req.body;
-    const result = await chatCollection.insertOne(newMessage);
-    res.json(result.ops[0]);
-  });
+// Get all chat messages
+router.get('/', async (req, res) => {
+  const messages = await chatCollection.find().toArray();
+  res.json(messages);
+});
 
-  // Get a specific chat message by ID
-  router.get('/:messageId', async (req, res) => {
-    const message = await chatCollection.findOne({ _id: ObjectId(req.params.messageId) });
-    if (!message) {
-      res.status(404).send('Message not found');
-      return;
-    }
-    res.json(message);
-  });
+// Create a new chat message
+router.post('/', async (req, res) => {
+  const newMessage = req.body;
+  const result = await chatCollection.insertOne(newMessage);
+  res.json(result.ops[0]);
+});
 
-  // Update a chat message by ID
-  router.put('/:messageId', async (req, res) => {
-    const updatedMessage = req.body;
-    const result = await chatCollection.updateOne(
-      { _id: ObjectId(req.params.messageId) },
-      { $set: updatedMessage }
-    );
+// Get a specific chat message by ID
+router.get('/:messageId', async (req, res) => {
+  const message = await chatCollection.findOne({ _id: ObjectId(req.params.messageId) });
+  if (!message) {
+    res.status(404).send('Message not found');
+    return;
+  }
+  res.json(message);
+});
 
-    if (result.modifiedCount === 0) {
-      res.status(404).send('Message not found');
-      return;
-    }
+// Update a chat message by ID
+router.put('/:messageId', async (req, res) => {
+  const updatedMessage = req.body;
+  const result = await chatCollection.updateOne(
+    { _id: ObjectId(req.params.messageId) },
+    { $set: updatedMessage }
+  );
 
-    res.json(updatedMessage);
-  });
+  if (result.modifiedCount === 0) {
+    res.status(404).send('Message not found');
+    return;
+  }
 
-  // Delete a chat message by ID
-  router.delete('/:messageId', async (req, res) => {
-    const result = await chatCollection.deleteOne({ _id: ObjectId(req.params.messageId) });
+  res.json(updatedMessage);
+});
 
-    if (result.deletedCount === 0) {
-      res.status(404).send('Message not found');
-      return;
-    }
+// Delete a chat message by ID
+router.delete('/:messageId', async (req, res) => {
+  const result = await chatCollection.deleteOne({ _id: ObjectId(req.params.messageId) });
 
-    res.send('Message deleted successfully');
-  });
+  if (result.deletedCount === 0) {
+    res.status(404).send('Message not found');
+    return;
+  }
 
-  return router;
-};
+  res.send('Message deleted successfully');
+});
+
+export default router;
