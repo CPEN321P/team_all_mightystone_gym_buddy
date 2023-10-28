@@ -25,7 +25,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
     final static String TAG = "LinkActivity";
 
-    MainActivity.AccountInfo Account = new MainActivity.AccountInfo();
+    MainActivity.AccountInfo TheAccount = new MainActivity.AccountInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(LinkToGoogle.this, "Please Select the Gender", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
-                    Account.Gender = RoleSpinner.getSelectedItem().toString();
+                    TheAccount.Gender = RoleSpinner.getSelectedItem().toString();
                 }
 
                 if (NumberOfAge <= 0 || NumberOfAge >= 150)
@@ -68,39 +68,46 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(LinkToGoogle.this, "Invalid Age", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Account.Age = NumberOfAge;
+                TheAccount.Age = NumberOfAge;
 
                 if (NumberOfWeight <= 0)
                 {
                     Toast.makeText(LinkToGoogle.this, "Invalid Weight", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Account.Weight = NumberOfWeight;
+                TheAccount.Weight = NumberOfWeight;
 
 
 
 
-                Account.Username = UserName.getText().toString();
+                TheAccount.Username = UserName.getText().toString();
 
                 if((LoginPageManager.getStringName()).equals("NONE")) {
-                    Account.EmailAddress = LoginPage.getStringName(); //User
-                    Account.Role = "User";
+                    TheAccount.EmailAddress = LoginPage.getStringName(); //User
+                    TheAccount.Role = "User";
                 }else{
-                    Account.EmailAddress = LoginPageManager.getStringName(); //Manager
-                    Account.Role = "Manager";
+                    TheAccount.EmailAddress = LoginPageManager.getStringName(); //Manager
+                    TheAccount.Role = "Manager";
                 }
 
-                ////////////////////////////////////////////////////////
-                Log.d(TAG, "UserName: " + Account.Username);
-                Log.d(TAG, "Age: " + Account.Age);
-                Log.d(TAG, "Weight: " + Account.Weight);
-                Log.d(TAG, "Email: " + Account.EmailAddress);
-                Log.d(TAG, "Gender: " + Account.Gender);
-                Log.d(TAG, "Role: " + Account.Role);
-                ////////////////PUSH account into data base/////////////////
+                Log.d(TAG, "UserName: " + TheAccount.Username);
+                Log.d(TAG, "Age: " + TheAccount.Age);
+                Log.d(TAG, "Weight: " + TheAccount.Weight);
+                Log.d(TAG, "Email: " + TheAccount.EmailAddress);
+                Log.d(TAG, "Gender: " + TheAccount.Gender);
+                Log.d(TAG, "Role: " + TheAccount.Role);
+
                 Toast.makeText(LinkToGoogle.this, "Creat Account Successful!", Toast.LENGTH_SHORT).show();
-                Intent BackToLogin = new Intent(LinkToGoogle.this, LoginPage.class);
-                startActivity(BackToLogin);
+
+                Account CurrentAccount = new Account(TheAccount.Username, TheAccount.EmailAddress, TheAccount.Age, TheAccount.Weight, TheAccount.Gender, TheAccount.Role);
+                Account.CurrentAccount.clear();
+                Account.CurrentAccount.add(CurrentAccount);
+                ////////////////////////////////////////////////////////
+                //CurrentAccount
+                ////////////////PUSH account into data base/////////////////
+
+                Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileEdit.class);
+                startActivity(PersonalProfile);
             }
         });
     }

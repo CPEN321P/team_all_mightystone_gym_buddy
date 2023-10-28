@@ -123,11 +123,27 @@ public class LoginPage extends AppCompatActivity {
 
             theAccountInfo.EmailAddress = account.getEmail();
             //String TheEmail = GET from database base;
-            //If the EmailAddress did not search from the database, then jump to activity_link_to_google
+            //For the user, if the EmailAddress did not search from the database, then jump to activity_link_to_google
+
+            String UserName = "Zheng Xu"; //We will get it from database
+            String EmailAddress = account.getEmail();
+            int Age = 22; //We will get it from database
+            int Weight = 80; //We will get it from database
+            String Gender = "Male"; //We will get it from database
+            String Role = "User"; //We will get it from database
+            ////////////////The Information above would be the account information from database
+
+            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role);
+            Account.CurrentAccount.add(AccountInfo);
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             TheEmail = account.getEmail();      //Use for LinkToGoogle
             LoginPageManager.ClearStringName(); //Use for LinkToGoogle
 
+            //If the EmailAddress did not search from the database, then jump to activity_link_to_google
             Intent LinkAccountIntent = new Intent(LoginPage.this, LinkToGoogle.class);
             startActivity(LinkAccountIntent);
             //Otherwise, jump to the User home page

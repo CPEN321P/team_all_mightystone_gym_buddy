@@ -85,9 +85,9 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
             public void onClick(View view) {
                 Event.CleareventsForDate(CalendarUtils.selectedDate);
 
-                ////////////////////////////////////////////////////////////////////////////
-                ////DELETE the event list of the giving date(CalendarUtils.selectedDate)////
-                ////////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////////////////
+                ////DELETE the last event in event list of the giving date(CalendarUtils.selectedDate)////
+                //////////////////////////////////////////////////////////////////////////////////////////
 
                 setEventAdapter();
             }

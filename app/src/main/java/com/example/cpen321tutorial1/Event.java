@@ -25,50 +25,42 @@ public class Event {
         return events;
     }
 
-    public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime StartTime, LocalTime EndTime)
+    public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime StartTime)
     {
         ArrayList<Event> events = new ArrayList<>();
 
         for(Event event: eventsList)
         {
-            /*
-            int eventMins = longToIntCast(MINUTES.between(event.StartTime, event.EndTime));
-            eventMins = round(eventMins, 30);
-            int cellMins = longToIntCast(MINUTES.between(StartTime, EndTime));
-            cellMins = round(cellMins, 30);
 
-             */
-
-            int eventMins = event.StartTime.getHour();
-            int cellMins = StartTime.getHour();
+            int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
+            int eventMinsEnd = round(event.EndTime.getHour()*60 + event.EndTime.getMinute(), 30);
+            int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
 
 
-            if(event.getDate().equals(date) && eventMins == cellMins)
-                events.add(event);
+            if(event.getDate().equals(date))
+                if(eventMinsStart <= cellMins && cellMins < eventMinsEnd)
+                    events.add(event);
         }
 
         return events;
     }
 
-    public static int round(double value, int nearest) {
+    public static int round(double value, int nearest) {       //Round the mins of current into the multiple of 30
         return (int) Math.round(value / nearest) * nearest;
     }
 
-    public static int longToIntCast(long number) {
-        return (int) number;
-    }
-
-    public static void CleareventsForDate(LocalDate date)
+    public static void CleareventsForDate(LocalDate date)      //Clear the last event of the specific date
     {
-        ArrayList<Event> events = new ArrayList<>();
 
-        int count = 0;
+        int count = eventsList.size()-1;
         for(Event event: eventsList)
         {
-            Log.d(TAG, Integer.toString(count));
-            if(event.getDate().equals(date))
+            //.d(TAG, Integer.toString(count));
+            if(event.getDate().equals(date)) {
                 eventsList.remove(count);
-            count++;
+                break;
+            }
+            count--;
         }
     }
 

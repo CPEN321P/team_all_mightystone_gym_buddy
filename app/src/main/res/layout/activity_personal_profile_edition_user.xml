@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LinkToGoogle">
+    android:orientation="vertical"
+    tools:context=".EventEdit">
 
     <TextView
-        android:id="@+id/NewUser"
+        android:id="@+id/EditPersonalProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -15,30 +16,16 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         android:gravity="center"
-        android:text="@string/NewUser"
+        android:text="Edit Personal Profile"
         android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/NoteOfNewUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/NewUser"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/NoteOfNewUser"
-        android:textColor="@color/black"
-        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/NoteOfNewUser"
+        android:layout_below="@+id/EditPersonalProfile"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -96,7 +83,7 @@
         />
 
     <Button
-        android:id="@+id/sign_in_button"
+        android:id="@+id/Done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/planets_spinner"
@@ -106,6 +93,19 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/black"
-        android:text="@string/LetsRock" />
+        android:text="@string/DONE"/>
+
+    <Button
+        android:id="@+id/Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Done"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/black"
+        android:text="CANCEL"/>
 
 </RelativeLayout>

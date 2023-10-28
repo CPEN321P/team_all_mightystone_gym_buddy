@@ -28,9 +28,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class MainActivity extends AppCompatActivity {
     private Button mapsButton;
     private Button signOutButton;
@@ -43,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Button information;
     private Button MFour;
     private Button Schedule;
+    private Button PersonalProfile;
 
     static final class AccountInfo {
         String Username;
@@ -53,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
         String Role;
     }
 
-
-    AccountInfo theAccountInfo = new AccountInfo();
+    public static int TestComeFromOutsideOrNot = 0; //A public integer that use for jump to weekly schedule
 
     private static String stringName = "NONE";
     //private ActivityMainBinding binding;
@@ -126,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TestComeFromOutsideOrNot = 1;
                 Intent ScheduleIntent = new Intent(MainActivity.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
@@ -136,6 +134,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Trying to get some surprice");
+            }
+        });
+
+        PersonalProfile = findViewById(R.id.EditPersonalProfile);
+        PersonalProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent PersonalProfileEditIntent = new Intent(MainActivity.this, PersonalProfileUsers.class);
+                startActivity(PersonalProfileEditIntent);
             }
         });
 

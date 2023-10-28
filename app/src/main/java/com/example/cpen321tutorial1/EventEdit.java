@@ -1,5 +1,6 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.Event.eventsList;
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,8 +74,17 @@ public class EventEdit extends AppCompatActivity {
                     return;
                 }
 
+                for (Event event: eventsList){
+                    if(event.getDate().equals(EventDate)) {
+                        if(!(StrTime.compareTo(event.getEndtime()) >= 0 || EndTime.compareTo(event.getStartTime()) <= 0)){
+                            Toast.makeText(EventEdit.this, "TimeConflict!", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                    }
+                }
+
                 Event newEvent = new Event(eventName.getText().toString(), EventDate, StrTime, EndTime);
-                Event.eventsList.add(newEvent);
+                eventsList.add(newEvent);
 
                 /////////////////////////////////////////
                 //POST the event list to the back end////

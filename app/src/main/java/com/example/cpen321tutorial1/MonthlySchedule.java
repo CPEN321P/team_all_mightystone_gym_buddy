@@ -2,6 +2,7 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.CalendarUtils.daysInMonthArray;
 import static com.example.cpen321tutorial1.CalendarUtils.monthYearFromDate;
+import static com.example.cpen321tutorial1.MainActivity.TestComeFromOutsideOrNot;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -42,6 +43,13 @@ public class MonthlySchedule extends AppCompatActivity implements CalendarAdapte
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
 
+        if(TestComeFromOutsideOrNot == 1){
+            Intent WeeklyIntent = new Intent(MonthlySchedule.this, WeekView.class);
+            startActivity(WeeklyIntent);
+            TestComeFromOutsideOrNot = 0;
+        }
+
+
         PreviousMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +87,7 @@ public class MonthlySchedule extends AppCompatActivity implements CalendarAdapte
 
     private void setMonthView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
-        ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+        ArrayList<LocalDate> daysInMonth = daysInMonthArray();
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);

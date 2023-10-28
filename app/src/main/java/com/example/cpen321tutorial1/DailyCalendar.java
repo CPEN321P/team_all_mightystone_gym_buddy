@@ -29,6 +29,7 @@ public class DailyCalendar extends AppCompatActivity {
     private Button Monthly;
     private Button Weekly;
     private Button NewEvent;
+    private Button ClearEvents;
     final static String TAG = "Daily";
 
     @Override
@@ -76,6 +77,19 @@ public class DailyCalendar extends AppCompatActivity {
                 startActivity(WeeklyIntent);
             }
         });
+
+        ClearEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Event.CleareventsForDate(CalendarUtils.selectedDate);
+
+                //////////////////////////////////////////////////////////////////////////////////////////
+                ////DELETE the last event in event list of the giving date(CalendarUtils.selectedDate)////
+                //////////////////////////////////////////////////////////////////////////////////////////
+
+                setHourAdapter();
+            }
+        });
     }
 
     private void initWidgets() {
@@ -85,6 +99,7 @@ public class DailyCalendar extends AppCompatActivity {
         PreviousDay = findViewById(R.id.PreviousDayAction);
         NextDay = findViewById(R.id.NextDayAction);
         NewEvent = findViewById(R.id.AddEvent);
+        ClearEvents = findViewById(R.id.ClearEvent);
 
         Monthly = findViewById(R.id.Monthly);
         Weekly = findViewById(R.id.Weekly);
@@ -113,12 +128,9 @@ public class DailyCalendar extends AppCompatActivity {
     private ArrayList<HourEvent> hourEventList() {
         ArrayList<HourEvent> list = new ArrayList<>();
         for (int HalfHour = 0; HalfHour < 48; HalfHour++) {
-            LocalTime BeginTime;
-            LocalTime EndTime;
-            BeginTime = LocalTime.of(HalfHour/2, HalfHour%2 * 30);
-            EndTime = LocalTime.of(23, 30);
-            ArrayList<Event> events = Event.eventsForDateAndTime(selectedDate, BeginTime, EndTime);
-            HourEvent hourEvent = new HourEvent(BeginTime, EndTime, events);
+            LocalTime Time = LocalTime.of(HalfHour/2, HalfHour%2 * 30);
+            ArrayList<Event> events = Event.eventsForDateAndTime(selectedDate, Time);
+            HourEvent hourEvent = new HourEvent(Time, events);
             list.add(hourEvent);
         }
 

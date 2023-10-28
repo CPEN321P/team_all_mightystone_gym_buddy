@@ -4,30 +4,20 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class HourEvent {
-    LocalTime StartTime;
-    LocalTime EndTime;
+    LocalTime Time;
     ArrayList<Event> events;
 
-    public HourEvent(LocalTime startTime, LocalTime endTime, ArrayList<Event> events) {
-        StartTime = startTime;
-        EndTime = endTime;
+    public HourEvent(LocalTime time, ArrayList<Event> events) {
+        Time = time;
         this.events = events;
     }
 
-    public LocalTime getStartTime() {
-        return StartTime;
+    public LocalTime getTime() {
+        return Time;
     }
 
-    public void setStartTime(LocalTime startTime) {
-        StartTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return EndTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        EndTime = endTime;
+    public void setTime(LocalTime time) {
+        Time = time;
     }
 
     public ArrayList<Event> getEvents() {

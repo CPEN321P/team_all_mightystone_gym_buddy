@@ -10,16 +10,27 @@ import java.util.ArrayList;
 public class CalendarUtils {
     public static LocalDate selectedDate;
 
-    public static ArrayList<LocalDate> daysInMonthArray(LocalDate selectedDate) {
+    public static ArrayList<LocalDate> daysInMonthArray() {
         ArrayList<LocalDate> daysInMonthArray = new ArrayList<>();
+
         YearMonth yearMonth = YearMonth.from(selectedDate);
         int daysInMonth = yearMonth.lengthOfMonth();
+
+        LocalDate previousMonth = selectedDate.minusMonths(1);
+        LocalDate nextMonth = selectedDate.plusMonths(1);
+
+        YearMonth PreviousYearMonth = YearMonth.from(previousMonth);
+        int PreviousDaysInMonth = PreviousYearMonth.lengthOfMonth();
+
         LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
         for (int i = 1; i <= 42; i++){
-            if (i <= dayOfWeek || i > daysInMonth +  dayOfWeek) {
-                daysInMonthArray.add(null);
+            if (i <= dayOfWeek) {
+                daysInMonthArray.add(LocalDate.of(previousMonth.getYear(),previousMonth.getMonth(), PreviousDaysInMonth + i - dayOfWeek));
+            }
+            else if (i > daysInMonth +  dayOfWeek){
+                daysInMonthArray.add(LocalDate.of(nextMonth.getYear(),nextMonth.getMonth(), i - dayOfWeek - daysInMonth));
             }
             else{
                 daysInMonthArray.add(LocalDate.of(selectedDate.getYear(),selectedDate.getMonth(), i - dayOfWeek));

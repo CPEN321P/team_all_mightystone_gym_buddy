@@ -119,8 +119,24 @@ public class LoginPageManager extends AppCompatActivity {
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
             theAccountInfo.EmailAddress = account.getEmail();
-            //TheLoginInfo.Username = GET from database base on the email address;
-            //TheLoginInfo.Password = GET from database base on the email address;
+            //String TheEmail = GET from database base;
+            //For the Manager, if the EmailAddress did not search from the database, then jump to activity_link_to_google
+
+            String UserName = "Zheng Xu"; //We will get it from database
+            String EmailAddress = account.getEmail();
+            int Age = 22; //We will get it from database
+            int Weight = 80; //We will get it from database
+            String Gender = "Male"; //We will get it from database
+            String Role = "Manager"; //We will get it from database
+            ////////////////The Information above would be the account information from database
+
+            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role);
+            Account.CurrentAccount.add(AccountInfo);
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             TheEmail = account.getEmail();  //Use for LinkToGoogle
             LoginPage.ClearStringName();    //Use for LinkToGoogle
 

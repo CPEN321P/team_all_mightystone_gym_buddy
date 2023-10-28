@@ -19,6 +19,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PersonalProfileEdit"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileUsers"
+            android:exported="false" />
+        <activity
             android:name=".DailyCalendar"
             android:exported="false" />
         <activity
