@@ -1,17 +1,24 @@
 import { MongoClient } from "mongodb";
 
+const dbName = 'gym-buddies-db';
+let db;
+
 const connectDB = (uri) => {
-  const client = new MongoClient(uri);
-
-  const dbName = 'gym-buddies-db';
-  const db = client.db(dbName);
-
-  // Create collections for each database (users, chat, and schedules)
-  const usersCollection = db.collection('users');
-  const chatCollection = db.collection('chat');
-  const schedulesCollection = db.collection('schedules');
-
-  console.log("MongoDB Connected")
+  MongoClient.connect(uri)
+    .then((client) => {
+      console.log("MongoDB Connected");
+      db = client.db(dbName);
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
-export default connectDB;
+const getDB = () => {
+  return db;
+}
+
+export {
+  connectDB,
+  getDB
+};

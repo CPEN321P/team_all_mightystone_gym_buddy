@@ -1,8 +1,9 @@
 import express from 'express';
+import { getDB } from '../MongoDB/Connect.js';
 
 const router = express.Router();
 
-const chatCollection = {};
+const chatCollection = {}; //getDB.collection('chat');
 
 // Get all chat messages
 router.get('/', async (req, res) => {
