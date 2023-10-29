@@ -4,6 +4,29 @@ import { getDB } from '../MongoDB/Connect.js';
 
 const router = express.Router();
 
+// ALL FUNCTIONS
+// - Create a schedule (check elements)
+// - Get a schedule by user and date
+// - Get a schedule by id
+// - Update a schedule by id (check elements)
+// - Delete a schedule by id
+
+// Create a new gym schedule
+router.post('/', async (req, res) => {
+  const db = getDB();
+
+  const newSchedule = req.body;
+
+  const result = await db.collection('schedules').insertOne(newSchedule);
+
+  if (result && result.insertedId) {
+    res.status(200).json(result.insertedId);
+  }
+  else {
+    res.status(500).json("User not added to the database");
+  }
+});
+
 // Get schedule by user id and date
 router.get('/byUser/:userId/:date', async (req, res) => {
   const db = getDB();
@@ -18,23 +41,6 @@ router.get('/byUser/:userId/:date', async (req, res) => {
   }
   else {
     res.status(404).json("No Schedule Found");
-  }
-});
-
-// Create a new gym schedule
-router.post('/', async (req, res) => {
-  const db = getDB();
-
-  // add element checks
-
-  const newSchedule = req.body;
-  const result = await db.collection('schedules').insertOne(newSchedule);
-
-  if (result && result.insertedId) {
-    res.status(200).json(result.insertedId);
-  }
-  else {
-    res.status(500).json("User not added to the database");
   }
 });
 
