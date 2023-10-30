@@ -4,19 +4,28 @@ import { getDB } from '../MongoDB/Connect.js';
 
 const router = express.Router();
 
-// ALL FUNCTIONS
+// ALL REST OPERATIONS
 // - Create a new user
 // - Get all users
 // - Get a specific user by id
 // - Get friends by id
 // - Get friend requests by id 
+// - Get chats
+// - Get blocked users
 // - Update by id 
 // - Send Friend Requests
+// - Unsend friend request
 // - Accept friend requests 
-// - Decline friend requests 
+// - Decline friend requests
+// - Unfriend 
+// - Block users 
+// - Unblock users 
+// - Delete chat
 // - Delete user by id
 
 // ? search users / recommended users
+
+// Gym User ? add with a flag?
 
 // Create a new user
 router.post('/', async (req, res) => {
@@ -33,13 +42,15 @@ router.post('/', async (req, res) => {
     friendRequests: req.body.friendRequests || [],
     description: req.body.description || "",
     homeGym: req.body.homeGym || "",
-    reported: req.body.reported || 0
+    reported: req.body.reported || 0,
+    chats: req.body.chats || [],
+    blockedUsers: req.body.blockedUsers || []
   }
 
   const result = await db.collection('users').insertOne(newUser);
 
   if (result && result.insertedId) {
-    res.status(200).json(result.insertedId);
+    res.status(200).json(result.insertedId.toString());
   }
   else {
     res.status(500).json("User not added to the database");
@@ -66,7 +77,7 @@ router.get('/userId/:userId', async (req, res) => {
 
   const user = await db.collection('users').findOne({ _id: id });
   if (user) {
-    res.status(200).send(user);
+    res.status(200).json(user);
   } else {
     res.status(404).send('User not found');
   }
@@ -96,7 +107,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
     }
   }
 
-  res.status(200).send(friends);
+  res.status(200).json(friends);
 });
 
 // Get friend requests by ID
@@ -123,7 +134,61 @@ router.get('/userId/:userId/friendRequests', async (req, res) => {
     }
   }
 
-  res.status(200).send(friends);
+  res.status(200).json(friends);
+});
+
+// Get chats by ID
+router.get('/userId/:userId/chats', async (req, res) => {
+  const db = getDB();
+  const id = new ObjectId(req.params.userId);
+
+  const user = await db.collection('users').findOne({ _id: id });
+
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const chatsID = user.chats;
+  const chats = [];
+
+  for (const chatID of chatsID) {
+    const cid = new ObjectId(chatID);
+    const chat = await db.collection('chat').findOne({ _id: cid })
+
+    if (chat) {
+      chats.push(chat);
+    }
+  }
+
+  res.status(200).json(chats);
+});
+
+// Get blocked users by ID
+router.get('/userId/:userId/blockedUsers', async (req, res) => {
+  const db = getDB();
+  const id = new ObjectId(req.params.userId);
+
+  const user = await db.collection('users').findOne({ _id: id });
+
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const blockedUsersId = user.blockedUsers;
+  const blockedUsers = [];
+
+  for (const blockedUserId of blockedUsersId) {
+    const buid = new ObjectId(blockedUserId);
+    const blockedUser = await db.collection('users').findOne({ _id: buid })
+
+    if (blockedUser) {
+      blockedUsers.push(blockedUser);
+    }
+  }
+
+  res.status(200).json(blockedUsers);
 });
 
 // Update a user by ID
@@ -146,9 +211,13 @@ router.put('/userId/:userId', async (req, res) => {
     email: req.body.email || user.email,
     dob: req.body.dob || user.dob,
     pfp: req.body.pfp || user.pfp,
+    friends: req.body.friends || user.friends,
+    friendRequests: req.body.friendRequests || user.friendRequests,
     description: req.body.description || user.description,
     homeGym: req.body.homeGym || user.homeGym,
-    reported: req.body.reported || user.reported
+    reported: req.body.reported || user.reported,
+    chats: req.body.chats || user.chats,
+    blockedUsers: req.body.blockedUsers || user.blockedUsers
   }
 
   const result = await db.collection('users').updateOne(
@@ -156,7 +225,7 @@ router.put('/userId/:userId', async (req, res) => {
     { $set: updatedUser }
   );
   
-  if (result.modifiedCount === 0) {
+  if (result.matchedCount == 0) {
     res.status(404).send('User not found');
   } else {
     res.status(200).json(updatedUser);
@@ -216,10 +285,56 @@ router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
   );
   
-  if (result.modifiedCount === 0) {
+  if (result.matchedCount == 0) {
     res.status(404).send('User not found');
   } else {
     res.status(200).send('Friend Request Sent');
+  }
+});
+
+// Unsend friend request
+router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
+  const db = getDB();
+  const recieverId = new ObjectId(req.params.recieverId);
+  const senderId = new ObjectId(req.params.senderId);
+
+  const recieverUser = await db.collection('users').findOne({ _id: recieverId });
+
+  if (!recieverUser) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const friendRequestList = recieverUser.friendRequests;
+
+  let i = -1;
+  for (let j = 0; j < friendRequestList.length; j++) {
+    if (friendRequestList[j] == senderId) {
+      i = j;
+      break;
+    }
+  }
+
+  if (i == -1) {
+    res.status(500).send('No Friend request');
+    return;
+  }
+
+  friendRequestList.splice(i, 1);
+
+  const result = await db.collection('users').updateOne(
+    { _id: recieverId },
+    { 
+      $set: {
+        friendRequests: friendRequestList
+      } 
+    }
+  );
+  
+  if (result.matchedCount == 0) {
+    res.status(404).send('User not found');
+  } else {
+    res.status(200).send('Friend Request Unsent');
   }
 });
 
@@ -278,7 +393,7 @@ router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
   );
   
-  if (resultReciever.modifiedCount === 0 || resultSender.modifiedCount === 0) {
+  if (resultSender.matchedCount == 0 || resultReciever.matchedCount == 0) {
     res.status(500).send('Friend request not accepted');
   } else {
     res.status(200).send('Friend Request Accepted');
@@ -325,10 +440,215 @@ router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
   );
   
-  if (resultReciever.modifiedCount === 0) {
+  if (resultReciever.matchedCount == 0) {
     res.status(500).send('Friend request not declined');
   } else {
     res.status(200).send('Friend Request Declined');
+  }
+});
+
+// Unfriend user
+router.put('/unfriend/:unfrienderId/:unfriendedId', async (req, res) => {
+  const db = getDB();
+
+  const result = await unfriend(db, req.params.unfrienderId, req.params.unfriendedId);
+
+  if (result) {
+    res.status(200).send('User unfriended');
+  } else {
+    res.status(500).send('User not unfriended');
+  }
+});
+
+const unfriend = async (db, unfrienderId, unfriendedId) => {
+  const _unfrienderId = new ObjectId(unfrienderId);
+  const _unfriendedId = new ObjectId(unfriendedId);
+
+  const unfriender = await db.collection('users').findOne({ _id: _unfrienderId });
+  const unfriended = await db.collection('users').findOne({ _id: _unfriendedId });
+
+  if (!unfriender || !unfriended) {
+    return 0;
+  }
+
+  const unfrienderFriends = unfriender.friends;
+  const unfriendedFriends = unfriended.friends;
+
+  let i = -1;
+  for (let j = 0; j < unfrienderFriends.length; j++) {
+    if (unfrienderFriends[j] == unfriendedId) {
+      i = j;
+      break;
+    }
+  }
+
+  if (i == -1) {
+    return 0;
+  }
+  unfrienderFriends.splice(i, 1);
+
+  i = -1;
+  for (let j = 0; j < unfriendedFriends.length; j++) {
+    if (unfriendedFriends[j] == unfrienderId) {
+      i = j;
+      break;
+    }
+  }
+
+  if (i == -1) {
+    return 0;
+  }
+  unfriendedFriends.splice(i, 1);
+
+  const resultUnfriender = await db.collection('users').updateOne(
+    { _id: _unfrienderId },
+    { 
+      $set: {
+        friends: unfrienderFriends
+      } 
+    }
+  );
+  if (resultUnfriender.matchedCount == 0) {
+    return 0;
+  }
+
+  const resultUnfriended = await db.collection('users').updateOne(
+    { _id: _unfriendedId },
+    { 
+      $set: {
+        friends: unfriendedFriends
+      } 
+    }
+  );
+  if (resultUnfriended.matchedCount == 0) {
+    return 0;
+  }
+
+  return 1;
+}
+
+// Block user
+router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
+  const db = getDB();
+  const blockerId = new ObjectId(req.params.blockerId);
+
+  const blockerUser = await db.collection('users').findOne({ _id: blockerId });
+
+  if (!blockerUser) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  await unfriend(db, req.params.blockerId, req.params.blockedId);
+
+  const blockedUsersList = blockerUser.blockedUsers;
+  blockedUsersList.push(req.params.blockedId);
+
+  const result = await db.collection('users').updateOne(
+    { _id: blockerId },
+    { 
+      $set: {
+        blockedUsers: blockedUsersList
+      } 
+    }
+  );
+  
+  if (result.matchedCount == 0) {
+    res.status(500).send('User not blocked');
+  } else {
+    res.status(200).send('User blocked');
+  }
+});
+
+// Unblock user
+router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
+  const db = getDB();
+  const blockerId = new ObjectId(req.params.blockerId);
+
+  const blockerUser = await db.collection('users').findOne({ _id: blockerId });
+
+  if (!blockerUser) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const blockedUsersList = blockerUser.blockedUsers;
+
+  let i = -1;
+
+  for (let j = 0; j < blockedUsersList.length; j++) {
+    if (blockedUsersList[j] == req.params.blockedId) {
+      i = j;
+      break;
+    }
+  }
+
+  if (i == -1) {
+    res.status(404).send('Blocked user not found');
+    return;
+  }
+
+  blockedUsersList.splice(i,1);
+
+  const result = await db.collection('users').updateOne(
+    { _id: blockerId },
+    { 
+      $set: {
+        blockedUsers: blockedUsersList
+      } 
+    }
+  );
+  
+  if (result.matchedCount == 0) {
+    res.status(500).send('User not unblocked');
+  } else {
+    res.status(200).send('User unblocked');
+  }
+});
+
+// Delete a chat
+router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
+  const db = getDB();
+  const userId = new ObjectId(req.params.userId);
+
+  const user = await db.collection('users').findOne({ _id: userId });
+
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const chatsLists = user.chats;
+
+  let i = -1;
+
+  for (let j = 0; j < chatsLists.length; j++) {
+    if (chatsLists[j] == req.params.chatId) {
+      i = j;
+      break;
+    }
+  }
+
+  if (i == -1) {
+    res.status(404).send('Chat not found');
+    return;
+  }
+
+  chatsLists.splice(i,1);
+
+  const result = await db.collection('users').updateOne(
+    { _id: userId },
+    { 
+      $set: {
+        chats: chatsLists
+      } 
+    }
+  );
+  
+  if (result.matchedCount == 0) {
+    res.status(500).send('Chat not deleted');
+  } else {
+    res.status(200).send('Chat deleted');
   }
 });
 

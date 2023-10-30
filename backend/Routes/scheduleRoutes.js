@@ -4,10 +4,10 @@ import { getDB } from '../MongoDB/Connect.js';
 
 const router = express.Router();
 
-// ALL FUNCTIONS
+// ALL FUNCTIONS (Test and go over all)
 // - Create a schedule (check elements)
-// - Get a schedule by user and date
-// - Get a schedule by id
+// - Get a schedule by user and date 
+// - Get a schedule by id 
 // - Update a schedule by id (check elements)
 // - Delete a schedule by id
 
@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
   const result = await db.collection('schedules').insertOne(newSchedule);
 
   if (result && result.insertedId) {
-    res.status(200).json(result.insertedId);
+    res.status(200).json(result.insertedId.toString());
   }
   else {
     res.status(500).json("User not added to the database");
@@ -71,7 +71,7 @@ router.get('/byId/:scheduleId', async (req, res) => {
 //     { $set: updatedSchedule }
 //   );
 
-//   if (result.modifiedCount === 0) {
+//   if (result.matchedCount == 0) {
 //     res.status(404).send('Schedule not found');
 //     return;
 //   }

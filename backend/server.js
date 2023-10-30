@@ -5,6 +5,7 @@ import { connectDB } from './MongoDB/Connect.js';
 import usersRoutes from './Routes/userRoutes.js';
 import chatRoutes from './Routes/chatRoutes.js';
 import schedulesRoutes from './Routes/scheduleRoutes.js';
+import gymRoutes from './Routes/gymRoutes.js';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use('/users', usersRoutes);
 app.use('/chat', chatRoutes);
 app.use('/schedules', schedulesRoutes);
+app.use('/gyms', gymRoutes);
 
 const run = () => {
     try{
