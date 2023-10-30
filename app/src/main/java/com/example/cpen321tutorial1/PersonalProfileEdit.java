@@ -2,6 +2,7 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,12 +17,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 public class PersonalProfileEdit extends AppCompatActivity {
 
     private TextView UserName, Age, Weight;
     private Spinner GenderSpinner;
     private Button Done;
     private Button Cancel;
+    private Button LogOut;
+    private GoogleSignInClient mGoogleSignInClient;
     final static String TAG = "PersonalProfileEdit";
 
     @Override
@@ -29,7 +38,6 @@ public class PersonalProfileEdit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile_edition_user);
         initWidgets();
-
 
         UserName.setText(Account.CurrentAccount.get(0).getUsername());
         Age.setText(Integer.toString(Account.CurrentAccount.get(0).getAge()));
@@ -73,9 +81,14 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 Log.d(TAG, "Gender: " + GenderSpinner.getSelectedItem().toString());
                 Log.d(TAG, "Role: " + Account.CurrentAccount.get(0).getRole());
 
+
+
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///
                 //////////////////////////////////////////////////
+
+                Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
+                startActivity(PersonalProfileIntent);
             }
         });
 
@@ -84,6 +97,21 @@ public class PersonalProfileEdit extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "Cancel Editing");
                 finish();
+            }
+        });
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(PersonalProfileEdit.this, gso);
+
+        LogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+                Intent LogOutIntent = new Intent(PersonalProfileEdit.this, LoginPage.class);
+                startActivity(LogOutIntent);
             }
         });
     }
@@ -95,5 +123,18 @@ public class PersonalProfileEdit extends AppCompatActivity {
         GenderSpinner = findViewById(R.id.planets_spinner);
         Done = findViewById(R.id.Done);
         Cancel = findViewById(R.id.Cancel);
+        LogOut = findViewById(R.id.LogOut);
+    }
+
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                        Log.d(TAG, "Log out successful");
+                        Toast.makeText(PersonalProfileEdit.this, "Log out successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

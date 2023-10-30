@@ -83,7 +83,7 @@ public class EventEdit extends AppCompatActivity {
                     }
                 }
 
-                Event newEvent = new Event(eventName.getText().toString(), EventDate, StrTime, EndTime);
+                Event newEvent = new Event(Account.CurrentAccount.get(0).getUsername() + ": " + eventName.getText().toString(), EventDate, StrTime, EndTime);
                 eventsList.add(newEvent);
 
                 /////////////////////////////////////////

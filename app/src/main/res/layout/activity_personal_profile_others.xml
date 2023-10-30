@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalProfileUsers"
+    tools:context=".PersonalProfileOthers"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="1">
                 <LinearLayout
                     android:gravity="center"
                     android:orientation="vertical"
@@ -50,25 +50,10 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <Button
-                        android:id="@+id/Friends"
+                        android:id="@+id/AddFriend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Friends"
-                        android:textSize="20dp"
-                        android:backgroundTint="@color/black"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/Gyms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gyms"
+                        android:text="Add Friend"
                         android:textSize="20dp"
                         android:backgroundTint="@color/black"/>
 
@@ -160,34 +145,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="2">
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/EditPersonalProfile"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Profile"
-                android:backgroundTint="@color/black"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/EditSchedule"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Schedule"
-                android:backgroundTint="@color/black"/>
-        </LinearLayout>
 
     </LinearLayout>
 

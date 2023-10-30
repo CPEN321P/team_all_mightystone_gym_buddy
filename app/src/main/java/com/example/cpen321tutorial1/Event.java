@@ -25,6 +25,19 @@ public class Event {
         return events;
     }
 
+    public static ArrayList<Event> eventsForDateOthers(LocalDate date, ArrayList<Event> OtherEventArray)
+    {
+        ArrayList<Event> events = new ArrayList<>();
+
+        for(Event event: OtherEventArray)
+        {
+            if(event.getDate().equals(date))
+                events.add(event);
+        }
+
+        return events;
+    }
+
     public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime StartTime)
     {
         ArrayList<Event> events = new ArrayList<>();
@@ -32,6 +45,38 @@ public class Event {
         for(Event event: eventsList)
         {
 
+            int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
+            int eventMinsEnd = round(event.EndTime.getHour()*60 + event.EndTime.getMinute(), 30);
+            int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
+
+
+            if(event.getDate().equals(date))
+                if(eventMinsStart <= cellMins && cellMins < eventMinsEnd)
+                    events.add(event);
+        }
+
+        return events;
+    }
+
+    //For the comparsion between the user and their friend
+    public static ArrayList<Event> eventsForDateAndTimeOthers(LocalDate date, LocalTime StartTime, ArrayList<Event> OtherEventArray)
+    {
+        ArrayList<Event> events = new ArrayList<>();
+
+        for(Event event: eventsList)
+        {
+
+            int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
+            int eventMinsEnd = round(event.EndTime.getHour()*60 + event.EndTime.getMinute(), 30);
+            int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
+
+            if(event.getDate().equals(date))
+                if(eventMinsStart <= cellMins && cellMins < eventMinsEnd)
+                    events.add(event);
+        }
+
+        for(Event event: OtherEventArray)
+        {
             int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
             int eventMinsEnd = round(event.EndTime.getHour()*60 + event.EndTime.getMinute(), 30);
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();

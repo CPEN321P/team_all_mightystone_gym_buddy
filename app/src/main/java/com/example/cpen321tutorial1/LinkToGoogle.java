@@ -106,8 +106,15 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 //CurrentAccount
                 ////////////////PUSH account into data base/////////////////
 
-                Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileEdit.class);
-                startActivity(PersonalProfile);
+                if(TheAccount.Role == "Manager") {
+                    //Enter the home page of manager
+                    Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileManager.class);
+                    startActivity(PersonalProfile);
+                }
+                else if(TheAccount.Role == "User") {
+                    Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileUsers.class);
+                    startActivity(PersonalProfile);
+                }
             }
         });
     }

@@ -9,17 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class PersonalProfileUsers extends AppCompatActivity {
+public class PersonalProfileManager extends AppCompatActivity {
 
-    Button FriendsList, GymList;
+    Button FriendsList;
     TextView Username, Email, Age, Weight, Gender;
-    Button Profile, Schedule;
+    Button Profile, Schedule, TheAnnouncement;
+    final static String TAG = "PersonalProfileManager";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personal_profile);
+        setContentView(R.layout.activity_personal_profile_manager);
         initWidgets();
 
         MainActivity.TestComeFromOutsideOrNot = 0;
@@ -35,35 +36,39 @@ public class PersonalProfileUsers extends AppCompatActivity {
                 //Enter the list of friends
             }
         });
-
-        GymList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Enter the list of subscribed gyms
-            }
-        });
+        Log.d(TAG, "Test1");
 
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent PersonalProfileIntent = new Intent(PersonalProfileUsers.this, PersonalProfileEdit.class);
+                Intent PersonalProfileIntent = new Intent(PersonalProfileManager.this, PersonalProfileEdit.class);
                 startActivity(PersonalProfileIntent);
             }
         });
+        Log.d(TAG, "Test3");
 
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.TestComeFromOutsideOrNot = 1;
-                Intent ScheduleIntent = new Intent(PersonalProfileUsers.this, MonthlySchedule.class);
+                Intent ScheduleIntent = new Intent(PersonalProfileManager.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });
+        Log.d(TAG, "Test4");
+
+        TheAnnouncement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Enter the page of announcement
+            }
+        });
+        Log.d(TAG, "Test2");
+
     }
 
     private void initWidgets() {
         FriendsList = findViewById(R.id.Friends);
-        GymList = findViewById(R.id.Gyms);
         Username = findViewById(R.id.Username);
         Email = findViewById(R.id.Email);
         Age = findViewById(R.id.Age);
@@ -71,5 +76,6 @@ public class PersonalProfileUsers extends AppCompatActivity {
         Gender = findViewById(R.id.Gender);
         Profile = findViewById(R.id.EditPersonalProfile);
         Schedule = findViewById(R.id.EditSchedule);
+        TheAnnouncement = findViewById(R.id.Announcement);
     }
 }

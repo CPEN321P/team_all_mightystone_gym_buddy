@@ -34,6 +34,20 @@
             android:gravity="center"
             />
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="2dp"
+            android:background="#0496C7"
+            android:layout_height="match_parent"
+            android:id="@+id/event2"
+            android:textSize="12dp"
+            android:lines="2"
+            android:textColor="@color/white"
+            android:text="10:00"
+            android:gravity="center"
+            />
+
 
     </LinearLayout>
 

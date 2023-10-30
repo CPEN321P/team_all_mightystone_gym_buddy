@@ -19,6 +19,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".GymProfile"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleFriendsMonthly"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleFriendsDaily"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleFriendsWeekly"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileFriend"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileOthers"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileManager"
+            android:exported="false" />
+        <activity
             android:name=".PersonalProfileEdit"
             android:exported="false" />
         <activity
@@ -50,18 +71,6 @@
             android:exported="false"
             android:label="@string/title_activity_login_page"
             android:theme="@style/Theme.CPEN321Tutorial1" />
-        <activity
-            android:name=".ServerInfo"
-            android:exported="false" />
-        <activity
-            android:name=".Video"
-            android:exported="false" />
-        <activity
-            android:name=".Final"
-            android:exported="false" />
-        <activity
-            android:name=".Information"
-            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -76,15 +85,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCs3wpgj1i0man7AYlApdbe_-zUZ-0rYYo" />
-
-        <activity
-            android:name=".MapsActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_maps2" />
-        <activity
-            android:name=".MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
