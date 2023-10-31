@@ -2,10 +2,14 @@ package com.example.cpen321tutorial1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class PersonalProfileOthers extends AppCompatActivity {
 
@@ -29,6 +33,18 @@ public class PersonalProfileOthers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Send the friend request
+                //get the Account class of this person
+                ArrayList<Account> CurrentFriendList = Account.CurrentAccount.get(0).getFriendsList();
+                //CurrentFriendList.add( //The Account information of this person // );
+                Account.CurrentAccount.get(0).setFriendsList(CurrentFriendList);
+
+                //ArrayList<Account> CurrentFriendListOthers = //The Account that you get//.getFriendsList();
+                //CurrentFriendListOthers.add(Account.CurrentAccount.get(0));
+                ////The Account that you get//.setFriendsList(CurrentFriendListOthers);
+
+                Toast.makeText(PersonalProfileOthers.this, "Make a friend request!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PersonalProfileOthers.this, PersonalProfileFriend.class);
+                startActivity(intent);
             }
         });
     }

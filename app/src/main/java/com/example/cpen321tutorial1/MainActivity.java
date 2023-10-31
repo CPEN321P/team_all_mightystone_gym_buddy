@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private Button Schedule;
     private Button PersonalProfile;
     private Button AddGym;
+    private Button OtherProfile, FriendProfile, UserGyms;
 
     static final class AccountInfo {
         String Username;
@@ -111,6 +112,34 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent mfourIntent = new Intent(MainActivity.this, NewGyms.class);
                 startActivity(mfourIntent);
+            }
+        });
+
+        OtherProfile = findViewById(R.id.OthersProfile);
+        FriendProfile = findViewById(R.id.FriendsProfile);
+        UserGyms = findViewById(R.id.GymProfileUser);
+
+        OtherProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent = new Intent(MainActivity.this, PersonalProfileOthers.class);
+                startActivity(Intent);
+            }
+        });
+
+        FriendProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent = new Intent(MainActivity.this, PersonalProfileFriend.class);
+                startActivity(Intent);
+            }
+        });
+
+        UserGyms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent = new Intent(MainActivity.this, GymProfile.class);
+                startActivity(Intent);
             }
         });
     }

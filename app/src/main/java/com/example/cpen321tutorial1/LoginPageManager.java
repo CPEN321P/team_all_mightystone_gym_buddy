@@ -21,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
 public class LoginPageManager extends AppCompatActivity {
 
     private Button ModeButton;
@@ -131,9 +133,10 @@ public class LoginPageManager extends AppCompatActivity {
             int Weight = 80; //We will get it from database
             String Gender = "Male"; //We will get it from database
             String Role = "Manager"; //We will get it from database
+            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
             ////////////////The Information above would be the account information from database
 
-            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role);
+            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList);
             Account.CurrentAccount.add(AccountInfo);
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

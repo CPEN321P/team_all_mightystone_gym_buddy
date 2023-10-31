@@ -39,4 +39,28 @@
         app:layout_constraintBottom_toTopOf="@+id/EditPersonalProfile"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/OthersProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Others Profile"
+        app:layout_constraintBottom_toTopOf="@+id/AddGym"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/FriendsProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friends Profile"
+        app:layout_constraintBottom_toTopOf="@+id/OthersProfile"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/GymProfileUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gym Profile"
+        app:layout_constraintBottom_toTopOf="@+id/FriendsProfile"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

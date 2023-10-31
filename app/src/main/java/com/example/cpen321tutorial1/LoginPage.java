@@ -20,6 +20,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
 public class LoginPage extends AppCompatActivity {
 
     private Button ModeButton;
@@ -96,8 +98,9 @@ public class LoginPage extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
+            Log.w(TAG, "Test1");
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
+            Log.w(TAG, "Test2");
             // Signed in successfully, show authenticated UI.
             updateUI(account);
             Toast.makeText(LoginPage.this, "Log in successful", Toast.LENGTH_SHORT).show();
@@ -132,9 +135,10 @@ public class LoginPage extends AppCompatActivity {
             int Weight = 80; //We will get it from database
             String Gender = "Male"; //We will get it from database
             String Role = "User"; //We will get it from database
+            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
             ////////////////The Information above would be the account information from database
 
-            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role);
+            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList);
             Account.CurrentAccount.add(AccountInfo);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////

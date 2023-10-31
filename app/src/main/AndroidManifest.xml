@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditGymsProfile"
             android:exported="false" />
         <activity
@@ -96,7 +99,7 @@
             android:value="AIzaSyCs3wpgj1i0man7AYlApdbe_-zUZ-0rYYo" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -14,7 +14,7 @@ public class PersonalProfileFriend extends AppCompatActivity {
 
     Button Schedule, Message;
     TextView Username, Email, Age, Weight, Gender;
-    public static ArrayList<Event> FriendsEvent;
+    public static ArrayList<Event> FriendsEvent = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -32,7 +32,7 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weekly_schedule);
+        setContentView(R.layout.activity_schedule_friends_monthly);
         initinalWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
