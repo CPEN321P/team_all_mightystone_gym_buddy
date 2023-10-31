@@ -5,17 +5,21 @@ import { getDB } from '../MongoDB/Connect.js';
 const router = express.Router();
 
 // ALL FUNCTIONS (Test and go over all)
-// - Create a schedule (check elements)
-// - Get a schedule by user and date 
+// - Create a schedule 
+// - Get a schedule by user and date
 // - Get a schedule by id 
-// - Update a schedule by id (check elements)
+// - Update a schedule by id 
 // - Delete a schedule by id
 
 // Create a new gym schedule
 router.post('/', async (req, res) => {
   const db = getDB();
 
-  const newSchedule = req.body;
+  const newSchedule = {
+    userId: req.body.userId || "",
+    date: req.body.date || "",
+    exercises: req.body.exercises || []
+  };
 
   const result = await db.collection('schedules').insertOne(newSchedule);
 
@@ -30,10 +34,18 @@ router.post('/', async (req, res) => {
 // Get schedule by user id and date
 router.get('/byUser/:userId/:date', async (req, res) => {
   const db = getDB();
+  const userId = req.params.userId;
+  const date = parseInt(req.params.date)
 
-  const schedule = await db.collection('schedules').findOne({ 
-    user_id: req.params.userId,
-    date: parseInt(req.params.date)
+  const schedule = await db.collection('schedules').findOne({
+    $and: [
+      {
+        userId: userId
+      },
+      {
+        date: date
+      }
+    ] 
   });
 
   if (schedule) {
@@ -61,23 +73,35 @@ router.get('/byId/:scheduleId', async (req, res) => {
   }
 });
 
-// // Update a gym schedule by ID
-// router.put('/byId/:scheduleId', async (req, res) => {
-//   const db = getDB();
+// Update a gym schedule by ID
+router.put('/byId/:scheduleId', async (req, res) => {
+  const db = getDB();
+  const id = new ObjectId(req.params.scheduleId);
 
-//   const updatedSchedule = req.body;
-//   const result = await db.collection('schedules').updateOne(
-//     { _id: ObjectId(req.params.scheduleId) },
-//     { $set: updatedSchedule }
-//   );
+  const schedule = await db.collection('schedules').findOne({ _id: id });
 
-//   if (result.matchedCount == 0) {
-//     res.status(404).send('Schedule not found');
-//     return;
-//   }
+  if (!schedule) {
+    res.status(404).send('Schedule not found');
+    return;
+  }
 
-//   res.json(updatedSchedule);
-// });
+  const updatedSchedule = {
+    userId: req.body.userId || schedule.userId,
+    date: req.body.date || schedule.date,
+    exercises: req.body.exercises || schedule.exercises
+  };
+
+  const result = await db.collection('schedules').updateOne(
+    { _id: id },
+    { $set: updatedSchedule }
+  );
+
+  if (result.matchedCount == 0) {
+    res.status(404).send('Schedule not found');
+  } else {
+    res.status(200).json(updatedSchedule);
+  }
+});
 
 // Delete a gym schedule by ID
 router.delete('/byId/:scheduleId', async (req, res) => {
