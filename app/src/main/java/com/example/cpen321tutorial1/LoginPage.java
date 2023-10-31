@@ -52,6 +52,7 @@ public class LoginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+        Account.CurrentAccount.clear(); //Clear the current account information
 
         ModeButton = findViewById(R.id.ManagerMode);
 

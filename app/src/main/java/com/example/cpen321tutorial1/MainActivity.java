@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Button MFour;
     private Button Schedule;
     private Button PersonalProfile;
+    private Button AddGym;
 
     static final class AccountInfo {
         String Username;
@@ -98,6 +99,17 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Trying to open google maps");
 
                 Intent mfourIntent = new Intent(MainActivity.this, LoginPage.class);
+                startActivity(mfourIntent);
+            }
+        });
+
+        AddGym = findViewById(R.id.AddGym);
+        AddGym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Add Gym");
+
+                Intent mfourIntent = new Intent(MainActivity.this, NewGyms.class);
                 startActivity(mfourIntent);
             }
         });

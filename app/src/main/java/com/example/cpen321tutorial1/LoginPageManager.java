@@ -51,6 +51,8 @@ public class LoginPageManager extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page_manager);
+        Account.CurrentAccount.clear(); //Clear the current account information
+        Gym.CurrentGym.clear();
 
         ModeButton = findViewById(R.id.ManagerMode);
 
@@ -122,6 +124,7 @@ public class LoginPageManager extends AppCompatActivity {
             //String TheEmail = GET from database base;
             //For the Manager, if the EmailAddress did not search from the database, then jump to activity_link_to_google
 
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
             String UserName = "Zheng Xu"; //We will get it from database
             String EmailAddress = account.getEmail();
             int Age = 22; //We will get it from database
@@ -132,6 +135,12 @@ public class LoginPageManager extends AppCompatActivity {
 
             Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role);
             Account.CurrentAccount.add(AccountInfo);
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            Gym.CurrentGym.clear();
+            //Gym.CurrentGym.add()//Get the Gym information base on the current information
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
             ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////

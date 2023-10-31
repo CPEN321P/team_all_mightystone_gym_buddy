@@ -102,6 +102,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 Account CurrentAccount = new Account(TheAccount.Username, TheAccount.EmailAddress, TheAccount.Age, TheAccount.Weight, TheAccount.Gender, TheAccount.Role);
                 Account.CurrentAccount.clear();
                 Account.CurrentAccount.add(CurrentAccount);
+                Gym.CurrentGym.clear();
                 ////////////////////////////////////////////////////////
                 //CurrentAccount
                 ////////////////PUSH account into data base/////////////////

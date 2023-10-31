@@ -87,8 +87,15 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 ///Upload the CurrentAccount information into database///
                 //////////////////////////////////////////////////
 
-                Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
-                startActivity(PersonalProfileIntent);
+                if(Account.CurrentAccount.get(0).getRole() == "Manager"){
+                    Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileManager.class);
+                    startActivity(PersonalProfileIntent);
+                }
+                else if(Account.CurrentAccount.get(0).getRole() == "User"){
+                    Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
+                    startActivity(PersonalProfileIntent);
+                }
+
             }
         });
 

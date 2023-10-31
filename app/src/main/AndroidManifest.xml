@@ -19,6 +19,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".EditGymsProfile"
+            android:exported="false" />
+        <activity
+            android:name=".NewGyms"
+            android:exported="false" />
+        <activity
+            android:name=".GymsProfileManager"
+            android:exported="false" />
+        <activity
             android:name=".GymProfile"
             android:exported="false" />
         <activity
@@ -85,6 +94,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCs3wpgj1i0man7AYlApdbe_-zUZ-0rYYo" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 public class GymProfile extends AppCompatActivity {
 
-    TextView Name, Location, AccessTime, Website;
+    private TextView Name, Location, AccessTime, Website, Tips;
+    private Button Subscript, CancelSubscript;
 
 
     @Override
@@ -20,9 +21,31 @@ public class GymProfile extends AppCompatActivity {
         initWidgets();
 
         //Get the relative information from the database
+        //Name.setText();
         //Location.setText();
         //AccessTime.setText();
         //Website.setText();
+        //Tips.setText();
+
+        Subscript.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ////////////////////////////////////////////////////////////////////////////////////////
+                //Get the Gym class file from the backend database base on the information of the Gym///
+                //Add the current user into the SubscriptedUser arraylist of this gym///////////////////
+                ////////////////////////////////////////////////////////////////////////////////////////
+            }
+        });
+
+        CancelSubscript.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ////////////////////////////////////////////////////////////////////////////////////////
+                //Get the Gym class file from the backend database base on the information of the Gym///
+                //Remove the current user into the SubscriptedUser arraylist of this gym///////////////////
+                ////////////////////////////////////////////////////////////////////////////////////////
+            }
+        });
     }
 
     private void initWidgets() {
@@ -30,5 +53,8 @@ public class GymProfile extends AppCompatActivity {
         AccessTime = findViewById(R.id.AccessTime);
         Website = findViewById(R.id.Website);
         Name = findViewById(R.id.GymName);
+        Tips = findViewById(R.id.Tips);
+        Subscript = findViewById(R.id.Subscript);
+        CancelSubscript = findViewById(R.id.CancelSubscription);
     }
 }
