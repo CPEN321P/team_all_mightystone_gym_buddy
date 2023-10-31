@@ -2,34 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Friends">
+    tools:context=".Gyms">
 
     <RelativeLayout
         android:id="@+id/top_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#818080">
-
-        <Button
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="Messages"
-            android:layout_alignParentRight="true"
-            android:backgroundTint="#FF3A3A3A"
-            app:icon="@drawable/message"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"/>
-
-    </RelativeLayout>
+        android:background="#818080"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/recyclerview"
         android:layout_below="@+id/top_bar"/>
 
     <RelativeLayout
@@ -41,7 +28,6 @@
 
         <Button
             android:id="@+id/navigation_home"
-            android:contentDescription="Home"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#3A3A3A"
@@ -49,7 +35,6 @@
 
         <Button
             android:id="@+id/navigation_friends"
-            android:contentDescription="Friends"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/navigation_home"
@@ -58,7 +43,6 @@
 
         <Button
             android:id="@+id/navigation_schedule"
-            android:contentDescription="Schedule"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/navigation_friends"
@@ -67,7 +51,6 @@
 
         <Button
             android:id="@+id/navigation_gyms"
-            android:contentDescription="Gyms"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/navigation_schedule"
@@ -76,15 +59,14 @@
             />
         <Button
             android:id="@+id/navigation_profile"
-            android:contentDescription="Profile"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/navigation_gyms"
             android:backgroundTint="#FF3A3A3A"
-            app:icon="@drawable/user"
-            />
+            app:icon="@drawable/user" />
 
 
     </RelativeLayout>
+
 
 </RelativeLayout>

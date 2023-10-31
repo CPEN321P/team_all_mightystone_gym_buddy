@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/username"
+        android:id="@+id/address"
         android:layout_toEndOf="@id/imageview"
         android:layout_below="@+id/name"
         android:textColor="@color/black"

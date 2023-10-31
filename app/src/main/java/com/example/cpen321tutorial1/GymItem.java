@@ -1,14 +1,14 @@
 package com.example.cpen321tutorial1;
 
-public class FriendItem {
+public class GymItem {
 
     String name;
-    String username;
+    String address;
     int image;
 
-    public FriendItem(String name, String username, int image) {
+    public GymItem(String name, String address, int image) {
         this.name = name;
-        this.username = username;
+        this.address = address;
         this.image = image;
     }
 
@@ -20,12 +20,12 @@ public class FriendItem {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getImage() {

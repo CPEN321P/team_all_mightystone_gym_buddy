@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     final static String TAG = "MainActivity";
     private int RC_SIGN_IN = 1;
 
+    private Button Gyms;
+    private Button Friends;
     private Button MFour;
     private Button Schedule;
     private Button PersonalProfile;
@@ -60,6 +62,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         checkLocationPermissions();
+
+        Gyms = findViewById(R.id.gyms);
+
+        Gyms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent GymIntent = new Intent(MainActivity.this, Gyms.class);
+                startActivity(GymIntent);
+            }
+        });
+
+        Friends = findViewById(R.id.friends);
+
+        Friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent FriendIntent = new Intent(MainActivity.this, Friends.class);
+                startActivity(FriendIntent);
+            }
+        });
 
         Schedule = findViewById(R.id.scheduleTest);
         Schedule.setOnClickListener(new View.OnClickListener() {
