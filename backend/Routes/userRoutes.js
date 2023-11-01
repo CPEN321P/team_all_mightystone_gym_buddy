@@ -72,12 +72,16 @@ router.get('/', async (req, res) => {
 // Get a specific user by ID
 router.get('/userId/:userId', async (req, res) => {
   const db = getDB();
-  const id = new ObjectId(req.params.userId);
+  try {
+    const id = new ObjectId(req.params.userId);
 
-  const user = await db.collection('users').findOne({ _id: id });
-  if (user) {
-    res.status(200).json(user);
-  } else {
+    const user = await db.collection('users').findOne({ _id: id });
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
     res.status(404).send('User not found');
   }
 });
@@ -125,16 +129,20 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 // Get recommended users by ID
 router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   const db = getDB();
-  const id = new ObjectId(req.params.userId);
+  var myHomeGym;
+  try {
+    const id = new ObjectId(req.params.userId);
 
-  const user = await db.collection('users').findOne({ _id: id });
-
-  if (!user) {
-    res.status(404).send('User not found');
-    return;
+    const user = await db.collection('users').findOne({ _id: id });
+  
+    if (!user) {
+      res.status(404).send('User not found');
+      return;
+    } 
+    myHomeGym = user.homeGym;
+  } catch (error) {
+    
   }
-
-  const myHomeGym = user.homeGym;
   
   const recommendedUsers = await db.collection('users').find({ homeGym: myHomeGym }).toArray();
 
@@ -149,16 +157,21 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
 // Get friends by ID
 router.get('/userId/:userId/friends', async (req, res) => {
   const db = getDB();
-  const id = new ObjectId(req.params.userId);
+  var friendsId;
+  try {
+    const id = new ObjectId(req.params.userId);
 
-  const user = await db.collection('users').findOne({ _id: id });
+    const user = await db.collection('users').findOne({ _id: id });
 
-  if (!user) {
+    if (!user) {
+      res.status(404).send('User not found');
+      return;
+    }
+    friendsId = user.friends;
+  } catch (error) {
     res.status(404).send('User not found');
-    return;
   }
 
-  const friendsId = user.friends;
   const friends = [];
 
   for (const friendId of friendsId) {
@@ -176,16 +189,22 @@ router.get('/userId/:userId/friends', async (req, res) => {
 // Get friend requests by ID
 router.get('/userId/:userId/friendRequests', async (req, res) => {
   const db = getDB();
-  const id = new ObjectId(req.params.userId);
+  var friendsId;
+  try {
+    const id = new ObjectId(req.params.userId);
 
-  const user = await db.collection('users').findOne({ _id: id });
+    const user = await db.collection('users').findOne({ _id: id });
 
-  if (!user) {
+    if (!user) {
+      res.status(404).send('User not found');
+      return;
+    }
+
+    friendsId = user.friendRequests;
+  } catch (error) {
     res.status(404).send('User not found');
-    return;
   }
-
-  const friendsId = user.friendRequests;
+  
   const friends = [];
 
   for (const friendId of friendsId) {
@@ -203,24 +222,31 @@ router.get('/userId/:userId/friendRequests', async (req, res) => {
 // Get chats by ID
 router.get('/userId/:userId/chats', async (req, res) => {
   const db = getDB();
-  const id = new ObjectId(req.params.userId);
+  try {
+    const id = new ObjectId(req.params.userId);
 
-  const user = await db.collection('users').findOne({ _id: id });
+    const user = await db.collection('users').findOne({ _id: id });
 
-  if (!user) {
-    res.status(404).send('User not found');
-    return;
-  }
-
+    if (!user) {
+      res.status(404).send('User not found');
+      return;
+    }
   const chatsID = user.chats;
+  } catch (error) {
+    res.status(404).send('User not found');
+  }
   const chats = [];
 
   for (const chatID of chatsID) {
-    const cid = new ObjectId(chatID);
-    const chat = await db.collection('chat').findOne({ _id: cid })
+    try {
+      const cid = new ObjectId(chatID);
+      const chat = await db.collection('chat').findOne({ _id: cid })
 
-    if (chat) {
-      chats.push(chat);
+      if (chat) {
+        chats.push(chat);
+      }
+    } catch (error) {
+      res.status(404).send('Chat not found');
     }
   }
 
@@ -728,6 +754,13 @@ router.delete('/userId/:userId', async (req, res) => {
   } else {
     res.status(200).send('User deleted successfully');
   }
+});
+
+router.delete('/', async (req, res) => {
+  const db = getDB();
+  
+  const result = await db.collection('users').remove({});
+
 });
 
 export default router;
