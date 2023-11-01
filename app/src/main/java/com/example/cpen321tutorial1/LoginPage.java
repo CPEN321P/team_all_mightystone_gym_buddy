@@ -1,12 +1,5 @@
 package com.example.cpen321tutorial1;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -14,6 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,7 +23,15 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -33,7 +41,6 @@ public class LoginPage extends AppCompatActivity {
     private static String TheEmail = "NONE";
 
     Account thisAccount = GlobalClass.myAccount;
-
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
@@ -58,7 +65,36 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+<<<<<<< HEAD
         //Account.CurrentAccount.clear(); //Clear the current account information
+=======
+
+        /*
+        String Json = JsonFunctions.JsonName("Zheng Xu");
+
+        RequestBody body = RequestBody.create(Json,
+                MediaType.parse("application/json"));
+
+        final OkHttpClient client = new OkHttpClient();
+
+        Request requestName = new Request.Builder()
+                .url("http://20.172.9.70:8081/users/userId/65427bde301609e66c749a12")
+                .build();
+
+        Request requestName = new Request.Builder()
+                .url("http://20.172.9.70:8081/users")
+                .post(body)
+                .build();
+
+
+        //Call call = client.newCall(requestName);
+        //Response response = call.execute();
+
+        NewCallGet(client, requestName);
+        */
+
+        Account.CurrentAccount.clear(); //Clear the current account information
+>>>>>>> origin/frontendFinal
 
         ModeButton = findViewById(R.id.ManagerMode);
 
@@ -91,6 +127,36 @@ public class LoginPage extends AppCompatActivity {
         });
 
         signOut();
+    }
+
+    private void NewCall(OkHttpClient client, Request requestName) {
+        client.newCall(requestName).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    Log.d(TAG, "POST Something");
+                }
+            }
+        });
+    }
+
+    private void NewCallGet(OkHttpClient client, Request requestName) {
+        client.newCall(requestName).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    Log.d(TAG, responseBody.string());
+                }
+            }
+        });
     }
 
     private void signIn() {
@@ -129,7 +195,10 @@ public class LoginPage extends AppCompatActivity {
 //            Log.d(TAG, "Family Name: " + account.getFamilyName());
 //            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
+<<<<<<< HEAD
             thisAccount.setEmailAddress(account.getEmail());
+=======
+>>>>>>> origin/frontendFinal
             //String TheEmail = GET from database base;
 //            //For the user, if the EmailAddress did not search from the database, then jump to activity_link_to_google
 //
