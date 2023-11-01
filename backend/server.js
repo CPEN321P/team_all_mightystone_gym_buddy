@@ -35,6 +35,12 @@ const run = () => {
         secureServer.listen(httpsPort, () => {
             console.log(`HTTPS Server running on port:${httpsPort}`);
         });
+
+        const server = app.listen(8081, (req,res)=>{
+            const host = server.address().address;
+            const port = server.address().port;
+            console.log("Server running at %s:%s",host,port);
+        });
     }
     catch(err){
         console.log(err);
