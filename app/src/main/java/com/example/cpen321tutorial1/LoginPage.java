@@ -22,7 +22,17 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -57,6 +67,18 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        String Json = JsonFunctions.JsonName("Zheng Xu");
+
+        final OkHttpClient client = new OkHttpClient();
+
+        Request requestName = new Request.Builder()
+                .url("http://127.0.0.1:27017/users")
+                .put(RequestBody.create(Json, MediaType.parse("application/json")))
+                .build();
+
+        NewCall(client, requestName);
+
+
         Account.CurrentAccount.clear(); //Clear the current account information
 
         ModeButton = findViewById(R.id.ManagerMode);
@@ -90,6 +112,22 @@ public class LoginPage extends AppCompatActivity {
         });
 
         signOut();
+    }
+
+    private void NewCall(OkHttpClient client, Request requestName) {
+        client.newCall(requestName).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+
+                }
+            }
+        });
     }
 
     private void signIn() {

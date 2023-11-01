@@ -28,6 +28,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     final static String TAG = "MainActivity";
     private int RC_SIGN_IN = 1;
