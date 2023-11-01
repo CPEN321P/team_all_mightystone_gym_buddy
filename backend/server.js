@@ -26,22 +26,14 @@ const options = {
     cert: fs.readFileSync('./certificate.pem'), // Path to your SSL/TLS certificate file
 };
 
-const secureServer = https.createServer(options, app);
-
-const httpsPort = 443; // Default HTTPS port
-
-secureServer.listen(httpsPort, () => {
-    console.log(`HTTPS Server running on port:${httpsPort}`);
-});
-
 const run = () => {
     try{
         connectDB("mongodb://127.0.0.1:27017");
 
-        const server = app.listen(8081, (req,res)=>{
-          const host = server.address().address;
-          const port = server.address().port;
-          console.log("Server running at %s:%s",host,port);
+        const secureServer = https.createServer(options, app);
+        const httpsPort = 443; // Default HTTPS port
+        secureServer.listen(httpsPort, () => {
+            console.log(`HTTPS Server running on port:${httpsPort}`);
         });
     }
     catch(err){

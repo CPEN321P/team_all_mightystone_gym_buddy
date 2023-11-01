@@ -25,8 +25,6 @@ const router = express.Router();
 
 // ? search users / recommended users
 
-// Gym User ? add with a flag?
-
 // Create a new user
 router.post('/', async (req, res) => {
   const db = getDB();
