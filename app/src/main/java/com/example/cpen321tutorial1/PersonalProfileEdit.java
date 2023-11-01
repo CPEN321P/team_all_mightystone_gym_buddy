@@ -72,7 +72,8 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 }
 
                 Account CurrentAccount = new Account(UserName.getText().toString(), Account.CurrentAccount.get(0).getEmailAddress(), StringToInteger(Age.getText().toString()),
-                        StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(), Account.CurrentAccount.get(0).getRole(), Account.CurrentAccount.get(0).getFriendsList());
+                        StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(), Account.CurrentAccount.get(0).getRole(),
+                        Account.CurrentAccount.get(0).getFriendsList(), Account.CurrentAccount.get(0).getFriendsList());
                 Account.CurrentAccount.clear();
                 Account.CurrentAccount.add(CurrentAccount);
 

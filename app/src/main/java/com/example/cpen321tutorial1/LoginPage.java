@@ -139,9 +139,10 @@ public class LoginPage extends AppCompatActivity {
             String Gender = "Male"; //We will get it from database
             String Role = "User"; //We will get it from database
             ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
+            ArrayList<Account> TheEmptyBlockList = new ArrayList<>(); //We will get it from database
             ////////////////The Information above would be the account information from database
 
-            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList);
+            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList, TheEmptyBlockList);
             Account.CurrentAccount.add(AccountInfo);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class PersonalProfileUsers extends AppCompatActivity {
 
-    Button FriendsList, GymList;
+    Button FriendsList, GymList, BlockList;
     TextView Username, Email, Age, Weight, Gender;
     Button Profile, Schedule;
 
@@ -59,6 +59,14 @@ public class PersonalProfileUsers extends AppCompatActivity {
                 startActivity(ScheduleIntent);
             }
         });
+
+        BlockList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent ScheduleIntent = new Intent(PersonalProfileUsers.this, MonthlySchedule.class);
+                //startActivity(ScheduleIntent);
+            }
+        });
     }
 
     private void initWidgets() {
@@ -71,5 +79,6 @@ public class PersonalProfileUsers extends AppCompatActivity {
         Gender = findViewById(R.id.Gender);
         Profile = findViewById(R.id.EditPersonalProfile);
         Schedule = findViewById(R.id.EditSchedule);
+        BlockList = findViewById(R.id.BlockList);
     }
 }

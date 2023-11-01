@@ -102,8 +102,9 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 Toast.makeText(LinkToGoogle.this, "Creat Account Successful!", Toast.LENGTH_SHORT).show();
 
                 ArrayList<Account> TheEmptyFriendList = new ArrayList<>();
+                ArrayList<Account> TheEmptyBlockList = new ArrayList<>();
 
-                Account CurrentAccount = new Account(TheAccount.Username, TheAccount.EmailAddress, TheAccount.Age, TheAccount.Weight, TheAccount.Gender, TheAccount.Role, TheEmptyFriendList);
+                Account CurrentAccount = new Account(TheAccount.Username, TheAccount.EmailAddress, TheAccount.Age, TheAccount.Weight, TheAccount.Gender, TheAccount.Role, TheEmptyFriendList, TheEmptyBlockList);
                 Account.CurrentAccount.clear();
                 Account.CurrentAccount.add(CurrentAccount);
                 Gym.CurrentGym.clear();
