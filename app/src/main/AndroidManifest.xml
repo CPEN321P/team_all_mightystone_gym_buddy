@@ -19,7 +19,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PossibleFriends"
+            android:exported="false" />
+        <activity
+            android:name=".BlockedUsers"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Chat"
+            android:exported="false" />
+        <activity
+            android:name=".Messages"
+            android:exported="false" />
+        <activity
+            android:name=".Gyms"
+            android:exported="false" />
+        <activity
+            android:name=".Friends"
             android:exported="false" />
         <activity
             android:name=".EditGymsProfile"

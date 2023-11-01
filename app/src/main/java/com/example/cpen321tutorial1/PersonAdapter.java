@@ -8,12 +8,12 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
+public class PersonAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     Context context;
-    List<FriendItem> items;
+    List<PersonItem> items;
 
-    public FriendAdapter(Context context, List<FriendItem> items) {
+    public PersonAdapter(Context context, List<PersonItem> items) {
         this.context = context;
         this.items = items;
     }

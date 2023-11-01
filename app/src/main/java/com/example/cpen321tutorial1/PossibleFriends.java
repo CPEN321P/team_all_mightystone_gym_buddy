@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Person;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +12,10 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gyms extends AppCompatActivity {
+public class PossibleFriends extends AppCompatActivity {
 
+    private Button MyFriends;
+    private Button Messages;
     private Button Home;
     private Button Friends;
     private Button Schedule;
@@ -24,15 +25,29 @@ public class Gyms extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gyms);
+        setContentView(R.layout.activity_possible_friends);
+
+
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
+        List<PersonItem> items = new ArrayList<PersonItem>();
+        items.add(new PersonItem("John Doe", "johnyD", R.drawable.user));
+        items.add(new PersonItem("Jane Doe", "jannyD", R.drawable.user));
+        items.add(new PersonItem("Zheng Xu", "zhengxu", R.drawable.user));
+        items.add(new PersonItem("Joy Choi", "joychoi", R.drawable.user));
+        items.add(new PersonItem("Savitoj Sachar", "savsachar", R.drawable.user));
+        items.add(new PersonItem("Tyson Brown", "tysonbr", R.drawable.user));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
+
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(Gyms.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(PossibleFriends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent GymIntent = new Intent(Gyms.this, GymProfile.class);
-                        startActivity(GymIntent);
+                        Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileFriend.class);
+                        startActivity(FriendIntent);
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -40,18 +55,33 @@ public class Gyms extends AppCompatActivity {
                     }
                 }));
 
-        List<GymItem> items = new ArrayList<GymItem>();
-        items.add(new GymItem("UBC Arc", "6138 Student Union Blvd", R.drawable.gym));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new GymAdapter(getApplicationContext(), items));
+        MyFriends = findViewById(R.id.my_friends);
+
+        MyFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent MyFriendsIntent = new Intent(PossibleFriends.this, Friends.class);
+                startActivity(MyFriendsIntent);
+            }
+        });
+
+        Messages = findViewById(R.id.top_bar_messages);
+
+        Messages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent MessageIntent = new Intent(PossibleFriends.this, Messages.class);
+                startActivity(MessageIntent);
+            }
+        });
 
         Home = findViewById(R.id.navigation_home);
 
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent HomeIntent = new Intent(Gyms.this, MainActivity.class);
+                Intent HomeIntent = new Intent(PossibleFriends.this, MainActivity.class);
                 startActivity(HomeIntent);
             }
         });
@@ -61,7 +91,7 @@ public class Gyms extends AppCompatActivity {
         Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendsIntent = new Intent(Gyms.this, Friends.class);
+                Intent FriendsIntent = new Intent(PossibleFriends.this, Friends.class);
                 startActivity(FriendsIntent);
             }
         });
@@ -71,7 +101,7 @@ public class Gyms extends AppCompatActivity {
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ScheduleIntent = new Intent(Gyms.this, MonthlySchedule.class);
+                Intent ScheduleIntent = new Intent(PossibleFriends.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -81,7 +111,7 @@ public class Gyms extends AppCompatActivity {
         Gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymIntent = new Intent(Gyms.this, Gyms.class);
+                Intent GymIntent = new Intent(PossibleFriends.this, Gyms.class);
                 startActivity(GymIntent);
             }
         });
@@ -91,7 +121,7 @@ public class Gyms extends AppCompatActivity {
         PersonalProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ProfileIntent = new Intent(Gyms.this, PersonalProfileUsers.class);
+                Intent ProfileIntent = new Intent(PossibleFriends.this, PersonalProfileUsers.class);
                 startActivity(ProfileIntent);
             }
         });

@@ -14,6 +14,8 @@ import java.util.List;
 
 public class Friends extends AppCompatActivity {
 
+
+    private Button FindNewFriends;
     private Button Messages;
     private Button Home;
     private Button Friends;
@@ -28,29 +30,39 @@ public class Friends extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        List<FriendItem> items = new ArrayList<FriendItem>();
-        items.add(new FriendItem("John Doe", "johnyD", R.drawable.user));
-        items.add(new FriendItem("Jane Doe", "jannyD", R.drawable.user));
-        items.add(new FriendItem("Zheng Xu", "zhengxu", R.drawable.user));
-        items.add(new FriendItem("Joy Choi", "joychoi", R.drawable.user));
-        items.add(new FriendItem("Savitoj Sachar", "savsachar", R.drawable.user));
-        items.add(new FriendItem("Tyson Brown", "tysonbr", R.drawable.user));
+        List<PersonItem> items = new ArrayList<PersonItem>();
+        items.add(new PersonItem("John Doe", "johnyD", R.drawable.user));
+        items.add(new PersonItem("Jane Doe", "jannyD", R.drawable.user));
+        items.add(new PersonItem("Zheng Xu", "zhengxu", R.drawable.user));
+        items.add(new PersonItem("Joy Choi", "joychoi", R.drawable.user));
+        items.add(new PersonItem("Savitoj Sachar", "savsachar", R.drawable.user));
+        items.add(new PersonItem("Tyson Brown", "tysonbr", R.drawable.user));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new FriendAdapter(getApplicationContext(), items));
+        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Friends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-//                        Intent ChatIntent = new Intent(Friends.this, Chat.class);
-//                        startActivity(ChatIntent);
+                        Intent FriendIntent = new Intent(Friends.this, PersonalProfileFriend.class);
+                        startActivity(FriendIntent);
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
                         // do whatever
                     }
                 }));
+
+        FindNewFriends = findViewById(R.id.find_new_friends);
+
+        FindNewFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent FindFriendsIntent = new Intent(Friends.this, PossibleFriends.class);
+                startActivity(FindFriendsIntent);
+            }
+        });
 
         Messages = findViewById(R.id.top_bar_messages);
 

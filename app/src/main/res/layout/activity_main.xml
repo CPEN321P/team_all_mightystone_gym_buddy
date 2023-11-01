@@ -63,4 +63,20 @@
         app:layout_constraintBottom_toTopOf="@+id/FriendsProfile"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friends"
+        app:layout_constraintBottom_toTopOf="@+id/GymProfileUser"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/gyms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gyms"
+        app:layout_constraintBottom_toTopOf="@+id/friends"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

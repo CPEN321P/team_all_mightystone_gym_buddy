@@ -11,37 +11,43 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Messages extends AppCompatActivity {
+public class BlockedUsers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messages);
+        setContentView(R.layout.activity_blocked_users);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
+
         List<PersonItem> items = new ArrayList<PersonItem>();
-        items.add(new PersonItem("John Doe", "", R.drawable.user));
-        items.add(new PersonItem("Jane Doe", "", R.drawable.user));
-        items.add(new PersonItem("Zheng Xu", "", R.drawable.user));
-        items.add(new PersonItem("Joy Choi", "", R.drawable.user));
-        items.add(new PersonItem("Savitoj Sachar", "", R.drawable.user));
-        items.add(new PersonItem("Tyson Brown", "", R.drawable.user));
+        items.add(new PersonItem("John Doe", "BLOCKED", R.drawable.user));
+        items.add(new PersonItem("Jane Doe", "BLOCKED", R.drawable.user));
+        items.add(new PersonItem("Zheng Xu", "BLOCKED", R.drawable.user));
+        items.add(new PersonItem("Joy Choi", "BLOCKED", R.drawable.user));
+        items.add(new PersonItem("Savitoj Sachar", "BLOCKED", R.drawable.user));
+        items.add(new PersonItem("Tyson Brown", "BLOCKED", R.drawable.user));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
 
+
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(Messages.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(BlockedUsers.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent ChatIntent = new Intent(Messages.this, Chat.class);
-                        startActivity(ChatIntent);
+//                        Intent FriendIntent = new Intent(Friends.this, PersonalProfileFriend.class);
+//                        startActivity(FriendIntent);
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
                         // do whatever
                     }
                 }));
+
+
+
+
     }
 }
