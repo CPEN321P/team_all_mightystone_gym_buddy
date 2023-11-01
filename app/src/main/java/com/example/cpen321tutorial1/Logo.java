@@ -1,19 +1,13 @@
 package com.example.cpen321tutorial1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Person;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Gyms extends AppCompatActivity {
+public class Logo extends AppCompatActivity {
 
     private Button Home;
     private Button Friends;
@@ -24,34 +18,14 @@ public class Gyms extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gyms);
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(Gyms.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        Intent GymIntent = new Intent(Gyms.this, GymProfile.class);
-                        startActivity(GymIntent);
-                    }
-
-                    @Override public void onLongItemClick(View view, int position) {
-                        // do whatever
-                    }
-                }));
-
-        List<GymItem> items = new ArrayList<GymItem>();
-        items.add(new GymItem("UBC Arc", "6138 Student Union Blvd", R.drawable.gym));
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new GymAdapter(getApplicationContext(), items));
+        setContentView(R.layout.activity_logo);
 
         Home = findViewById(R.id.navigation_home);
 
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent HomeIntent = new Intent(Gyms.this, Logo.class);
+                Intent HomeIntent = new Intent(Logo.this, Logo.class);
                 startActivity(HomeIntent);
             }
         });
@@ -61,7 +35,7 @@ public class Gyms extends AppCompatActivity {
         Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendsIntent = new Intent(Gyms.this, Friends.class);
+                Intent FriendsIntent = new Intent(Logo.this, Friends.class);
                 startActivity(FriendsIntent);
             }
         });
@@ -71,7 +45,7 @@ public class Gyms extends AppCompatActivity {
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ScheduleIntent = new Intent(Gyms.this, MonthlySchedule.class);
+                Intent ScheduleIntent = new Intent(Logo.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -81,7 +55,7 @@ public class Gyms extends AppCompatActivity {
         Gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymIntent = new Intent(Gyms.this, Gyms.class);
+                Intent GymIntent = new Intent(Logo.this, Gyms.class);
                 startActivity(GymIntent);
             }
         });
@@ -91,11 +65,10 @@ public class Gyms extends AppCompatActivity {
         PersonalProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ProfileIntent = new Intent(Gyms.this, PersonalProfileUsers.class);
+                Intent ProfileIntent = new Intent(Logo.this, PersonalProfileUsers.class);
                 startActivity(ProfileIntent);
             }
         });
-
 
     }
 }

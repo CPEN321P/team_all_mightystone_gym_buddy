@@ -2,14 +2,11 @@ package com.example.cpen321tutorial1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class GymProfile extends AppCompatActivity {
 
@@ -73,7 +70,7 @@ public class GymProfile extends AppCompatActivity {
         Website = findViewById(R.id.Website);
         Name = findViewById(R.id.GymName);
         Tips = findViewById(R.id.Tips);
-        Subscript = findViewById(R.id.Subscript);
+        Subscript = findViewById(R.id.Subscribe);
         CancelSubscript = findViewById(R.id.CancelSubscription);
     }
 }

@@ -55,10 +55,10 @@
     <string name="MFour">M4</string>
     <string name="Email">Email</string>
     <string name="ConfirmPassword">Confirm Password</string>
-    <string name="NewUser">New User!</string>
-    <string name="NoteOfNewUser">Let upload some personal profile</string>
+    <string name="NewUser">New User</string>
+    <string name="NoteOfNewUser">Lets input some information on your profile</string>
     <string name="DONE">DONE</string>
-    <string name="LETSROCK">Lets Rock!</string>
+    <string name="CREATEPROFILE">Create Profile</string>
     <string-array name="roles">
         <item>Select Your Gender</item>
         <item>Male</item>

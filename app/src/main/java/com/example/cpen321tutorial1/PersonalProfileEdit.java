@@ -67,7 +67,7 @@ public class PersonalProfileEdit extends AppCompatActivity {
                     return;
                 }
                 if (GenderSpinner.getSelectedItem().toString().equals("Select Your Gender")) {
-                    Toast.makeText(PersonalProfileEdit.this, "Please Select the Gender", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PersonalProfileEdit.this, "Please Select your Gender", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

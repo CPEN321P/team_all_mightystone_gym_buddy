@@ -123,13 +123,14 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
+
             <Button
-                android:id="@+id/Subscript"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/Subscribe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subscript"
-                android:backgroundTint="@color/black"/>
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/black"
+                android:text="Subscribe" />
         </LinearLayout>
         <LinearLayout
             android:gravity="center"

@@ -32,14 +32,16 @@ public class PersonalProfileUsers extends AppCompatActivity {
         FriendsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Enter the list of friends
+                Intent FriendsIntent = new Intent(PersonalProfileUsers.this, Friends.class);
+                startActivity(FriendsIntent);
             }
         });
 
         GymList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Enter the list of subscribed gyms
+                Intent GymsIntent = new Intent(PersonalProfileUsers.this, Gyms.class);
+                startActivity(GymsIntent);
             }
         });
 
@@ -63,8 +65,8 @@ public class PersonalProfileUsers extends AppCompatActivity {
         BlockList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent ScheduleIntent = new Intent(PersonalProfileUsers.this, MonthlySchedule.class);
-                //startActivity(ScheduleIntent);
+                Intent BlockIntent = new Intent(PersonalProfileUsers.this, BlockedUsers.class);
+                startActivity(BlockIntent);
             }
         });
     }

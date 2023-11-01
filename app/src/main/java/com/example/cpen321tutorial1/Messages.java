@@ -36,6 +36,11 @@ public class Messages extends AppCompatActivity {
                 new RecyclerItemClickListener(Messages.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent ChatIntent = new Intent(Messages.this, Chat.class);
+
+                        //import recipient's account information from backend
+
+                        //MainActivity.passAccountInfoAsIntent(ChatIntent, RecipientAccount);
+
                         startActivity(ChatIntent);
                     }
 

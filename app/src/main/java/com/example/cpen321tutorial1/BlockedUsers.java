@@ -37,8 +37,8 @@ public class BlockedUsers extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(BlockedUsers.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-//                        Intent FriendIntent = new Intent(Friends.this, PersonalProfileFriend.class);
-//                        startActivity(FriendIntent);
+                        Intent UnblockIntent = new Intent(BlockedUsers.this, Unblock.class);
+                        startActivity(UnblockIntent);
                     }
 
                     @Override public void onLongItemClick(View view, int position) {

@@ -79,13 +79,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent">
+
                     <Button
                         android:id="@+id/BlockList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Block List"
-                        android:textSize="20dp"
-                        android:backgroundTint="@color/black"/>
+                        android:backgroundTint="@color/black"
+                        android:text="Blocked Users"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
             </LinearLayout>

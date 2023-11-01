@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
     final static String TAG = "MainActivity";
     private int RC_SIGN_IN = 1;
 
-    private Button Gyms;
-    private Button Friends;
-    private Button MFour;
-    private Button Schedule;
-    private Button PersonalProfile;
-    private Button AddGym;
-    private Button OtherProfile, FriendProfile, UserGyms;
+//    private Button Gyms;
+//    private Button Friends;
+//    private Button MFour;
+//    private Button Schedule;
+//    private Button PersonalProfile;
+//    private Button AddGym;
+//    private Button OtherProfile, FriendProfile, UserGyms;
 
     static final class AccountInfo {
         String Username;
@@ -47,6 +47,31 @@ public class MainActivity extends AppCompatActivity {
         int Weight;
         String Gender;
         String Role;
+    }
+
+    public static void passAccountInfoAsIntent (Intent intent, AccountInfo accountInfo){
+        intent.putExtra("Username", accountInfo.Username);
+        intent.putExtra("EmailAddress", accountInfo.EmailAddress);
+        intent.putExtra("Age", accountInfo.Age);
+        intent.putExtra("Weight", accountInfo.Weight);
+        intent.putExtra("Gender", accountInfo.Gender);
+        intent.putExtra("Role", accountInfo.Role);
+
+    }
+
+    public static AccountInfo getAccountInfoFromIntent(Intent intent){
+        AccountInfo accountInfo = new AccountInfo();
+
+        accountInfo.Username = intent.getStringExtra("Username");
+        accountInfo.EmailAddress = intent.getStringExtra("EmailAddress");
+        accountInfo.Age = intent.getIntExtra("Age", 0);
+        accountInfo.Weight = intent.getIntExtra("Weight", 0);
+        accountInfo.Gender = intent.getStringExtra("Gender");
+        accountInfo.Role = intent.getStringExtra("Role");
+
+
+        return accountInfo;
+
     }
 
     public static int TestComeFromOutsideOrNot = 0; //A public integer that use for jump to weekly schedule
@@ -64,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         checkLocationPermissions();
+
+        Intent LoginIntent = new Intent(MainActivity.this, LoginPage.class);
+        startActivity(LoginIntent);
+
 
         /*
         Gyms = findViewById(R.id.gyms);
@@ -90,24 +119,24 @@ public class MainActivity extends AppCompatActivity {
         });
          */
 
-        Schedule = findViewById(R.id.scheduleTest);
-        Schedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TestComeFromOutsideOrNot = 1;
-                Intent ScheduleIntent = new Intent(MainActivity.this, MonthlySchedule.class);
-                startActivity(ScheduleIntent);
-            }
-        });
-
-        PersonalProfile = findViewById(R.id.EditPersonalProfile);
-        PersonalProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent PersonalProfileEditIntent = new Intent(MainActivity.this, PersonalProfileUsers.class);
-                startActivity(PersonalProfileEditIntent);
-            }
-        });
+//        Schedule = findViewById(R.id.scheduleTest);
+//        Schedule.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                TestComeFromOutsideOrNot = 1;
+//                Intent ScheduleIntent = new Intent(MainActivity.this, MonthlySchedule.class);
+//                startActivity(ScheduleIntent);
+//            }
+//        });
+//
+//        PersonalProfile = findViewById(R.id.EditPersonalProfile);
+//        PersonalProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent PersonalProfileEditIntent = new Intent(MainActivity.this, PersonalProfileUsers.class);
+//                startActivity(PersonalProfileEditIntent);
+//            }
+//        });
 
         /*
         signOutButton = findViewById(R.id.Sign_out_button);
@@ -120,55 +149,55 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
-        MFour = findViewById(R.id.mfour);
-        MFour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "Trying to open google maps");
-
-                Intent mfourIntent = new Intent(MainActivity.this, LoginPage.class);
-                startActivity(mfourIntent);
-            }
-        });
-
-        AddGym = findViewById(R.id.AddGym);
-        AddGym.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "Add Gym");
-
-                Intent mfourIntent = new Intent(MainActivity.this, NewGyms.class);
-                startActivity(mfourIntent);
-            }
-        });
-
-        OtherProfile = findViewById(R.id.OthersProfile);
-        FriendProfile = findViewById(R.id.FriendsProfile);
-        UserGyms = findViewById(R.id.GymProfileUser);
-
-        OtherProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent Intent = new Intent(MainActivity.this, PersonalProfileOthers.class);
-                startActivity(Intent);
-            }
-        });
-
-        FriendProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent Intent = new Intent(MainActivity.this, PersonalProfileFriend.class);
-                startActivity(Intent);
-            }
-        });
-
-        UserGyms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent Intent = new Intent(MainActivity.this, GymProfile.class);
-                startActivity(Intent);
-            }
-        });
+//        MFour = findViewById(R.id.mfour);
+//        MFour.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, "Trying to open google maps");
+//
+//                Intent mfourIntent = new Intent(MainActivity.this, LoginPage.class);
+//                startActivity(mfourIntent);
+//            }
+//        });
+//
+//        AddGym = findViewById(R.id.AddGym);
+//        AddGym.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, "Add Gym");
+//
+//                Intent mfourIntent = new Intent(MainActivity.this, NewGyms.class);
+//                startActivity(mfourIntent);
+//            }
+//        });
+//
+//        OtherProfile = findViewById(R.id.OthersProfile);
+//        FriendProfile = findViewById(R.id.FriendsProfile);
+//        UserGyms = findViewById(R.id.GymProfileUser);
+//
+//        OtherProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent Intent = new Intent(MainActivity.this, PersonalProfileOthers.class);
+//                startActivity(Intent);
+//            }
+//        });
+//
+//        FriendProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent Intent = new Intent(MainActivity.this, PersonalProfileFriend.class);
+//                startActivity(Intent);
+//            }
+//        });
+//
+//        UserGyms.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent Intent = new Intent(MainActivity.this, GymProfile.class);
+//                startActivity(Intent);
+//            }
+//        });
     }
 
 
@@ -191,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkLocationPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
             && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(MainActivity.this, "Permission Access", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Location Permissions Accessed", Toast.LENGTH_LONG).show();
             return;
         }
         else{
