@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 public class Account {
 
-    public static ArrayList<Account> CurrentAccount = new ArrayList<>();
-
+    //public static ArrayList<Account> CurrentAccount = new ArrayList<>();
     private String Username;
     private String EmailAddress;
     private int Age;
@@ -27,13 +26,13 @@ public class Account {
         BlockList = blockList;
     }
 
-    public static ArrayList<Account> getCurrentAccount() {
-        return CurrentAccount;
-    }
+//    public static ArrayList<Account> getCurrentAccount() {
+//        return CurrentAccount;
+//    }
 
-    public static void setCurrentAccount(ArrayList<Account> currentAccount) {
-        CurrentAccount = currentAccount;
-    }
+//    public static void setCurrentAccount(ArrayList<Account> currentAccount) {
+//        CurrentAccount = currentAccount;
+//    }
 
     public ArrayList<Account> getFriendsList() {
         return FriendsList;
@@ -44,6 +43,14 @@ public class Account {
     }
 
     public Account() {
+        Username = "NO USERNAME!!!";
+        EmailAddress = "NO EMAIL";
+        Age = -1;
+        Weight = -1;
+        Gender = "NO GENDER SET";
+        Role = "NO ROLE SET";
+        FriendsList = null;
+        BlockList = null;
     }
 
     public Account(String username, String emailAddress, int age, int weight, String gender, String role, ArrayList<Account> friendsList, ArrayList<Account> blockList) {

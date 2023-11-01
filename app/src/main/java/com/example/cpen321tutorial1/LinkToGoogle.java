@@ -15,7 +15,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -27,7 +36,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
     final static String TAG = "LinkActivity";
 
-    Account account = new Account();
+    Account account = GlobalClass.myAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +57,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Trying to Sign");
+                Log.d(TAG, "Trying to Sign in");
 
                 int NumberOfAge = StringToInteger(Age.getText().toString());
                 int NumberOfWeight = StringToInteger(Weight.getText().toString());
@@ -57,13 +66,15 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(LinkToGoogle.this, "Do not leave space!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                account.setUsername(UserName.getText().toString());
+
 
                 if (RoleSpinner.getSelectedItem().toString().equals("Select Your Gender")) {
                     Toast.makeText(LinkToGoogle.this, "Please Select the Gender", Toast.LENGTH_SHORT).show();
                     return;
-                }else{
-                    account.setGender(RoleSpinner.getSelectedItem().toString());
                 }
+                account.setGender(RoleSpinner.getSelectedItem().toString());
+
 
                 if (NumberOfAge <= 0 || NumberOfAge >= 150)
                 {
@@ -79,16 +90,11 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 }
                 account.setWeight(NumberOfWeight);
 
-
-
-
-                account.setUsername(UserName.getText().toString());
-
                 if((LoginPageManager.getStringName()).equals("NONE")) {
-                    account.setEmailAddress(LoginPage.getStringName()); //User
+                    //account.setEmailAddress(LoginPage.getStringName()); //User
                     account.setRole("User");
                 }else{
-                    account.setEmailAddress(LoginPageManager.getStringName()); //Manager
+                    //account.setEmailAddress(LoginPageManager.getStringName()); //Manager
                     account.setRole("Manager");
                 }
 
@@ -104,20 +110,52 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 ArrayList<Account> TheEmptyFriendList = new ArrayList<>();
                 ArrayList<Account> TheEmptyBlockList = new ArrayList<>();
 
-                Account CurrentAccount = new Account(account.getUsername(), account.getEmailAddress(), account.getAge(), account.getWeight(), account.getGender(), account.getRole(), TheEmptyFriendList, TheEmptyBlockList);
-                Account.CurrentAccount.clear();
-                Account.CurrentAccount.add(CurrentAccount);
+                account.setFriendsList(TheEmptyFriendList);
+                account.setBlockList(TheEmptyBlockList);
+
+                //Account.CurrentAccount.clear();
+                //Account.CurrentAccount.add(account);
                 Gym.CurrentGym.clear();
                 ////////////////////////////////////////////////////////
                 //CurrentAccount
                 ////////////////PUSH account into data base/////////////////
 
                 if(account.getRole() == "Manager") {
-                    //Enter the home page of manager
+
+                    //TODO: add manager to database
+
+
+
                     Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileManager.class);
                     startActivity(PersonalProfile);
                 }
                 else if(account.getRole() == "User") {
+
+                    //adding user account to database
+
+//                    RequestBody myUserFormBody = new FormBody.Builder()
+//                            .add("username", "test")
+//                            .add("password", "test")
+//                            .build();
+
+                    Request addMyUserToDatabase = new Request.Builder()
+                            .url("http://20.172.9.70:8081/users")
+                            .build();
+
+                    GlobalClass.client.newCall(addMyUserToDatabase).enqueue(new Callback() {
+                        @Override public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override public void onResponse(Call call, Response response) throws IOException {
+                            try (ResponseBody responseBody = response.body()) {
+                                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                                Log.d("HURRAY!!!!", "it works");
+                            }
+                        }
+                    });
+
+
                     Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileUsers.class);
                     startActivity(PersonalProfile);
                 }

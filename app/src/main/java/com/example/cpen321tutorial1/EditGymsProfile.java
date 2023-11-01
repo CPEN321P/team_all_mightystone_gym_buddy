@@ -33,7 +33,7 @@ public class EditGymsProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Account Owner = Account.CurrentAccount.get(0);
+                Account Owner = GlobalClass.myAccount;
                 ArrayList<Account> SubscriptedUsers = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();

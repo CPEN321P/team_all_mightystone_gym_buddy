@@ -36,7 +36,7 @@ public class GymProfile extends AppCompatActivity {
                 //Add the current user into the SubscriptedUser arraylist of this gym///////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////
 
-                //TheOldGymUserList.add(Account.CurrentAccount.get(0));
+                //TheOldGymUserList.add(GlobalClass.myAccount);
                 //Gym class that you get from database//.setSubscriptedUser(TheOldGymUserList)
                 Toast.makeText(GymProfile.this, "Subscript the Gym!", Toast.LENGTH_SHORT).show();
             }
@@ -52,7 +52,7 @@ public class GymProfile extends AppCompatActivity {
 
                 /*
                 for(int i = 0; i < TheOldGymUserList.size(); i++){
-                    if ((TheOldGymUserList.get(i)).equals(Account.CurrentAccount.get(0))){
+                    if ((TheOldGymUserList.get(i)).equals(GlobalClass.myAccount)){
                         TheOldGymUserList.remove(i);
                         //Gym class that you get from database//.setSubscriptedUser(TheOldGymUserList);
                         return;

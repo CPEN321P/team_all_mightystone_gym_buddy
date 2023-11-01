@@ -22,7 +22,7 @@ public class PersonalProfileOthers extends AppCompatActivity {
         setContentView(R.layout.activity_personal_profile_others);
         initWidgets();
 
-        ArrayList<Account> MyCurrentBlockList = Account.CurrentAccount.get(0).getBlockList();
+        ArrayList<Account> MyCurrentBlockList = GlobalClass.myAccount.getBlockList();
         //ArrayList<Account> OtherCurrentBlockList = /The Account that you get//.getBlockList();
 
         /*
@@ -36,7 +36,7 @@ public class PersonalProfileOthers extends AppCompatActivity {
 
         /*
         for (int i = 0; i < OtherCurrentBlockList.size(); i++){
-            if (OtherCurrentBlockList.get(i).equals(Account.CurrentAccount.get(0))){
+            if (OtherCurrentBlockList.get(i).equals(GlobalClass.myAccount)){
                 Toast.makeText(PersonalProfileOthers.this, "In Block List!", Toast.LENGTH_SHORT).show();
                 finish();
                 // }
@@ -55,13 +55,13 @@ public class PersonalProfileOthers extends AppCompatActivity {
             public void onClick(View view) {
                 //Send the friend request
                 //get the Account class of this person
-                ArrayList<Account> CurrentFriendList = Account.CurrentAccount.get(0).getFriendsList();
+                ArrayList<Account> CurrentFriendList = GlobalClass.myAccount.getFriendsList();
                 //CurrentFriendList.add( //The Account information of this person // );
-                Account.CurrentAccount.get(0).setFriendsList(CurrentFriendList);
+                GlobalClass.myAccount.setFriendsList(CurrentFriendList);
                 //POST the account to the database
 
                 //ArrayList<Account> CurrentFriendListOthers = //The Account that you get//.getFriendsList();
-                //CurrentFriendListOthers.add(Account.CurrentAccount.get(0));
+                //CurrentFriendListOthers.add(GlobalClass.myAccount);
                 ////The Account that you get//.setFriendsList(CurrentFriendListOthers);
                 //POST the account to the database
 
@@ -76,9 +76,9 @@ public class PersonalProfileOthers extends AppCompatActivity {
             public void onClick(View view) {
                 //Block the user
                 //Get the account information from the database
-                ArrayList<Account> BlockAccounts = Account.CurrentAccount.get(0).getBlockList();
+                ArrayList<Account> BlockAccounts = GlobalClass.myAccount.getBlockList();
                 //BlockAccounts.add(//the account information from the database//);
-                Account.CurrentAccount.get(0).setBlockList(BlockAccounts);
+                GlobalClass.myAccount.setBlockList(BlockAccounts);
                 //POST the account to the database
                 Toast.makeText(PersonalProfileOthers.this, "Add the user in block list", Toast.LENGTH_SHORT).show();
 

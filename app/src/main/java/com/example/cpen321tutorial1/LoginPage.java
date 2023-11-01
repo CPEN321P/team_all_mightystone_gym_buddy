@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,7 @@ public class LoginPage extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static String TheEmail = "NONE";
 
-    Account thisAccount = new Account();
+    Account thisAccount = GlobalClass.myAccount;
 
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
@@ -57,7 +58,7 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        Account.CurrentAccount.clear(); //Clear the current account information
+        //Account.CurrentAccount.clear(); //Clear the current account information
 
         ModeButton = findViewById(R.id.ManagerMode);
 
@@ -101,14 +102,14 @@ public class LoginPage extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            Log.w(TAG, "Test1");
+
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Log.w(TAG, "Test2");
+
             // Signed in successfully, show authenticated UI.
             updateUI(account);
             Toast.makeText(LoginPage.this, "Log in successful", Toast.LENGTH_SHORT).show();
-            //Intent Informationintent = new Intent(LoginPage.this, ServerInfo.class);
-            //startActivity(Informationintent);
+
+
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -122,11 +123,11 @@ public class LoginPage extends AppCompatActivity {
             Log.d(TAG, "There is no user signed in!");
         }
         else {
-            Log.d(TAG, "Pref Name: " + account.getDisplayName());
-            Log.d(TAG, "Email: " + account.getEmail());
-            Log.d(TAG, "Given Name: " + account.getGivenName());
-            Log.d(TAG, "Family Name: " + account.getFamilyName());
-            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
+//            Log.d(TAG, "Pref Name: " + account.getDisplayName());
+//            Log.d(TAG, "Email: " + account.getEmail());
+//            Log.d(TAG, "Given Name: " + account.getGivenName());
+//            Log.d(TAG, "Family Name: " + account.getFamilyName());
+//            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
             thisAccount.setEmailAddress(account.getEmail());
             //String TheEmail = GET from database base;

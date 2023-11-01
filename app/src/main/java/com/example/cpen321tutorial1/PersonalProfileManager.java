@@ -25,11 +25,11 @@ public class PersonalProfileManager extends AppCompatActivity {
 
 
         MainActivity.TestComeFromOutsideOrNot = 0;
-        Username.setText(Account.CurrentAccount.get(0).getUsername());
-        Email.setText(Account.CurrentAccount.get(0).getEmailAddress());
-        Age.setText(Integer.toString(Account.CurrentAccount.get(0).getAge()) + " years old");
-        Weight.setText(Integer.toString(Account.CurrentAccount.get(0).getWeight()) + " kg");
-        Gender.setText(Account.CurrentAccount.get(0).getGender());
+        Username.setText(GlobalClass.myAccount.getUsername());
+        Email.setText(GlobalClass.myAccount.getEmailAddress());
+        Age.setText(Integer.toString(GlobalClass.myAccount.getAge()) + " years old");
+        Weight.setText(Integer.toString(GlobalClass.myAccount.getWeight()) + " kg");
+        Gender.setText(GlobalClass.myAccount.getGender());
 
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
