@@ -82,6 +82,70 @@ router.get('/userId/:userId', async (req, res) => {
   }
 });
 
+// Get a specific user by email
+router.get('/userEmail/:userEmail', async (req, res) => {
+  const db = getDB();
+  const userEmail = req.params.userEmail;
+
+  const user = await db.collection('users').findOne({ email: userEmail });
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).send('User not found');
+  }
+});
+
+// const getRecommendedUsers = async(db,userId)=> {
+//   const _userId = new ObjectId(userId);
+//   const myUser = await db.collection('users').findOne({ _id: _userId });
+//   const recommendedUserIdList = [];
+//   const weightDiff = [];
+//   const ageDiff = [];
+//   db.collection('users').forEach(user => {
+//     if(user.homeGym == myUser.homeGym){
+//       recommendedUserIdList.push(user._id);
+//       weightDiff.push(Math.abs(parseInt(user.weight) - parseInt(myUser.weight)));
+//       ageDiff.push(Math.abs(parseInt(user.age) - parseInt(myUser.age)));
+//     }
+//   });
+// }
+
+// // modifies recommendedUserIdList
+// const filterBlockedProfiles = async(db,userId, recommendedUserIdList)=> {
+//   const _userId = new ObjectId(userId);
+//   const user = await db.collection('users').findOne({ _id: _userId });
+//   recommendedUserIdList.forEach(userId => {
+//     if(user.blockedUsers.indexOf(userId) != -1){
+//       recommendedUserIdList.filter(item => item !== userId);
+//     }
+//   });
+//   return 0;
+// }
+
+// Get recommended users by ID
+router.get('/userId/:userId/recommendedUsers', async (req, res) => {
+  const db = getDB();
+  const id = new ObjectId(req.params.userId);
+
+  const user = await db.collection('users').findOne({ _id: id });
+
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const myHomeGym = user.homeGym;
+  
+  const recommendedUsers = await db.collection('users').find({ homeGym: myHomeGym }).toArray();
+
+  if (!recommendedUsers) {
+    res.status(500).send('Could not get recommended users');
+    return;
+  }
+
+  res.status(200).json(recommendedUsers);
+});
+
 // Get friends by ID
 router.get('/userId/:userId/friends', async (req, res) => {
   const db = getDB();
@@ -459,35 +523,6 @@ router.put('/unfriend/:unfrienderId/:unfriendedId', async (req, res) => {
     res.status(500).send('User not unfriended');
   }
 });
-
-const getRecommendedUsers = async(db,userId)=> {
-  const _userId = new ObjectId(userId);
-  const myUser = await db.collection('users').findOne({ _id: _userId });
-  const recommendedUserIdList = [];
-  const weightDiff = [];
-  const ageDiff = [];
-  db.collection('users').forEach(user => {
-    if(user.homeGym == myUser.homeGym){
-      recommendedUserIdList.push(user._id);
-      weightDiff.push(Math.abs(parseInt(user.weight) - parseInt(myUser.weight)));
-      ageDiff.push(Math.abs(parseInt(user.age) - parseInt(myUser.age)));
-    }
-  });
-
- 
-}
-
-// modifies recommendedUserIdList
-const filterBlockedProfiles = async(db,userId, recommendedUserIdList)=> {
-  const _userId = new ObjectId(userId);
-  const user = await db.collection('users').findOne({ _id: _userId });
-  recommendedUserIdList.forEach(userId => {
-    if(user.blockedUsers.indexOf(userId) != -1){
-      recommendedUserIdList.filter(item => item !== userId);
-    }
-  });
-  return 0;
-}
 
 const unfriend = async (db, unfrienderId, unfriendedId) => {
   const _unfrienderId = new ObjectId(unfrienderId);
