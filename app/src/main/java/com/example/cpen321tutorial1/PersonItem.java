@@ -1,14 +1,14 @@
 package com.example.cpen321tutorial1;
 
-public class PersonItem {
+public class PersonItem extends Account{
 
     String name;
-    String username;
+    String email;
     int image;
 
-    public PersonItem(String name, String username, int image) {
+    public PersonItem(String name, String email, int image) {
         this.name = name;
-        this.username = username;
+        this.email = email;
         this.image = image;
     }
 
@@ -20,12 +20,12 @@ public class PersonItem {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getImage() {

@@ -12,8 +12,9 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Friends extends AppCompatActivity {
+import okhttp3.Request;
 
+public class Friends extends AppCompatActivity {
 
     private Button FindNewFriends;
     private Button Messages;
@@ -30,17 +31,21 @@ public class Friends extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        List<PersonItem> items = new ArrayList<PersonItem>();
-        items.add(new PersonItem("John Doe", "johnyD", R.drawable.user));
-        items.add(new PersonItem("Jane Doe", "jannyD", R.drawable.user));
-        items.add(new PersonItem("Zheng Xu", "zhengxu", R.drawable.user));
-        items.add(new PersonItem("Joy Choi", "joychoi", R.drawable.user));
-        items.add(new PersonItem("Savitoj Sachar", "savsachar", R.drawable.user));
-        items.add(new PersonItem("Tyson Brown", "tysonbr", R.drawable.user));
+        List<PersonItem> items;
+
+
+
+
+//        items.add(new PersonItem("John Doe", "johnyD", R.drawable.user));
+//        items.add(new PersonItem("Jane Doe", "jannyD", R.drawable.user));
+//        items.add(new PersonItem("Zheng Xu", "zhengxu", R.drawable.user));
+//        items.add(new PersonItem("Joy Choi", "joychoi", R.drawable.user));
+//        items.add(new PersonItem("Savitoj Sachar", "savsachar", R.drawable.user));
+//        items.add(new PersonItem("Tyson Brown", "tysonbr", R.drawable.user));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
+        //recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Friends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {

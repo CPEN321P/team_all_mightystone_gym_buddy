@@ -27,7 +27,7 @@ public class PersonAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         holder.nameView.setText(items.get(position).getName());
-        holder.usernameView.setText(items.get(position).getUsername());
+        holder.usernameView.setText(items.get(position).getEmail());
         holder.imageView.setImageResource(items.get(position).getImage());
 
     }

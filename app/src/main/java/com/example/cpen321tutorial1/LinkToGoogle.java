@@ -1,6 +1,7 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
@@ -15,22 +16,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
 
 public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -43,6 +37,8 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
     final static String TAG = "LinkActivity";
 
     Account account = GlobalClass.myAccount;
+
+    //TODO: implement what happens if user has logged in in the past
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +147,9 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                         .post(body)
                         .build();
 
-                //NewCallPost(client, requestName);
+                NewCallPost(client, requestName);
+
+                ConnectionToBackend.getAccountInformationFromEmail(myAccount.getEmailAddress());
 
 
                 if(account.getRole() == "Manager") {

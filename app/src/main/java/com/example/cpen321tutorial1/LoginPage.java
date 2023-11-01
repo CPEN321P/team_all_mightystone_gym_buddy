@@ -1,8 +1,9 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +40,6 @@ public class LoginPage extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static String TheEmail = "NONE";
 
-    Account thisAccount = GlobalClass.myAccount;
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
@@ -189,36 +188,40 @@ public class LoginPage extends AppCompatActivity {
 //            Log.d(TAG, "Family Name: " + account.getFamilyName());
 //            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            thisAccount.setEmailAddress(account.getEmail());
+            myAccount.setEmailAddress(account.getEmail());
+            Log.d("AAA/AA", "REACHED HEREEEEE");
 
-            //String TheEmail = GET from database base;
-//            //For the user, if the EmailAddress did not search from the database, then jump to activity_link_to_google
-//
-//            String UserName = "Zheng Xu"; //We will get it from database
-//            String EmailAddress = account.getEmail();
-//            int Age = 22; //We will get it from database
-//            int Weight = 80; //We will get it from database
-//            String Gender = "Male"; //We will get it from database
-//            String Role = "User"; //We will get it from database
-//            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
-//            ArrayList<Account> TheEmptyBlockList = new ArrayList<>(); //We will get it from database
-//            ////////////////The Information above would be the account information from database
-//
-//            Account Account = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList, TheEmptyBlockList);
-//            Account.CurrentAccount.add(Account);
-//
-//            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//            ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////
-//            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //CHECK IF EMAIL ALREADY EXISTS IN DATABASE BEFORE CREATING
+
+            if(!checkIfUserExists(account.getEmail())){
+                Intent LinkAccountIntent = new Intent(LoginPage.this, LinkToGoogle.class);
+                startActivity(LinkAccountIntent);
+
+            } else {
+                Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
+                Intent LinkAccountIntent = new Intent(LoginPage.this, Logo.class);
+                startActivity(LinkAccountIntent);
+            }
+
+
 
             TheEmail = account.getEmail();      //Use for LinkToGoogle
             LoginPageManager.ClearStringName(); //Use for LinkToGoogle
 
             //If the EmailAddress did not search from the database, then jump to activity_link_to_google
-            Intent LinkAccountIntent = new Intent(LoginPage.this, LinkToGoogle.class);
-            startActivity(LinkAccountIntent);
+
             //Otherwise, jump to the User home page
         }
+    }
+
+    private boolean checkIfUserExists(String email) {
+        if(ConnectionToBackend.getAccountInformationFromEmail(email) == null){
+            Log.d("THISSSSSSS", "FALSE BRO");
+            return false;
+        }
+        Log.d("THISSSSSSS", "TRUE");
+        return true;
+
     }
 
     public static String getStringName(){

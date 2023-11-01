@@ -3,6 +3,8 @@ package com.example.cpen321tutorial1;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,7 @@ import okhttp3.ResponseBody;
 public class JsonFunctions {
 
     final static String TAG = "Json";
+
 
     public static void NewCallPost(OkHttpClient client, Request requestName) {
         client.newCall(requestName).enqueue(new Callback() {
@@ -128,6 +131,8 @@ public class JsonFunctions {
         }
         return jsonObject.toString();
     }
+
+
 
 
 }

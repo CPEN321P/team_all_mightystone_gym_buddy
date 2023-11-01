@@ -1,15 +1,34 @@
 package com.example.cpen321tutorial1;
 
 import android.app.Application;
+import android.util.Log;
 
-import com.google.android.gms.common.api.Api;
 
-import okhttp3.OkHttp;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class GlobalClass extends Application {
 
     public static Account myAccount = new Account();
     public final static OkHttpClient client = new OkHttpClient();
 
-}
+    public static AccountModelFromBackend accountFromBackend;
+
+
+
+    }
+
+
+
+
+
+
+
