@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,7 +20,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.ArrayList;
 
 public class LoginPageManager extends AppCompatActivity {
 
@@ -52,6 +56,9 @@ public class LoginPageManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page_manager);
 
+        Account.CurrentAccount.clear(); //Clear the current account information
+        Gym.CurrentGym.clear();
+
         ModeButton = findViewById(R.id.ManagerMode);
 
         ModeButton.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +87,7 @@ public class LoginPageManager extends AppCompatActivity {
             }
         });
 
+        signOut();
     }
 
     private void signIn() {
@@ -122,16 +130,24 @@ public class LoginPageManager extends AppCompatActivity {
             //String TheEmail = GET from database base;
             //For the Manager, if the EmailAddress did not search from the database, then jump to activity_link_to_google
 
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
             String UserName = "Zheng Xu"; //We will get it from database
             String EmailAddress = account.getEmail();
             int Age = 22; //We will get it from database
             int Weight = 80; //We will get it from database
             String Gender = "Male"; //We will get it from database
             String Role = "Manager"; //We will get it from database
+            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
             ////////////////The Information above would be the account information from database
 
-            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role);
+            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList);
             Account.CurrentAccount.add(AccountInfo);
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            Gym.CurrentGym.clear();
+            //Gym.CurrentGym.add()//Get the Gym information base on the current information
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
             ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////
@@ -154,5 +170,14 @@ public class LoginPageManager extends AppCompatActivity {
         TheEmail = "NONE";
     }
 
-
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                        Log.d(TAG, "Log out successful");
+                    }
+                });
+    }
 }

@@ -31,7 +31,7 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week_view);
+        setContentView(R.layout.activity_schedule_friends_weekly);
         initinalWidgets();
         setWeekView();
 
@@ -56,7 +56,7 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         MonthlyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent EventIntent = new Intent(ScheduleFriendsWeekly.this, MonthlySchedule.class);
+                Intent EventIntent = new Intent(ScheduleFriendsWeekly.this, ScheduleFriendsMonthly.class);
                 startActivity(EventIntent);
             }
         });
@@ -64,7 +64,7 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         DailyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent DailyIntent = new Intent(ScheduleFriendsWeekly.this, DailyCalendar.class);
+                Intent DailyIntent = new Intent(ScheduleFriendsWeekly.this, ScheduleFriendsDaily.class);
                 startActivity(DailyIntent);
             }
         });

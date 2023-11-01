@@ -14,14 +14,32 @@ public class Account {
     private int Weight;
     private String Gender;
     private String Role;
+    private ArrayList<Account> FriendsList;
 
-    public Account(String username, String emailAddress, int age, int weight, String gender, String role) {
+    public static ArrayList<Account> getCurrentAccount() {
+        return CurrentAccount;
+    }
+
+    public static void setCurrentAccount(ArrayList<Account> currentAccount) {
+        CurrentAccount = currentAccount;
+    }
+
+    public ArrayList<Account> getFriendsList() {
+        return FriendsList;
+    }
+
+    public void setFriendsList(ArrayList<Account> friendsList) {
+        FriendsList = friendsList;
+    }
+
+    public Account(String username, String emailAddress, int age, int weight, String gender, String role, ArrayList<Account> friendsList) {
         Username = username;
         EmailAddress = emailAddress;
         Age = age;
         Weight = weight;
         Gender = gender;
         Role = role;
+        FriendsList = friendsList;
     }
 
     public String getUsername() {

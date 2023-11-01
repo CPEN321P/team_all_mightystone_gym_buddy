@@ -31,7 +31,7 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily_calendar);
+        setContentView(R.layout.activity_schedule_friends_daily);
         initWidgets();
 
         PreviousDay.setOnClickListener(new View.OnClickListener() {

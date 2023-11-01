@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView UserName;
@@ -99,9 +101,12 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
                 Toast.makeText(LinkToGoogle.this, "Creat Account Successful!", Toast.LENGTH_SHORT).show();
 
-                Account CurrentAccount = new Account(TheAccount.Username, TheAccount.EmailAddress, TheAccount.Age, TheAccount.Weight, TheAccount.Gender, TheAccount.Role);
+                ArrayList<Account> TheEmptyFriendList = new ArrayList<>();
+
+                Account CurrentAccount = new Account(TheAccount.Username, TheAccount.EmailAddress, TheAccount.Age, TheAccount.Weight, TheAccount.Gender, TheAccount.Role, TheEmptyFriendList);
                 Account.CurrentAccount.clear();
                 Account.CurrentAccount.add(CurrentAccount);
+                Gym.CurrentGym.clear();
                 ////////////////////////////////////////////////////////
                 //CurrentAccount
                 ////////////////PUSH account into data base/////////////////

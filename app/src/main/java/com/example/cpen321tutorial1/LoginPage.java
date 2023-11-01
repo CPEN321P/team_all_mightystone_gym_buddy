@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,7 +19,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.ArrayList;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -53,6 +57,8 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        Account.CurrentAccount.clear(); //Clear the current account information
+
         ModeButton = findViewById(R.id.ManagerMode);
 
         ModeButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +89,7 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-
+        signOut();
     }
 
     private void signIn() {
@@ -95,8 +101,9 @@ public class LoginPage extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
+            Log.w(TAG, "Test1");
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
+            Log.w(TAG, "Test2");
             // Signed in successfully, show authenticated UI.
             updateUI(account);
             Toast.makeText(LoginPage.this, "Log in successful", Toast.LENGTH_SHORT).show();
@@ -131,9 +138,10 @@ public class LoginPage extends AppCompatActivity {
             int Weight = 80; //We will get it from database
             String Gender = "Male"; //We will get it from database
             String Role = "User"; //We will get it from database
+            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
             ////////////////The Information above would be the account information from database
 
-            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role);
+            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList);
             Account.CurrentAccount.add(AccountInfo);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,4 +165,13 @@ public class LoginPage extends AppCompatActivity {
         TheEmail = "NONE";
     }
 
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d(TAG, "Log out successful");
+                    }
+                });
+    }
 }

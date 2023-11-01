@@ -23,6 +23,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
 public class PersonalProfileEdit extends AppCompatActivity {
 
     private TextView UserName, Age, Weight;
@@ -70,7 +72,7 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 }
 
                 Account CurrentAccount = new Account(UserName.getText().toString(), Account.CurrentAccount.get(0).getEmailAddress(), StringToInteger(Age.getText().toString()),
-                        StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(), Account.CurrentAccount.get(0).getRole());
+                        StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(), Account.CurrentAccount.get(0).getRole(), Account.CurrentAccount.get(0).getFriendsList());
                 Account.CurrentAccount.clear();
                 Account.CurrentAccount.add(CurrentAccount);
 
@@ -87,8 +89,15 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 ///Upload the CurrentAccount information into database///
                 //////////////////////////////////////////////////
 
-                Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
-                startActivity(PersonalProfileIntent);
+                if(Account.CurrentAccount.get(0).getRole() == "Manager"){
+                    Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileManager.class);
+                    startActivity(PersonalProfileIntent);
+                }
+                else if(Account.CurrentAccount.get(0).getRole() == "User"){
+                    Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
+                    startActivity(PersonalProfileIntent);
+                }
+
             }
         });
 

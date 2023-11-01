@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 public class PersonalProfileManager extends AppCompatActivity {
 
-    Button FriendsList;
-    TextView Username, Email, Age, Weight, Gender;
-    Button Profile, Schedule, TheAnnouncement;
+    private Button MyGyms;
+    private TextView Username, Email, Age, Weight, Gender;
+    private Button Profile, Schedule, TheAnnouncement;
     final static String TAG = "PersonalProfileManager";
 
 
@@ -23,20 +23,13 @@ public class PersonalProfileManager extends AppCompatActivity {
         setContentView(R.layout.activity_personal_profile_manager);
         initWidgets();
 
+
         MainActivity.TestComeFromOutsideOrNot = 0;
         Username.setText(Account.CurrentAccount.get(0).getUsername());
         Email.setText(Account.CurrentAccount.get(0).getEmailAddress());
         Age.setText(Integer.toString(Account.CurrentAccount.get(0).getAge()) + " years old");
         Weight.setText(Integer.toString(Account.CurrentAccount.get(0).getWeight()) + " kg");
         Gender.setText(Account.CurrentAccount.get(0).getGender());
-
-        FriendsList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Enter the list of friends
-            }
-        });
-        Log.d(TAG, "Test1");
 
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +38,6 @@ public class PersonalProfileManager extends AppCompatActivity {
                 startActivity(PersonalProfileIntent);
             }
         });
-        Log.d(TAG, "Test3");
 
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +47,6 @@ public class PersonalProfileManager extends AppCompatActivity {
                 startActivity(ScheduleIntent);
             }
         });
-        Log.d(TAG, "Test4");
 
         TheAnnouncement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +54,30 @@ public class PersonalProfileManager extends AppCompatActivity {
                 //Enter the page of announcement
             }
         });
-        Log.d(TAG, "Test2");
 
+
+        MyGyms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ManagerEmail;
+                //Scarch for the backend database to search for the gym base on the manager Email;
+                //If search it, then jump to the GymProfileManager Activity
+                //Intent MyGymsIntent = new Intent(PersonalProfileManager.this, GymsProfileManager.class);
+                //startActivity(MyGymsIntent);
+                //Otherwise, jump to the NewGyms Activity
+                if (Gym.CurrentGym.isEmpty()) {
+                    Intent NewGymsIntent = new Intent(PersonalProfileManager.this, NewGyms.class);
+                    startActivity(NewGymsIntent);
+                } else {
+                    Intent NewGymsIntent = new Intent(PersonalProfileManager.this, GymsProfileManager.class);
+                    startActivity(NewGymsIntent);
+                }
+
+            }
+        });
     }
 
     private void initWidgets() {
-        FriendsList = findViewById(R.id.Friends);
         Username = findViewById(R.id.Username);
         Email = findViewById(R.id.Email);
         Age = findViewById(R.id.Age);
@@ -77,5 +86,6 @@ public class PersonalProfileManager extends AppCompatActivity {
         Profile = findViewById(R.id.EditPersonalProfile);
         Schedule = findViewById(R.id.EditSchedule);
         TheAnnouncement = findViewById(R.id.Announcement);
+        MyGyms = findViewById(R.id.MyGyms);
     }
 }
