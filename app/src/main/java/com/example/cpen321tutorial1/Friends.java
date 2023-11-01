@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Friends extends AppCompatActivity {
 
-
+    private Button Messages;
     private Button Home;
     private Button Friends;
     private Button Schedule;
@@ -39,6 +39,28 @@ public class Friends extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new FriendAdapter(getApplicationContext(), items));
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(Friends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+//                        Intent ChatIntent = new Intent(Friends.this, Chat.class);
+//                        startActivity(ChatIntent);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                }));
+
+        Messages = findViewById(R.id.top_bar_messages);
+
+        Messages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent MessageIntent = new Intent(Friends.this, Messages.class);
+                startActivity(MessageIntent);
+            }
+        });
 
         Home = findViewById(R.id.navigation_home);
 
