@@ -759,7 +759,7 @@ router.delete('/userId/:userId', async (req, res) => {
 router.delete('/', async (req, res) => {
   const db = getDB();
   
-  const result = await db.collection('users').remove({});
+  const result = await db.collection('users').deleteMany({});
 
 });
 
