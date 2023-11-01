@@ -1,5 +1,6 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
@@ -143,17 +144,14 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 RequestBody body = RequestBody.create(Json,
                         MediaType.parse("application/json"));
 
-                final OkHttpClient client = new OkHttpClient();
+
 
                 Request requestName = new Request.Builder()
                         .url("http://20.172.9.70:8081/users")
                         .post(body)
                         .build();
 
-                NewCallPost(client, requestName);
-
-                //String JsonRole = JsonFunctions.JsonRole(CurrentAccount.getRole());
-                //String JsonFriendList =
+                //NewCallPost(client, requestName);
 
 
                 if(account.getRole() == "Manager") {
@@ -169,27 +167,6 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
                     //adding user account to database
 
-//                    RequestBody myUserFormBody = new FormBody.Builder()
-//                            .add("username", "test")
-//                            .add("password", "test")
-//                            .build();
-
-                    Request addMyUserToDatabase = new Request.Builder()
-                            .url("http://20.172.9.70:8081/users")
-                            .build();
-
-                    GlobalClass.client.newCall(addMyUserToDatabase).enqueue(new Callback() {
-                        @Override public void onFailure(Call call, IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        @Override public void onResponse(Call call, Response response) throws IOException {
-                            try (ResponseBody responseBody = response.body()) {
-                                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                                Log.d("HURRAY!!!!", "it works");
-                            }
-                        }
-                    });
 
 
                     Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileUsers.class);

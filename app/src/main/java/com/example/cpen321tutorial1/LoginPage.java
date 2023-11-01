@@ -65,10 +65,6 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-<<<<<<< HEAD
-        //Account.CurrentAccount.clear(); //Clear the current account information
-=======
-
         /*
         String Json = JsonFunctions.JsonName("Zheng Xu");
 
@@ -93,8 +89,6 @@ public class LoginPage extends AppCompatActivity {
         NewCallGet(client, requestName);
         */
 
-        Account.CurrentAccount.clear(); //Clear the current account information
->>>>>>> origin/frontendFinal
 
         ModeButton = findViewById(R.id.ManagerMode);
 
@@ -195,10 +189,8 @@ public class LoginPage extends AppCompatActivity {
 //            Log.d(TAG, "Family Name: " + account.getFamilyName());
 //            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-<<<<<<< HEAD
             thisAccount.setEmailAddress(account.getEmail());
-=======
->>>>>>> origin/frontendFinal
+
             //String TheEmail = GET from database base;
 //            //For the user, if the EmailAddress did not search from the database, then jump to activity_link_to_google
 //

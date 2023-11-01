@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 //    private Button OtherProfile, FriendProfile, UserGyms;
     private Button GetStarted;
 
-    
+
     public static int TestComeFromOutsideOrNot = 0; //A public integer that use for jump to weekly schedule
 
     private static String stringName = "NONE";

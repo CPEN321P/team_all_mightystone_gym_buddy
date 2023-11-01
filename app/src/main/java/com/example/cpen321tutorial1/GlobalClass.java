@@ -10,6 +10,6 @@ import okhttp3.OkHttpClient;
 public class GlobalClass extends Application {
 
     public static Account myAccount = new Account();
-    public static OkHttpClient client = new OkHttpClient();
+    public final static OkHttpClient client = new OkHttpClient();
 
 }
