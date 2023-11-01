@@ -31,10 +31,11 @@ router.post('/', async (req, res) => {
 
   const newUser = {
     name: req.body.name || "",
-    username: req.body.username || "",
     phone: req.body.phone || "",
     email: req.body.email || "",
-    dob: req.body.dob || "",
+    age: req.body.age || "",
+    gender: req.body.gender || "",
+    weight: req.body.weight || "",
     pfp: req.body.pfp || "",
     friends: req.body.friends || [],
     friendRequests: req.body.friendRequests || [],
@@ -204,10 +205,11 @@ router.put('/userId/:userId', async (req, res) => {
   // add elements to be updated
   const updatedUser = {
     name: req.body.name || user.name,
-    username: req.body.username || user.username,
     phone: req.body.phone || user.phone,
     email: req.body.email || user.email,
-    dob: req.body.dob || user.dob,
+    age: req.body.age || user.age,
+    gender: req.body.gender || user.gender,
+    weight: req.body.weight || user.weight,
     pfp: req.body.pfp || user.pfp,
     friends: req.body.friends || user.friends,
     friendRequests: req.body.friendRequests || user.friendRequests,
@@ -457,6 +459,35 @@ router.put('/unfriend/:unfrienderId/:unfriendedId', async (req, res) => {
     res.status(500).send('User not unfriended');
   }
 });
+
+const getRecommendedUsers = async(db,userId)=> {
+  const _userId = new ObjectId(userId);
+  const myUser = await db.collection('users').findOne({ _id: _userId });
+  const recommendedUserIdList = [];
+  const weightDiff = [];
+  const ageDiff = [];
+  db.collection('users').forEach(user => {
+    if(user.homeGym == myUser.homeGym){
+      recommendedUserIdList.push(user._id);
+      weightDiff.push(Math.abs(parseInt(user.weight) - parseInt(myUser.weight)));
+      ageDiff.push(Math.abs(parseInt(user.age) - parseInt(myUser.age)));
+    }
+  });
+
+ 
+}
+
+// modifies recommendedUserIdList
+const filterBlockedProfiles = async(db,userId, recommendedUserIdList)=> {
+  const _userId = new ObjectId(userId);
+  const user = await db.collection('users').findOne({ _id: _userId });
+  recommendedUserIdList.forEach(userId => {
+    if(user.blockedUsers.indexOf(userId) != -1){
+      recommendedUserIdList.filter(item => item !== userId);
+    }
+  });
+  return 0;
+}
 
 const unfriend = async (db, unfrienderId, unfriendedId) => {
   const _unfrienderId = new ObjectId(unfrienderId);
