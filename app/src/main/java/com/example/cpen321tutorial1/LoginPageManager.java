@@ -1,19 +1,18 @@
 package com.example.cpen321tutorial1;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,7 +28,6 @@ public class LoginPageManager extends AppCompatActivity {
 
     private Button ModeButton;
     final static String TAG = "ManagerLogInActivity";
-    MainActivity.AccountInfo theAccountInfo = new MainActivity.AccountInfo();
     private GoogleSignInClient mGoogleSignInClient;
     private static String TheEmail = "NONE";
 
@@ -126,7 +124,6 @@ public class LoginPageManager extends AppCompatActivity {
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            theAccountInfo.EmailAddress = account.getEmail();
             //String TheEmail = GET from database base;
             //For the Manager, if the EmailAddress did not search from the database, then jump to activity_link_to_google
 

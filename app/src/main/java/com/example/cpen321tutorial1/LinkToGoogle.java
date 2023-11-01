@@ -1,8 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -27,7 +33,16 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
     final static String TAG = "LinkActivity";
 
-    MainActivity.AccountInfo TheAccount = new MainActivity.AccountInfo();
+    static final class AccountInfo {
+        String Username;
+        String EmailAddress;
+        int Age;
+        int Weight;
+        String Gender;
+        String Role;
+    }
+
+    AccountInfo TheAccount = new AccountInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +125,38 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 Gym.CurrentGym.clear();
                 ////////////////////////////////////////////////////////
                 //CurrentAccount
-                ////////////////PUSH account into data base/////////////////
+                ////////////////POST account into data base/////////////////
+
+                String Json = "";
+                if (CurrentAccount.getRole() == "User") {
+                    String JsonName = JsonFunctions.JsonName(CurrentAccount.getUsername());
+                    String JsonEmail = JsonFunctions.JsonEmail(CurrentAccount.getEmailAddress());
+                    String JsonAge = JsonFunctions.JsonAge(CurrentAccount.getAge());
+                    String JsonWeight = JsonFunctions.JsonWeight(CurrentAccount.getWeight());
+                    String JsonGender = JsonFunctions.JsonGender(CurrentAccount.getGender());
+                    Json = "{" + JsonName + "," + JsonEmail + "," + JsonAge + "," + JsonWeight + "," + JsonGender + "}";
+                    Log.d(TAG, Json);
+                }
+                else if (CurrentAccount.getRole() == "Manager"){
+                    String JsonName = JsonFunctions.JsonName(CurrentAccount.getUsername());
+                    String JsonEmail = JsonFunctions.JsonEmail(CurrentAccount.getEmailAddress());
+                    Json = JsonName + JsonEmail;
+                }
+                RequestBody body = RequestBody.create(Json,
+                        MediaType.parse("application/json"));
+
+                final OkHttpClient client = new OkHttpClient();
+
+                Request requestName = new Request.Builder()
+                        .url("http://20.172.9.70:8081/users")
+                        .post(body)
+                        .build();
+
+                NewCallPost(client, requestName);
+
+                //String JsonRole = JsonFunctions.JsonRole(CurrentAccount.getRole());
+                //String JsonFriendList =
+
 
                 if(TheAccount.Role == "Manager") {
                     //Enter the home page of manager

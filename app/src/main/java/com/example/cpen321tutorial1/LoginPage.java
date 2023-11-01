@@ -1,18 +1,18 @@
 package com.example.cpen321tutorial1;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,10 +27,8 @@ import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -40,8 +38,6 @@ public class LoginPage extends AppCompatActivity {
     final static String TAG = "UserLogInActivity";
     private GoogleSignInClient mGoogleSignInClient;
     private static String TheEmail = "NONE";
-
-    MainActivity.AccountInfo theAccountInfo = new MainActivity.AccountInfo();
 
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
@@ -67,17 +63,30 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+
+        /*
         String Json = JsonFunctions.JsonName("Zheng Xu");
+
+        RequestBody body = RequestBody.create(Json,
+                MediaType.parse("application/json"));
 
         final OkHttpClient client = new OkHttpClient();
 
         Request requestName = new Request.Builder()
-                .url("http://127.0.0.1:27017/users")
-                .put(RequestBody.create(Json, MediaType.parse("application/json")))
+                .url("http://20.172.9.70:8081/users/userId/65427bde301609e66c749a12")
                 .build();
 
-        NewCall(client, requestName);
+        Request requestName = new Request.Builder()
+                .url("http://20.172.9.70:8081/users")
+                .post(body)
+                .build();
 
+
+        //Call call = client.newCall(requestName);
+        //Response response = call.execute();
+
+        NewCallGet(client, requestName);
+        */
 
         Account.CurrentAccount.clear(); //Clear the current account information
 
@@ -123,8 +132,22 @@ public class LoginPage extends AppCompatActivity {
             @Override public void onResponse(Call call, Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    Log.d(TAG, "POST Something");
+                }
+            }
+        });
+    }
 
+    private void NewCallGet(OkHttpClient client, Request requestName) {
+        client.newCall(requestName).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
 
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    Log.d(TAG, responseBody.string());
                 }
             }
         });
@@ -166,7 +189,6 @@ public class LoginPage extends AppCompatActivity {
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            theAccountInfo.EmailAddress = account.getEmail();
             //String TheEmail = GET from database base;
             //For the user, if the EmailAddress did not search from the database, then jump to activity_link_to_google
 
