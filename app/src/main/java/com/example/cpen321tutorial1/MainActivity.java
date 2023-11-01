@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkLocationPermissions();
 
+        /*
         Gyms = findViewById(R.id.gyms);
 
         Gyms.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+         */
+
+        /*
         Friends = findViewById(R.id.friends);
 
         Friends.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(FriendIntent);
             }
         });
+         */
 
         Schedule = findViewById(R.id.scheduleTest);
         Schedule.setOnClickListener(new View.OnClickListener() {

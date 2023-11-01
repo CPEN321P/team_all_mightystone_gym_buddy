@@ -15,6 +15,15 @@ public class Account {
     private String Gender;
     private String Role;
     private ArrayList<Account> FriendsList;
+    private ArrayList<Account> BlockList;
+
+    public ArrayList<Account> getBlockList() {
+        return BlockList;
+    }
+
+    public void setBlockList(ArrayList<Account> blockList) {
+        BlockList = blockList;
+    }
 
     public static ArrayList<Account> getCurrentAccount() {
         return CurrentAccount;
@@ -32,7 +41,7 @@ public class Account {
         FriendsList = friendsList;
     }
 
-    public Account(String username, String emailAddress, int age, int weight, String gender, String role, ArrayList<Account> friendsList) {
+    public Account(String username, String emailAddress, int age, int weight, String gender, String role, ArrayList<Account> friendsList, ArrayList<Account> blockList) {
         Username = username;
         EmailAddress = emailAddress;
         Age = age;
@@ -40,6 +49,7 @@ public class Account {
         Gender = gender;
         Role = role;
         FriendsList = friendsList;
+        BlockList = blockList;
     }
 
     public String getUsername() {

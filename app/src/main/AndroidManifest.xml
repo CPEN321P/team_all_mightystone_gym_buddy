@@ -25,6 +25,9 @@
             android:name=".BlockedUsers"
             android:exported="false" />
         <activity
+            android:name=".Unblock"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
