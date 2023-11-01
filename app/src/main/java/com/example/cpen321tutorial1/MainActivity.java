@@ -39,40 +39,10 @@ public class MainActivity extends AppCompatActivity {
 //    private Button PersonalProfile;
 //    private Button AddGym;
 //    private Button OtherProfile, FriendProfile, UserGyms;
-
-    static final class AccountInfo {
-        String Username;
-        String EmailAddress;
-        int Age;
-        int Weight;
-        String Gender;
-        String Role;
-    }
-
-    public static void passAccountInfoAsIntent (Intent intent, AccountInfo accountInfo){
-        intent.putExtra("Username", accountInfo.Username);
-        intent.putExtra("EmailAddress", accountInfo.EmailAddress);
-        intent.putExtra("Age", accountInfo.Age);
-        intent.putExtra("Weight", accountInfo.Weight);
-        intent.putExtra("Gender", accountInfo.Gender);
-        intent.putExtra("Role", accountInfo.Role);
-
-    }
-
-    public static AccountInfo getAccountInfoFromIntent(Intent intent){
-        AccountInfo accountInfo = new AccountInfo();
-
-        accountInfo.Username = intent.getStringExtra("Username");
-        accountInfo.EmailAddress = intent.getStringExtra("EmailAddress");
-        accountInfo.Age = intent.getIntExtra("Age", 0);
-        accountInfo.Weight = intent.getIntExtra("Weight", 0);
-        accountInfo.Gender = intent.getStringExtra("Gender");
-        accountInfo.Role = intent.getStringExtra("Role");
+    private Button GetStarted;
 
 
-        return accountInfo;
 
-    }
 
     public static int TestComeFromOutsideOrNot = 0; //A public integer that use for jump to weekly schedule
 
@@ -92,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
 
         Intent LoginIntent = new Intent(MainActivity.this, LoginPage.class);
         startActivity(LoginIntent);
+
+        GetStarted = findViewById(R.id.getStarted);
+
+        GetStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent LoginIntent = new Intent(MainActivity.this, LoginPage.class);
+                startActivity(LoginIntent);
+            }
+        });
 
 
         /*

@@ -46,7 +46,7 @@ public class PossibleFriends extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(PossibleFriends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileFriend.class);
+                        Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileOthers.class);
                         startActivity(FriendIntent);
                     }
 

@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import android.content.Intent;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class Account {
 
     public void setFriendsList(ArrayList<Account> friendsList) {
         FriendsList = friendsList;
+    }
+
+    public Account() {
     }
 
     public Account(String username, String emailAddress, int age, int weight, String gender, String role, ArrayList<Account> friendsList, ArrayList<Account> blockList) {
@@ -98,5 +103,30 @@ public class Account {
 
     public void setRole(String role) {
         Role = role;
+    }
+
+    public static void passAccountAsIntent (Intent intent, Account account){
+        intent.putExtra("Username", account.getUsername());
+        intent.putExtra("EmailAddress", account.getEmailAddress());
+        intent.putExtra("Age", account.getAge());
+        intent.putExtra("Weight", account.getWeight());
+        intent.putExtra("Gender", account.getGender());
+        intent.putExtra("Role", account.getRole());
+
+    }
+
+    public static Account getAccountFromIntent(Intent intent){
+        Account account = new Account();
+
+        account.setUsername(intent.getStringExtra("Username"));
+        account.setEmailAddress(intent.getStringExtra("EmailAddress"));
+        account.setAge(intent.getIntExtra("Age", 0));
+        account.setWeight(intent.getIntExtra("Weight", 0));
+        account.setGender(intent.getStringExtra("Gender"));
+        account.setRole(intent.getStringExtra("Role"));
+
+
+        return account;
+
     }
 }

@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 public class Chat extends AppCompatActivity {
 
-    MainActivity.AccountInfo otherAccountInfo;
+    Account otherAccount;
+    String chatroomId;
+    ChatroomModel chatroomModel;
 
     EditText chat_text_input;
     ImageView userImage;
@@ -24,7 +26,7 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        //otherAccountInfo = MainActivity.getAccountInfoFromIntent(getIntent());
+        //otherAccount = MainActivity.getAccountFromIntent(getIntent());
 
 
         chat_text_input = findViewById(R.id.chat_text_input);
@@ -32,15 +34,39 @@ public class Chat extends AppCompatActivity {
         username = findViewById(R.id.username);
         message_send_button = findViewById(R.id.message_send_button);
 
-        //TODO: pull otherAccountInfo from backend
-        //username.setText(otherAccountInfo.Username);
+        //TODO: pull otherAccount from backend
+        //username.setText(otherAccount.Username);
 
         //FOR NOW!!!!!!
         username.setText("Example");
 
-        //chat should load previous messages by pulling from chat database
+        //get chatroomId from backend
+
+        //getChatroom from chatroomId
+        getOrCreateChatroomModel();
+
+        message_send_button.setOnClickListener((view -> {
+            String message = chat_text_input.getText().toString().trim();
+            if(message.isEmpty()){
+                return;
+            }
+            sendMessageToUser(message);
+        }));
+
+    }
+
+    private void sendMessageToUser(String message) {
 
 
+        //ChatMessageModel chatMessageModel = new ChatMessageModel(message, )
+
+
+    }
+
+    private void getOrCreateChatroomModel() {
+        //get chatroom from backend
+
+        //chatroomModel = ;
 
     }
 }

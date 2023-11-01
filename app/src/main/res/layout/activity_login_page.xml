@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="@string/ManagerMode"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="#FF3A3A3A"
         android:layout_below="@+id/sign_in_button"
         android:layout_marginTop="100dp"
         />

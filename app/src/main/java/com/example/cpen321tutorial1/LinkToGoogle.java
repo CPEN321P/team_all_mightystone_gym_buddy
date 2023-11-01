@@ -27,7 +27,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
     final static String TAG = "LinkActivity";
 
-    MainActivity.AccountInfo TheAccount = new MainActivity.AccountInfo();
+    Account account = new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(LinkToGoogle.this, "Please Select the Gender", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
-                    TheAccount.Gender = RoleSpinner.getSelectedItem().toString();
+                    account.setGender(RoleSpinner.getSelectedItem().toString());
                 }
 
                 if (NumberOfAge <= 0 || NumberOfAge >= 150)
@@ -70,41 +70,41 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(LinkToGoogle.this, "Invalid Age", Toast.LENGTH_LONG).show();
                     return;
                 }
-                TheAccount.Age = NumberOfAge;
+                account.setAge(NumberOfAge);
 
                 if (NumberOfWeight <= 0)
                 {
                     Toast.makeText(LinkToGoogle.this, "Invalid Weight", Toast.LENGTH_LONG).show();
                     return;
                 }
-                TheAccount.Weight = NumberOfWeight;
+                account.setWeight(NumberOfWeight);
 
 
 
 
-                TheAccount.Username = UserName.getText().toString();
+                account.setUsername(UserName.getText().toString());
 
                 if((LoginPageManager.getStringName()).equals("NONE")) {
-                    TheAccount.EmailAddress = LoginPage.getStringName(); //User
-                    TheAccount.Role = "User";
+                    account.setEmailAddress(LoginPage.getStringName()); //User
+                    account.setRole("User");
                 }else{
-                    TheAccount.EmailAddress = LoginPageManager.getStringName(); //Manager
-                    TheAccount.Role = "Manager";
+                    account.setEmailAddress(LoginPageManager.getStringName()); //Manager
+                    account.setRole("Manager");
                 }
 
-                Log.d(TAG, "UserName: " + TheAccount.Username);
-                Log.d(TAG, "Age: " + TheAccount.Age);
-                Log.d(TAG, "Weight: " + TheAccount.Weight);
-                Log.d(TAG, "Email: " + TheAccount.EmailAddress);
-                Log.d(TAG, "Gender: " + TheAccount.Gender);
-                Log.d(TAG, "Role: " + TheAccount.Role);
+//                Log.d(TAG, "UserName: " + account.Username);
+//                Log.d(TAG, "Age: " + account.Age);
+//                Log.d(TAG, "Weight: " + account.Weight);
+//                Log.d(TAG, "Email: " + account.EmailAddress);
+//                Log.d(TAG, "Gender: " + account.Gender);
+//                Log.d(TAG, "Role: " + account.Role);
 
-                Toast.makeText(LinkToGoogle.this, "Creat Account Successful!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LinkToGoogle.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
 
                 ArrayList<Account> TheEmptyFriendList = new ArrayList<>();
                 ArrayList<Account> TheEmptyBlockList = new ArrayList<>();
 
-                Account CurrentAccount = new Account(TheAccount.Username, TheAccount.EmailAddress, TheAccount.Age, TheAccount.Weight, TheAccount.Gender, TheAccount.Role, TheEmptyFriendList, TheEmptyBlockList);
+                Account CurrentAccount = new Account(account.getUsername(), account.getEmailAddress(), account.getAge(), account.getWeight(), account.getGender(), account.getRole(), TheEmptyFriendList, TheEmptyBlockList);
                 Account.CurrentAccount.clear();
                 Account.CurrentAccount.add(CurrentAccount);
                 Gym.CurrentGym.clear();
@@ -112,12 +112,12 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 //CurrentAccount
                 ////////////////PUSH account into data base/////////////////
 
-                if(TheAccount.Role == "Manager") {
+                if(account.getRole() == "Manager") {
                     //Enter the home page of manager
                     Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileManager.class);
                     startActivity(PersonalProfile);
                 }
-                else if(TheAccount.Role == "User") {
+                else if(account.getRole() == "User") {
                     Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileUsers.class);
                     startActivity(PersonalProfile);
                 }

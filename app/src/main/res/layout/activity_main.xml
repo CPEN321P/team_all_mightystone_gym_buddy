@@ -4,79 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gym_buddy_match_black_sixteen"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/mfour"
+        android:id="@+id/getStarted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MFour"
+        android:text="Get Started"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/scheduleTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/WeeklySchedule"
-        app:layout_constraintBottom_toTopOf="@+id/mfour"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/EditPersonalProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:text="Personal Profile"
-        app:layout_constraintBottom_toTopOf="@+id/scheduleTest"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/AddGym"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Gym"
-        app:layout_constraintBottom_toTopOf="@+id/EditPersonalProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/OthersProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Others Profile"
-        app:layout_constraintBottom_toTopOf="@+id/AddGym"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/FriendsProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friends Profile"
-        app:layout_constraintBottom_toTopOf="@+id/OthersProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/GymProfileUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gym Profile"
-        app:layout_constraintBottom_toTopOf="@+id/FriendsProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friends"
-        app:layout_constraintBottom_toTopOf="@+id/GymProfileUser"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/gyms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gyms"
-        app:layout_constraintBottom_toTopOf="@+id/friends"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.778"
+        android:backgroundTint ="#FF3A3A3A"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

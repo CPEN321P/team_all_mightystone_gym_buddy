@@ -39,7 +39,7 @@ public class Messages extends AppCompatActivity {
 
                         //import recipient's account information from backend
 
-                        //MainActivity.passAccountInfoAsIntent(ChatIntent, RecipientAccount);
+                        //MainActivity.passAccountAsIntent(ChatIntent, RecipientAccount);
 
                         startActivity(ChatIntent);
                     }

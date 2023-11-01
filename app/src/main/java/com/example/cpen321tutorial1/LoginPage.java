@@ -31,7 +31,7 @@ public class LoginPage extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static String TheEmail = "NONE";
 
-    MainActivity.AccountInfo theAccountInfo = new MainActivity.AccountInfo();
+    Account thisAccount = new Account();
 
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
@@ -128,26 +128,26 @@ public class LoginPage extends AppCompatActivity {
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            theAccountInfo.EmailAddress = account.getEmail();
+            thisAccount.setEmailAddress(account.getEmail());
             //String TheEmail = GET from database base;
-            //For the user, if the EmailAddress did not search from the database, then jump to activity_link_to_google
-
-            String UserName = "Zheng Xu"; //We will get it from database
-            String EmailAddress = account.getEmail();
-            int Age = 22; //We will get it from database
-            int Weight = 80; //We will get it from database
-            String Gender = "Male"; //We will get it from database
-            String Role = "User"; //We will get it from database
-            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
-            ArrayList<Account> TheEmptyBlockList = new ArrayList<>(); //We will get it from database
-            ////////////////The Information above would be the account information from database
-
-            Account AccountInfo = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList, TheEmptyBlockList);
-            Account.CurrentAccount.add(AccountInfo);
-
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+//            //For the user, if the EmailAddress did not search from the database, then jump to activity_link_to_google
+//
+//            String UserName = "Zheng Xu"; //We will get it from database
+//            String EmailAddress = account.getEmail();
+//            int Age = 22; //We will get it from database
+//            int Weight = 80; //We will get it from database
+//            String Gender = "Male"; //We will get it from database
+//            String Role = "User"; //We will get it from database
+//            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
+//            ArrayList<Account> TheEmptyBlockList = new ArrayList<>(); //We will get it from database
+//            ////////////////The Information above would be the account information from database
+//
+//            Account Account = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList, TheEmptyBlockList);
+//            Account.CurrentAccount.add(Account);
+//
+//            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+//            ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////
+//            //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             TheEmail = account.getEmail();      //Use for LinkToGoogle
             LoginPageManager.ClearStringName(); //Use for LinkToGoogle
