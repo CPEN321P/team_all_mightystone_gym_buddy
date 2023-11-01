@@ -98,7 +98,9 @@ router.get('/userId/:user1/:user2', async (req, res) => {
   if (chat) {
     res.status(200).json(chat);
   } else {
-    res.status(404).send("No chat found");
+    const newChatId = await createNewChat(db, sender, reciever);
+    const newChat = await db.collection('chat').findOne({ _id: newChatId });
+    res.status(200).json(newChat);
   }
 });
 
