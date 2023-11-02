@@ -42,6 +42,16 @@ public class Gyms extends AppCompatActivity {
 
         List<GymItem> items = new ArrayList<GymItem>();
         items.add(new GymItem("UBC Arc", "6138 Student Union Blvd", R.drawable.gym));
+        items.add(new GymItem("Gym A", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym B", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym C", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym D", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym E", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym F", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym G", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym H", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym I", "Address", R.drawable.gym));
+        items.add(new GymItem("Gym J", "Address", R.drawable.gym));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new GymAdapter(getApplicationContext(), items));

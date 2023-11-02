@@ -6,16 +6,16 @@ public class Gym {
 
     public static ArrayList<Gym> CurrentGym = new ArrayList<>();
     private Account Owner;
-    private ArrayList<Account> SubscriptedUser;
+    private ArrayList<Account> SubscribedUsers;
     private String GymName;
     private String Location;
     private String AccessTime;
     private String Website;
     private String Tips;
 
-    public Gym(Account owner, ArrayList<Account> subscriptedUser, String gymName, String location, String accessTime, String website, String tips) {
+    public Gym(Account owner, ArrayList<Account> subscribedUsers, String gymName, String location, String accessTime, String website, String tips) {
         Owner = owner;
-        SubscriptedUser = subscriptedUser;
+        SubscribedUsers = subscribedUsers;
         GymName = gymName;
         Location = location;
         AccessTime = accessTime;
@@ -31,12 +31,12 @@ public class Gym {
         Owner = owner;
     }
 
-    public ArrayList<Account> getSubscriptedUser() {
-        return SubscriptedUser;
+    public ArrayList<Account> getSubscribedUsers() {
+        return SubscribedUsers;
     }
 
-    public void setSubscriptedUser(ArrayList<Account> subscriptedUser) {
-        SubscriptedUser = subscriptedUser;
+    public void setSubscribedUsers(ArrayList<Account> SubscribedUsers) {
+        SubscribedUsers = SubscribedUsers;
     }
 
     public String getGymName() {

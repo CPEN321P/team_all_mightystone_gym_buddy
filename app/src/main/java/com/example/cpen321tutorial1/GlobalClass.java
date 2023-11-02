@@ -18,7 +18,8 @@ import okhttp3.ResponseBody;
 public class GlobalClass extends Application {
 
     public static Account myAccount = new Account();
-    public final static OkHttpClient client = new OkHttpClient();
+    public final static OkHttpClient client = new OkHttpClient.Builder().hostnameVerifier((hostname, session) -> true).build();
+    //public final static OkHttpClient client = new OkHttpClient();
 
     public static AccountModelFromBackend accountFromBackend;
 

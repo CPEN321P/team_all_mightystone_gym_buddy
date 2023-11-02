@@ -52,12 +52,16 @@ public class ConnectionToBackend {
 //        return accountFromBackend;
 //    }
 
+    public void subscribeToGym(String gymId){
+
+    }
+
     public Account getAccountInformationFromEmail(final String email) {
         Callable<Account> asyncCall = new Callable<Account>() {
             @Override
             public Account call() throws Exception {
                 Request getAccountInformation = new Request.Builder()
-                        .url("http://20.172.9.70:8081/users/userEmail/" + email)
+                        .url("https://20.172.9.70/users/userEmail/" + email)
                         .build();
 
                 Response response = client.newCall(getAccountInformation).execute();

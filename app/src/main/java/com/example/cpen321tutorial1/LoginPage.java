@@ -190,7 +190,6 @@ public class LoginPage extends AppCompatActivity {
 
             myAccount.setEmailAddress(account.getEmail());
 
-
             //CHECK IF EMAIL ALREADY EXISTS IN DATABASE BEFORE CREATING
 
             if(!checkIfUserExists(account.getEmail())){
@@ -216,11 +215,13 @@ public class LoginPage extends AppCompatActivity {
 
     private boolean checkIfUserExists(String email) {
         ConnectionToBackend c = new ConnectionToBackend();
-        if(c.getAccountInformationFromEmail(email)== null){
+        Account thisAccount = c.getAccountInformationFromEmail(email);
+        if(thisAccount== null){
             Log.d("THISSSSSSS", "FALSE BRO");
             return false;
         }
         Log.d("THISSSSSSS", "TRUE");
+        myAccount = thisAccount;
         return true;
 
     }

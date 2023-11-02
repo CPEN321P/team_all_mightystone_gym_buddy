@@ -34,7 +34,7 @@ public class EditGymsProfile extends AppCompatActivity {
             public void onClick(View view) {
 
                 Account Owner = GlobalClass.myAccount;
-                ArrayList<Account> SubscriptedUsers = new ArrayList<>();
+                ArrayList<Account> SubscribedUserss = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();
                 String InputAccessTime = AccessTime.getText().toString();
@@ -48,7 +48,7 @@ public class EditGymsProfile extends AppCompatActivity {
                 Log.d(TAG, "Website: " + InputWebsite);
                 Log.d(TAG, "Tips: " + InputTips);
 
-                Gym TheAddGym = new Gym(Owner, SubscriptedUsers, InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
+                Gym TheAddGym = new Gym(Owner, SubscribedUserss, InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
                 Gym.CurrentGym.clear();
                 Gym.CurrentGym.add(TheAddGym);
 

@@ -27,17 +27,17 @@ public class GymProfile extends AppCompatActivity {
         //Website.setText();
         //Tips.setText();
 
-        //ArrayList<Account> TheOldGymUserList = //Gym class that you get from database//.getSubscriptedUser();
+        //ArrayList<Account> TheOldGymUserList = //Gym class that you get from database//.getSubscribedUsers();
         Subscript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ////////////////////////////////////////////////////////////////////////////////////////
                 //Get the Gym class file from the backend database base on the information of the Gym///
-                //Add the current user into the SubscriptedUser arraylist of this gym///////////////////
+                //Add the current user into the SubscribedUsers arraylist of this gym///////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////
 
                 //TheOldGymUserList.add(GlobalClass.myAccount);
-                //Gym class that you get from database//.setSubscriptedUser(TheOldGymUserList)
+                //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList)
                 Toast.makeText(GymProfile.this, "Subscript the Gym!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -47,14 +47,14 @@ public class GymProfile extends AppCompatActivity {
             public void onClick(View view) {
                 ////////////////////////////////////////////////////////////////////////////////////////
                 //Get the Gym class file from the backend database base on the information of the Gym///
-                //Remove the current user into the SubscriptedUser arraylist of this gym///////////////////
+                //Remove the current user into the SubscribedUsers arraylist of this gym///////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////
 
                 /*
                 for(int i = 0; i < TheOldGymUserList.size(); i++){
                     if ((TheOldGymUserList.get(i)).equals(GlobalClass.myAccount)){
                         TheOldGymUserList.remove(i);
-                        //Gym class that you get from database//.setSubscriptedUser(TheOldGymUserList);
+                        //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList);
                         return;
                     }
                 }
