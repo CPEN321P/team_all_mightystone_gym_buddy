@@ -149,7 +149,8 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
                 NewCallPost(client, requestName);
 
-                ConnectionToBackend.getAccountInformationFromEmail(myAccount.getEmailAddress());
+                ConnectionToBackend c = new ConnectionToBackend();
+                c.getAccountInformationFromEmail(myAccount.getEmailAddress());
 
 
                 if(account.getRole() == "Manager") {

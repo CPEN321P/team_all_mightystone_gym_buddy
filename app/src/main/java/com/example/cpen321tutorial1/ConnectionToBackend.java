@@ -7,6 +7,11 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -16,8 +21,10 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class ConnectionToBackend {
-    private static AccountModelFromBackend accountModelFromBackend;
-    private static Account accountFromBackend;
+    private AccountModelFromBackend accountModelFromBackend;
+    public Account accountFromBackend;
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
 
 //    public static Account getAccountInformationFromId(String id) {
 //
@@ -45,44 +52,45 @@ public class ConnectionToBackend {
 //        return accountFromBackend;
 //    }
 
-    public static Account getAccountInformationFromEmail(String email) {
-
-
-        Request getAccountInformation = new Request.Builder()
-                .url("http://20.172.9.70:8081/users/userEmail/" + email)
-                .build();
-
-        client.newCall(getAccountInformation).enqueue(new Callback() {
+    public Account getAccountInformationFromEmail(final String email) {
+        Callable<Account> asyncCall = new Callable<Account>() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+            public Account call() throws Exception {
+                Request getAccountInformation = new Request.Builder()
+                        .url("http://20.172.9.70:8081/users/userEmail/" + email)
+                        .build();
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
+                Response response = client.newCall(getAccountInformation).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
                 try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful())
-                        throw new IOException("Unexpected code " + response);
+                    String jsonResponse = responseBody.string();
+                    AccountModelFromBackend accountModelFromBackend = new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
 
-                    Log.d("HURRAY!!!!", "REACHED GET");
-                    accountModelFromBackend = new Gson().fromJson(response.body().string(), AccountModelFromBackend.class);
-                    if(accountModelFromBackend == null)
-                        Log.d("THIS IS WHAT YOURE LOOKING FOR", "ACCOUNT MODEL IS ISSUE");
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getId());
+                    if (accountModelFromBackend == null) {
+                        throw new IOException("Account model is null");
+                    }
 
-                    accountFromBackend = setAccountInformationFromBackend(false, accountModelFromBackend);
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", accountFromBackend.getGender());
-
+                    return setAccountInformationFromBackend(false, accountModelFromBackend);
                 }
             }
-        });
-        if(accountFromBackend== null)
-            Log.d("THIS IS WHAT YOURE LOOKING FOR","account is null");
-        else
-        Log.d("THIS IS WHAT YOURE LOOKING FOR", "account is not null!!!");
+        };
 
+        Future<Account> future = executorService.submit(asyncCall);
 
-        return accountFromBackend;
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error while fetching account information", e);
+        }
+    }
+
+    public void shutdown() {
+        executorService.shutdown();
     }
 
     public static Account setAccountInformationFromBackend(boolean getFriendsAndBlocked, AccountModelFromBackend accountModel){

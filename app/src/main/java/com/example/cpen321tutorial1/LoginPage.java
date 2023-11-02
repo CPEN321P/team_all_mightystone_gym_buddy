@@ -189,7 +189,7 @@ public class LoginPage extends AppCompatActivity {
 //            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
             myAccount.setEmailAddress(account.getEmail());
-            Log.d("AAA/AA", "REACHED HEREEEEE");
+
 
             //CHECK IF EMAIL ALREADY EXISTS IN DATABASE BEFORE CREATING
 
@@ -215,7 +215,8 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private boolean checkIfUserExists(String email) {
-        if(ConnectionToBackend.getAccountInformationFromEmail(email) == null){
+        ConnectionToBackend c = new ConnectionToBackend();
+        if(c.getAccountInformationFromEmail(email)== null){
             Log.d("THISSSSSSS", "FALSE BRO");
             return false;
         }
