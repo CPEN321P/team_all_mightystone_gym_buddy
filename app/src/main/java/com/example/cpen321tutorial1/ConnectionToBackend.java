@@ -89,7 +89,8 @@ public class ConnectionToBackend {
             return future.get(); // This will block until the async call is complete
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error while fetching account information", e);
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
         }
     }
 
