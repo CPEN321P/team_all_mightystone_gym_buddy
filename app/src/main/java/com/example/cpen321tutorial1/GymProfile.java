@@ -79,7 +79,7 @@ public class GymProfile extends AppCompatActivity {
     }
 
     private void initWidgets() {
-        Location = findViewById(R.id.LocationTextView);
+        Location = findViewById(R.id.Location);
         AccessTime = findViewById(R.id.AccessTime);
         Website = findViewById(R.id.Website);
         Name = findViewById(R.id.GymName);
