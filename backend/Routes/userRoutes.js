@@ -130,10 +130,11 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   const db = getDB();
   var myHomeGym;
+  var user;
   try {
     const id = new ObjectId(req.params.userId);
 
-    const user = await db.collection('users').findOne({ _id: id });
+    user = await db.collection('users').findOne({ _id: id });
   
     if (!user) {
       res.status(404).send('User not found');
@@ -143,8 +144,12 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   } catch (error) {
     res.status(500).send("Can't recommend users");
   }
-  
-  const recommendedUsers = await db.collection('users').find({ homeGym: myHomeGym }).toArray();
+  const friends = user.friends
+  const recommendedUsers = await db.collection('users').find({}).toArray();
+  const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
+    const userIdString = recommendedUser._id.toString();
+    return userIdString !== req.params.userId && !friends.includes(userIdString);
+  });
 
   if (!recommendedUsers) {
     res.status(500).send('Could not get recommended users');
