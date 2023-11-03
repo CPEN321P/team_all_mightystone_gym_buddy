@@ -31,24 +31,21 @@ public class Gyms extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        ConnectionToBackend c = new ConnectionToBackend();
-
-        List<Gym> items = c.getAllGyms();
-
         //get all gyms from backend
-
-
-
-
+        ConnectionToBackend c = new ConnectionToBackend();
+        List<Gym> items = c.getAllGyms();
 
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Gyms.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent GymIntent = new Intent(Gyms.this, GymProfile.class);
-                        Gym Gym = items.get(position);
-                        GymIntent.putExtra("GymAddress", Gym.getAddress());
-                        GymIntent.putExtra("GymName", Gym.getName());
+                        if(!items.isEmpty()){
+                            Gym Gym = items.get(position);
+                            GymIntent.putExtra("GymAddress", Gym.getAddress());
+                            GymIntent.putExtra("GymName", Gym.getName());
+                        }
+
                         startActivity(GymIntent);
                     }
 

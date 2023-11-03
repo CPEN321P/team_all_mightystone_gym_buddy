@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,14 +33,9 @@ public class PossibleFriends extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        List<PersonItem> items = new ArrayList<PersonItem>();
-        items.add(new PersonItem("John Doe", "johnyD", R.drawable.user));
-        items.add(new PersonItem("Jane Doe", "jannyD", R.drawable.user));
-        items.add(new PersonItem("Zheng Xu", "zhengxu", R.drawable.user));
-        items.add(new PersonItem("Joy Choi", "joychoi", R.drawable.user));
-        items.add(new PersonItem("Savitoj Sachar", "savsachar", R.drawable.user));
-        items.add(new PersonItem("Tyson Brown", "tysonbr", R.drawable.user));
-
+        //get all possible friends from backend
+        ConnectionToBackend c = new ConnectionToBackend();
+        List<Account> items = c.getRecommendedUsers(myAccount.getUserId());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));

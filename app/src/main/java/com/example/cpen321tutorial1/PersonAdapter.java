@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PersonAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     Context context;
-    List<PersonItem> items;
+    List<Account> items;
 
-    public PersonAdapter(Context context, List<PersonItem> items) {
+    public PersonAdapter(Context context, List<Account> items) {
         this.context = context;
         this.items = items;
     }
@@ -26,9 +26,9 @@ public class PersonAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
-        holder.nameView.setText(items.get(position).getName());
-        holder.usernameView.setText(items.get(position).getEmail());
-        holder.imageView.setImageResource(items.get(position).getImage());
+        holder.nameView.setText(items.get(position).getUsername());
+        holder.usernameView.setText(items.get(position).getUserId());
+        holder.imageView.setImageResource(R.drawable.user);
 
     }
 

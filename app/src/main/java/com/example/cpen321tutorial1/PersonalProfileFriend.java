@@ -23,33 +23,19 @@ public class PersonalProfileFriend extends AppCompatActivity {
         setContentView(R.layout.activity_personal_profile_friend);
         initWidgets();
 
-        ArrayList<Account> MyCurrentBlockList = GlobalClass.myAccount.getBlockList();
-        //ArrayList<Account> OtherCurrentBlockList = //The Account that you get//.getBlockList();
+        Intent i = getIntent();
 
-        /*
-        for (int i = 0; i < MyCurrentBlockList.size(); i++){
-            if (MyCurrentBlockList.get(i).equals( //The Account that you get// )){
-                Toast.makeText(PersonalProfileFriends.this, "In Block List!", Toast.LENGTH_SHORT).show();
-                finish();
-                // }
-        }
-         */
+        String friendName = i.getStringExtra("FriendName");
+        String friendId = i.getStringExtra("FriendUserId");
+        String friendAge = i.getStringExtra("FriendAge");
+        String friendWeight = i.getStringExtra("FriendWeight");
+        String friendGender = i.getStringExtra("FriendGender");
 
-        /*
-        for (int i = 0; i < OtherCurrentBlockList.size(); i++){
-            if (OtherCurrentBlockList.get(i).equals(GlobalClass.myAccount)){
-                Toast.makeText(PersonalProfileFriends.this, "In Block List!", Toast.LENGTH_SHORT).show();
-                finish();
-                // }
-        }
-         */
-
-        //Get the account information of this user
-        //Username.setText();
-        //Email.setText();
-        //Age.setText();
-        //Weight.setText();
-        //Gender.setText();
+        Username.setText(friendName);
+        Email.setText(friendId);
+        Age.setText(friendAge);
+        Weight.setText(friendWeight);
+        Gender.setText(friendGender);
 
         FriendsEvent.clear();
         //Get the event list from database of this user, and upload it into FriendsEvent

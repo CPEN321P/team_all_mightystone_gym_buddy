@@ -20,14 +20,9 @@ public class BlockedUsers extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
+        //TODO GET ALL BLOCKED USERS FROM BACKEND
+        List<Account> items = new ArrayList<Account>();
 
-        List<PersonItem> items = new ArrayList<PersonItem>();
-        items.add(new PersonItem("John Doe", "BLOCKED", R.drawable.user));
-        items.add(new PersonItem("Jane Doe", "BLOCKED", R.drawable.user));
-        items.add(new PersonItem("Zheng Xu", "BLOCKED", R.drawable.user));
-        items.add(new PersonItem("Joy Choi", "BLOCKED", R.drawable.user));
-        items.add(new PersonItem("Savitoj Sachar", "BLOCKED", R.drawable.user));
-        items.add(new PersonItem("Tyson Brown", "BLOCKED", R.drawable.user));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

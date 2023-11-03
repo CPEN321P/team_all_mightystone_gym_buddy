@@ -200,7 +200,7 @@ public class LoginPage extends AppCompatActivity {
 
             } else {
                 ConnectionToBackend c = new ConnectionToBackend();
-                //Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
+                Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
                 Intent LinkAccountIntent = new Intent(LoginPage.this, Logo.class);
                 startActivity(LinkAccountIntent);
             }
@@ -225,8 +225,10 @@ public class LoginPage extends AppCompatActivity {
     private boolean checkIfUserExists(String email) {
         ConnectionToBackend c = new ConnectionToBackend();
         Account thisAccount = c.getAccountInformationFromEmail(email);
+        //Log.d("THISSSSSSS", email + " in login page");
+
         if(thisAccount== null){
-            //Log.d("THISSSSSSS", "FALSE BRO");
+            Log.d("THISSSSSSS", "account is null :c");
             return false;
         }
         //Log.d("THISSSSSSS", "TRUE");

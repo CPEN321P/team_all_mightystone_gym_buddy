@@ -20,13 +20,10 @@ public class Messages extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        List<PersonItem> items = new ArrayList<PersonItem>();
-        items.add(new PersonItem("John Doe", "", R.drawable.user));
-        items.add(new PersonItem("Jane Doe", "", R.drawable.user));
-        items.add(new PersonItem("Zheng Xu", "", R.drawable.user));
-        items.add(new PersonItem("Joy Choi", "", R.drawable.user));
-        items.add(new PersonItem("Savitoj Sachar", "", R.drawable.user));
-        items.add(new PersonItem("Tyson Brown", "", R.drawable.user));
+        //TODO GET LIST OF CHATS
+
+        List<Account> items = new ArrayList<Account>();
+
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

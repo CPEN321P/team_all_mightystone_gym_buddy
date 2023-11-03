@@ -1,11 +1,14 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,26 +34,27 @@ public class Friends extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        List<PersonItem> items;
-
-
-
-
-//        items.add(new PersonItem("John Doe", "johnyD", R.drawable.user));
-//        items.add(new PersonItem("Jane Doe", "jannyD", R.drawable.user));
-//        items.add(new PersonItem("Zheng Xu", "zhengxu", R.drawable.user));
-//        items.add(new PersonItem("Joy Choi", "joychoi", R.drawable.user));
-//        items.add(new PersonItem("Savitoj Sachar", "savsachar", R.drawable.user));
-//        items.add(new PersonItem("Tyson Brown", "tysonbr", R.drawable.user));
-
+        //GET ALL FRIEND FROM BACKEND
+        ConnectionToBackend c = new ConnectionToBackend();
+        List<Account> items = c.getAllFriends(myAccount.getUserId());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
+        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Friends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent FriendIntent = new Intent(Friends.this, PersonalProfileFriend.class);
+                        if(!items.isEmpty()){
+                            Account Friend = items.get(position);
+                            FriendIntent.putExtra("FriendName", Friend.getUsername());
+                            FriendIntent.putExtra("FriendUserId", Friend.getUserId());
+                            FriendIntent.putExtra("FriendAge", Friend.getAge());
+                            FriendIntent.putExtra("FriendWeight", Friend.getWeight());
+                            FriendIntent.putExtra("FriendGender", Friend.getGender());
+                        }
+
+
                         startActivity(FriendIntent);
                     }
 

@@ -29,7 +29,7 @@ public class GymAdapter extends RecyclerView.Adapter<GymViewHolder>{
     public void onBindViewHolder(@NonNull GymViewHolder holder, int position) {
         holder.nameView.setText(items.get(position).getName());
         holder.addressView.setText(items.get(position).getAddress());
-        holder.imageView.setImageResource(items.get(position).getImage());
+        holder.imageView.setImageResource(R.drawable.gym);
     }
 
     @Override

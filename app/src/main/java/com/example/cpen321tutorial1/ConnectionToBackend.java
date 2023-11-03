@@ -163,6 +163,7 @@ public class ConnectionToBackend {
     //ACCOUNT FUNCTIONS!!!
 
     public Account getAccountInformationFromEmail(final String email) {
+
         Callable<Account> asyncCall = new Callable<Account>() {
             @Override
             public Account call() throws Exception {
@@ -179,6 +180,8 @@ public class ConnectionToBackend {
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
                     AccountModelFromBackend accountModelFromBackend = new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     if (accountModelFromBackend == null) {
                         throw new IOException("Account model is null");
@@ -206,6 +209,117 @@ public class ConnectionToBackend {
         return returnedAccount;
 
     }
+
+    public ArrayList<Account> getAllFriends(final String userId) {
+
+        ArrayList<Account> listOfAllAccounts = new ArrayList<>();
+        Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
+            @Override
+            public ArrayList<Account> call() throws Exception {
+                Request getFriendsProfiles = new Request.Builder()
+                        .url("https://20.172.9.70/users/userId/"+ userId+ "/friends")
+                        .build();
+
+                Response response = client.newCall(getFriendsProfiles).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    Type listType = new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+
+                    List<AccountModelFromBackend> listOfFriends = new Gson().fromJson(jsonResponse, listType);
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "FRIENDS GOTTTTT");
+
+
+                    if (listOfFriends == null) {
+                        throw new IOException("Gym model is null");
+                    }
+
+                    for(int i = 0; i<listOfFriends.size(); i++){
+                        listOfAllAccounts.add(setAccountInformationFromBackend(false, listOfFriends.get(i)));
+
+                    }
+
+                    return listOfAllAccounts;
+
+                }
+            }
+        };
+
+        Future<ArrayList<Account>> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+
+
+
+
+    }
+
+    public ArrayList<Account> getRecommendedUsers(final String userId) {
+
+        ArrayList<Account> listOfAllAccounts = new ArrayList<>();
+        Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
+            @Override
+            public ArrayList<Account> call() throws Exception {
+                Request getRecommendedProfiles = new Request.Builder()
+                        .url("https://20.172.9.70/users/userId/"+ userId+ "/recommendedUsers")
+                        .build();
+
+                Response response = client.newCall(getRecommendedProfiles).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    Type listType = new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+
+                    List<AccountModelFromBackend> listOfRecommended = new Gson().fromJson(jsonResponse, listType);
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
+
+
+                    if (listOfRecommended == null) {
+                        throw new IOException("Gym model is null");
+                    }
+
+                    for(int i = 0; i<listOfRecommended.size(); i++){
+                        listOfAllAccounts.add(setAccountInformationFromBackend(false, listOfRecommended.get(i)));
+
+                    }
+
+                    return listOfAllAccounts;
+
+                }
+            }
+        };
+
+        Future<ArrayList<Account>> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+
+
+    }
+
+
+
 
     //GYM FUNCTIONS!!!!
 
@@ -274,7 +388,7 @@ public class ConnectionToBackend {
 
         returnedGym.setName(gymModelFromBackend.getName());
         returnedGym.setAddress(gymModelFromBackend.getLocation());
-        returnedGym.setImage(R.drawable.gym);
+        //returnedGym.setImage(R.drawable.gym);
 
         //FOR NOW WE ARE ADDING THE IMAGE SINCE THAT FIELD DOESNT EXIST ON THE BACKEND
 
