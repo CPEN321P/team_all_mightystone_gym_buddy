@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         checkLocationPermissions();
 
-        Intent LoginIntent = new Intent(MainActivity.this, LoginPage.class);
-        startActivity(LoginIntent);
+        //Intent LoginIntent = new Intent(MainActivity.this, LoginPage.class);
+        //startActivity(LoginIntent);
 
         GetStarted = findViewById(R.id.getStarted);
 

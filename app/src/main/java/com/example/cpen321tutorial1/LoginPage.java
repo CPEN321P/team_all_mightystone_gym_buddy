@@ -1,5 +1,6 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 
 import android.content.Intent;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -197,9 +199,16 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(LinkAccountIntent);
 
             } else {
+                ConnectionToBackend c = new ConnectionToBackend();
                 Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
                 Intent LinkAccountIntent = new Intent(LoginPage.this, Logo.class);
                 startActivity(LinkAccountIntent);
+            }
+
+            if(!checkIfEventsExists()){
+                MyeventsList = new ArrayList<>();
+                //String JsonUserId = JsonFunctions.JsonUserId(myAccount.getUserId());
+                //String JsonDate = JsonFunctions.JsonUserId(myAccount)
             }
 
 
@@ -222,6 +231,19 @@ public class LoginPage extends AppCompatActivity {
         }
         Log.d("THISSSSSSS", "TRUE");
         myAccount = thisAccount;
+        return true;
+
+    }
+
+    private boolean checkIfEventsExists() {
+        ConnectionToBackend c = new ConnectionToBackend();
+        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(myAccount.getUserId());
+        if(TheEventsofThisAccount == null){
+            Log.d("THISSSSSSS", "FALSE BRO");
+            return false;
+        }
+        Log.d("THISSSSSSS", "TRUE");
+        MyeventsList = TheEventsofThisAccount;
         return true;
 
     }

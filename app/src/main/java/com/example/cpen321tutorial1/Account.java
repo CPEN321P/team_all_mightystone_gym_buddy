@@ -18,6 +18,16 @@ public class Account {
     private ArrayList<Account> FriendsList;
     private ArrayList<Account> BlockList;
 
+    private String UserId;
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
+
     public ArrayList<Account> getBlockList() {
         return BlockList;
     }
@@ -51,6 +61,7 @@ public class Account {
         Role = "NO ROLE SET";
         FriendsList = null;
         BlockList = null;
+        UserId = "";
     }
 
     public Account(String username, String emailAddress, int age, int weight, String gender, String role, ArrayList<Account> friendsList, ArrayList<Account> blockList) {
@@ -62,6 +73,7 @@ public class Account {
         Role = role;
         FriendsList = friendsList;
         BlockList = blockList;
+        UserId = "";
     }
 
     public String getUsername() {

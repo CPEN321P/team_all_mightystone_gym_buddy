@@ -1,5 +1,6 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 import android.util.Log;
@@ -11,12 +12,11 @@ import java.util.ArrayList;
 public class Event {
 
     final static String TAG = "Event";
-    public static ArrayList<Event> eventsList = new ArrayList<>();
     public static ArrayList<Event> eventsForDate(LocalDate date)
     {
         ArrayList<Event> events = new ArrayList<>();
 
-        for(Event event: eventsList)
+        for(Event event: MyeventsList)
         {
             if(event.getDate().equals(date))
                 events.add(event);
@@ -42,7 +42,7 @@ public class Event {
     {
         ArrayList<Event> events = new ArrayList<>();
 
-        for(Event event: eventsList)
+        for(Event event: MyeventsList)
         {
 
             int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
@@ -63,7 +63,7 @@ public class Event {
     {
         ArrayList<Event> events = new ArrayList<>();
 
-        for(Event event: eventsList)
+        for(Event event: MyeventsList)
         {
 
             int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
@@ -97,12 +97,12 @@ public class Event {
     public static void CleareventsForDate(LocalDate date)      //Clear the last event of the specific date
     {
 
-        int count = eventsList.size()-1;
-        for(Event event: eventsList)
+        int count = MyeventsList.size()-1;
+        for(Event event: MyeventsList)
         {
             //.d(TAG, Integer.toString(count));
             if(event.getDate().equals(date)) {
-                eventsList.remove(count);
+                MyeventsList.remove(count);
                 break;
             }
             count--;
@@ -114,20 +114,30 @@ public class Event {
     private LocalDate date;
     private LocalTime StartTime;
     private LocalTime EndTime;
+    private String UserId;
+
+    public LocalTime getEndTime() {
+        return EndTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        EndTime = endTime;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
 
     public Event(String name, LocalDate date, LocalTime startTime, LocalTime endtime) {
         this.name = name;
         this.date = date;
         StartTime = startTime;
         EndTime = endtime;
-    }
-
-    public static ArrayList<Event> getEventsList() {
-        return eventsList;
-    }
-
-    public static void setEventsList(ArrayList<Event> eventsList) {
-        Event.eventsList = eventsList;
+        UserId = "";
     }
 
     public String getName() {

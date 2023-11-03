@@ -158,17 +158,16 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                     //TODO: add manager to database
 
 
-
-                    Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileManager.class);
+                    Toast.makeText(LinkToGoogle.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                    Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPageManager.class);
                     startActivity(PersonalProfile);
                 }
                 else if(account.getRole() == "User") {
 
                     //adding user account to database
 
-
-
-                    Intent PersonalProfile = new Intent(LinkToGoogle.this, PersonalProfileUsers.class);
+                    Toast.makeText(LinkToGoogle.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                    Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPage.class);
                     startActivity(PersonalProfile);
                 }
             }
