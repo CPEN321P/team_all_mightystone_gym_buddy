@@ -23,6 +23,8 @@ public class GlobalClass extends Application {
     public final static OkHttpClient client = new OkHttpClient.Builder().hostnameVerifier((hostname, session) -> true).build();
     //public final static OkHttpClient client = new OkHttpClient();
 
+    public static Manager manager = new Manager();
+
     public static AccountModelFromBackend accountFromBackend;
 
 

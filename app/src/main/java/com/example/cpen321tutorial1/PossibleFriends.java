@@ -32,10 +32,13 @@ public class PossibleFriends extends AppCompatActivity {
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        //RecyclerView recyclerView2 = findViewById(R.id.recyclerview2);
+
 
         //get all possible friends from backend
         ConnectionToBackend c = new ConnectionToBackend();
         List<Account> items = c.getRecommendedUsers(myAccount.getUserId());
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));

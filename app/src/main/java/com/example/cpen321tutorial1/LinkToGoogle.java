@@ -38,8 +38,6 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
     Account account = GlobalClass.myAccount;
 
-    //TODO: implement what happens if user has logged in in the past
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,11 +99,6 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 account.setFriendsList(TheEmptyFriendList);
                 account.setBlockList(TheEmptyBlockList);
 
-                //Account.CurrentAccount.clear();
-                //Account.CurrentAccount.add(account);
-                //Gym.CurrentGym.clear();
-                ////////////////////////////////////////////////////////
-                //CurrentAccount
                 ////////////////POST account into data base/////////////////
 
                 String Json = "";
@@ -131,8 +124,6 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
                 ConnectionToBackend c = new ConnectionToBackend();
                 c.getAccountInformationFromEmail(myAccount.getEmailAddress());
-
-
 
                 Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPage.class);
                 startActivity(PersonalProfile);

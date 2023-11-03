@@ -184,11 +184,6 @@ public class LoginPage extends AppCompatActivity {
             Log.d(TAG, "There is no user signed in!");
         }
         else {
-//            Log.d(TAG, "Pref Name: " + account.getDisplayName());
-//            Log.d(TAG, "Email: " + account.getEmail());
-//            Log.d(TAG, "Given Name: " + account.getGivenName());
-//            Log.d(TAG, "Family Name: " + account.getFamilyName());
-//            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
             myAccount.setEmailAddress(account.getEmail());
 
@@ -213,8 +208,6 @@ public class LoginPage extends AppCompatActivity {
 
 
 
-            TheEmail = account.getEmail();      //Use for LinkToGoogle
-            LoginPageManager.ClearStringName(); //Use for LinkToGoogle
 
             //If the EmailAddress did not search from the database, then jump to activity_link_to_google
 

@@ -81,6 +81,11 @@ public class JsonFunctions {
         return Json;
     }
 
+    public static String JsonUsername(String username){
+        String Json = "\"username\": \""+ username + "\"";
+        return Json;
+    }
+
     public static String JsonPhone(int phone){
         String Json = "\"phone\": \""+ String.valueOf(phone) + "\"";
         return Json;

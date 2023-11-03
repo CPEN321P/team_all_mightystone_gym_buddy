@@ -364,6 +364,52 @@ public class ConnectionToBackend {
 
     }
 
+    //MANAGER FUNCTIONS!!!
+
+    public Manager getManagerInformationFromEmail(String email) {
+        Callable<Manager> asyncCall = new Callable<Manager>() {
+            @Override
+            public Manager call() throws Exception {
+                Request getAccountInformation = new Request.Builder()
+                        .url("https://20.172.9.70/gymUsers/" + email)
+                        .build();
+
+                Response response = client.newCall(getAccountInformation).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    Manager manager = new Gson().fromJson(jsonResponse, Manager.class);
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+
+                    if (manager == null) {
+                        throw new IOException("Account model is null");
+                    }
+
+                    return manager;
+                }
+            }
+        };
+
+        Future<Manager> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+
+
+
+
+    }
+
 
 
 

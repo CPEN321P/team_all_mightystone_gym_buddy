@@ -1,5 +1,8 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.manager;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,10 +32,7 @@ public class LoginPageManager extends AppCompatActivity {
     private Button ModeButton;
     final static String TAG = "ManagerLogInActivity";
 
-    Account thisAccount = GlobalClass.myAccount;
-
     private GoogleSignInClient mGoogleSignInClient;
-    private static String TheEmail = "NONE";
 
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
@@ -127,50 +127,39 @@ public class LoginPageManager extends AppCompatActivity {
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            thisAccount.setEmailAddress(account.getEmail());
+            GlobalClass.manager.setEmail(account.getEmail());
+            //Log.d("THIS IS", GlobalClass.manager.getEmail());
 
-            //String TheEmail = GET from database base;
-            //For the Manager, if the EmailAddress did not search from the database, then jump to activity_link_to_google
+            if(!checkIfUserExists(account.getEmail())){
+                Intent LinkAccountIntent = new Intent(LoginPageManager.this, LinkToGoogleManager.class);
+                startActivity(LinkAccountIntent);
 
-//            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//            String UserName = "Zheng Xu"; //We will get it from database
-//            String EmailAddress = account.getEmail();
-//            int Age = 22; //We will get it from database
-//            int Weight = 80; //We will get it from database
-//            String Gender = "Male"; //We will get it from database
-//            String Role = "Manager"; //We will get it from database
-//            ArrayList<Account> TheEmptyFriendList = new ArrayList<>(); //We will get it from database
-//            ArrayList<Account> TheEmptyBlockList = new ArrayList<>(); //We will get it from database
-//            ////////////////The Information above would be the account information from database
-//
-//            Account Account = new Account(UserName, EmailAddress, Age, Weight, Gender, Role, TheEmptyFriendList, TheEmptyBlockList);
-//            Account.CurrentAccount.add(Account);
-//            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            } else {
+                ConnectionToBackend c = new ConnectionToBackend();
+                Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
+                Intent LinkAccountIntent = new Intent(LoginPageManager.this, Logo.class);
+                startActivity(LinkAccountIntent);
+            }
 
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //Gym.CurrentGym.clear();
-            //Gym.CurrentGym.add()//Get the Gym information base on the current information
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ////Whenever you login to the app, have to get the eventlist from database and put them in eventsList////
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            TheEmail = account.getEmail();  //Use for LinkToGoogle
-            LoginPage.ClearStringName();    //Use for LinkToGoogle
 
             //If the EmailAddress did not search from the database, then jump to activity_link_to_google
-            Intent LinkAccountIntent = new Intent(LoginPageManager.this, LinkToGoogle.class);
+            Intent LinkAccountIntent = new Intent(LoginPageManager.this, LinkToGoogleManager.class);
             startActivity(LinkAccountIntent);
             //Otherwise, jump to the home page
         }
     }
 
-    public static String getStringName(){
-        return TheEmail;
-    }
-    public static void ClearStringName(){
-        TheEmail = "NONE";
+    private boolean checkIfUserExists(String email) {
+        ConnectionToBackend c = new ConnectionToBackend();
+        Manager thisManager = c.getManagerInformationFromEmail(email);
+
+        if(thisManager== null){
+            Log.d("THISSSSSSS", "manager is null :c");
+            return false;
+        }
+        manager = thisManager;
+        return true;
+
     }
 
     private void signOut() {

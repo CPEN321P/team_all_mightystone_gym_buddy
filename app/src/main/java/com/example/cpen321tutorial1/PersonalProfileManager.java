@@ -12,10 +12,8 @@ import android.widget.TextView;
 public class PersonalProfileManager extends AppCompatActivity {
 
     private Button MyGyms;
-    private TextView Username, Email, Age, Weight, Gender;
-    private Button Profile, Schedule, TheAnnouncement;
-    final static String TAG = "PersonalProfileManager";
-
+    private TextView Username, Email;
+    private Button TheAnnouncement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,26 +25,16 @@ public class PersonalProfileManager extends AppCompatActivity {
         MainActivity.TestComeFromOutsideOrNot = 0;
         Username.setText(GlobalClass.myAccount.getUsername());
         Email.setText(GlobalClass.myAccount.getEmailAddress());
-        Age.setText(Integer.toString(GlobalClass.myAccount.getAge()) + " years old");
-        Weight.setText(Integer.toString(GlobalClass.myAccount.getWeight()) + " kg");
-        Gender.setText(GlobalClass.myAccount.getGender());
 
-        Profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent PersonalProfileIntent = new Intent(PersonalProfileManager.this, PersonalProfileEdit.class);
-                startActivity(PersonalProfileIntent);
-            }
-        });
+//        Profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent PersonalProfileIntent = new Intent(PersonalProfileManager.this, PersonalProfileEdit.class);
+//                startActivity(PersonalProfileIntent);
+//            }
+//        });
 
-        Schedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.TestComeFromOutsideOrNot = 1;
-                Intent ScheduleIntent = new Intent(PersonalProfileManager.this, MonthlySchedule.class);
-                startActivity(ScheduleIntent);
-            }
-        });
+
 
         TheAnnouncement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +69,6 @@ public class PersonalProfileManager extends AppCompatActivity {
     private void initWidgets() {
         Username = findViewById(R.id.Username);
         Email = findViewById(R.id.Email);
-        Age = findViewById(R.id.Age);
-        Weight = findViewById(R.id.Weight);
-        Gender = findViewById(R.id.Gender);
-        Profile = findViewById(R.id.EditPersonalProfile);
-        Schedule = findViewById(R.id.EditSchedule);
         TheAnnouncement = findViewById(R.id.Announcement);
         MyGyms = findViewById(R.id.MyGyms);
     }
