@@ -200,11 +200,14 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(LinkAccountIntent);
             }
 
+            /*
             if(!checkIfEventsExists()){
                 MyeventsList = new ArrayList<>();
                 //String JsonUserId = JsonFunctions.JsonUserId(myAccount.getUserId());
                 //String JsonDate = JsonFunctions.JsonUserId(myAccount)
             }
+
+             */
 
 
 

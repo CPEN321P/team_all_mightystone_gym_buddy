@@ -31,6 +31,7 @@ public class ConnectionToBackend {
     private AccountModelFromBackend accountModelFromBackend;
     public Account accountFromBackend;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    final static String TAG = "ConnectionToBackend";
 
     private Account account;
 
@@ -83,9 +84,11 @@ public class ConnectionToBackend {
         Callable<ArrayList<Event>> asyncCall = new Callable<ArrayList<Event>>() {
             @Override
             public ArrayList<Event> call() throws Exception {
+                String JsonDate = JsonFunctions.DateToStringNum(date);
+
 
                 Request getEventInformation = new Request.Builder()
-                        .url("https://20.172.9.70/schedules/byUser/" + UserId + "/" + date)
+                        .url("https://20.172.9.70/schedules/byUser/" + UserId + "/" + JsonDate)
                         .build();
 
                 Response response = client.newCall(getEventInformation).execute();
@@ -99,10 +102,9 @@ public class ConnectionToBackend {
                     ScheduleModelFromBackend SingleScheduleModelFromBackend = new Gson().fromJson(jsonResponse, ScheduleModelFromBackend.class);
 
                     if (SingleScheduleModelFromBackend == null) {
-                        throw new IOException("Account model is null");
+                        throw new IOException("Schedule model is null");
                     }
-
-                    //return null;
+                    Log.d(TAG, "TEST666");
                     return setSingleEventInformationFromBackend(SingleScheduleModelFromBackend);
                 }
             }
@@ -127,14 +129,20 @@ public class ConnectionToBackend {
         LocalDate date = NumToLocalDate(dateint);
 
         List<EventModelFromBackend> TheExercises = scheduleModel.getExercises();
+
         for (int j = 0; j < TheExercises.size(); j++){
             String name = TheExercises.get(j).getName();
+            //Log.d(TAG, name);
+            //Log.d(TAG, Long.toString(TheExercises.get(j).getTimeStart()));
             LocalTime StartTime = NumToLocalTime(TheExercises.get(j).getTimeStart());
             LocalTime EndTime = NumToLocalTime(TheExercises.get(j).getTimeEnd());
             Event TheEvent = new Event(name, date, StartTime, EndTime);
-
+            Log.d(TAG, TheEvent.getName());
+            Log.d(TAG, TheEvent.getStartTime().toString());
+            Log.d(TAG, TheEvent.getEndTime().toString());
             ReturnedEvent.add(TheEvent);
         }
+        Log.d(TAG, Integer.toString(ReturnedEvent.size()));
         return ReturnedEvent;
     }
 
@@ -150,6 +158,7 @@ public class ConnectionToBackend {
             List<EventModelFromBackend> TheExercises = scheduleModel[i].getExercises();
             for (int j = 0; j < TheExercises.size(); j++){
                 String name = TheExercises.get(j).getName();
+
                 LocalTime StartTime = NumToLocalTime(TheExercises.get(j).getTimeStart());
                 LocalTime EndTime = NumToLocalTime(TheExercises.get(j).getTimeEnd());
                 Event TheEvent = new Event(name, date, StartTime, EndTime);

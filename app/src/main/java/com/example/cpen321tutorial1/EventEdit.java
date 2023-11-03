@@ -3,6 +3,8 @@ package com.example.cpen321tutorial1;
 import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.ConvertEventArrayListToJson;
+import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
 import static com.example.cpen321tutorial1.JsonFunctions.JsonFriends;
 import static com.example.cpen321tutorial1.JsonFunctions.JsonName;
 import static com.example.cpen321tutorial1.JsonFunctions.JsonUserId;
@@ -102,13 +104,15 @@ public class EventEdit extends AppCompatActivity {
 
                 String JsonUserId = JsonFunctions.JsonUserId(myAccount.getUserId());
                 String JsonDate = JsonFunctions.JsonDate(EventDate);
-                String JsonEventName = JsonFunctions.JsonName(eventName.getText().toString());
-                String JsonEventWeight = JsonFunctions.JsonWeight(0);
+
+                String JsonEventName = JsonFunctions.JsonName(myAccount.getUsername() + ": " + eventName.getText().toString());
+                String JsonEventWeight = JsonFunctions.JsonWeightEvent("");
                 String JsonEventSets = JsonFunctions.JsonSets(0);
                 String JsonEventReps = JsonFunctions.JsonReps(0);
-                String JsonEventTimeStart = JsonFunctions.JsonTime(StrTime);
-                String JsonEventTimeEnd = JsonFunctions.JsonTime(EndTime);
+                String JsonEventTimeStart = JsonFunctions.JsonStartTime(StrTime);
+                String JsonEventTimeEnd = JsonFunctions.JsonEndTime(EndTime);
                 String JsonEvent = JsonFunctions.JsonEvent(JsonEventName, JsonEventWeight, JsonEventSets, JsonEventReps, JsonEventTimeStart, JsonEventTimeEnd);
+
                 String JsonSchedule = JsonFunctions.JsonSchedule(JsonEvent);
 
                 if(!checkIfSingleEventsExists(EventDate)){
@@ -120,6 +124,23 @@ public class EventEdit extends AppCompatActivity {
                     Request requestName = new Request.Builder()
                             .url("https://20.172.9.70/schedules")
                             .post(body)
+                            .build();
+
+                    NewCallPost(client, requestName);
+                }
+                else{
+                    String Json = ConvertEventArrayListToJson(MyeventsList, myAccount.getUserId(), EventDate);
+                    Log.d(TAG + "1", Json);
+                    Log.d(TAG + "1", Integer.toString(MyeventsList.size()));
+
+                    String DateString = DateToStringNum(EventDate);
+
+                    RequestBody body = RequestBody.create(Json,
+                            MediaType.parse("application/json"));
+
+                    Request requestName = new Request.Builder()
+                            .url("https://20.172.9.70/schedules/byUser/" + myAccount.getUserId() + "/" + DateString)
+                            .put(body)
                             .build();
 
                     NewCallPost(client, requestName);
@@ -146,11 +167,10 @@ public class EventEdit extends AppCompatActivity {
         ConnectionToBackend c = new ConnectionToBackend();
         ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUserAndDate(myAccount.getUserId(), Today);
         if(TheEventsofThisAccount == null){
-            Log.d("THISSSSSSS", "FALSE BRO");
+            Log.d("THIS IS", "FALSE BRO");
             return false;
         }
-        Log.d("THISSSSSSS", "TRUE");
-        MyeventsList = TheEventsofThisAccount;
+        Log.d("THIS IS", "TRUE");
         return true;
 
     }

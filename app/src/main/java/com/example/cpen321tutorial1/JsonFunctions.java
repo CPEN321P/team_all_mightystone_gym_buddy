@@ -60,18 +60,29 @@ public class JsonFunctions {
         String MonthString = formatter2.format(date.getMonthValue());
         String DayString = formatter2.format(date.getDayOfMonth());
         String DateString = MonthString + DayString + YearString;
-        String Json = "\"date\": \""+ DateString + "\"";
+        String Json = "\"date\": \"" + DateString + "\"";
         Log.d(TAG, Json);
         return Json;
     }
 
-    public static String JsonTime(LocalTime time){
+    public static String JsonStartTime(LocalTime time){
         Log.d(TAG, "Test111");
         DecimalFormat formatter = new DecimalFormat("00");
         String HourString = formatter.format(time.getHour());
         String MinString = formatter.format(time.getMinute());
         String TimeString = HourString + MinString;
-        String Json = "\"time\": \""+ TimeString + "\"";
+        String Json = "\"timeStart\": \"" + TimeString + "\"";
+        Log.d(TAG, Json);
+        return Json;
+    }
+
+    public static String JsonEndTime(LocalTime time){
+        Log.d(TAG, "Test111");
+        DecimalFormat formatter = new DecimalFormat("00");
+        String HourString = formatter.format(time.getHour());
+        String MinString = formatter.format(time.getMinute());
+        String TimeString = HourString + MinString;
+        String Json = "\"timeEnd\": \""+ TimeString + "\"";
         Log.d(TAG, Json);
         return Json;
     }
@@ -140,7 +151,7 @@ public class JsonFunctions {
 
     public static String JsonReported(int reported){
         String JsonReportedString = convertIntegerToJson(reported);
-        String Json = "\"reported\": \""+ JsonReportedString + "\"";
+        String Json = "\"reported\": \"" + JsonReportedString + "\"";
         return Json;
     }
 
@@ -153,6 +164,11 @@ public class JsonFunctions {
     public static String JsonBlockedUsers(ArrayList<String> blockedUsers){
         String blockedUsersString = convertArrayListToJson(blockedUsers);
         String Json = "\"blockedUsers\": \""+ blockedUsersString + "\"";
+        return Json;
+    }
+
+    public static String JsonWeightEvent(String Weight){
+        String Json = "\"weight\": \""+ Weight + "\"";
         return Json;
     }
 
@@ -185,6 +201,26 @@ public class JsonFunctions {
         return jsonArray.toString();
     }
 
+
+
+    public static String ConvertEventArrayListToJson (ArrayList<Event> Events, String userId, LocalDate date){
+        String JsonUserId = JsonUserId(userId);
+        String JsonDate = JsonDate(date);
+        String JsonExercises = "\"exercises\": [";
+        for (int i = 0; i < Events.size(); i++){
+            String JsonName = JsonName(Events.get(i).getName());
+            String JsonTimeStart = JsonStartTime(Events.get(i).getStartTime());
+            String JsonTimeEnd = JsonEndTime(Events.get(i).getEndTime());
+            JsonExercises = JsonExercises + "{" + JsonName + "," + JsonTimeStart + "," + JsonTimeEnd + "}";
+            if (i != Events.size()-1) {
+                JsonExercises = JsonExercises + ",";
+            }
+        }
+        JsonExercises = JsonExercises + "]";
+        String Json = "{" + JsonUserId + "," + JsonDate + "," + JsonExercises + "}";
+        return Json;
+    }
+
     public static String convertIntegerToJson(int value) {
         JSONObject jsonObject = new JSONObject();
         try {
@@ -195,8 +231,11 @@ public class JsonFunctions {
         return jsonObject.toString();
     }
 
-    public static LocalDate NumToLocalDate(long DateNum){
-        char[] dateArray = String.valueOf(DateNum).toCharArray();
+
+
+    public static LocalDate NumToLocalDate(Long DateNum){
+        DecimalFormat formatter = new DecimalFormat("00000000");
+        char[] dateArray = formatter.format(DateNum).toCharArray();
         String Day = "";
         String Month = "";
         String Year = "";
@@ -216,16 +255,18 @@ public class JsonFunctions {
         return localDate;
     }
 
-    public static LocalTime NumToLocalTime(long TimeNum){
-        char[] TimeArray = String.valueOf(TimeNum).toCharArray();
+    public static LocalTime NumToLocalTime(Long TimeNum){
+        Log.d(TAG, Long.toString(TimeNum));
+        DecimalFormat formatter = new DecimalFormat("0000");
+        char[] TimeArray = formatter.format(TimeNum).toCharArray();
         String Min = "";
         String Hour = "";
         for (int i = 0; i < TimeArray.length; i++)
         {
             if (i == 0 || i == 1){
-                Min += TimeArray[i];
-            } else if (i == 2 || i == 3) {
                 Hour += TimeArray[i];
+            } else if (i == 2 || i == 3) {
+                Min += TimeArray[i];
             }
         }
         String TheTime = Hour + ":" + Min;
@@ -233,6 +274,24 @@ public class JsonFunctions {
         return localTime;
     }
 
+    public static String TimeToStringNum(LocalTime time){
+        DecimalFormat formatter = new DecimalFormat("00");
+        String HourString = formatter.format(time.getHour());
+        String MinString = formatter.format(time.getMinute());
+        String TimeString = HourString + MinString;
+        return TimeString;
+    }
+
+    public static String DateToStringNum(LocalDate date){
+        DecimalFormat formatter1 = new DecimalFormat("0000");
+        DecimalFormat formatter2 = new DecimalFormat("00");
+        Log.d(TAG, "Test11");
+        String YearString = formatter1.format(date.getYear());
+        String MonthString = formatter2.format(date.getMonthValue());
+        String DayString = formatter2.format(date.getDayOfMonth());
+        String DateString = MonthString + DayString + YearString;
+        return DateString;
+    }
 
 
 
