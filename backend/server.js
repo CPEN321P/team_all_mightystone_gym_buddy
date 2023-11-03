@@ -22,8 +22,8 @@ app.use('/gyms', gymRoutes);
 app.use('/gymsUsers', gymUserRoutes);
 
 const options = {
-    key: fs.readFileSync('./private-key.pem'), // Path to your private key file
-    cert: fs.readFileSync('./certificate.pem'), // Path to your SSL/TLS certificate file
+    key: fs.readFileSync('/etc/letsencrypt/live/tams.westus3.cloudapp.azure.com/privkey.pem'), // Path to your private key file
+    cert: fs.readFileSync('/etc/letsencrypt/live/tams.westus3.cloudapp.azure.com/fullchain.pem'), // Path to your SSL/TLS certificate file
 };
 
 const run = () => {
