@@ -86,11 +86,11 @@ public class PersonalProfileOthers extends AppCompatActivity {
                 //POST the account to the database
                 RequestBody body = RequestBody.create("{"+ "}",
                         MediaType.parse("application/json"));
-                Request subscribeToGym = new Request.Builder()
+                Request addFriend = new Request.Builder()
                         .url("https://20.172.9.70/users/addFriend/" + myAccount.getUserId() + "/" + posFriendId)
                         .put(body)
                         .build();
-                NewCallPost(client, subscribeToGym);
+                NewCallPost(client, addFriend);
                 Toast.makeText(PersonalProfileOthers.this, "Make a friend request!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(PersonalProfileOthers.this, PersonalProfileFriend.class);
                 startActivity(intent);
@@ -105,6 +105,14 @@ public class PersonalProfileOthers extends AppCompatActivity {
                 ArrayList<Account> BlockAccounts = GlobalClass.myAccount.getBlockList();
                 //BlockAccounts.add(//the account information from the database//);
                 GlobalClass.myAccount.setBlockList(BlockAccounts);
+
+                RequestBody body = RequestBody.create("{"+ "}",
+                        MediaType.parse("application/json"));
+                Request blockUser = new Request.Builder()
+                        .url("https://20.172.9.70/users/blockUser/" + myAccount.getUserId() + "/" + posFriendId)
+                        .put(body)
+                        .build();
+                NewCallPost(client, blockUser);
                 //POST the account to the database
                 Toast.makeText(PersonalProfileOthers.this, "Add the user in block list", Toast.LENGTH_SHORT).show();
 
