@@ -62,7 +62,7 @@ router.get('/byUser/:userId/:date', async (req, res) => {
       res.status(404).json("No Schedule Found");
     }
   } catch (error) {
-    res.status(404).json("No Schedule Found");
+    res.status(500).json("Could not retrieve schedule");
   }
 });
 
