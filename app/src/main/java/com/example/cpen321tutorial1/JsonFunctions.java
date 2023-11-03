@@ -10,6 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -37,6 +40,40 @@ public class JsonFunctions {
                 }
             }
         });
+    }
+
+    public static String JsonUserId(String userId){
+        String Json = "\"userId\": \""+ userId + "\"";
+        return Json;
+    }
+
+    public static String JsonLocation(String location){
+        String Json = "\"location\": \""+ location + "\"";
+        return Json;
+    }
+
+    public static String JsonDate(LocalDate date){
+        DecimalFormat formatter1 = new DecimalFormat("0000");
+        DecimalFormat formatter2 = new DecimalFormat("00");
+        Log.d(TAG, "Test11");
+        String YearString = formatter1.format(date.getYear());
+        String MonthString = formatter2.format(date.getMonthValue());
+        String DayString = formatter2.format(date.getDayOfMonth());
+        String DateString = MonthString + DayString + YearString;
+        String Json = "\"date\": \""+ DateString + "\"";
+        Log.d(TAG, Json);
+        return Json;
+    }
+
+    public static String JsonTime(LocalTime time){
+        Log.d(TAG, "Test111");
+        DecimalFormat formatter = new DecimalFormat("00");
+        String HourString = formatter.format(time.getHour());
+        String MinString = formatter.format(time.getMinute());
+        String TimeString = HourString + MinString;
+        String Json = "\"time\": \""+ TimeString + "\"";
+        Log.d(TAG, Json);
+        return Json;
     }
 
     public static String JsonName(String name){
@@ -114,6 +151,27 @@ public class JsonFunctions {
         return Json;
     }
 
+    public static String JsonSets(int Sets){
+        String Json = "\"sets\": \""+ String.valueOf(Sets) + "\"";
+        return Json;
+    }
+
+    public static String JsonReps(int Reps){
+        String Json = "\"reps\": \""+ String.valueOf(Reps) + "\"";
+        return Json;
+    }
+
+    public static String JsonEvent(String JsonName, String JsonWeight, String JsonSets, String JsonReps, String JsonTimeStart, String JsoneTimeEnd) {
+        String JsonEvent = "{" + JsonName + "," + JsonWeight + "," + JsonSets + "," + JsonReps + "," + JsonTimeStart + "," + JsoneTimeEnd + "}";
+        return JsonEvent;
+    }
+
+    public static String JsonSchedule(String JsonEvent){
+        String JsonEventList = "[" + JsonEvent + "]";
+        String Json = "\"exercises\": " + JsonEventList;
+        return Json;
+    }
+
     public static String convertArrayListToJson(ArrayList<String> arrayList) {
         JSONArray jsonArray = new JSONArray();
         for (Object item : arrayList) {
@@ -130,6 +188,44 @@ public class JsonFunctions {
             e.printStackTrace();
         }
         return jsonObject.toString();
+    }
+
+    public static LocalDate NumToLocalDate(long DateNum){
+        char[] dateArray = String.valueOf(DateNum).toCharArray();
+        String Day = "";
+        String Month = "";
+        String Year = "";
+        for (int i = 0; i < dateArray.length; i++)
+        {
+            if (i == 0 || i == 1){
+                Day += dateArray[i];
+            } else if (i == 2 || i == 3) {
+                Month += dateArray[i];
+            }
+            else{
+                Year += dateArray[i];
+            }
+        }
+        String TheDate = Year + "-" + Month + "-" + Day;
+        LocalDate localDate = LocalDate.parse(TheDate);
+        return localDate;
+    }
+
+    public static LocalTime NumToLocalTime(long TimeNum){
+        char[] TimeArray = String.valueOf(TimeNum).toCharArray();
+        String Min = "";
+        String Hour = "";
+        for (int i = 0; i < TimeArray.length; i++)
+        {
+            if (i == 0 || i == 1){
+                Min += TimeArray[i];
+            } else if (i == 2 || i == 3) {
+                Hour += TimeArray[i];
+            }
+        }
+        String TheTime = Hour + ":" + Min;
+        LocalTime localTime = LocalTime.parse(TheTime);
+        return localTime;
     }
 
 

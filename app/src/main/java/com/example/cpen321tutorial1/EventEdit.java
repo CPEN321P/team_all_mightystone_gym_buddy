@@ -1,6 +1,12 @@
 package com.example.cpen321tutorial1;
 
-import static com.example.cpen321tutorial1.Event.eventsList;
+import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
+import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.JsonFriends;
+import static com.example.cpen321tutorial1.JsonFunctions.JsonName;
+import static com.example.cpen321tutorial1.JsonFunctions.JsonUserId;
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +23,11 @@ import android.widget.Toast;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class EventEdit extends AppCompatActivity {
 
@@ -74,7 +85,7 @@ public class EventEdit extends AppCompatActivity {
                     return;
                 }
 
-                for (Event event: eventsList){
+                for (Event event: MyeventsList){
                     if(event.getDate().equals(EventDate)) {
                         if(!(StrTime.compareTo(event.getEndtime()) >= 0 || EndTime.compareTo(event.getStartTime()) <= 0)){
                             Toast.makeText(EventEdit.this, "TimeConflict!", Toast.LENGTH_LONG).show();
@@ -83,8 +94,36 @@ public class EventEdit extends AppCompatActivity {
                     }
                 }
 
-                Event newEvent = new Event(GlobalClass.myAccount.getUsername() + ": " + eventName.getText().toString(), EventDate, StrTime, EndTime);
-                eventsList.add(newEvent);
+                Event newEvent = new Event(myAccount.getUsername() + ": " + eventName.getText().toString(), EventDate, StrTime, EndTime);
+                newEvent.setUserId(myAccount.getUserId());
+                MyeventsList.add(newEvent);
+
+
+
+                String JsonUserId = JsonFunctions.JsonUserId(myAccount.getUserId());
+                String JsonDate = JsonFunctions.JsonDate(EventDate);
+                String JsonEventName = JsonFunctions.JsonName(eventName.getText().toString());
+                String JsonEventWeight = JsonFunctions.JsonWeight(0);
+                String JsonEventSets = JsonFunctions.JsonSets(0);
+                String JsonEventReps = JsonFunctions.JsonReps(0);
+                String JsonEventTimeStart = JsonFunctions.JsonTime(StrTime);
+                String JsonEventTimeEnd = JsonFunctions.JsonTime(EndTime);
+                String JsonEvent = JsonFunctions.JsonEvent(JsonEventName, JsonEventWeight, JsonEventSets, JsonEventReps, JsonEventTimeStart, JsonEventTimeEnd);
+                String JsonSchedule = JsonFunctions.JsonSchedule(JsonEvent);
+
+                if(!checkIfSingleEventsExists(EventDate)){
+                    String Json = "{" +  JsonUserId + "," + JsonDate + "," + JsonSchedule + "}";
+                    Log.d(TAG, Json);
+                    RequestBody body = RequestBody.create(Json,
+                            MediaType.parse("application/json"));
+
+                    Request requestName = new Request.Builder()
+                            .url("https://20.172.9.70/schedules")
+                            .post(body)
+                            .build();
+
+                    NewCallPost(client, requestName);
+                }
 
                 /////////////////////////////////////////
                 //POST the event list to the back end////
@@ -102,5 +141,20 @@ public class EventEdit extends AppCompatActivity {
         eventStartTime = findViewById(R.id.StartTime);
         HowLong = findViewById(R.id.HowLong);
     }
+
+    private boolean checkIfSingleEventsExists(LocalDate Today) {
+        ConnectionToBackend c = new ConnectionToBackend();
+        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUserAndDate(myAccount.getUserId(), Today);
+        if(TheEventsofThisAccount == null){
+            Log.d("THISSSSSSS", "FALSE BRO");
+            return false;
+        }
+        Log.d("THISSSSSSS", "TRUE");
+        MyeventsList = TheEventsofThisAccount;
+        return true;
+
+    }
+
+
 
 }
