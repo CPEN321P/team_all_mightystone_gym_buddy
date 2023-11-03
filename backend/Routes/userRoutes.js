@@ -323,22 +323,40 @@ router.put('/userId/:userId', async (req, res) => {
 });
 
 //Add Friend. ONLY FOR MVP, TO BE CHANGED LATER
-router.post('/addFriend/:senderId/:recieverId', async (req, res) => {
+router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
   const db = getDB();
   const recieverId = new ObjectId(req.params.recieverId);
   const senderId = new ObjectId(req.params.senderId);
 
   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
   const senderUser = await db.collection('users').findOne({ _id: senderId });
-
-  if(recieverUser.friends.indexOf(senderId) == -1){
-    recieverUser.friends.push(senderId);
-    senderUser.friends.push(recieverId);
-    res.status(200).send('Friend added');
+  const receiverFriends = recieverUser.friends;
+  const senderFriends = senderUser.friends;
+  if(receiverFriends.indexOf(senderId) == -1){
+    receiverFriends.push(senderId);
+    senderFriends.push(recieverId);
   }
   else{
     res.status(500).send('Already friends');
   }
+  const result = await db.collection('users').updateOne(
+    { _id: recieverId },
+    { 
+      $set: {
+        friends: receiverFriends
+      } 
+    }
+  );
+  const result2 = await db.collection('users').updateOne(
+    { _id: senderId },
+    { 
+      $set: {
+        friends: senderFriends
+      } 
+    }
+  );
+  res.status(200).send('Friend added');
+
 });
 
 
