@@ -19,6 +19,11 @@ public class Unblock extends AppCompatActivity {
         setContentView(R.layout.activity_unblock);
         initWidgets();
 
+        Intent i = getIntent();
+        String personName = i.getStringExtra("PersonName");
+
+        Username.setText(personName);
+
         Confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

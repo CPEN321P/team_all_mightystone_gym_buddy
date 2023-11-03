@@ -187,7 +187,7 @@ public class ConnectionToBackend {
                         throw new IOException("Account model is null");
                     }
 
-                    return setAccountInformationFromBackend(false, accountModelFromBackend);
+                    return setAccountInformationFromBackend(accountModelFromBackend);
                 }
             }
         };
@@ -203,8 +203,8 @@ public class ConnectionToBackend {
         }
     }
 
-    public Account setAccountInformationFromBackend(boolean getFriendsAndBlocked, AccountModelFromBackend accountModel){
-        Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),accountModel.getAge().intValue(), accountModel.getWeight().intValue(), accountModel.getGender(),"User", new ArrayList<>(), new ArrayList<>());
+    public Account setAccountInformationFromBackend(AccountModelFromBackend accountModel){
+        Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),accountModel.getAge().intValue(), accountModel.getWeight().intValue(), accountModel.getGender(),new ArrayList<>(), new ArrayList<>());
         returnedAccount.setUserId(accountModel.getId());
         return returnedAccount;
 
@@ -240,7 +240,7 @@ public class ConnectionToBackend {
                     }
 
                     for(int i = 0; i<listOfFriends.size(); i++){
-                        listOfAllAccounts.add(setAccountInformationFromBackend(false, listOfFriends.get(i)));
+                        listOfAllAccounts.add(setAccountInformationFromBackend(listOfFriends.get(i)));
 
                     }
 
@@ -260,8 +260,54 @@ public class ConnectionToBackend {
             //throw new RuntimeException("Error while fetching account information", e);
         }
 
+    }
 
+    public ArrayList<Account> getAllBlocked(final String userId) {
 
+        ArrayList<Account> listOfAllAccounts = new ArrayList<>();
+        Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
+            @Override
+            public ArrayList<Account> call() throws Exception {
+                Request getBlocekdProfiles = new Request.Builder()
+                        .url("https://20.172.9.70/users/userId/"+ userId+ "/blockedUsers")
+                        .build();
+
+                Response response = client.newCall(getBlocekdProfiles).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    Type listType = new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
+
+                    List<AccountModelFromBackend> listOfBlocked = new Gson().fromJson(jsonResponse, listType);
+
+                    if (listOfBlocked == null) {
+                        throw new IOException("Gym model is null");
+                    }
+
+                    for(int i = 0; i<listOfBlocked.size(); i++){
+                        listOfAllAccounts.add(setAccountInformationFromBackend(listOfBlocked.get(i)));
+
+                    }
+
+                    return listOfAllAccounts;
+
+                }
+            }
+        };
+
+        Future<ArrayList<Account>> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
 
     }
 
@@ -295,7 +341,7 @@ public class ConnectionToBackend {
                     }
 
                     for(int i = 0; i<listOfRecommended.size(); i++){
-                        listOfAllAccounts.add(setAccountInformationFromBackend(false, listOfRecommended.get(i)));
+                        listOfAllAccounts.add(setAccountInformationFromBackend(listOfRecommended.get(i)));
 
                     }
 

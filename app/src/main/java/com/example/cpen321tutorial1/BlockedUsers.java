@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,8 +22,8 @@ public class BlockedUsers extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        //TODO GET ALL BLOCKED USERS FROM BACKEND
-        List<Account> items = new ArrayList<Account>();
+        ConnectionToBackend c = new ConnectionToBackend();
+        List<Account> items = c.getAllBlocked(myAccount.getUserId());
 
 
 
@@ -33,6 +35,10 @@ public class BlockedUsers extends AppCompatActivity {
                 new RecyclerItemClickListener(BlockedUsers.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent UnblockIntent = new Intent(BlockedUsers.this, Unblock.class);
+                        if(!items.isEmpty()){
+                            Account Person = items.get(position);
+                            UnblockIntent.putExtra("PersonName", Person.getUsername());
+                        }
                         startActivity(UnblockIntent);
                     }
 

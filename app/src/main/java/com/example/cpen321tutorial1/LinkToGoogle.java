@@ -92,20 +92,6 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 }
                 account.setWeight(NumberOfWeight);
 
-                if((LoginPageManager.getStringName()).equals("NONE")) {
-                    //account.setEmailAddress(LoginPage.getStringName()); //User
-                    account.setRole("User");
-                }else{
-                    //account.setEmailAddress(LoginPageManager.getStringName()); //Manager
-                    account.setRole("Manager");
-                }
-
-//                Log.d(TAG, "UserName: " + account.Username);
-//                Log.d(TAG, "Age: " + account.Age);
-//                Log.d(TAG, "Weight: " + account.Weight);
-//                Log.d(TAG, "Email: " + account.EmailAddress);
-//                Log.d(TAG, "Gender: " + account.Gender);
-//                Log.d(TAG, "Role: " + account.Role);
 
                 Toast.makeText(LinkToGoogle.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
 
@@ -123,7 +109,6 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 ////////////////POST account into data base/////////////////
 
                 String Json = "";
-                if (GlobalClass.myAccount.getRole() == "User") {
                     String JsonName = JsonFunctions.JsonName(GlobalClass.myAccount.getUsername());
                     String JsonEmail = JsonFunctions.JsonEmail(GlobalClass.myAccount.getEmailAddress());
                     String JsonAge = JsonFunctions.JsonAge(GlobalClass.myAccount.getAge());
@@ -131,12 +116,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                     String JsonGender = JsonFunctions.JsonGender(GlobalClass.myAccount.getGender());
                     Json = "{" + JsonName + "," + JsonEmail + "," + JsonAge + "," + JsonWeight + "," + JsonGender + "}";
                     Log.d(TAG, Json);
-                }
-                else if (GlobalClass.myAccount.getRole() == "Manager"){
-                    String JsonName = JsonFunctions.JsonName(GlobalClass.myAccount.getUsername());
-                    String JsonEmail = JsonFunctions.JsonEmail(GlobalClass.myAccount.getEmailAddress());
-                    Json = JsonName + JsonEmail;
-                }
+
                 RequestBody body = RequestBody.create(Json,
                         MediaType.parse("application/json"));
 
@@ -153,23 +133,10 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 c.getAccountInformationFromEmail(myAccount.getEmailAddress());
 
 
-                if(account.getRole() == "Manager") {
 
-                    //TODO: add manager to database
+                Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPage.class);
+                startActivity(PersonalProfile);
 
-
-                    Toast.makeText(LinkToGoogle.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-                    Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPageManager.class);
-                    startActivity(PersonalProfile);
-                }
-                else if(account.getRole() == "User") {
-
-                    //adding user account to database
-
-                    Toast.makeText(LinkToGoogle.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-                    Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPage.class);
-                    startActivity(PersonalProfile);
-                }
             }
         });
     }

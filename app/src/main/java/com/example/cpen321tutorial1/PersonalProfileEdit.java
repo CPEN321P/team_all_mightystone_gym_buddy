@@ -80,7 +80,7 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 }
 
                 Account updatedAccount = new Account(UserName.getText().toString(), GlobalClass.myAccount.getEmailAddress(), StringToInteger(Age.getText().toString()),
-                        StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(), GlobalClass.myAccount.getRole(),
+                        StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(),
                         GlobalClass.myAccount.getFriendsList(), GlobalClass.myAccount.getFriendsList());
 
                 updatedAccount.setUserId(myAccount.getUserId());
@@ -110,14 +110,8 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 NewCallPost(client, putUserRequest);
                 Log.d("THIS IS WHAT YOURE LOOKING FOR","DID PUT");
 
-                if(GlobalClass.myAccount.getRole() == "Manager"){
-                    Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileManager.class);
+               Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
                     startActivity(PersonalProfileIntent);
-                }
-                else if(GlobalClass.myAccount.getRole() == "User"){
-                    Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
-                    startActivity(PersonalProfileIntent);
-                }
 
             }
         });
