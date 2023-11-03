@@ -6,7 +6,8 @@ const router = express.Router();
 
 // ALL REST OPERATIONS
 // - Create a new gym user 
-// - Get a specific user by id 
+// - Get a specific gym user by id 
+// - Get a specific gym user by email
 // - Make an Announcement (test)
 // - Edit an Announcement (do)
 // - Delete an Announcement (do)
