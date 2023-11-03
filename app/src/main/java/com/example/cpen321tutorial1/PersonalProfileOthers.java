@@ -1,5 +1,10 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.JsonHomeGym;
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +16,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+
 public class PersonalProfileOthers extends AppCompatActivity {
 
     Button AddFriend, Block;
@@ -21,7 +30,18 @@ public class PersonalProfileOthers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile_others);
         initWidgets();
+        Intent i = getIntent();
 
+        String posFriendName = i.getStringExtra("posFriendName");
+        String posFriendId = i.getStringExtra("posFriendUserId");
+        String posFriendAge = i.getStringExtra("posFriendAge");
+        String posFriendWeight = i.getStringExtra("posFriendWeight");
+        String posFriendGender = i.getStringExtra("posFriendGender");
+
+        Username.setText(posFriendName);
+        Age.setText(posFriendAge);
+        Weight.setText(posFriendWeight);
+        Gender.setText(posFriendGender);
         ArrayList<Account> MyCurrentBlockList = GlobalClass.myAccount.getBlockList();
         //ArrayList<Account> OtherCurrentBlockList = /The Account that you get//.getBlockList();
 
@@ -64,7 +84,13 @@ public class PersonalProfileOthers extends AppCompatActivity {
                 //CurrentFriendListOthers.add(GlobalClass.myAccount);
                 ////The Account that you get//.setFriendsList(CurrentFriendListOthers);
                 //POST the account to the database
-
+                RequestBody body = RequestBody.create("{"+ "}",
+                        MediaType.parse("application/json"));
+                Request subscribeToGym = new Request.Builder()
+                        .url("https://20.172.9.70/users/addFriend/" + myAccount.getUserId() + "/" + posFriendId)
+                        .put(body)
+                        .build();
+                NewCallPost(client, subscribeToGym);
                 Toast.makeText(PersonalProfileOthers.this, "Make a friend request!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(PersonalProfileOthers.this, PersonalProfileFriend.class);
                 startActivity(intent);
