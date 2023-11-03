@@ -47,7 +47,7 @@ public class ConnectionToBackend {
             public ArrayList<Event> call() throws Exception {
 
                 Request getEventInformation = new Request.Builder()
-                        .url("https://20.172.9.70/schedules/byId/" + UserId)
+                        .url("https://20.172.9.70/schedules/byUser/" + UserId)
                         .build();
 
                 Response response = client.newCall(getEventInformation).execute();
