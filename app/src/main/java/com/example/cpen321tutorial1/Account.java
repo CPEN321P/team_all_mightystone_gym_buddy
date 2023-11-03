@@ -15,7 +15,6 @@ public class Account {
     private int Age;
     private int Weight;
     private String Gender;
-    private String Role;
     private Gym myGym;
 
     private ArrayList<Account> FriendsList;
@@ -70,19 +69,17 @@ public class Account {
         Age = -1;
         Weight = -1;
         Gender = "NO GENDER SET";
-        Role = "NO ROLE SET";
         FriendsList = null;
         BlockList = null;
         UserId = "";
     }
 
-    public Account(String username, String emailAddress, int age, int weight, String gender, String role, ArrayList<Account> friendsList, ArrayList<Account> blockList) {
+    public Account(String username, String emailAddress, int age, int weight, String gender, ArrayList<Account> friendsList, ArrayList<Account> blockList) {
         Username = username;
         EmailAddress = emailAddress;
         Age = age;
         Weight = weight;
         Gender = gender;
-        Role = role;
         FriendsList = friendsList;
         BlockList = blockList;
         UserId = "";
@@ -128,36 +125,4 @@ public class Account {
         Gender = gender;
     }
 
-    public String getRole() {
-        return Role;
-    }
-
-    public void setRole(String role) {
-        Role = role;
-    }
-
-    public static void passAccountAsIntent (Intent intent, Account account){
-        intent.putExtra("Username", account.getUsername());
-        intent.putExtra("EmailAddress", account.getEmailAddress());
-        intent.putExtra("Age", account.getAge());
-        intent.putExtra("Weight", account.getWeight());
-        intent.putExtra("Gender", account.getGender());
-        intent.putExtra("Role", account.getRole());
-
-    }
-
-    public static Account getAccountFromIntent(Intent intent){
-        Account account = new Account();
-
-        account.setUsername(intent.getStringExtra("Username"));
-        account.setEmailAddress(intent.getStringExtra("EmailAddress"));
-        account.setAge(intent.getIntExtra("Age", 0));
-        account.setWeight(intent.getIntExtra("Weight", 0));
-        account.setGender(intent.getStringExtra("Gender"));
-        account.setRole(intent.getStringExtra("Role"));
-
-
-        return account;
-
-    }
 }
