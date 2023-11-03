@@ -166,6 +166,12 @@ public class JsonFunctions {
         return JsonEvent;
     }
 
+    public static String JsonSchedule(String JsonEvent){
+        String JsonEventList = "[" + JsonEvent + "]";
+        String Json = "\"exercises\": " + JsonEventList;
+        return Json;
+    }
+
     public static String convertArrayListToJson(ArrayList<String> arrayList) {
         JSONArray jsonArray = new JSONArray();
         for (Object item : arrayList) {

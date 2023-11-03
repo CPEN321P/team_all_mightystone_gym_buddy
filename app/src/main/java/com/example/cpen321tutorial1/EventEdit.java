@@ -109,10 +109,10 @@ public class EventEdit extends AppCompatActivity {
                 String JsonEventTimeStart = JsonFunctions.JsonTime(StrTime);
                 String JsonEventTimeEnd = JsonFunctions.JsonTime(EndTime);
                 String JsonEvent = JsonFunctions.JsonEvent(JsonEventName, JsonEventWeight, JsonEventSets, JsonEventReps, JsonEventTimeStart, JsonEventTimeEnd);
-                String JsonEventList = "[" + JsonEvent + "]";
+                String JsonSchedule = JsonFunctions.JsonSchedule(JsonEvent);
 
                 if(!checkIfSingleEventsExists(EventDate)){
-                    String Json = "{" +  JsonUserId + "," + JsonDate + "," + JsonEventList + "}";
+                    String Json = "{" +  JsonUserId + "," + JsonDate + "," + JsonSchedule + "}";
                     Log.d(TAG, Json);
                     RequestBody body = RequestBody.create(Json,
                             MediaType.parse("application/json"));
