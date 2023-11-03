@@ -28,18 +28,6 @@ public class Gyms extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(Gyms.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        Intent GymIntent = new Intent(Gyms.this, GymProfile.class);
-                        startActivity(GymIntent);
-                    }
-
-                    @Override public void onLongItemClick(View view, int position) {
-                        // do whatever
-                    }
-                }));
-
         List<GymItem> items = new ArrayList<GymItem>();
         items.add(new GymItem("UBC Arc", "6138 Student Union Blvd", R.drawable.gym));
         items.add(new GymItem("Gym A", "Address", R.drawable.gym));
@@ -52,6 +40,21 @@ public class Gyms extends AppCompatActivity {
         items.add(new GymItem("Gym H", "Address", R.drawable.gym));
         items.add(new GymItem("Gym I", "Address", R.drawable.gym));
         items.add(new GymItem("Gym J", "Address", R.drawable.gym));
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(Gyms.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Intent GymIntent = new Intent(Gyms.this, GymProfile.class);
+                        GymItem gymItem = items.get(position);
+                        GymIntent.putExtra("GymItemAddress", gymItem.address);
+                        GymIntent.putExtra("GymItemName", gymItem.name);
+                        startActivity(GymIntent);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                }));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new GymAdapter(getApplicationContext(), items));

@@ -2,7 +2,9 @@ package com.example.cpen321tutorial1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +21,13 @@ public class GymProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_profile);
         initWidgets();
+        Intent i = getIntent();
 
+        String gymAddress = i.getStringExtra("GymItemAddress");
+        String gymName = i.getStringExtra("GymItemName");
+        Log.d("HAHA", "address: " + gymAddress);
+        Name.setText(gymName);
+        Location.setText(gymAddress);
         //Get the relative information from the database
         //Name.setText();
         //Location.setText();
@@ -38,6 +46,12 @@ public class GymProfile extends AppCompatActivity {
 
                 //TheOldGymUserList.add(GlobalClass.myAccount);
                 //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList)
+                /*Request subscribeToGym = new Request.Builder()
+                        .url("https://20.172.9.70/users/")
+                        .post("{"+ JsonHomeGym() + "}")
+                        .build();
+                */
+
                 Toast.makeText(GymProfile.this, "Subscript the Gym!", Toast.LENGTH_SHORT).show();
             }
         });
