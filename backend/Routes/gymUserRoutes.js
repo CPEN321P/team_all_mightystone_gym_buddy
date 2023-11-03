@@ -52,6 +52,19 @@ router.get('/userId/:userId', async (req, res) => {
   }
 });
 
+// Get a specific gym user by email
+router.get('/userEmail/:userEmail', async (req, res) => {
+  const db = getDB();
+  const userEmail = req.params.userEmail;
+
+  const gymUser = await db.collection('gymUsers').findOne({ email: userEmail });
+  if (gymUser) {
+    res.status(200).json(gymUser);
+  } else {
+    res.status(404).send('User not found');
+  }
+});
+
 // Make an announcement
 router.put('/makeAnnouncement/:userId', async (req, res) => {
   const db = getDB();
