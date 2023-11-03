@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
 router.get('/byUser/:userId/:date', async (req, res) => {
   const db = getDB();
   const userId = req.params.userId;
-  const date = parseInt(req.params.date)
+  const date = req.params.date
 
   const schedule = await db.collection('schedules').findOne({
     $and: [
