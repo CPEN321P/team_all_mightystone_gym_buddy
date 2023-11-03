@@ -131,8 +131,9 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   const db = getDB();
   var myHomeGym;
   var user;
+  var id
   try {
-    const id = new ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
 
     user = await db.collection('users').findOne({ _id: id });
   
