@@ -322,6 +322,26 @@ router.put('/userId/:userId', async (req, res) => {
   }
 });
 
+//Add Friend. ONLY FOR MVP, TO BE CHANGED LATER
+router.post('/addFriend/:senderId/:recieverId', async (req, res) => {
+  const db = getDB();
+  const recieverId = new ObjectId(req.params.recieverId);
+  const senderId = new ObjectId(req.params.senderId);
+
+  const recieverUser = await db.collection('users').findOne({ _id: recieverId });
+  const senderUser = await db.collection('users').findOne({ _id: senderId });
+
+  if(recieverUser.friends.indexOf(senderId) == -1){
+    recieverUser.friends.push(senderId);
+    senderUser.friends.push(recieverId);
+    res.status(200).send('Friend added');
+  }
+  else{
+    res.status(500).send('Already friends');
+  }
+});
+
+
 // Send friend request
 router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
   const db = getDB();
