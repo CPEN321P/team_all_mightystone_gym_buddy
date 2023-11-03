@@ -56,6 +56,21 @@ router.get('/byUser/:userId/:date', async (req, res) => {
   }
 });
 
+router.get('/byUser/:userId', async (req, res) => {
+  const db = getDB();
+  const userId = req.params.userId;
+  const date = parseInt(req.params.date)
+
+  const schedule = await db.collection('schedules').find({userId: userId}).toArray();
+
+  if (schedule) {
+    res.status(200).json(schedule);
+  }
+  else {
+    res.status(404).json("No Schedule Found");
+  }
+});
+
 // Get a specific gym schedule by ID
 router.get('/byId/:scheduleId', async (req, res) => {
   const db = getDB();
@@ -117,6 +132,13 @@ router.delete('/byId/:scheduleId', async (req, res) => {
   } else {
     res.status(200).send('Schedule deleted successfully');
   }
+});
+
+router.delete('/', async (req, res) => {
+  const db = getDB();
+  
+  const result = await db.collection('schedules').deleteMany({});
+  res.status(200).send('Schedules deleted successfully');
 });
 
 export default router;

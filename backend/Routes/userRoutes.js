@@ -141,7 +141,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
     } 
     myHomeGym = user.homeGym;
   } catch (error) {
-    
+    res.status(500).send("Can't recommend users");
   }
   
   const recommendedUsers = await db.collection('users').find({ homeGym: myHomeGym }).toArray();
@@ -760,7 +760,7 @@ router.delete('/', async (req, res) => {
   const db = getDB();
   
   const result = await db.collection('users').deleteMany({});
-
+  res.status(200).send('Users deleted successfully');
 });
 
 export default router;
