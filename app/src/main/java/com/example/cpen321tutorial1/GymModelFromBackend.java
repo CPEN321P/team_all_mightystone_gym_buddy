@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import java.util.List;
+
 public class GymModelFromBackend {
     private String _id;
     private String name;
@@ -7,7 +9,15 @@ public class GymModelFromBackend {
     private String location;
     private String phone;
     private String email;
-    private String images;
+    private List<String> images;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public String getName() {
         return name;
@@ -49,11 +59,11 @@ public class GymModelFromBackend {
         this.email = email;
     }
 
-    public String getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(String images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 

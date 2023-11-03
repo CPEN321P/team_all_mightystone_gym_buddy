@@ -1,42 +1,50 @@
 package com.example.cpen321tutorial1;
 
-import java.util.ArrayList;
-
 public class Gym {
 
-    private String GymName;
-    private String Location;
+    private String name;
+    private String address;
     private String AccessTime;
     private String Website;
     private String Tips;
+
+    private int image;
 
     public Gym(){
 
     }
 
-    public Gym( String gymName, String location, String accessTime, String website, String tips) {
+    public int getImage() {
+        return image;
+    }
 
-        GymName = gymName;
-        Location = location;
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public Gym(String name, String address, String accessTime, String website, String tips) {
+
+        this.name = name;
+        this.address = address;
         AccessTime = accessTime;
         Website = website;
         Tips = tips;
     }
 
-    public String getGymName() {
-        return GymName;
+    public String getName() {
+        return name;
     }
 
-    public void setGymName(String gymName) {
-        GymName = gymName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLocation() {
-        return Location;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLocation(String location) {
-        Location = location;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getAccessTime() {

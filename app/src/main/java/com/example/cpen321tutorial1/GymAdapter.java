@@ -12,9 +12,9 @@ import java.util.List;
 public class GymAdapter extends RecyclerView.Adapter<GymViewHolder>{
 
     Context context;
-    List<GymItem> items;
+    List<Gym> items;
 
-    public GymAdapter(Context context, List<GymItem> items) {
+    public GymAdapter(Context context, List<Gym> items) {
         this.context = context;
         this.items = items;
     }
@@ -30,7 +30,6 @@ public class GymAdapter extends RecyclerView.Adapter<GymViewHolder>{
         holder.nameView.setText(items.get(position).getName());
         holder.addressView.setText(items.get(position).getAddress());
         holder.imageView.setImageResource(items.get(position).getImage());
-
     }
 
     @Override

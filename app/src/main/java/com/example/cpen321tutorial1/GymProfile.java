@@ -23,8 +23,8 @@ public class GymProfile extends AppCompatActivity {
         initWidgets();
         Intent i = getIntent();
 
-        String gymAddress = i.getStringExtra("GymItemAddress");
-        String gymName = i.getStringExtra("GymItemName");
+        String gymAddress = i.getStringExtra("GymAddress");
+        String gymName = i.getStringExtra("GymName");
         Log.d("HAHA", "address: " + gymAddress);
         Name.setText(gymName);
         Location.setText(gymAddress);

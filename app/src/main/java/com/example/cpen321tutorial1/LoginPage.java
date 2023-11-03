@@ -200,7 +200,7 @@ public class LoginPage extends AppCompatActivity {
 
             } else {
                 ConnectionToBackend c = new ConnectionToBackend();
-                Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
+                //Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
                 Intent LinkAccountIntent = new Intent(LoginPage.this, Logo.class);
                 startActivity(LinkAccountIntent);
             }
@@ -229,7 +229,7 @@ public class LoginPage extends AppCompatActivity {
             //Log.d("THISSSSSSS", "FALSE BRO");
             return false;
         }
-        Log.d("THISSSSSSS", "TRUE");
+        //Log.d("THISSSSSSS", "TRUE");
         myAccount = thisAccount;
         return true;
 
@@ -239,10 +239,10 @@ public class LoginPage extends AppCompatActivity {
         ConnectionToBackend c = new ConnectionToBackend();
         ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(myAccount.getUserId());
         if(TheEventsofThisAccount == null){
-            Log.d("THISSSSSSS", "FALSE BRO");
+            //Log.d("THISSSSSSS", "FALSE BRO");
             return false;
         }
-        Log.d("THISSSSSSS", "TRUE");
+        //Log.d("THISSSSSSS", "TRUE");
         MyeventsList = TheEventsofThisAccount;
         return true;
 

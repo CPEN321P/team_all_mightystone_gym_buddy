@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Person;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,26 +31,24 @@ public class Gyms extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        List<GymItem> items = new ArrayList<GymItem>();
-        items.add(new GymItem("UBC Arc", "6138 Student Union Blvd", R.drawable.gym));
-        items.add(new GymItem("Gym A", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym B", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym C", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym D", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym E", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym F", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym G", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym H", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym I", "Address", R.drawable.gym));
-        items.add(new GymItem("Gym J", "Address", R.drawable.gym));
+        ConnectionToBackend c = new ConnectionToBackend();
+
+        List<Gym> items = c.getAllGyms();
+
+        //get all gyms from backend
+
+
+
+
+
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Gyms.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent GymIntent = new Intent(Gyms.this, GymProfile.class);
-                        GymItem gymItem = items.get(position);
-                        GymIntent.putExtra("GymItemAddress", gymItem.address);
-                        GymIntent.putExtra("GymItemName", gymItem.name);
+                        Gym Gym = items.get(position);
+                        GymIntent.putExtra("GymAddress", Gym.getAddress());
+                        GymIntent.putExtra("GymName", Gym.getName());
                         startActivity(GymIntent);
                     }
 

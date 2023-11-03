@@ -7,8 +7,10 @@ import static com.example.cpen321tutorial1.JsonFunctions.NumToLocalTime;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -36,7 +38,7 @@ public class ConnectionToBackend {
 
     }
 
-
+    //SCHEDULE FUNCTIONS!!!!
 
     public ArrayList<Event> getScheduleByUser (final String UserId){
         Callable<ArrayList<Event>> asyncCall = new Callable<ArrayList<Event>>() {
@@ -116,91 +118,6 @@ public class ConnectionToBackend {
         }
     }
 
-    public Account getAccountInformationFromEmail(final String email) {
-        Callable<Account> asyncCall = new Callable<Account>() {
-            @Override
-            public Account call() throws Exception {
-                Request getAccountInformation = new Request.Builder()
-                        .url("https://20.172.9.70/users/userEmail/" + email)
-                        .build();
-
-                Response response = client.newCall(getAccountInformation).execute();
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response.code());
-                }
-
-                try (ResponseBody responseBody = response.body()) {
-                    String jsonResponse = responseBody.string();
-                    AccountModelFromBackend accountModelFromBackend = new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
-
-                    if (accountModelFromBackend == null) {
-                        throw new IOException("Account model is null");
-                    }
-
-                    return setAccountInformationFromBackend(false, accountModelFromBackend);
-                }
-            }
-        };
-
-        Future<Account> future = executorService.submit(asyncCall);
-
-        try {
-            return future.get(); // This will block until the async call is complete
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return null;
-            //throw new RuntimeException("Error while fetching account information", e);
-        }
-    }
-
-    public Gym getGymInformationFromId(final String id) {
-        Callable<Gym> asyncCall = new Callable<Gym>() {
-            @Override
-            public Gym call() throws Exception {
-                Request getGymInformation = new Request.Builder()
-                        .url("https://20.172.9.70/gyms/" + id)
-                        .build();
-
-                Response response = client.newCall(getGymInformation).execute();
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response.code());
-                }
-
-                try (ResponseBody responseBody = response.body()) {
-                    String jsonResponse = responseBody.string();
-                    GymModelFromBackend gymModelFromBackend = new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
-
-                    if (gymModelFromBackend == null) {
-                        throw new IOException("Account model is null");
-                    }
-
-                    return setGymInformationFromBackend(false, gymModelFromBackend);
-                }
-            }
-        };
-
-        Future<Gym> future = executorService.submit(asyncCall);
-
-        try {
-            return future.get(); // This will block until the async call is complete
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return null;
-            //throw new RuntimeException("Error while fetching account information", e);
-        }
-    }
-
-    private Gym setGymInformationFromBackend(boolean b, GymModelFromBackend gymModelFromBackend) {
-        Gym returnedGym = new Gym();
-        return returnedGym;
-    }
-
-    public void shutdown() {
-        executorService.shutdown();
-    }
-
     public static ArrayList<Event> setSingleEventInformationFromBackend(ScheduleModelFromBackend scheduleModel){
 
         String userId = scheduleModel.getUserId();
@@ -243,11 +160,131 @@ public class ConnectionToBackend {
         return ReturnedEvent;
     }
 
+    //ACCOUNT FUNCTIONS!!!
+
+    public Account getAccountInformationFromEmail(final String email) {
+        Callable<Account> asyncCall = new Callable<Account>() {
+            @Override
+            public Account call() throws Exception {
+                Request getAccountInformation = new Request.Builder()
+                        .url("https://20.172.9.70/users/userEmail/" + email)
+                        .build();
+
+                Response response = client.newCall(getAccountInformation).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    AccountModelFromBackend accountModelFromBackend = new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
+
+                    if (accountModelFromBackend == null) {
+                        throw new IOException("Account model is null");
+                    }
+
+                    return setAccountInformationFromBackend(false, accountModelFromBackend);
+                }
+            }
+        };
+
+        Future<Account> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+    }
+
     public Account setAccountInformationFromBackend(boolean getFriendsAndBlocked, AccountModelFromBackend accountModel){
         Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),accountModel.getAge().intValue(), accountModel.getWeight().intValue(), accountModel.getGender(),"User", new ArrayList<>(), new ArrayList<>());
         returnedAccount.setUserId(accountModel.getId());
         return returnedAccount;
 
     }
+
+    //GYM FUNCTIONS!!!!
+
+    public ArrayList<Gym> getAllGyms() {
+
+        ArrayList<Gym> listOfAllGyms = new ArrayList<>();
+        Callable<ArrayList<Gym>> asyncCall = new Callable<ArrayList<Gym>>() {
+            @Override
+            public ArrayList<Gym> call() throws Exception {
+                Request getGymInformation = new Request.Builder()
+                        .url("https://20.172.9.70/gyms")
+                        .build();
+
+                Response response = client.newCall(getGymInformation).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    Type listType = new TypeToken<ArrayList<GymModelFromBackend>>(){}.getType();
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+
+                    List<GymModelFromBackend> listOfGymModels = new Gson().fromJson(jsonResponse, listType);
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
+
+
+                    if (listOfGymModels == null) {
+                        throw new IOException("Gym model is null");
+                    }
+
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.size()+"");
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.get(0).getName());
+
+
+                    for(int i = 0; i<listOfGymModels.size(); i++){
+                        listOfAllGyms.add(setGymInformationFromBackend(listOfGymModels.get(i)));
+
+                    }
+
+                    return listOfAllGyms;
+
+                }
+            }
+        };
+
+        Future<ArrayList<Gym>> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+
+
+
+
+    }
+
+    private Gym setGymInformationFromBackend(GymModelFromBackend gymModelFromBackend) {
+        Gym returnedGym = new Gym();
+
+
+        returnedGym.setName(gymModelFromBackend.getName());
+        returnedGym.setAddress(gymModelFromBackend.getLocation());
+        returnedGym.setImage(R.drawable.gym);
+
+        //FOR NOW WE ARE ADDING THE IMAGE SINCE THAT FIELD DOESNT EXIST ON THE BACKEND
+
+        return returnedGym;
+    }
+
+    public void shutdown() {
+        executorService.shutdown();
+    }
+
+
 
 }
