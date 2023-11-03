@@ -47,6 +47,14 @@ public class PossibleFriends extends AppCompatActivity {
                 new RecyclerItemClickListener(PossibleFriends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileOthers.class);
+                        if(!items.isEmpty()){
+                            Account posFriend = items.get(position);
+                            FriendIntent.putExtra("posFriendName", posFriend.getUsername());
+                            FriendIntent.putExtra("posFriendUserId", posFriend.getUserId());
+                            FriendIntent.putExtra("posFriendAge", posFriend.getAge());
+                            FriendIntent.putExtra("posFriendWeight", posFriend.getWeight());
+                            FriendIntent.putExtra("posFriendGender", posFriend.getGender());
+                        }
                         startActivity(FriendIntent);
                     }
 
