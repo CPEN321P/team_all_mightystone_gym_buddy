@@ -1,5 +1,10 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.JsonHomeGym;
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class GymProfile extends AppCompatActivity {
 
@@ -46,13 +55,16 @@ public class GymProfile extends AppCompatActivity {
 
                 //TheOldGymUserList.add(GlobalClass.myAccount);
                 //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList)
-                /*Request subscribeToGym = new Request.Builder()
-                        .url("https://20.172.9.70/users/")
-                        .post("{"+ JsonHomeGym() + "}")
+                RequestBody body = RequestBody.create("{"+ JsonHomeGym(gymName) + "}",
+                        MediaType.parse("application/json"));
+                Request subscribeToGym = new Request.Builder()
+                        .url("https://20.172.9.70/users/userId/" + myAccount.getUserId())
+                        .put(body)
                         .build();
-                */
+                NewCallPost(client, subscribeToGym);
 
-                Toast.makeText(GymProfile.this, "Subscript the Gym!", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(GymProfile.this, "Subscribed to the Gym!", Toast.LENGTH_SHORT).show();
             }
         });
 
