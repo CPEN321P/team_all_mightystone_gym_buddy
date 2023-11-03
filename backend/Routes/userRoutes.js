@@ -131,8 +131,9 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   const db = getDB();
   var myHomeGym;
   var user;
+  var id
   try {
-    const id = new ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
 
     user = await db.collection('users').findOne({ _id: id });
   
@@ -147,16 +148,15 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   const friends = user.friends
   const recommendedUsers = await db.collection('users').find({}).toArray();
   const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
-    const userIdString = recommendedUser._id.toString();
-    return userIdString !== req.params.userId && !friends.includes(userIdString);
+    return userIdString !== req.params.userId && !friends.includes(id);
   });
 
-  if (!recommendedUsers) {
+  if (!filteredRecommendedUsers) {
     res.status(500).send('Could not get recommended users');
     return;
   }
 
-  res.status(200).json(recommendedUsers);
+  res.status(200).json(filteredRecommendedUsers);
 });
 
 // Get friends by ID
