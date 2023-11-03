@@ -59,11 +59,34 @@ router.get('/byUser/:userId/:date', async (req, res) => {
 router.get('/byUser/:userId', async (req, res) => {
   const db = getDB();
   const userId = req.params.userId;
-  const date = parseInt(req.params.date)
 
   const schedule = await db.collection('schedules').find({userId: userId}).toArray();
 
   if (schedule) {
+    res.status(200).json(schedule);
+  }
+  else {
+    res.status(404).json("No Schedule Found");
+  }
+});
+
+router.put('/byUser/:userId', async (req, res) => {
+  const db = getDB();
+  const userId = req.params.userId;
+
+
+  const schedule = await db.collection('schedules').find({userId: userId}).toArray();
+  const _id = schedule._id;
+  if (schedule) {
+    const updatedSchedule = {
+      userId: req.body.userId || schedule.userId,
+      date: req.body.date || schedule.date,
+      exercises: req.body.exercises || schedule.exercises
+    };
+    const result = await db.collection('schedules').updateOne(
+      { _id: id },
+      { $set: updatedSchedule }
+    );
     res.status(200).json(schedule);
   }
   else {
@@ -125,6 +148,21 @@ router.delete('/byId/:scheduleId', async (req, res) => {
 
   const result = await db.collection('schedules').deleteOne({ 
     _id: id,
+  });
+
+  if (result.deletedCount === 0) {
+    res.status(404).send('Schedule not found');
+  } else {
+    res.status(200).send('Schedule deleted successfully');
+  }
+});
+
+router.delete('/byUser/:userId', async (req, res) => {
+  const db = getDB();
+  const userId = new ObjectId(req.params.userId);
+
+  const result = await db.collection('schedules').deleteOne({ 
+    userId: userId,
   });
 
   if (result.deletedCount === 0) {
