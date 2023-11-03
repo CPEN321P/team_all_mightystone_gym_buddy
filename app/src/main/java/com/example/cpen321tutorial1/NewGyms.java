@@ -45,9 +45,9 @@ public class NewGyms extends AppCompatActivity {
                 Log.d(TAG, "Website: " + InputWebsite);
                 Log.d(TAG, "Tips: " + InputTips);
 
-                Gym TheAddGym = new Gym(Owner, SubscribedUserss, InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
-                Gym.CurrentGym.clear();
-                Gym.CurrentGym.add(TheAddGym);
+                Gym TheAddGym = new Gym(InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
+//                Gym.CurrentGym.clear();
+//                Gym.CurrentGym.add(TheAddGym);
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///

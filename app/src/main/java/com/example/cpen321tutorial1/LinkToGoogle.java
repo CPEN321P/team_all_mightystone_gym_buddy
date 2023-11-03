@@ -117,7 +117,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
                 //Account.CurrentAccount.clear();
                 //Account.CurrentAccount.add(account);
-                Gym.CurrentGym.clear();
+                //Gym.CurrentGym.clear();
                 ////////////////////////////////////////////////////////
                 //CurrentAccount
                 ////////////////POST account into data base/////////////////

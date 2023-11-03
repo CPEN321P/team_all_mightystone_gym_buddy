@@ -23,11 +23,14 @@ public class EditGymsProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_gyms_profile);
         initWidgets();
 
-        Name.setText(Gym.CurrentGym.get(0).getGymName());
-        Location.setText(Gym.CurrentGym.get(0).getLocation());
-        AccessTime.setText(Gym.CurrentGym.get(0).getAccessTime());
-        Website.setText(Gym.CurrentGym.get(0).getWebsite());
-        Tips.setText(Gym.CurrentGym.get(0).getTips());
+        //the manager is the gym's owner and they are the only ones able to edit it
+
+        //TODO: uncomment these later
+//        Name.setText(Gym.CurrentGym.get(0).getGymName());
+//        Location.setText(Gym.CurrentGym.get(0).getLocation());
+//        AccessTime.setText(Gym.CurrentGym.get(0).getAccessTime());
+//        Website.setText(Gym.CurrentGym.get(0).getWebsite());
+//        Tips.setText(Gym.CurrentGym.get(0).getTips());
 
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +51,7 @@ public class EditGymsProfile extends AppCompatActivity {
                 Log.d(TAG, "Website: " + InputWebsite);
                 Log.d(TAG, "Tips: " + InputTips);
 
-                Gym TheAddGym = new Gym(Owner, SubscribedUserss, InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
-                Gym.CurrentGym.clear();
-                Gym.CurrentGym.add(TheAddGym);
+                Gym TheAddGym = new Gym( InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///

@@ -9,12 +9,15 @@ import java.util.ArrayList;
 public class Account {
 
     //public static ArrayList<Account> CurrentAccount = new ArrayList<>();
+    private String userId;
     private String Username;
     private String EmailAddress;
     private int Age;
     private int Weight;
     private String Gender;
     private String Role;
+    private Gym myGym;
+
     private ArrayList<Account> FriendsList;
     private ArrayList<Account> BlockList;
 
@@ -25,6 +28,23 @@ public class Account {
     public void setBlockList(ArrayList<Account> blockList) {
         BlockList = blockList;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Gym getMyGym() {
+        return myGym;
+    }
+
+    public void setMyGym(Gym myGym) {
+        this.myGym = myGym;
+    }
+
 
 //    public static ArrayList<Account> getCurrentAccount() {
 //        return CurrentAccount;

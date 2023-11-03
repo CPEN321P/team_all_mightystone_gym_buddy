@@ -65,7 +65,8 @@ public class PersonalProfileManager extends AppCompatActivity {
                 //Intent MyGymsIntent = new Intent(PersonalProfileManager.this, GymsProfileManager.class);
                 //startActivity(MyGymsIntent);
                 //Otherwise, jump to the NewGyms Activity
-                if (Gym.CurrentGym.isEmpty()) {
+                //TODO FIX THIS WTFS
+                if (true) {
                     Intent NewGymsIntent = new Intent(PersonalProfileManager.this, NewGyms.class);
                     startActivity(NewGymsIntent);
                 } else {

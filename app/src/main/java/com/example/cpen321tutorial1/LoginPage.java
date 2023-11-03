@@ -217,7 +217,7 @@ public class LoginPage extends AppCompatActivity {
         ConnectionToBackend c = new ConnectionToBackend();
         Account thisAccount = c.getAccountInformationFromEmail(email);
         if(thisAccount== null){
-            Log.d("THISSSSSSS", "FALSE BRO");
+            //Log.d("THISSSSSSS", "FALSE BRO");
             return false;
         }
         Log.d("THISSSSSSS", "TRUE");

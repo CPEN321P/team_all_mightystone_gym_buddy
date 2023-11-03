@@ -4,39 +4,23 @@ import java.util.ArrayList;
 
 public class Gym {
 
-    public static ArrayList<Gym> CurrentGym = new ArrayList<>();
-    private Account Owner;
-    private ArrayList<Account> SubscribedUsers;
     private String GymName;
     private String Location;
     private String AccessTime;
     private String Website;
     private String Tips;
 
-    public Gym(Account owner, ArrayList<Account> subscribedUsers, String gymName, String location, String accessTime, String website, String tips) {
-        Owner = owner;
-        SubscribedUsers = subscribedUsers;
+    public Gym(){
+
+    }
+
+    public Gym( String gymName, String location, String accessTime, String website, String tips) {
+
         GymName = gymName;
         Location = location;
         AccessTime = accessTime;
         Website = website;
         Tips = tips;
-    }
-
-    public Account getOwner() {
-        return Owner;
-    }
-
-    public void setOwner(Account owner) {
-        Owner = owner;
-    }
-
-    public ArrayList<Account> getSubscribedUsers() {
-        return SubscribedUsers;
-    }
-
-    public void setSubscribedUsers(ArrayList<Account> SubscribedUsers) {
-        SubscribedUsers = SubscribedUsers;
     }
 
     public String getGymName() {

@@ -52,9 +52,14 @@ public class ConnectionToBackend {
 //        return accountFromBackend;
 //    }
 
-    public void subscribeToGym(String gymId){
+    public void subscribeToGym(String gymId) {
 
     }
+
+    public void updateAccountInformationFromEmail(final String email) {
+
+    }
+
 
     public Account getAccountInformationFromEmail(final String email) {
         Callable<Account> asyncCall = new Callable<Account>() {
@@ -94,29 +99,60 @@ public class ConnectionToBackend {
         }
     }
 
+    public Gym getGymInformationFromId(final String id) {
+        Callable<Gym> asyncCall = new Callable<Gym>() {
+            @Override
+            public Gym call() throws Exception {
+                Request getGymInformation = new Request.Builder()
+                        .url("https://20.172.9.70/gyms/" + id)
+                        .build();
+
+                Response response = client.newCall(getGymInformation).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    GymModelFromBackend gymModelFromBackend = new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
+
+                    if (gymModelFromBackend == null) {
+                        throw new IOException("Account model is null");
+                    }
+
+                    return setGymInformationFromBackend(false, gymModelFromBackend);
+                }
+            }
+        };
+
+        Future<Gym> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+    }
+
+    private Gym setGymInformationFromBackend(boolean b, GymModelFromBackend gymModelFromBackend) {
+        Gym returnedGym = new Gym();
+        return returnedGym;
+    }
+
     public void shutdown() {
         executorService.shutdown();
     }
 
-    public static Account setAccountInformationFromBackend(boolean getFriendsAndBlocked, AccountModelFromBackend accountModel){
-        Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),accountModel.getAge().intValue(), accountModel.getWeight().intValue(), accountModel.getGender(),"User", new ArrayList<>(), new ArrayList<>());
-//        account.setUsername(accountModelFromBackend.getName());
-//        account.setEmailAddress(accountModelFromBackend.getEmail());
-//        account.setAge(accountModelFromBackend.getAge().intValue());
-//        account.setWeight(accountModelFromBackend.getWeight().intValue());
-//        account.setRole("User");
-//        account.setGender(accountModelFromBackend.getGender());
 
-//        if(getFriendsAndBlocked){
-//            for(int i = 0; i < accountModelFromBackend.getFriends().size(); i++) {
-//                Account friendAccount = setAccountInformationFromBackend(false, getAccountInformationFromId(accountModelFromBackend.getFriends().get(i)));
-//                account.getFriendsList().add(friendAccount);
-//            }
-//        }
-        Log.d("THIS IS WHAT YOURE", returnedAccount.getUsername());
+
+    public Account setAccountInformationFromBackend(boolean getFriendsAndBlocked, AccountModelFromBackend accountModel){
+        Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),accountModel.getAge().intValue(), accountModel.getWeight().intValue(), accountModel.getGender(),"User", new ArrayList<>(), new ArrayList<>());
+        returnedAccount.setUserId(accountModel.getId());
         return returnedAccount;
 
     }
-
 
 }

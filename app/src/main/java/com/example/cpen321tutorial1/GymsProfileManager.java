@@ -20,11 +20,11 @@ public class GymsProfileManager extends AppCompatActivity {
         initWidgets();
 
         //Get the relative information from the database
-        Name.setText(Gym.CurrentGym.get(0).getGymName());
-        Location.setText(Gym.CurrentGym.get(0).getLocation());
-        AccessTime.setText(Gym.CurrentGym.get(0).getAccessTime());
-        Website.setText(Gym.CurrentGym.get(0).getWebsite());
-        Tips.setText(Gym.CurrentGym.get(0).getTips());
+//        Name.setText(Gym.CurrentGym.get(0).getGymName());
+//        Location.setText(Gym.CurrentGym.get(0).getLocation());
+//        AccessTime.setText(Gym.CurrentGym.get(0).getAccessTime());
+//        Website.setText(Gym.CurrentGym.get(0).getWebsite());
+//        Tips.setText(Gym.CurrentGym.get(0).getTips());
 
         Edit.setOnClickListener(new View.OnClickListener() {
             @Override

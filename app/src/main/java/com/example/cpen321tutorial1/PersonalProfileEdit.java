@@ -1,5 +1,8 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class PersonalProfileEdit extends AppCompatActivity {
 
@@ -71,24 +79,36 @@ public class PersonalProfileEdit extends AppCompatActivity {
                     return;
                 }
 
-                Account CurrentAccount = new Account(UserName.getText().toString(), GlobalClass.myAccount.getEmailAddress(), StringToInteger(Age.getText().toString()),
+                Account updatedAccount = new Account(UserName.getText().toString(), GlobalClass.myAccount.getEmailAddress(), StringToInteger(Age.getText().toString()),
                         StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(), GlobalClass.myAccount.getRole(),
                         GlobalClass.myAccount.getFriendsList(), GlobalClass.myAccount.getFriendsList());
-                //Account.CurrentAccount.clear();
-                //Account.CurrentAccount.add(CurrentAccount);
 
-//                Log.d(TAG, "UserName: " + UserName.getText().toString());
-//                Log.d(TAG, "Age: " + Integer.parseInt(Age.getText().toString()));
-//                Log.d(TAG, "Weight: " + Integer.parseInt(Weight.getText().toString()));
-//                Log.d(TAG, "Email: " + GlobalClass.myAccount.getEmailAddress());
-//                Log.d(TAG, "Gender: " + GenderSpinner.getSelectedItem().toString());
-//                Log.d(TAG, "Role: " + GlobalClass.myAccount.getRole());
-//
+                updatedAccount.setUserId(myAccount.getUserId());
+
+                myAccount = updatedAccount;
+
+                //Log.d("THIS IS WHAT YOURE LOOKING FOR",myAccount.getUsername());
+
 
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///
                 //////////////////////////////////////////////////
+
+                RequestBody formBody = new FormBody.Builder()
+                        .add("name", myAccount.getUsername())
+                        .add("age", ""+myAccount.getAge())
+                        .add("weight", ""+myAccount.getWeight())
+                        .add("gender", myAccount.getGender())
+                        .build();
+
+                Request putUserRequest = new Request.Builder()
+                        .url("https://20.172.9.70/users/userId/"+ myAccount.getUserId())
+                        .put(formBody)
+                        .build();
+
+                NewCallPost(client, putUserRequest);
+                Log.d("THIS IS WHAT YOURE LOOKING FOR","DID PUT");
 
                 if(GlobalClass.myAccount.getRole() == "Manager"){
                     Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileManager.class);
