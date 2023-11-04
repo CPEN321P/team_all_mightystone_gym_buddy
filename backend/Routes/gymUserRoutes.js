@@ -297,4 +297,16 @@ router.delete('/userId/:userId', async (req, res) => {
   }
 });
 
+// Delete all gym users
+router.delete('/', async (req, res) => {
+  try {
+    const db = getDB();
+    
+    const result = await db.collection('gymUsers').deleteMany({});
+    res.status(200).send('Users deleted successfully');
+  } catch (error) {
+    res.status(500).send('All Users Not Deleted');
+  }
+});
+
 export default router;
