@@ -61,10 +61,10 @@ public class ConnectionToBackend {
                     ScheduleModelFromBackend[] scheduleModelFromBackend = new Gson().fromJson(jsonResponse, ScheduleModelFromBackend[].class);
 
                     if (scheduleModelFromBackend == null) {
-                        throw new IOException("Account model is null");
+                        throw new IOException("Schedule model is null");
                     }
 
-                    //return null;
+
                     return setEventInformationFromBackend(scheduleModelFromBackend);
                 }
             }
@@ -102,9 +102,9 @@ public class ConnectionToBackend {
                     ScheduleModelFromBackend SingleScheduleModelFromBackend = new Gson().fromJson(jsonResponse, ScheduleModelFromBackend.class);
 
                     if (SingleScheduleModelFromBackend == null) {
-                        throw new IOException("Schedule model is null");
+                        throw new IOException("Single Schedule model is null");
                     }
-                    Log.d(TAG, "TEST666");
+
                     return setSingleEventInformationFromBackend(SingleScheduleModelFromBackend);
                 }
             }
@@ -132,22 +132,19 @@ public class ConnectionToBackend {
 
         for (int j = 0; j < TheExercises.size(); j++){
             String name = TheExercises.get(j).getName();
-            //Log.d(TAG, name);
-            //Log.d(TAG, Long.toString(TheExercises.get(j).getTimeStart()));
+
             LocalTime StartTime = NumToLocalTime(TheExercises.get(j).getTimeStart());
             LocalTime EndTime = NumToLocalTime(TheExercises.get(j).getTimeEnd());
             Event TheEvent = new Event(name, date, StartTime, EndTime);
-            Log.d(TAG, TheEvent.getName());
-            Log.d(TAG, TheEvent.getStartTime().toString());
-            Log.d(TAG, TheEvent.getEndTime().toString());
+
             ReturnedEvent.add(TheEvent);
         }
-        Log.d(TAG, Integer.toString(ReturnedEvent.size()));
+
         return ReturnedEvent;
     }
 
     public static ArrayList<Event> setEventInformationFromBackend(ScheduleModelFromBackend[] scheduleModel){
-
+        //Log.d(TAG, Integer.toString(scheduleModel.length));
         String userId = scheduleModel[0].getUserId();
         ArrayList<Event> ReturnedEvent =  new ArrayList<>();
         for (int i = 0; i < scheduleModel.length; i++)

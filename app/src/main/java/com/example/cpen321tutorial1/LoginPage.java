@@ -200,16 +200,12 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(LinkAccountIntent);
             }
 
-            /*
+
             if(!checkIfEventsExists()){
                 MyeventsList = new ArrayList<>();
                 //String JsonUserId = JsonFunctions.JsonUserId(myAccount.getUserId());
                 //String JsonDate = JsonFunctions.JsonUserId(myAccount)
             }
-
-             */
-
-
 
 
             //If the EmailAddress did not search from the database, then jump to activity_link_to_google
@@ -237,10 +233,10 @@ public class LoginPage extends AppCompatActivity {
         ConnectionToBackend c = new ConnectionToBackend();
         ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(myAccount.getUserId());
         if(TheEventsofThisAccount == null){
-            //Log.d("THISSSSSSS", "FALSE BRO");
+            Log.d(TAG, "No Events Exist!!!");
             return false;
         }
-        //Log.d("THISSSSSSS", "TRUE");
+        Log.d(TAG, "We have something");
         MyeventsList = TheEventsofThisAccount;
         return true;
 

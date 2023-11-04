@@ -242,9 +242,9 @@ public class JsonFunctions {
         for (int i = 0; i < dateArray.length; i++)
         {
             if (i == 0 || i == 1){
-                Day += dateArray[i];
-            } else if (i == 2 || i == 3) {
                 Month += dateArray[i];
+            } else if (i == 2 || i == 3) {
+                Day += dateArray[i];
             }
             else{
                 Year += dateArray[i];

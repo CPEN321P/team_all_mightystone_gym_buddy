@@ -1,6 +1,11 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
+import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.ConvertEventArrayListToJson;
+import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 import android.util.Log;
@@ -8,6 +13,10 @@ import android.util.Log;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class Event {
 
@@ -100,15 +109,31 @@ public class Event {
         int count = MyeventsList.size()-1;
         for(Event event: MyeventsList)
         {
-            //.d(TAG, Integer.toString(count));
             if(event.getDate().equals(date)) {
                 MyeventsList.remove(count);
                 break;
             }
             count--;
         }
-    }
 
+        //Talk to backend
+        ArrayList<Event> TodaysEvent = eventsForDate(date);
+        String Json = ConvertEventArrayListToJson(TodaysEvent, myAccount.getUserId(), date);
+        Log.d(TAG + " delete", Json);
+        Log.d(TAG + "1", Integer.toString(MyeventsList.size()));
+
+        String DateString = DateToStringNum(date);
+
+        RequestBody body = RequestBody.create(Json,
+                MediaType.parse("application/json"));
+
+        Request requestName = new Request.Builder()
+                .url("https://20.172.9.70/schedules/byUser/" + myAccount.getUserId() + "/" + DateString)
+                .put(body)
+                .build();
+
+        NewCallPost(client, requestName);
+    }
 
     private String name;
     private LocalDate date;

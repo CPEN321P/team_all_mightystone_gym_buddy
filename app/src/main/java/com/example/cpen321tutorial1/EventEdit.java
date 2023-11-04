@@ -1,5 +1,6 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.Event.eventsForDate;
 import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
@@ -129,8 +130,9 @@ public class EventEdit extends AppCompatActivity {
                     NewCallPost(client, requestName);
                 }
                 else{
-                    String Json = ConvertEventArrayListToJson(MyeventsList, myAccount.getUserId(), EventDate);
-                    Log.d(TAG + "1", Json);
+                    ArrayList<Event> TodaysEvent = eventsForDate(EventDate);
+                    String Json = ConvertEventArrayListToJson(TodaysEvent, myAccount.getUserId(), EventDate);
+                    Log.d(TAG + " add", Json);
                     Log.d(TAG + "1", Integer.toString(MyeventsList.size()));
 
                     String DateString = DateToStringNum(EventDate);

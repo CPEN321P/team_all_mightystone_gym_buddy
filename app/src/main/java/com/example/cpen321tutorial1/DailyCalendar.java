@@ -1,6 +1,12 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.CalendarUtils.selectedDate;
+import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
+import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.ConvertEventArrayListToJson;
+import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +19,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class DailyCalendar extends AppCompatActivity {
 
@@ -82,11 +93,6 @@ public class DailyCalendar extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Event.CleareventsForDate(CalendarUtils.selectedDate);
-
-                //////////////////////////////////////////////////////////////////////////////////////////
-                ////DELETE the last event in event list of the giving date(CalendarUtils.selectedDate)////
-                //////////////////////////////////////////////////////////////////////////////////////////
-
                 setHourAdapter();
             }
         });
