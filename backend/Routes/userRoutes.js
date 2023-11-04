@@ -26,7 +26,7 @@ const router = express.Router();
 // - Delete user by id
 // - Delete all users
 
-
+//ChatGPT use: NO
 // Create a new user
 router.post('/', async (req, res) => {
   try {
@@ -63,6 +63,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get all users
 router.get('/', async (req, res) => {
   try {
@@ -80,6 +81,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get a specific user by ID
 router.get('/userId/:userId', async (req, res) => {
   try {
@@ -97,6 +99,7 @@ router.get('/userId/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get a specific user by email
 router.get('/userEmail/:userEmail', async (req, res) => {
   try {
@@ -141,6 +144,7 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 //   return 0;
 // }
 
+//ChatGPT use: YES
 // Get recommended users by ID
 router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   try {
@@ -175,6 +179,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get friends by ID
 router.get('/userId/:userId/friends', async (req, res) => {
   try {
@@ -207,6 +212,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get friend requests by ID
 router.get('/userId/:userId/friendRequests', async (req, res) => {
   try {
@@ -240,6 +246,7 @@ router.get('/userId/:userId/friendRequests', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get blocked users by ID
 router.get('/userId/:userId/blockedUsers', async (req, res) => {
   try {
@@ -271,6 +278,7 @@ router.get('/userId/:userId/blockedUsers', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Update a user by ID
 router.put('/userId/:userId', async (req, res) => {
   try {
@@ -318,6 +326,7 @@ router.put('/userId/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: PARTIAL
 //Add Friend. ONLY FOR MVP, TO BE CHANGED LATER
 router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
   try {
@@ -358,7 +367,7 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
   }
 });
 
-
+//ChatGPT use: NO
 // Send friend request
 router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
   try {
@@ -423,6 +432,7 @@ router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Unsend friend request
 router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
   try {
@@ -473,6 +483,7 @@ router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Accept friend request
 router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
   try {
@@ -539,6 +550,7 @@ router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Decline friend request
 router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
   try {
@@ -590,6 +602,7 @@ router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Unfriend user
 router.put('/unfriend/:unfrienderId/:unfriendedId', async (req, res) => {
   try {
@@ -678,6 +691,7 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
   }
 }
 
+//ChatGPT use: NO
 // Block user
 router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
   try {
@@ -715,6 +729,7 @@ router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Unblock user
 router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
   try {
@@ -765,6 +780,7 @@ router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Delete a chat
 router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
   try {
@@ -815,6 +831,7 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Delete a user by ID
 router.delete('/userId/:userId', async (req, res) => {
   try {
@@ -833,6 +850,7 @@ router.delete('/userId/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: YES
 // Delete all users
 router.delete('/', async (req, res) => {
   try {

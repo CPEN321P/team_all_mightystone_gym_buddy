@@ -13,6 +13,7 @@ const router = express.Router();
 // - Delete a schedule by id
 // - Delete all 
 
+//ChatGPT use: NO
 // Create a new gym schedule
 router.post('/', async (req, res) => {
   try {
@@ -37,6 +38,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get schedule by user id and date
 router.get('/byUser/:userId/:date', async (req, res) => {
   try {
@@ -66,6 +68,7 @@ router.get('/byUser/:userId/:date', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get all schedules by user id
 router.get('/byUser/:userId', async (req, res) => {
   try {
@@ -112,6 +115,7 @@ router.get('/byUser/:userId', async (req, res) => {
 //   }
 // });
 
+//ChatGPT use: NO
 // Get a specific gym schedule by ID
 router.get('/byId/:scheduleId', async (req, res) => {
   try {
@@ -133,6 +137,7 @@ router.get('/byId/:scheduleId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Update a gym schedule by ID
 router.put('/byId/:scheduleId', async (req, res) => {
   try {
@@ -167,6 +172,7 @@ router.put('/byId/:scheduleId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Update a gym schedule by user ID and date
 router.put('/byUser/:userId/:date', async (req, res) => {
   try {
@@ -213,6 +219,7 @@ router.put('/byUser/:userId/:date', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Delete a gym schedule by ID
 router.delete('/byId/:scheduleId', async (req, res) => {
   try {
@@ -248,7 +255,8 @@ router.delete('/byId/:scheduleId', async (req, res) => {
 //   }
 // });
 
-// Delete all (i think)
+//ChatGPT use: YES
+// Delete all
 router.delete('/', async (req, res) => {
   try {
     const db = getDB();

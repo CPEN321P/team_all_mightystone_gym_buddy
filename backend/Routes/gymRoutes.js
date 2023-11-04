@@ -11,6 +11,7 @@ const router = express.Router();
 // - Edit a gym by id
 // - Delete a gym by id 
 
+//ChatGPT use: NO
 // Create a new gym
 router.post('/', async (req, res) => {
   try {
@@ -39,6 +40,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get all gyms
 router.get('/', async (req, res) => {
   try {
@@ -56,6 +58,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get a gym by id
 router.get('/gymId/:gymId', async (req, res) => {
   try {
@@ -74,6 +77,7 @@ router.get('/gymId/:gymId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Edit a gym by ID
 router.put('/gymId/:gymId', async (req, res) => {
   try {
@@ -112,6 +116,7 @@ router.put('/gymId/:gymId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Delete a user by ID
 router.delete('/gymId/:gymId', async (req, res) => {
   try {

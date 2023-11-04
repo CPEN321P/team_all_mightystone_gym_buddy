@@ -15,6 +15,7 @@ const router = express.Router();
 // - Update by id
 // - Delete user by id
 
+//ChatGPT use: NO
 // Create a new gym user
 router.post('/', async (req, res) => {
   try {
@@ -45,6 +46,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get all gym users
 router.get('/', async (req, res) => {
   try {
@@ -62,6 +64,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get a specific gym user by ID
 router.get('/userId/:userId', async (req, res) => {
   try {
@@ -79,6 +82,7 @@ router.get('/userId/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get a specific gym user by email
 router.get('/userEmail/:userEmail', async (req, res) => {
   try {
@@ -96,6 +100,7 @@ router.get('/userEmail/:userEmail', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Make an announcement
 router.put('/makeAnnouncement/:userId', async (req, res) => {
   try {
@@ -137,6 +142,7 @@ router.put('/makeAnnouncement/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Edit an announcement
 router.put('/editAnnouncement/:userId/:announcementId', async (req, res) => {
   try {
@@ -189,6 +195,7 @@ router.put('/editAnnouncement/:userId/:announcementId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Delete an announcement
 router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
   try {
@@ -239,6 +246,7 @@ router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Update a gym user by ID
 router.put('/userId/:userId', async (req, res) => {
   try {
@@ -279,6 +287,7 @@ router.put('/userId/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Delete a gym user by ID
 router.delete('/userId/:userId', async (req, res) => {
   try {
@@ -297,6 +306,7 @@ router.delete('/userId/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: YES
 // Delete all gym users
 router.delete('/', async (req, res) => {
   try {

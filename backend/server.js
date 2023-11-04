@@ -29,13 +29,13 @@ const options = {
 const run = () => {
     try{
         connectDB("mongodb://127.0.0.1:27017");
-
+        //ChatGPT use: YES
         const secureServer = https.createServer(options, app);
         const httpsPort = 443; // Default HTTPS port
         secureServer.listen(httpsPort, () => {
             console.log(`HTTPS Server running on port:${httpsPort}`);
         });
-
+        //ChatGPT use: NO
         const server = app.listen(8081, (req,res)=>{
             const host = server.address().address;
             const port = server.address().port;

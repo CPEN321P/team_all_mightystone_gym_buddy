@@ -22,6 +22,8 @@ const router = express.Router();
 // - check for chat with both users
 // - notify recipient 
 
+
+//ChatGPT use: NO
 const createNewChat = async (db, senderId, recieverId) => {
   try {
     const newChat = {
@@ -54,6 +56,7 @@ const createNewChat = async (db, senderId, recieverId) => {
   }
 }
 
+//ChatGPT use: NO
 const addChatToUser = async (db, userId, chatId) => {
   try {
     const id = new ObjectId(userId);
@@ -94,6 +97,7 @@ const addChatToUser = async (db, userId, chatId) => {
   }
 }
 
+//ChatGPT use: NO
 const sendMessageById = async (db, _chatId, sender, message) => {
   try {
     const chatId = new ObjectId(_chatId);
@@ -148,6 +152,7 @@ const sendMessageById = async (db, _chatId, sender, message) => {
   }
 }
 
+//ChatGPT use: NO
 const sendScheduleById = async (db, chatId, sender, scheduleId) => {
   try {
     const id = new ObjectId(chatId);
@@ -202,6 +207,7 @@ const sendScheduleById = async (db, chatId, sender, scheduleId) => {
   }
 }
 
+//ChatGPT use: NO
 const userMustHaveChat = async (db, chat) => {
   try {
     const chatId = chat._id.toString();
@@ -273,6 +279,7 @@ const userMustHaveChat = async (db, chat) => {
   }
 }
 
+//ChatGPT use: NO
 const checkForChat = async (db, user1, user2) => {
   try {
     return db.collection('chat').findOne({ 
@@ -298,6 +305,7 @@ const checkForChat = async (db, user1, user2) => {
   }
 }
 
+//ChatGPT use: NO
 const notifyRecipient = async (db, chatId, userId) => {
   try {
     const _userId = new ObjectId(userId);
@@ -342,6 +350,7 @@ const notifyRecipient = async (db, chatId, userId) => {
   }
 }
 
+//ChatGPT use: NO
 // Check for new chat
 router.get('/isNewChat/:userId', async (req, res) => {
   try {
@@ -360,6 +369,7 @@ router.get('/isNewChat/:userId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get all chats by user ID
 router.get('/allChats/:userId/', async (req, res) => {
   try {
@@ -426,6 +436,7 @@ router.get('/allChats/:userId/', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get a chat by chat id
 router.get('/chatId/:chatId', async (req, res) => {
   try {
@@ -444,6 +455,7 @@ router.get('/chatId/:chatId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Get a chat by user ids
 router.get('/userId/:user1/:user2', async (req, res) => {
   try {
@@ -470,6 +482,7 @@ router.get('/userId/:user1/:user2', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Send message by user ids
 router.put('/sendMessage/userId/:senderId/:recieverId', async (req, res) => {
   try {
@@ -508,6 +521,7 @@ router.put('/sendMessage/userId/:senderId/:recieverId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Send message by chat id
 router.put('/sendMessage/chatId/:chatId/:senderId', async (req, res) => {
   try {
@@ -528,6 +542,7 @@ router.put('/sendMessage/chatId/:chatId/:senderId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Send schedule by user ids
 router.put('/sendSchedule/userId/:senderId/:recieverId', async (req, res) => {
   try {
@@ -566,6 +581,7 @@ router.put('/sendSchedule/userId/:senderId/:recieverId', async (req, res) => {
   }
 });
 
+//ChatGPT use: NO
 // Send schedule by chat id
 router.put('/sendSchedule/chatId/:chatId/:senderId', async (req, res) => {
   try {
