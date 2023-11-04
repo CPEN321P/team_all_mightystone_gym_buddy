@@ -6,6 +6,7 @@ const router = express.Router();
 
 // ALL REST OPERATIONS
 // - Create a new gym user 
+// - Get all gym users
 // - Get a specific gym user by id 
 // - Get a specific gym user by email
 // - Make an Announcement (test)
@@ -41,6 +42,23 @@ router.post('/', async (req, res) => {
     }
   } catch (error) {
     res.status(500).json("Gym user not added to the database");
+  }
+});
+
+// Get all gym users
+router.get('/', async (req, res) => {
+  try {
+    const db = getDB();
+
+    const gymUsers = await db.collection('gymUsers').find().toArray();
+
+    if (gymUsers) {
+      res.status(200).json(gymUsers);
+    } else {
+      res.status(500).json("Could not retrieve data from the database");
+    }
+  } catch (error) {
+    res.status(500).json("Could not retrieve data from the database");
   }
 });
 
