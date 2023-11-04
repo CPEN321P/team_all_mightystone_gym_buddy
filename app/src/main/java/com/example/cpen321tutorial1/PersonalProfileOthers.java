@@ -91,8 +91,8 @@ public class PersonalProfileOthers extends AppCompatActivity {
                         .put(body)
                         .build();
                 NewCallPost(client, addFriend);
-                Toast.makeText(PersonalProfileOthers.this, "Make a friend request!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PersonalProfileOthers.this, PersonalProfileFriend.class);
+                Toast.makeText(PersonalProfileOthers.this, "You made a new friend!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PersonalProfileOthers.this, PossibleFriends.class);
                 startActivity(intent);
             }
         });

@@ -20,11 +20,7 @@ public class Messages extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        //TODO GET LIST OF CHATS
-
         List<Account> items = new ArrayList<Account>();
-
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));

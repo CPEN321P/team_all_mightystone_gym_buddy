@@ -36,9 +36,6 @@ public class Chat extends AppCompatActivity {
         username = findViewById(R.id.username);
         message_send_button = findViewById(R.id.message_send_button);
 
-        //TODO: pull otherAccount from backend
-        //username.setText(otherAccount.Username);
-
         //FOR NOW!!!!!!
         username.setText(name);
 

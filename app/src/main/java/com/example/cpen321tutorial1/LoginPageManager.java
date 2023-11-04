@@ -1,8 +1,5 @@
 package com.example.cpen321tutorial1;
 
-import static com.example.cpen321tutorial1.GlobalClass.manager;
-import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,8 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import java.util.ArrayList;
 
 public class LoginPageManager extends AppCompatActivity {
 
@@ -137,27 +132,22 @@ public class LoginPageManager extends AppCompatActivity {
             } else {
                 ConnectionToBackend c = new ConnectionToBackend();
                 Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
-                Intent LinkAccountIntent = new Intent(LoginPageManager.this, Logo.class);
+                Intent LinkAccountIntent = new Intent(LoginPageManager.this, PersonalProfileManager.class);
                 startActivity(LinkAccountIntent);
             }
-
-
-            //If the EmailAddress did not search from the database, then jump to activity_link_to_google
-            Intent LinkAccountIntent = new Intent(LoginPageManager.this, LinkToGoogleManager.class);
-            startActivity(LinkAccountIntent);
-            //Otherwise, jump to the home page
         }
     }
 
     private boolean checkIfUserExists(String email) {
         ConnectionToBackend c = new ConnectionToBackend();
-        Manager thisManager = c.getManagerInformationFromEmail(email);
+        Manager thisManagerFromBackend = c.getManagerInformationFromEmail(email);
 
-        if(thisManager== null){
+
+        if(thisManagerFromBackend == null){
             Log.d("THISSSSSSS", "manager is null :c");
             return false;
         }
-        manager = thisManager;
+        GlobalClass.manager = thisManagerFromBackend;
         return true;
 
     }

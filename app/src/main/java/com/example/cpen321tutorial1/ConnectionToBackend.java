@@ -490,14 +490,20 @@ public class ConnectionToBackend {
     //MANAGER FUNCTIONS!!!
 
     public Manager getManagerInformationFromEmail(String email) {
+        //Log.d("THIS IS WHAT YOURE LOOKING FOR", "PLS");
+
         Callable<Manager> asyncCall = new Callable<Manager>() {
+
             @Override
             public Manager call() throws Exception {
-                Request getAccountInformation = new Request.Builder()
-                        .url("https://20.172.9.70/gymUsers/" + email)
+
+                //Log.d("THIS IS WHAT YOURE LOOKING FOR", email);
+
+                Request getManagerInformation = new Request.Builder()
+                        .url("https://20.172.9.70/gymsUsers/userEmail/" + email)
                         .build();
 
-                Response response = client.newCall(getAccountInformation).execute();
+                Response response = client.newCall(getManagerInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -505,15 +511,15 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    Manager manager = new Gson().fromJson(jsonResponse, Manager.class);
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
+                    ManagerModelFromBackend managerModelFromBackend = new Gson().fromJson(jsonResponse, ManagerModelFromBackend.class);
                     Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
-                    if (manager == null) {
+                    if (managerModelFromBackend == null) {
+
                         throw new IOException("Account model is null");
                     }
 
-                    return manager;
+                    return setManagerFromBackend(managerModelFromBackend);
                 }
             }
         };
@@ -533,7 +539,16 @@ public class ConnectionToBackend {
 
     }
 
+    private Manager setManagerFromBackend(ManagerModelFromBackend managerModelFromBackend) {
+        Manager returnedManager = new Manager();
 
+        returnedManager.set_id(managerModelFromBackend.get_id());
+        returnedManager.setName(managerModelFromBackend.getName());
+        returnedManager.setUsername(managerModelFromBackend.getUsername());
+        returnedManager.setEmail(managerModelFromBackend.getEmail());
+
+        return returnedManager;
+    }
 
 
     //GYM FUNCTIONS!!!!
@@ -591,9 +606,6 @@ public class ConnectionToBackend {
             return null;
             //throw new RuntimeException("Error while fetching account information", e);
         }
-
-
-
 
     }
 

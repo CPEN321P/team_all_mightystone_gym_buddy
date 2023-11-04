@@ -23,8 +23,8 @@ public class PersonalProfileManager extends AppCompatActivity {
 
 
         MainActivity.TestComeFromOutsideOrNot = 0;
-        Username.setText(GlobalClass.myAccount.getUsername());
-        Email.setText(GlobalClass.myAccount.getEmailAddress());
+        Username.setText(GlobalClass.manager.getUsername());
+        Email.setText(GlobalClass.manager.getEmail());
 
 //        Profile.setOnClickListener(new View.OnClickListener() {
 //            @Override

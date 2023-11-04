@@ -2,23 +2,17 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.manager;
-import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
-import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -63,7 +57,7 @@ public class LinkToGoogleManager extends AppCompatActivity implements AdapterVie
                 String JsonEmail = JsonFunctions.JsonEmail(manager.getEmail());
                 Json = "{" + JsonName + "," + JsonUsername + "," + JsonEmail + "}";
 
-                Log.d("this is what", Json);
+                //Log.d("this is what", Json);
 
                 RequestBody body = RequestBody.create(Json,
                         MediaType.parse("application/json"));
@@ -75,10 +69,10 @@ public class LinkToGoogleManager extends AppCompatActivity implements AdapterVie
                         .build();
 
                 NewCallPost(client, requestName);
-                Log.d("this is what", "post worked");
+                //Log.d("this is what", "post worked");
 
-//                ConnectionToBackend c = new ConnectionToBackend();
-//                c.getManagerInformationFromEmail(manager.getEmail());
+                ConnectionToBackend c = new ConnectionToBackend();
+                c.getManagerInformationFromEmail(manager.getEmail());
 
                 Intent PersonalProfileManager = new Intent(LinkToGoogleManager.this, PersonalProfileManager.class);
                 startActivity(PersonalProfileManager);
