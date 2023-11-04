@@ -167,6 +167,52 @@ router.put('/byId/:scheduleId', async (req, res) => {
   }
 });
 
+// Update a gym schedule by user ID and date
+router.put('/byUser/:userId/:date', async (req, res) => {
+  try {
+    const db = getDB();
+    const userId = req.params.userId;
+    const date = req.params.date
+
+    const schedule = await db.collection('schedules').findOne({
+      $and: [
+        {
+          userId: userId
+        },
+        {
+          date: date
+        }
+      ] 
+    });
+
+    if (!schedule) {
+      res.status(404).send('Schedule not found');
+      return;
+    }
+
+    const id = schedule._id;
+
+    const updatedSchedule = {
+      userId: req.body.userId || schedule.userId,
+      date: req.body.date || schedule.date,
+      exercises: req.body.exercises || schedule.exercises
+    };
+
+    const result = await db.collection('schedules').updateOne(
+      { _id: id },
+      { $set: updatedSchedule }
+    );
+
+    if (result.matchedCount == 0) {
+      res.status(404).send('Schedule not found');
+    } else {
+      res.status(200).json(updatedSchedule);
+    }
+  } catch (error) {
+    res.status(500).send('Schedule not updated');
+  }
+});
+
 // Delete a gym schedule by ID
 router.delete('/byId/:scheduleId', async (req, res) => {
   try {
