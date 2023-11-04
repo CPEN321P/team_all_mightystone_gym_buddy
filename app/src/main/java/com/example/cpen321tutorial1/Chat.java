@@ -2,6 +2,7 @@ package com.example.cpen321tutorial1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        Intent i = getIntent();
+        String name = i.getStringExtra("Username");
         //otherAccount = MainActivity.getAccountFromIntent(getIntent());
 
 
@@ -38,7 +41,7 @@ public class Chat extends AppCompatActivity {
         //username.setText(otherAccount.Username);
 
         //FOR NOW!!!!!!
-        username.setText("Example");
+        username.setText(name);
 
         //get chatroomId from backend
 

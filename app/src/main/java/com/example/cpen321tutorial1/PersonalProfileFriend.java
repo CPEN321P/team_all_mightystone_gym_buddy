@@ -52,6 +52,9 @@ public class PersonalProfileFriend extends AppCompatActivity {
         Message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent chatIntent = new Intent(PersonalProfileFriend.this,Chat.class);
+                chatIntent.putExtra("Username", friendName);
+                startActivity(chatIntent);
                 //Go to the page which send the message to friends
             }
         });
