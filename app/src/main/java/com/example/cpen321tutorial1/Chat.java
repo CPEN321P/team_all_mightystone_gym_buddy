@@ -3,7 +3,6 @@ package com.example.cpen321tutorial1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,8 +11,8 @@ import android.widget.TextView;
 public class Chat extends AppCompatActivity {
 
     Account otherAccount;
-    String chatroomId;
-    ChatroomModel chatroomModel;
+    String chatId;
+    ChatModelFromBackend chatModelFromBackend;
 
     EditText chat_text_input;
     ImageView userImage;
@@ -43,7 +42,7 @@ public class Chat extends AppCompatActivity {
         //get chatroomId from backend
 
         //getChatroom from chatroomId
-        getOrCreateChatroomModel();
+        getOrCreateChatModel();
 
         message_send_button.setOnClickListener((view -> {
             String message = chat_text_input.getText().toString().trim();
@@ -63,10 +62,34 @@ public class Chat extends AppCompatActivity {
 
     }
 
-    private void getOrCreateChatroomModel() {
+    private void getOrCreateChatModel() {
         //get chatroom from backend
 
         //chatroomModel = ;
 
+    }
+
+    public Account getOtherAccount() {
+        return otherAccount;
+    }
+
+    public void setOtherAccount(Account otherAccount) {
+        this.otherAccount = otherAccount;
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
+
+    public ChatModelFromBackend getChatModelFromBackend() {
+        return chatModelFromBackend;
+    }
+
+    public void setChatModelFromBackend(ChatModelFromBackend chatModelFromBackend) {
+        this.chatModelFromBackend = chatModelFromBackend;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NumToLocalDate;
 import static com.example.cpen321tutorial1.JsonFunctions.NumToLocalTime;
 
@@ -21,8 +22,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.ArrayList;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -167,6 +166,48 @@ public class ConnectionToBackend {
     }
 
     //ACCOUNT FUNCTIONS!!!
+
+    private Account getAccountInformationFromUserId(String userId) {
+
+        Callable<Account> asyncCall = new Callable<Account>() {
+            @Override
+            public Account call() throws Exception {
+                Request getAccountInformation = new Request.Builder()
+                        .url("https://20.172.9.70/users/userId/" + userId)
+                        .build();
+
+                Response response = client.newCall(getAccountInformation).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    AccountModelFromBackend accountModelFromBackend = new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+
+                    if (accountModelFromBackend == null) {
+                        throw new IOException("Account model is null");
+                    }
+
+                    return setAccountInformationFromBackend(accountModelFromBackend);
+                }
+            }
+        };
+
+        Future<Account> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+
+    }
 
     public Account getAccountInformationFromEmail(final String email) {
 
@@ -369,6 +410,82 @@ public class ConnectionToBackend {
 
 
     }
+
+
+    //CHAT FUNCTIONS!!!
+
+    public ArrayList<Chat> getAllChatsFromUserId(final String userId) {
+
+        ArrayList<Chat> listOfAllChats = new ArrayList<>();
+        Callable<ArrayList<Chat>> asyncCall = new Callable<ArrayList<Chat>>() {
+            @Override
+            public ArrayList<Chat> call() throws Exception {
+                Request getRecommendedProfiles = new Request.Builder()
+                        .url("https://20.172.9.70/chat/userId/"+ userId)
+                        .build();
+
+                Response response = client.newCall(getRecommendedProfiles).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    Type listType = new TypeToken<ArrayList<ChatModelFromBackend>>(){}.getType();
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+
+                    List<ChatModelFromBackend> listOfChats = new Gson().fromJson(jsonResponse, listType);
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
+
+
+                    if (listOfChats == null) {
+                        throw new IOException("Gym model is null");
+                    }
+
+                    for(int i = 0; i<listOfChats.size(); i++){
+                        listOfAllChats.add(setChatInformationFromBackend(listOfChats.get(i)));
+
+                    }
+
+                    return listOfAllChats;
+
+                }
+            }
+        };
+
+        Future<ArrayList<Chat>> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get(); // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+            //throw new RuntimeException("Error while fetching account information", e);
+        }
+
+    }
+
+    private Chat setChatInformationFromBackend(ChatModelFromBackend chatModelFromBackend) {
+        Chat returnedChat = new Chat();
+
+        Account otherAccount;
+
+        if(chatModelFromBackend.members.get(0) == myAccount.getUserId()){
+            otherAccount = getAccountInformationFromUserId(chatModelFromBackend.members.get(1));
+        } else {
+            otherAccount = getAccountInformationFromUserId(chatModelFromBackend.members.get(0));
+        }
+        returnedChat.setOtherAccount(otherAccount);
+        returnedChat.setChatId(chatModelFromBackend.get_id());
+        returnedChat.setChatModelFromBackend(chatModelFromBackend);
+
+        return returnedChat;
+
+    }
+
+
+
 
     //MANAGER FUNCTIONS!!!
 
