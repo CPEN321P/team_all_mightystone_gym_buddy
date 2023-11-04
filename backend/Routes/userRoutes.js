@@ -12,7 +12,6 @@ const router = express.Router();
 // - Get recommended users by ID
 // - Get friends by id
 // - Get friend requests by id 
-// - Get chats
 // - Get blocked users
 // - Update by id 
 // - Add friend (for MVP only)
@@ -47,7 +46,8 @@ router.post('/', async (req, res) => {
       homeGym: req.body.homeGym || "",
       reported: req.body.reported || 0,
       chats: req.body.chats || [],
-      blockedUsers: req.body.blockedUsers || []
+      blockedUsers: req.body.blockedUsers || [],
+      getChats: 0
     }
 
     const result = await db.collection('users').insertOne(newUser);
@@ -240,44 +240,6 @@ router.get('/userId/:userId/friendRequests', async (req, res) => {
   }
 });
 
-// Get chats by ID
-router.get('/userId/:userId/chats', async (req, res) => {
-  try {
-    const db = getDB();
-    try {
-      const id = new ObjectId(req.params.userId);
-
-      const user = await db.collection('users').findOne({ _id: id });
-
-      if (!user) {
-        res.status(404).send('User not found');
-        return;
-      }
-    const chatsID = user.chats;
-    } catch (error) {
-      res.status(404).send('User not found');
-    }
-    const chats = [];
-
-    for (const chatID of chatsID) {
-      try {
-        const cid = new ObjectId(chatID);
-        const chat = await db.collection('chat').findOne({ _id: cid })
-
-        if (chat) {
-          chats.push(chat);
-        }
-      } catch (error) {
-        res.status(404).send('Chat not found');
-      }
-    }
-
-    res.status(200).json(chats);
-  } catch (error) {
-    res.status(500).send('Chats not retrieved');
-  }
-});
-
 // Get blocked users by ID
 router.get('/userId/:userId/blockedUsers', async (req, res) => {
   try {
@@ -337,7 +299,8 @@ router.put('/userId/:userId', async (req, res) => {
       homeGym: req.body.homeGym || user.homeGym,
       reported: req.body.reported || user.reported,
       chats: req.body.chats || user.chats,
-      blockedUsers: req.body.blockedUsers || user.blockedUsers
+      blockedUsers: req.body.blockedUsers || user.blockedUsers,
+      getChats: req.body.getChats || user.getChats
     }
 
     const result = await db.collection('users').updateOne(
