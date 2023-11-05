@@ -6,23 +6,35 @@ import java.util.List;
 public class AccountModelFromBackend {
 
     private String _id;
+
     private String name;
+
     private String phone;
+
     private String email;
+
     private String pfp;
     //this array holds friends' IDS
+
     private String gender;
+
     private String description;
+
     private String homeGym;
 
     private Long age;
+
     private Long weight;
+
     private Long reported;
     //this array holds this account's chatIds
 
     private List<String> friends;
+
     private List<String> friendRequests;
+
     private List<String> chats;
+
     private List<String> blockedUsers;
 
     public String getId() {

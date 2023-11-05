@@ -9,18 +9,18 @@ import java.util.ArrayList;
 public class Account {
 
     //public static ArrayList<Account> CurrentAccount = new ArrayList<>();
-    private String Username;
-    private String EmailAddress;
-    private String Gender;
-    private String UserId;
+    private String Username,
+            EmailAddress,
+            Gender,
+            UserId;
 
-    private int Age;
-    private int Weight;
+    private int Age,
+            Weight;
 
     private Gym myGym;
 
-    private ArrayList<Account> FriendsList;
-    private ArrayList<Account> BlockList;
+    private ArrayList<Account> FriendsList,
+            BlockList;
 
     public String getUserId() {
         return UserId;
