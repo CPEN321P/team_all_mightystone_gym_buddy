@@ -38,9 +38,12 @@ import okhttp3.ResponseBody;
 public class LoginPage extends AppCompatActivity {
 
     private Button ModeButton;
+
     final static String TAG = "UserLogInActivity";
-    private GoogleSignInClient mGoogleSignInClient;
     private static String TheEmail = "NONE";
+
+    private GoogleSignInClient mGoogleSignInClient;
+
 
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
@@ -164,7 +167,8 @@ public class LoginPage extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
 
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            GoogleSignInAccount account =
+                    completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);
@@ -172,7 +176,7 @@ public class LoginPage extends AppCompatActivity {
 
 
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
+            // ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             updateUI(null);
@@ -190,7 +194,8 @@ public class LoginPage extends AppCompatActivity {
             //CHECK IF EMAIL ALREADY EXISTS IN DATABASE BEFORE CREATING
 
             if(!checkIfUserExists(account.getEmail())){
-                Intent LinkAccountIntent = new Intent(LoginPage.this, LinkToGoogle.class);
+                Intent LinkAccountIntent =
+                        new Intent(LoginPage.this, LinkToGoogle.class);
                 startActivity(LinkAccountIntent);
 
             } else {
@@ -245,6 +250,7 @@ public class LoginPage extends AppCompatActivity {
     public static String getStringName(){
         return TheEmail;
     }
+
     public static void ClearStringName(){
         TheEmail = "NONE";
     }

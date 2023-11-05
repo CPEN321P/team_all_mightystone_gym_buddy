@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BlockedUsers extends AppCompatActivity {
@@ -34,7 +33,8 @@ public class BlockedUsers extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(BlockedUsers.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent UnblockIntent = new Intent(BlockedUsers.this, Unblock.class);
+                        Intent UnblockIntent
+                                = new Intent(BlockedUsers.this, Unblock.class);
                         if(!items.isEmpty()){
                             Account Person = items.get(position);
                             UnblockIntent.putExtra("PersonName", Person.getUsername());

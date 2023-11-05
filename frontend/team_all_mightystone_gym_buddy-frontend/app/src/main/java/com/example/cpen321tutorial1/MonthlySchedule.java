@@ -24,14 +24,19 @@ import java.util.ArrayList;
 //https://www.youtube.com/watch?v=Aig99t-gNqM&list=LL&index=6&t=238s
 //Thanks for the support from @Code With Cal
 
-public class MonthlySchedule extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class MonthlySchedule
+        extends AppCompatActivity
+        implements CalendarAdapter.OnItemListener{
 
     private TextView monthYearText;
+
     private RecyclerView calendarRecyclerView;
+
     private Button PreviousMonth;
     private Button NextMonth;
     private Button Weekly;
     private Button Daily;
+
     final static String TAG = "Schedule";
 
     @SuppressLint("MissingInflatedId")

@@ -12,15 +12,16 @@ public class Account {
     private String userId;
     private String Username;
     private String EmailAddress;
+    private String Gender;
+    private String UserId;
+
     private int Age;
     private int Weight;
-    private String Gender;
+
     private Gym myGym;
 
     private ArrayList<Account> FriendsList;
     private ArrayList<Account> BlockList;
-
-    private String UserId;
 
     public String getUserId() {
         return UserId;
@@ -45,15 +46,6 @@ public class Account {
     public void setMyGym(Gym myGym) {
         this.myGym = myGym;
     }
-
-
-//    public static ArrayList<Account> getCurrentAccount() {
-//        return CurrentAccount;
-//    }
-
-//    public static void setCurrentAccount(ArrayList<Account> currentAccount) {
-//        CurrentAccount = currentAccount;
-//    }
 
     public ArrayList<Account> getFriendsList() {
         return FriendsList;

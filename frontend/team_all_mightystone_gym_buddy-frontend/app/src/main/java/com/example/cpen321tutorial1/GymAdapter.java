@@ -21,12 +21,15 @@ public class GymAdapter extends RecyclerView.Adapter<GymViewHolder>{
 
     @NonNull
     @Override
-    public GymViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new GymViewHolder(LayoutInflater.from(context).inflate(R.layout.gym_item_view, parent, false));
+    public GymViewHolder onCreateViewHolder
+            (@NonNull ViewGroup parent, int viewType) {
+        return new GymViewHolder
+                (LayoutInflater.from(context).inflate(R.layout.gym_item_view, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GymViewHolder holder, int position) {
+    public void onBindViewHolder
+            (@NonNull GymViewHolder holder, int position) {
         holder.nameView.setText(items.get(position).getName());
         holder.addressView.setText(items.get(position).getAddress());
         holder.imageView.setImageResource(R.drawable.gym);

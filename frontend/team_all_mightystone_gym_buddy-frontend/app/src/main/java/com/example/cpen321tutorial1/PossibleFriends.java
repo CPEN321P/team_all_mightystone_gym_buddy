@@ -49,11 +49,16 @@ public class PossibleFriends extends AppCompatActivity {
                         Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileOthers.class);
                         if(!items.isEmpty()){
                             Account posFriend = items.get(position);
-                            FriendIntent.putExtra("posFriendName", posFriend.getUsername());
-                            FriendIntent.putExtra("posFriendUserId", posFriend.getUserId());
-                            FriendIntent.putExtra("posFriendAge", posFriend.getAge());
-                            FriendIntent.putExtra("posFriendWeight", posFriend.getWeight());
-                            FriendIntent.putExtra("posFriendGender", posFriend.getGender());
+                            FriendIntent.putExtra("posFriendName",
+                                    posFriend.getUsername());
+                            FriendIntent.putExtra("posFriendUserId",
+                                    posFriend.getUserId());
+                            FriendIntent.putExtra("posFriendAge",
+                                    posFriend.getAge());
+                            FriendIntent.putExtra("posFriendWeight",
+                                    posFriend.getWeight());
+                            FriendIntent.putExtra("posFriendGender",
+                                    posFriend.getGender());
                         }
                         startActivity(FriendIntent);
                     }
@@ -89,7 +94,8 @@ public class PossibleFriends extends AppCompatActivity {
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent HomeIntent = new Intent(PossibleFriends.this, Logo.class);
+                Intent HomeIntent = new Intent
+                        (PossibleFriends.this, Logo.class);
                 startActivity(HomeIntent);
             }
         });
@@ -99,7 +105,8 @@ public class PossibleFriends extends AppCompatActivity {
         Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendsIntent = new Intent(PossibleFriends.this, Friends.class);
+                Intent FriendsIntent = new Intent
+                        (PossibleFriends.this, Friends.class);
                 startActivity(FriendsIntent);
             }
         });

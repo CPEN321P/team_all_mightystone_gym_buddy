@@ -9,11 +9,9 @@ import android.widget.Button;
 
 public class Logo extends AppCompatActivity {
 
-    private Button Home;
-    private Button Friends;
-    private Button Schedule;
-    private Button Gyms;
-    private Button PersonalProfile;
+    private Button Home, Friends;
+
+    private Button Schedule, Gyms, PersonalProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,8 @@ public class Logo extends AppCompatActivity {
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ScheduleIntent = new Intent(Logo.this, MonthlySchedule.class);
+                Intent ScheduleIntent =
+                        new Intent(Logo.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });

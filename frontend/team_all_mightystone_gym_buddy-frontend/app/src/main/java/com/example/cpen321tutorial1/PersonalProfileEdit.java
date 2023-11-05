@@ -36,11 +36,15 @@ import okhttp3.RequestBody;
 public class PersonalProfileEdit extends AppCompatActivity {
 
     private TextView UserName, Age, Weight;
+
     private Spinner GenderSpinner;
+
     private Button Done;
     private Button Cancel;
     private Button LogOut;
+
     private GoogleSignInClient mGoogleSignInClient;
+
     final static String TAG = "PersonalProfileEdit";
 
     @Override
@@ -58,8 +62,10 @@ public class PersonalProfileEdit extends AppCompatActivity {
         Log.d(TAG, Integer.toString(GlobalClass.myAccount.getWeight()));
         Log.d(TAG, GlobalClass.myAccount.getGender());
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.roles, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource
+                (this, R.array.roles, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
         GenderSpinner.setAdapter(adapter);
 
         Done.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +85,13 @@ public class PersonalProfileEdit extends AppCompatActivity {
                     return;
                 }
 
-                Account updatedAccount = new Account(UserName.getText().toString(), GlobalClass.myAccount.getEmailAddress(), StringToInteger(Age.getText().toString()),
-                        StringToInteger(Weight.getText().toString()), GenderSpinner.getSelectedItem().toString(),
-                        GlobalClass.myAccount.getFriendsList(), GlobalClass.myAccount.getFriendsList());
+                Account updatedAccount = new Account(UserName.getText().toString(),
+                        GlobalClass.myAccount.getEmailAddress(),
+                        StringToInteger(Age.getText().toString()),
+                        StringToInteger(Weight.getText().toString()),
+                        GenderSpinner.getSelectedItem().toString(),
+                        GlobalClass.myAccount.getFriendsList(),
+                        GlobalClass.myAccount.getFriendsList());
 
                 updatedAccount.setUserId(myAccount.getUserId());
 

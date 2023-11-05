@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 //        PersonalProfile.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent PersonalProfileEditIntent = new Intent(MainActivity.this, PersonalProfileUsers.class);
+//                Intent PersonalProfileEditIntent =
+//                        new Intent(MainActivity.this, PersonalProfileUsers.class);
 //                startActivity(PersonalProfileEditIntent);
 //            }
 //        });
@@ -131,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
 //            public void onClick(View view) {
 //                Log.d(TAG, "Add Gym");
 //
-//                Intent mfourIntent = new Intent(MainActivity.this, NewGyms.class);
+//                Intent mfourIntent =
+//                      new Intent(MainActivity.this, NewGyms.class);
 //                startActivity(mfourIntent);
 //            }
 //        });
@@ -193,8 +195,10 @@ public class MainActivity extends AppCompatActivity {
                     || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 Toast.makeText(MainActivity.this, "We need these location permissions to run!", Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(this)
-                        .setTitle("Need Location Permissions")
-                        .setMessage("We need the location permissions to mark your location on a map")
+                        .setTitle
+                                ("Need Location Permissions")
+                        .setMessage
+                                ("We need the location permissions to mark your location on a map")
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -205,7 +209,9 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[] {Manifest.permission.ACCESS_COARSE_LOCATION,
+                                                Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                             }
                         })
                         .create()

@@ -22,6 +22,7 @@ import okhttp3.RequestBody;
 public class GymProfile extends AppCompatActivity {
 
     private TextView Name, Location, AccessTime, Website, Tips;
+
     private Button Subscript, CancelSubscript;
 
 
@@ -44,7 +45,8 @@ public class GymProfile extends AppCompatActivity {
         //Website.setText();
         //Tips.setText();
 
-        //ArrayList<Account> TheOldGymUserList = //Gym class that you get from database//.getSubscribedUsers();
+        //ArrayList<Account> TheOldGymUserList =
+        // Gym class that you get from database//.getSubscribedUsers();
         Subscript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

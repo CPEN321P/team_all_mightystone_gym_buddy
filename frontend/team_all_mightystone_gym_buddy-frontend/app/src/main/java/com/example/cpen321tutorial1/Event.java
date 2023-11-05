@@ -34,7 +34,8 @@ public class Event {
         return events;
     }
 
-    public static ArrayList<Event> eventsForDateOthers(LocalDate date, ArrayList<Event> OtherEventArray)
+    public static ArrayList<Event> eventsForDateOthers
+            (LocalDate date, ArrayList<Event> OtherEventArray)
     {
         ArrayList<Event> events = new ArrayList<>();
 

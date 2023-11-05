@@ -95,11 +95,14 @@ public class LoginPageManager extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            GoogleSignInAccount account =
+                    completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);
-            Toast.makeText(LoginPageManager.this, "Log in successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginPageManager.this,
+                    "Log in successful",
+                    Toast.LENGTH_SHORT).show();
             //Intent Informationintent = new Intent(LoginPage.this, ServerInfo.class);
             //startActivity(Informationintent);
         } catch (ApiException e) {

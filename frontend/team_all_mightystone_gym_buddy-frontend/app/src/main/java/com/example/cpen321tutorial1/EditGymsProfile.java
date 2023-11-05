@@ -14,7 +14,9 @@ import java.util.ArrayList;
 public class EditGymsProfile extends AppCompatActivity {
 
     private TextView Name, Location, AccessTime, Website, Tips;
+
     private Button Done, Cancel;
+
     final static String TAG = "Gym Edit";
 
     @Override

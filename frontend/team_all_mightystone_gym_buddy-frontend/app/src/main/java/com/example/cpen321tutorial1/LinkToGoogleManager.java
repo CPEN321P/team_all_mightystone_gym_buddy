@@ -18,7 +18,9 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-public class LinkToGoogleManager extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class LinkToGoogleManager
+        extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener{
 
     private TextView UserName;
 

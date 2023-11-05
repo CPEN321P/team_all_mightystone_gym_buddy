@@ -17,7 +17,9 @@ import java.util.ArrayList;
 public class NewGyms extends AppCompatActivity {
 
     private TextView Name, Location, AccessTime, Website, Tips;
+
     private Button Done, Cancel;
+
     final static String TAG = "NewGyms";
 
     @Override
@@ -45,7 +47,9 @@ public class NewGyms extends AppCompatActivity {
                 Log.d(TAG, "Website: " + InputWebsite);
                 Log.d(TAG, "Tips: " + InputTips);
 
-                Gym TheAddGym = new Gym(InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
+                Gym TheAddGym = new Gym(InputName,
+                        InputLocation, InputAccessTime,
+                        InputWebsite, InputTips);
 //                Gym.CurrentGym.clear();
 //                Gym.CurrentGym.add(TheAddGym);
 
@@ -53,7 +57,8 @@ public class NewGyms extends AppCompatActivity {
                 ///Upload the CurrentAccount information into database///
                 //////////////////////////////////////////////////
 
-                Intent NewGymsIntent = new Intent(NewGyms.this, GymsProfileManager.class);
+                Intent NewGymsIntent = new Intent(NewGyms.this,
+                        GymsProfileManager.class);
                 startActivity(NewGymsIntent);
             }
         });

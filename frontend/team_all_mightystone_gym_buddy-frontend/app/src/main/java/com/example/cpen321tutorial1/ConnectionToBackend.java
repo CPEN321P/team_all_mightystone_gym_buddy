@@ -49,7 +49,8 @@ public class ConnectionToBackend {
                         .url("https://20.172.9.70/schedules/byUser/" + UserId)
                         .build();
 
-                Response response = client.newCall(getEventInformation).execute();
+                Response response =
+                        client.newCall(getEventInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -64,18 +65,19 @@ public class ConnectionToBackend {
                     }
 
 
-                    return setEventInformationFromBackend(scheduleModelFromBackend);
+                    return setEventInformationFromBackend
+                            (scheduleModelFromBackend);
                 }
             }
         };
 
         Future<ArrayList<Event>> future = executorService.submit(asyncCall);
         try {
-            return future.get(); // This will block until the async call is complete
+            return future.get();
+            // This will block until the async call is complete
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return null;
-            //throw new RuntimeException("Error while fetching account information", e);
         }
     }
 
@@ -132,8 +134,10 @@ public class ConnectionToBackend {
         for (int j = 0; j < TheExercises.size(); j++){
             String name = TheExercises.get(j).getName();
 
-            LocalTime StartTime = NumToLocalTime(TheExercises.get(j).getTimeStart());
-            LocalTime EndTime = NumToLocalTime(TheExercises.get(j).getTimeEnd());
+            LocalTime StartTime =
+                    NumToLocalTime(TheExercises.get(j).getTimeStart());
+            LocalTime EndTime =
+                    NumToLocalTime(TheExercises.get(j).getTimeEnd());
             Event TheEvent = new Event(name, date, StartTime, EndTime);
 
             ReturnedEvent.add(TheEvent);
@@ -176,7 +180,8 @@ public class ConnectionToBackend {
                         .url("https://20.172.9.70/users/userId/" + userId)
                         .build();
 
-                Response response = client.newCall(getAccountInformation).execute();
+                Response response =
+                        client.newCall(getAccountInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -251,7 +256,9 @@ public class ConnectionToBackend {
     }
 
     public Account setAccountInformationFromBackend(AccountModelFromBackend accountModel){
-        Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),accountModel.getAge().intValue(), accountModel.getWeight().intValue(), accountModel.getGender(),new ArrayList<>(), new ArrayList<>());
+        Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),
+                accountModel.getAge().intValue(), accountModel.getWeight().intValue(),
+                accountModel.getGender(),new ArrayList<>(), new ArrayList<>());
         returnedAccount.setUserId(accountModel.getId());
         return returnedAccount;
 
@@ -278,7 +285,9 @@ public class ConnectionToBackend {
                     Type listType = new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
                     Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
-                    List<AccountModelFromBackend> listOfFriends = new Gson().fromJson(jsonResponse, listType);
+                    List<AccountModelFromBackend> listOfFriends =
+                            new Gson().fromJson(jsonResponse, listType);
+
                     Log.d("THIS IS WHAT YOURE LOOKING FOR", "FRIENDS GOTTTTT");
 
 
@@ -582,8 +591,10 @@ public class ConnectionToBackend {
                         throw new IOException("Gym model is null");
                     }
 
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.size()+"");
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.get(0).getName());
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR",
+                            listOfGymModels.size()+"");
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR",
+                            listOfGymModels.get(0).getName());
 
 
                     for(int i = 0; i<listOfGymModels.size(); i++){

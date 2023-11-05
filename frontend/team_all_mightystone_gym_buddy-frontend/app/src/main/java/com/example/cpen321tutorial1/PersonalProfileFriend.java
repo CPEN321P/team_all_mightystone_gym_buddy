@@ -46,14 +46,16 @@ public class PersonalProfileFriend extends AppCompatActivity {
         if(TheEventsofFriendsAccount != null){
             FriendsEvent = TheEventsofFriendsAccount;
         }
-        //Get the event list from database of this user, and upload it into FriendsEvent
+        //Get the event list from database of this user,
+        // and upload it into FriendsEvent
 
 
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.TestComeFromOutsideOrNot = 1;
-                Intent ScheduleIntent = new Intent(PersonalProfileFriend.this, ScheduleFriendsMonthly.class);
+                Intent ScheduleIntent = new Intent
+                        (PersonalProfileFriend.this, ScheduleFriendsMonthly.class);
                 startActivity(ScheduleIntent);
             }
         });

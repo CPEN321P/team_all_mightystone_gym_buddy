@@ -80,14 +80,17 @@ public class PersonalProfileOthers extends AppCompatActivity {
                 GlobalClass.myAccount.setFriendsList(CurrentFriendList);
                 //POST the account to the database
 
-                //ArrayList<Account> CurrentFriendListOthers = //The Account that you get//.getFriendsList();
+                //ArrayList<Account> CurrentFriendListOthers =
+                    // The Account that you get//.getFriendsList();
                 //CurrentFriendListOthers.add(GlobalClass.myAccount);
                 ////The Account that you get//.setFriendsList(CurrentFriendListOthers);
                 //POST the account to the database
                 RequestBody body = RequestBody.create("{"+ "}",
                         MediaType.parse("application/json"));
                 Request addFriend = new Request.Builder()
-                        .url("https://20.172.9.70/users/addFriend/" + myAccount.getUserId() + "/" + posFriendId)
+                        .url("https://20.172.9.70/users/addFriend/"
+                                + myAccount.getUserId()
+                                + "/" + posFriendId)
                         .put(body)
                         .build();
                 NewCallPost(client, addFriend);

@@ -68,6 +68,7 @@ public class GymModelFromBackend {
     }
 
     public String toString() {
-        return String.format("_id:%d,name:%d,description:%d,location:%d,phone:%s,email:%s,images:%d", _id, name, description, location, phone, email, images);
+        return String.format("_id:%d,name:%d,description:%d,location:%d,phone:%s,email:%s,images:%d",
+                _id, name, description, location, phone, email, images);
     }
 }

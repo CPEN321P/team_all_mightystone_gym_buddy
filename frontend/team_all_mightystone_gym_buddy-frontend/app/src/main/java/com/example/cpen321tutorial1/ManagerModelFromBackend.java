@@ -12,7 +12,9 @@ public class ManagerModelFromBackend {
     private String email;
     private String pfp;
     private String description;
+
     private Long reported;
+
     private List<Announcement> announcements;
 
     public String get_id() {

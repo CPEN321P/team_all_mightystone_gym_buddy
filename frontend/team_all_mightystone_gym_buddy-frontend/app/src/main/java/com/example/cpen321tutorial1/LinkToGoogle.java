@@ -78,20 +78,23 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
                 if (NumberOfAge <= 0 || NumberOfAge >= 150)
                 {
-                    Toast.makeText(LinkToGoogle.this, "Invalid Age", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LinkToGoogle.this,
+                            "Invalid Age", Toast.LENGTH_LONG).show();
                     return;
                 }
                 account.setAge(NumberOfAge);
 
                 if (NumberOfWeight <= 0)
                 {
-                    Toast.makeText(LinkToGoogle.this, "Invalid Weight", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LinkToGoogle.this,
+                            "Invalid Weight", Toast.LENGTH_LONG).show();
                     return;
                 }
                 account.setWeight(NumberOfWeight);
 
 
-                Toast.makeText(LinkToGoogle.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LinkToGoogle.this,
+                        "Account Created Successfully!", Toast.LENGTH_SHORT).show();
 
                 ArrayList<Account> TheEmptyFriendList = new ArrayList<>();
                 ArrayList<Account> TheEmptyBlockList = new ArrayList<>();

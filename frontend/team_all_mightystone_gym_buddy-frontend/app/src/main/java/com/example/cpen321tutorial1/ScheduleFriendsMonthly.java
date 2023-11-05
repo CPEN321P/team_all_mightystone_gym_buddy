@@ -22,10 +22,12 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
+
     private Button PreviousMonth;
     private Button NextMonth;
     private Button Weekly;
     private Button Daily;
+
     final static String TAG = "ScheduleFriendsMonthly";
 
     @SuppressLint("MissingInflatedId")
@@ -38,7 +40,8 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
         setMonthView();
 
         if(TestComeFromOutsideOrNot == 1){
-            Intent WeeklyIntent = new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
+            Intent WeeklyIntent = new Intent
+                    (ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
             startActivity(WeeklyIntent);
             TestComeFromOutsideOrNot = 0;
         }

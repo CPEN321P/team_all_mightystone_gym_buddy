@@ -1,10 +1,7 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.CalendarUtils.selectedDate;
-import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
 import static com.example.cpen321tutorial1.GlobalClass.client;
-import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-import static com.example.cpen321tutorial1.JsonFunctions.ConvertEventArrayListToJson;
 import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
@@ -60,7 +57,8 @@ public class DailyCalendar extends AppCompatActivity {
         NextDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusDays(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.plusDays(1);
                 setDayView();
             }
         });
@@ -119,7 +117,8 @@ public class DailyCalendar extends AppCompatActivity {
 
     private void setDayView() {
         MonthDayText.setText(CalendarUtils.monthDayFromDate(selectedDate));
-        String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        String dayOfWeek =
+                selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         DayOfWeek.setText(dayOfWeek);
 
         setHourAdapter();

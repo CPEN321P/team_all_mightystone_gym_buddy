@@ -14,7 +14,6 @@ import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,9 +35,12 @@ public class EventEdit extends AppCompatActivity {
 
     //private EditText eventName;
     private TextView eventDate, eventStartTime, HowLong, eventName;
+
     private LocalTime StrTime;
     private LocalTime EndTime;
+
     private LocalDate EventDate;
+
     private Button Done;
     private Button Cancel;
     final static String TAG = "EventEdit";
@@ -72,8 +74,10 @@ public class EventEdit extends AppCompatActivity {
                     StrTime = LocalTime.parse(StartTimeInString);
                     EndTime = StrTime.plusHours(NumberOfHour);
                     EventDate = LocalDate.parse(eventDate.getText().toString());
-                    int value1 = EndTime.compareTo(LocalTime.parse("00:00:00")); //Compare the time to see is it excess 24:00
-                    int value2 = EndTime.compareTo(StrTime); //Compare the time to see is it excess 24:00
+                    int value1 = EndTime.compareTo(LocalTime.parse("00:00:00"));
+                    //Compare the time to see is it excess 24:00
+                    int value2 = EndTime.compareTo(StrTime);
+                    //Compare the time to see is it excess 24:00
                     Log.d(TAG, "Valid time starting: " + StrTime);
                     Log.d(TAG, "Valid time ending: " + EndTime);
                     Log.d(TAG, "Date: " + EventDate);
@@ -84,13 +88,16 @@ public class EventEdit extends AppCompatActivity {
 
                 } catch (DateTimeParseException | NullPointerException e) {
                     Log.d(TAG, "Invalid time string for Start Time, End Time or Date!");
-                    Toast.makeText(EventEdit.this, "Invalid time for Start Time or End Time!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EventEdit.this,
+                            "Invalid time for Start Time or End Time!",
+                            Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 for (Event event: MyeventsList){
                     if(event.getDate().equals(EventDate)) {
-                        if(!(StrTime.compareTo(event.getEndtime()) >= 0 || EndTime.compareTo(event.getStartTime()) <= 0)){
+                        if(!(StrTime.compareTo(event.getEndtime()) >= 0 ||
+                                EndTime.compareTo(event.getStartTime()) <= 0)){
                             Toast.makeText(EventEdit.this, "TimeConflict!", Toast.LENGTH_LONG).show();
                             return;
                         }
@@ -131,7 +138,8 @@ public class EventEdit extends AppCompatActivity {
                 }
                 else{
                     ArrayList<Event> TodaysEvent = eventsForDate(EventDate);
-                    String Json = ConvertEventArrayListToJson(TodaysEvent, myAccount.getUserId(), EventDate);
+                    String Json = ConvertEventArrayListToJson
+                            (TodaysEvent, myAccount.getUserId(), EventDate);
                     Log.d(TAG + " add", Json);
                     Log.d(TAG + "1", Integer.toString(MyeventsList.size()));
 

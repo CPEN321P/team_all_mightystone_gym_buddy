@@ -19,13 +19,8 @@ import okhttp3.Request;
 
 public class Friends extends AppCompatActivity {
 
-    private Button FindNewFriends;
-    private Button Messages;
-    private Button Home;
-    private Button Friends;
-    private Button Schedule;
-    private Button Gyms;
-    private Button PersonalProfile;
+    private Button FindNewFriends, Messages, Home;
+    private Button Friends, Schedule, Gyms, PersonalProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +39,20 @@ public class Friends extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Friends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent FriendIntent = new Intent(Friends.this, PersonalProfileFriend.class);
+                        Intent FriendIntent = new Intent
+                                (Friends.this, PersonalProfileFriend.class);
                         if(!items.isEmpty()){
                             Account Friend = items.get(position);
-                            FriendIntent.putExtra("FriendName", Friend.getUsername());
-                            FriendIntent.putExtra("FriendUserId", Friend.getUserId());
-                            FriendIntent.putExtra("FriendAge", Friend.getAge());
-                            FriendIntent.putExtra("FriendWeight", Friend.getWeight());
-                            FriendIntent.putExtra("FriendGender", Friend.getGender());
+                            FriendIntent.putExtra
+                                    ("FriendName", Friend.getUsername());
+                            FriendIntent.putExtra
+                                    ("FriendUserId", Friend.getUserId());
+                            FriendIntent.putExtra
+                                    ("FriendAge", Friend.getAge());
+                            FriendIntent.putExtra
+                                    ("FriendWeight", Friend.getWeight());
+                            FriendIntent.putExtra
+                                    ("FriendGender", Friend.getGender());
                         }
 
 
@@ -118,7 +119,8 @@ public class Friends extends AppCompatActivity {
         Gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymIntent = new Intent(Friends.this, Gyms.class);
+                Intent GymIntent = new Intent
+                        (Friends.this, Gyms.class);
                 startActivity(GymIntent);
             }
         });
@@ -128,7 +130,8 @@ public class Friends extends AppCompatActivity {
         PersonalProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ProfileIntent = new Intent(Friends.this, PersonalProfileUsers.class);
+                Intent ProfileIntent = new Intent
+                        (Friends.this, PersonalProfileUsers.class);
                 startActivity(ProfileIntent);
             }
         });
