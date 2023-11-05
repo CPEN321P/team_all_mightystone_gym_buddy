@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +11,9 @@ import android.widget.TextView;
 public class PersonalProfileManager extends AppCompatActivity {
 
     private Button MyGyms;
+
     private TextView Username, Email;
+
     private Button TheAnnouncement;
 
     @Override
@@ -26,13 +27,14 @@ public class PersonalProfileManager extends AppCompatActivity {
         Username.setText(GlobalClass.manager.getUsername());
         Email.setText(GlobalClass.manager.getEmail());
 
-//        Profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent PersonalProfileIntent = new Intent(PersonalProfileManager.this, PersonalProfileEdit.class);
-//                startActivity(PersonalProfileIntent);
-//            }
-//        });
+        //Profile.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        Intent PersonalProfileIntent =
+        //              new Intent(PersonalProfileManager.this, PersonalProfileEdit.class);
+        //        startActivity(PersonalProfileIntent);
+        //    }
+        //});
 
 
 
@@ -48,17 +50,21 @@ public class PersonalProfileManager extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String ManagerEmail;
-                //Scarch for the backend database to search for the gym base on the manager Email;
+                //Scarch for the backend database to search for
+                //      the gym base on the manager Email;
                 //If search it, then jump to the GymProfileManager Activity
-                //Intent MyGymsIntent = new Intent(PersonalProfileManager.this, GymsProfileManager.class);
+                //Intent MyGymsIntent = new Intent
+                //      (PersonalProfileManager.this, GymsProfileManager.class);
                 //startActivity(MyGymsIntent);
                 //Otherwise, jump to the NewGyms Activity
                 //TODO FIX THIS WTFS
                 if (true) {
-                    Intent NewGymsIntent = new Intent(PersonalProfileManager.this, NewGyms.class);
+                    Intent NewGymsIntent =
+                            new Intent(PersonalProfileManager.this, NewGyms.class);
                     startActivity(NewGymsIntent);
                 } else {
-                    Intent NewGymsIntent = new Intent(PersonalProfileManager.this, GymsProfileManager.class);
+                    Intent NewGymsIntent =
+                            new Intent(PersonalProfileManager.this, GymsProfileManager.class);
                     startActivity(NewGymsIntent);
                 }
 

@@ -17,15 +17,18 @@ import android.widget.TextView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ScheduleFriendsWeekly extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class ScheduleFriendsWeekly
+        extends AppCompatActivity
+        implements CalendarAdapter.OnItemListener{
 
     private TextView monthYearText;
+
     private RecyclerView calendarRecyclerView;
+
     private ListView eventList;
-    private Button PreviousWeek;
-    private Button NextWeek;
-    private Button MonthlyModel;
-    private Button DailyModel;
+
+    private Button PreviousWeek, NextWeek, MonthlyModel, DailyModel;
+
     final static String TAG = "ScheduleFriendsWeekly";
 
     @Override
@@ -39,7 +42,8 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         PreviousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.minusWeeks(1);
                 setWeekView();
             }
         });
@@ -47,7 +51,8 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         NextWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.plusWeeks(1);
                 setWeekView();
             }
         });
@@ -56,7 +61,9 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         MonthlyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent EventIntent = new Intent(ScheduleFriendsWeekly.this, ScheduleFriendsMonthly.class);
+                Intent EventIntent = new Intent
+                        (ScheduleFriendsWeekly.this,
+                        ScheduleFriendsMonthly.class);
                 startActivity(EventIntent);
             }
         });
@@ -64,7 +71,9 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         DailyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent DailyIntent = new Intent(ScheduleFriendsWeekly.this, ScheduleFriendsDaily.class);
+                Intent DailyIntent = new Intent
+                        (ScheduleFriendsWeekly.this,
+                        ScheduleFriendsDaily.class);
                 startActivity(DailyIntent);
             }
         });
@@ -81,9 +90,6 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         setEventAdapter();
     }
 
-
-
-
     private void initinalWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.WeekDay);
@@ -93,6 +99,7 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
         MonthlyModel = findViewById(R.id.Weekly);
         DailyModel = findViewById(R.id.Daily);
     }
+
     @Override
     public void onItemClick(int position, LocalDate date) {
         CalendarUtils.selectedDate = date;
@@ -108,7 +115,8 @@ public class ScheduleFriendsWeekly extends AppCompatActivity implements Calendar
     private void setEventAdapter() {
         ArrayList<Event> FriendsEvent = PersonalProfileFriend.FriendsEvent;
         ArrayList<Event> dailyEvents = Event.eventsForDateOthers(CalendarUtils.selectedDate, FriendsEvent);
-        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+        EventAdapter eventAdapter =
+                new EventAdapter(getApplicationContext(), dailyEvents);
         eventList.setAdapter(eventAdapter);
     }
 }

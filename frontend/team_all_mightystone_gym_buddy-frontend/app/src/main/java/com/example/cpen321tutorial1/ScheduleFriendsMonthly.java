@@ -40,8 +40,7 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
         setMonthView();
 
         if(TestComeFromOutsideOrNot == 1){
-            Intent WeeklyIntent = new Intent
-                    (ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
+            Intent WeeklyIntent = new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
             startActivity(WeeklyIntent);
             TestComeFromOutsideOrNot = 0;
         }

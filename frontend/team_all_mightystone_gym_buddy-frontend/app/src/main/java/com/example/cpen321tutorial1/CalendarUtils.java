@@ -27,7 +27,11 @@ public class CalendarUtils {
 
         for (int i = 1; i <= 42; i++){
             if (i <= dayOfWeek) {
-                daysInMonthArray.add(LocalDate.of(previousMonth.getYear(),previousMonth.getMonth(), PreviousDaysInMonth + i - dayOfWeek));
+                daysInMonthArray.add(
+                        LocalDate.of(previousMonth.getYear(),
+                        previousMonth.getMonth(),
+                        PreviousDaysInMonth + i - dayOfWeek)
+                );
             }
             else if (i > daysInMonth +  dayOfWeek){
                 daysInMonthArray.add(LocalDate.of(nextMonth.getYear(),nextMonth.getMonth(), i - dayOfWeek - daysInMonth));

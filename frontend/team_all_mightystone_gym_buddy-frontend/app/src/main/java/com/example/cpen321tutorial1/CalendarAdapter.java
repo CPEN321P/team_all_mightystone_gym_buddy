@@ -22,19 +22,25 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
 
     @NonNull
     @Override
-    public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CalendarViewHolder onCreateViewHolder
+            (@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.activity_calender_cell, parent, false);
+        View view = inflater.inflate
+                (R.layout.activity_calender_cell, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         if(days.size() > 15)
             layoutParams.height = (int) (parent.getHeight() * 0.166666666);
         else
             layoutParams.height = (int) parent.getHeight();
+        
         return new CalendarViewHolder(view, onItemListener, days);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
+    public void onBindViewHolder
+            (@NonNull CalendarViewHolder holder, int position) {
+
         LocalDate date = days.get(position);
         holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
 
@@ -45,6 +51,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
             holder.dayOfMonth.setTextColor(Color.BLACK);
         else
             holder.dayOfMonth.setTextColor(Color.LTGRAY);
+
     }
 
     @Override

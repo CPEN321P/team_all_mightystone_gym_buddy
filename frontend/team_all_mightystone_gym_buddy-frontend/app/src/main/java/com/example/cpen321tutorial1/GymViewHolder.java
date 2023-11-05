@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class GymViewHolder extends RecyclerView.ViewHolder {
 
-
-
     ImageView imageView;
+
     TextView nameView, addressView;
+
     public GymViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imageview);

@@ -5,7 +5,9 @@ import java.util.List;
 public class ChatModelFromBackend {
 
     String _id;
+
     List<String> members;
+
     List<ChatMessage> chatMessages;
 
     public String get_id() {

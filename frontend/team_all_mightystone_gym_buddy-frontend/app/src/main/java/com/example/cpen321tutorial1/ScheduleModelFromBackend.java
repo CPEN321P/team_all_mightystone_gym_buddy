@@ -3,8 +3,11 @@ package com.example.cpen321tutorial1;
 import java.util.List;
 
 public class ScheduleModelFromBackend {
+
     private String userId;
+
     private Long date;
+
     private List<EventModelFromBackend> exercises;
 
     public String getUserId() {

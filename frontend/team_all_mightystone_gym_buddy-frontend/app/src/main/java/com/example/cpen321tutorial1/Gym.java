@@ -2,11 +2,8 @@ package com.example.cpen321tutorial1;
 
 public class Gym {
 
-    private String name;
-    private String address;
-    private String AccessTime;
-    private String Website;
-    private String Tips;
+    private String name, address, AccessTime;
+    private String Website, Tips;
 
     private int image;
 
@@ -22,13 +19,15 @@ public class Gym {
         this.image = image;
     }
 
-    public Gym(String name, String address, String accessTime, String website, String tips) {
+    public Gym(String name, String address,
+               String accessTime, String website, String tips) {
 
         this.name = name;
         this.address = address;
         AccessTime = accessTime;
         Website = website;
         Tips = tips;
+
     }
 
     public String getName() {

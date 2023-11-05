@@ -12,12 +12,17 @@ import android.widget.TextView;
 public class Chat extends AppCompatActivity {
 
     Account otherAccount;
+
     String chatId;
+
     ChatModelFromBackend chatModelFromBackend;
 
     EditText chat_text_input;
+
     ImageView userImage;
+
     TextView username;
+
     ImageButton message_send_button;
 
 

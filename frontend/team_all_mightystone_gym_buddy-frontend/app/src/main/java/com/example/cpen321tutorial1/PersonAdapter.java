@@ -20,16 +20,18 @@ public class PersonAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     @NonNull
     @Override
-    public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FriendViewHolder(LayoutInflater.from(context).inflate(R.layout.friend_item_view, parent, false));
+    public FriendViewHolder onCreateViewHolder
+            (@NonNull ViewGroup parent, int viewType) {
+        return new FriendViewHolder(LayoutInflater.from(context).
+                        inflate(R.layout.friend_item_view, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
+    public void onBindViewHolder
+            (@NonNull FriendViewHolder holder, int position) {
         holder.nameView.setText(items.get(position).getUsername());
         holder.usernameView.setText(items.get(position).getUserId());
         holder.imageView.setImageResource(R.drawable.user);
-
     }
 
     @Override

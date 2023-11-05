@@ -22,13 +22,16 @@ public class Messages extends AppCompatActivity {
 
         List<Account> items = new ArrayList<Account>();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
+        recyclerView.setLayoutManager
+                (new LinearLayoutManager(this));
+        recyclerView.setAdapter
+                (new PersonAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Messages.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent ChatIntent = new Intent(Messages.this, Chat.class);
+                        Intent ChatIntent = new Intent
+                                (Messages.this, Chat.class);
 
                         //import recipient's account information from backend
 
@@ -37,7 +40,8 @@ public class Messages extends AppCompatActivity {
                         startActivity(ChatIntent);
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override public void onLongItemClick
+                            (View view, int position) {
                         // do whatever
                     }
                 }));

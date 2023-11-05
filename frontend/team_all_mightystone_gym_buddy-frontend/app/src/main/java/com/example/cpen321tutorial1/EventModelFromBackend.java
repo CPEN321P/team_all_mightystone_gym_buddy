@@ -1,12 +1,10 @@
 package com.example.cpen321tutorial1;
 
 public class EventModelFromBackend {
-    private String name;
-    private String weight;
-    private Long sets;
-    private Long reps;
-    private Long timeStart;
-    private Long timeEnd;
+
+    private String name, weight;
+
+    private Long sets, reps, timeStart, timeEnd;
 
     public String getName() {
         return name;

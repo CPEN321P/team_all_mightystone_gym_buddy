@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Account {
 
     //public static ArrayList<Account> CurrentAccount = new ArrayList<>();
-    private String userId;
     private String Username;
     private String EmailAddress;
     private String Gender;
@@ -25,10 +24,6 @@ public class Account {
 
     public String getUserId() {
         return UserId;
-    }
-
-    public void setUserId(String userId) {
-        UserId = userId;
     }
 
     public ArrayList<Account> getBlockList() {

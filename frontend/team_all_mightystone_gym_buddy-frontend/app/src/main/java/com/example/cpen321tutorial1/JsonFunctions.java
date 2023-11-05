@@ -35,7 +35,8 @@ public class JsonFunctions {
 
             @Override public void onResponse(Call call, Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
                     Log.d(TAG, "POST Something");
                 }
             }
@@ -182,8 +183,12 @@ public class JsonFunctions {
         return Json;
     }
 
-    public static String JsonEvent(String JsonName, String JsonWeight, String JsonSets, String JsonReps, String JsonTimeStart, String JsoneTimeEnd) {
-        String JsonEvent = "{" + JsonName + "," + JsonWeight + "," + JsonSets + "," + JsonReps + "," + JsonTimeStart + "," + JsoneTimeEnd + "}";
+    public static String JsonEvent(String JsonName, String JsonWeight,
+                                   String JsonSets, String JsonReps,
+                                   String JsonTimeStart, String JsoneTimeEnd) {
+        String JsonEvent = "{" + JsonName + "," + JsonWeight + "," +
+                JsonSets + "," + JsonReps + "," + JsonTimeStart +
+                "," + JsoneTimeEnd + "}";
         return JsonEvent;
     }
 
@@ -193,7 +198,7 @@ public class JsonFunctions {
         return Json;
     }
 
-    public static String convertArrayListToJson(ArrayList<String> arrayList) {
+    public static String convertArrayListToJson (ArrayList<String> arrayList) {
         JSONArray jsonArray = new JSONArray();
         for (Object item : arrayList) {
             jsonArray.put(item);
@@ -203,7 +208,8 @@ public class JsonFunctions {
 
 
 
-    public static String ConvertEventArrayListToJson (ArrayList<Event> Events, String userId, LocalDate date){
+    public static String ConvertEventArrayListToJson
+            (ArrayList<Event> Events, String userId, LocalDate date){
         String JsonUserId = JsonUserId(userId);
         String JsonDate = JsonDate(date);
         String JsonExercises = "\"exercises\": [";
@@ -211,7 +217,8 @@ public class JsonFunctions {
             String JsonName = JsonName(Events.get(i).getName());
             String JsonTimeStart = JsonStartTime(Events.get(i).getStartTime());
             String JsonTimeEnd = JsonEndTime(Events.get(i).getEndTime());
-            JsonExercises = JsonExercises + "{" + JsonName + "," + JsonTimeStart + "," + JsonTimeEnd + "}";
+            JsonExercises = JsonExercises + "{" + JsonName + "," +
+                    JsonTimeStart + "," + JsonTimeEnd + "}";
             if (i != Events.size()-1) {
                 JsonExercises = JsonExercises + ",";
             }

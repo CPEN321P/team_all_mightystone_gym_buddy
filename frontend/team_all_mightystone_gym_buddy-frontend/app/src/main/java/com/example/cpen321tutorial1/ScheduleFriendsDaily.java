@@ -18,13 +18,12 @@ import java.util.Locale;
 
 public class ScheduleFriendsDaily extends AppCompatActivity {
 
-    private TextView MonthDayText;
-    private TextView DayOfWeek;
+    private TextView MonthDayText, DayOfWeek;
+
     private ListView HoureventList;
-    private Button PreviousDay;
-    private Button NextDay;
-    private Button Monthly;
-    private Button Weekly;
+
+    private Button PreviousDay, NextDay, Monthly, Weekly;
+
     final static String TAG = "Daily";
 
 
@@ -37,7 +36,8 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
         PreviousDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusDays(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.minusDays(1);
                 setDayView();
             }
         });
@@ -45,7 +45,8 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
         NextDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusDays(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.plusDays(1);
                 setDayView();
             }
         });
@@ -53,7 +54,8 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
         Monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(ScheduleFriendsDaily.this, ScheduleFriendsMonthly.class);
+                Intent WeeklyIntent =
+                        new Intent(ScheduleFriendsDaily.this, ScheduleFriendsMonthly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -61,7 +63,8 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
         Weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(ScheduleFriendsDaily.this, ScheduleFriendsWeekly.class);
+                Intent WeeklyIntent =
+                        new Intent(ScheduleFriendsDaily.this, ScheduleFriendsWeekly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -94,7 +97,8 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
     }
 
     private void setHourAdapter() {
-        HourAdapter hourAdapter = new HourAdapter(getApplicationContext(), hourEventList());
+        HourAdapter hourAdapter =
+                new HourAdapter(getApplicationContext(), hourEventList());
         HoureventList.setAdapter(hourAdapter);
     }
 
@@ -103,7 +107,8 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
         ArrayList<Event> FriendsEvent = PersonalProfileFriend.FriendsEvent;
         for (int HalfHour = 0; HalfHour < 48; HalfHour++) {
             LocalTime Time = LocalTime.of(HalfHour/2, HalfHour%2 * 30);
-            ArrayList<Event> events = Event.eventsForDateAndTimeOthers(selectedDate, Time, FriendsEvent);
+            ArrayList<Event> events =
+                    Event.eventsForDateAndTimeOthers(selectedDate, Time, FriendsEvent);
             HourEvent hourEvent = new HourEvent(Time, events);
             list.add(hourEvent);
         }
