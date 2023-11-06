@@ -167,7 +167,7 @@ public class EventEdit extends AppCompatActivity {
 
     private boolean checkIfSingleEventsExists(LocalDate Today) {
         ConnectionToBackend c = new ConnectionToBackend();
-        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUserAndDate(myAccount.getUserId(), Today);
+        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(myAccount.getUserId(), Today);
         if(TheEventsofThisAccount == null){
             Log.d("THIS IS", "FALSE BRO");
             return false;

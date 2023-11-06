@@ -45,16 +45,7 @@ public class Account {
     public void setMyGym(Gym myGym) {
         this.myGym = myGym;
     }
-
-
-//    public static ArrayList<Account> getCurrentAccount() {
-//        return CurrentAccount;
-//    }
-
-//    public static void setCurrentAccount(ArrayList<Account> currentAccount) {
-//        CurrentAccount = currentAccount;
-//    }
-
+    
     public ArrayList<Account> getFriendsList() {
         return FriendsList;
     }

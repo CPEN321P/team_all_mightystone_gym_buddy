@@ -216,7 +216,7 @@ public class LoginPage extends AppCompatActivity {
 
     private boolean checkIfUserExists(String email) {
         ConnectionToBackend c = new ConnectionToBackend();
-        Account thisAccount = c.getAccountInformationFromEmail(email);
+        Account thisAccount = c.getAccountInformation(email);
         //Log.d("THISSSSSSS", email + " in login page");
 
         if(thisAccount== null){

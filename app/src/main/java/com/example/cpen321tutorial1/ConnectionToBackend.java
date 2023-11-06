@@ -79,7 +79,7 @@ public class ConnectionToBackend {
         }
     }
 
-    public ArrayList<Event> getScheduleByUserAndDate (final String UserId, final LocalDate date){
+    public ArrayList<Event> getScheduleByUser (final String UserId, final LocalDate date){
         Callable<ArrayList<Event>> asyncCall = new Callable<ArrayList<Event>>() {
             @Override
             public ArrayList<Event> call() throws Exception {
@@ -167,14 +167,23 @@ public class ConnectionToBackend {
 
     //ACCOUNT FUNCTIONS!!!
 
-    private Account getAccountInformationFromUserId(String userId) {
+    public Account getAccountInformation(String userIdOrEmail) {
 
         Callable<Account> asyncCall = new Callable<Account>() {
             @Override
             public Account call() throws Exception {
-                Request getAccountInformation = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/" + userId)
-                        .build();
+                Request getAccountInformation;
+
+                if(userIdOrEmail.contains("@")) {
+                    getAccountInformation = new Request.Builder()
+                            .url("https://20.172.9.70/users/userEmail/" + userIdOrEmail)
+                            .build();
+
+                } else {
+                    getAccountInformation= new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/" + userIdOrEmail)
+                            .build();
+                }
 
                 Response response = client.newCall(getAccountInformation).execute();
 
@@ -209,47 +218,6 @@ public class ConnectionToBackend {
 
     }
 
-    public Account getAccountInformationFromEmail(final String email) {
-
-        Callable<Account> asyncCall = new Callable<Account>() {
-            @Override
-            public Account call() throws Exception {
-                Request getAccountInformation = new Request.Builder()
-                        .url("https://20.172.9.70/users/userEmail/" + email)
-                        .build();
-
-                Response response = client.newCall(getAccountInformation).execute();
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response.code());
-                }
-
-                try (ResponseBody responseBody = response.body()) {
-                    String jsonResponse = responseBody.string();
-                    AccountModelFromBackend accountModelFromBackend = new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
-
-                    if (accountModelFromBackend == null) {
-                        throw new IOException("Account model is null");
-                    }
-
-                    return setAccountInformationFromBackend(accountModelFromBackend);
-                }
-            }
-        };
-
-        Future<Account> future = executorService.submit(asyncCall);
-
-        try {
-            return future.get(); // This will block until the async call is complete
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return null;
-            //throw new RuntimeException("Error while fetching account information", e);
-        }
-    }
-
     public Account setAccountInformationFromBackend(AccountModelFromBackend accountModel){
         Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),accountModel.getAge().intValue(), accountModel.getWeight().intValue(), accountModel.getGender(),new ArrayList<>(), new ArrayList<>());
         returnedAccount.setUserId(accountModel.getId());
@@ -257,17 +225,29 @@ public class ConnectionToBackend {
 
     }
 
-    public ArrayList<Account> getAllFriends(final String userId) {
+    public ArrayList<Account> getAllInList(final String userId, int friendsOrBlocked) {
 
         ArrayList<Account> listOfAllAccounts = new ArrayList<>();
         Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
             @Override
             public ArrayList<Account> call() throws Exception {
-                Request getFriendsProfiles = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/"+ userId+ "/friends")
-                        .build();
+                Request getProfiles;
 
-                Response response = client.newCall(getFriendsProfiles).execute();
+                //getting friends
+                if(friendsOrBlocked == 0) {
+                    getProfiles = new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/"+ userId+ "/friends")
+                            .build();
+                }
+                //getting blocked
+                else{
+                    getProfiles = new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/"+ userId+ "/blockedUsers")
+                            .build();
+                }
+
+
+                Response response = client.newCall(getProfiles).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -288,55 +268,6 @@ public class ConnectionToBackend {
 
                     for(int i = 0; i<listOfFriends.size(); i++){
                         listOfAllAccounts.add(setAccountInformationFromBackend(listOfFriends.get(i)));
-
-                    }
-
-                    return listOfAllAccounts;
-
-                }
-            }
-        };
-
-        Future<ArrayList<Account>> future = executorService.submit(asyncCall);
-
-        try {
-            return future.get(); // This will block until the async call is complete
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return null;
-            //throw new RuntimeException("Error while fetching account information", e);
-        }
-
-    }
-
-    public ArrayList<Account> getAllBlocked(final String userId) {
-
-        ArrayList<Account> listOfAllAccounts = new ArrayList<>();
-        Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
-            @Override
-            public ArrayList<Account> call() throws Exception {
-                Request getBlocekdProfiles = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/"+ userId+ "/blockedUsers")
-                        .build();
-
-                Response response = client.newCall(getBlocekdProfiles).execute();
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response.code());
-                }
-
-                try (ResponseBody responseBody = response.body()) {
-                    String jsonResponse = responseBody.string();
-                    Type listType = new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
-
-                    List<AccountModelFromBackend> listOfBlocked = new Gson().fromJson(jsonResponse, listType);
-
-                    if (listOfBlocked == null) {
-                        throw new IOException("Gym model is null");
-                    }
-
-                    for(int i = 0; i<listOfBlocked.size(); i++){
-                        listOfAllAccounts.add(setAccountInformationFromBackend(listOfBlocked.get(i)));
 
                     }
 
@@ -472,9 +403,9 @@ public class ConnectionToBackend {
         Account otherAccount;
 
         if(chatModelFromBackend.members.get(0) == myAccount.getUserId()){
-            otherAccount = getAccountInformationFromUserId(chatModelFromBackend.members.get(1));
+            otherAccount = getAccountInformation(chatModelFromBackend.members.get(1));
         } else {
-            otherAccount = getAccountInformationFromUserId(chatModelFromBackend.members.get(0));
+            otherAccount = getAccountInformation(chatModelFromBackend.members.get(0));
         }
         returnedChat.setOtherAccount(otherAccount);
         returnedChat.setChatId(chatModelFromBackend.get_id());

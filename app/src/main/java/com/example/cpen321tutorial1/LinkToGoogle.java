@@ -123,7 +123,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 NewCallPost(client, requestName);
 
                 ConnectionToBackend c = new ConnectionToBackend();
-                c.getAccountInformationFromEmail(myAccount.getEmailAddress());
+                c.getAccountInformation(myAccount.getEmailAddress());
 
                 Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPage.class);
                 startActivity(PersonalProfile);
