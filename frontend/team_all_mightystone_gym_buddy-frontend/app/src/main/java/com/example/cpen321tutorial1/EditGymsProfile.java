@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class EditGymsProfile extends AppCompatActivity {
+public class EditGymsProfile
+        extends AppCompatActivity {
 
     private TextView Name;
 

@@ -29,7 +29,8 @@ public class Logo extends AppCompatActivity {
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent HomeIntent = new Intent(Logo.this, Logo.class);
+                Intent HomeIntent =
+                        new Intent(Logo.this, Logo.class);
                 startActivity(HomeIntent);
             }
         });

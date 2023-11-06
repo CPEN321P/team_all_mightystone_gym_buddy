@@ -105,6 +105,9 @@ public class ManagerModelFromBackend {
     }
 
     public String toString() {
-        return String.format("_id:%d,name:%d,username:%d,gymId:%d,phone:%s,email:%s,pfp:%d,description:%d,reported:%d,announcements:%d", _id, name, username, gymId, phone, email, pfp, description, reported, announcements);
+        return String.format("_id:%d,name:%d,username:%d,gymId:%d,phone:%s,email:%s," +
+                        "pfp:%d,description:%d,reported:%d,announcements:%d",
+                _id, name, username, gymId, phone, email, pfp,
+                description, reported, announcements);
     }
 }

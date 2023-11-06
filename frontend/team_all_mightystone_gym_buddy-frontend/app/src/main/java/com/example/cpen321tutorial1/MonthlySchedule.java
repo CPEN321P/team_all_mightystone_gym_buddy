@@ -52,7 +52,8 @@ public class MonthlySchedule
         setMonthView();
 
         if(TestComeFromOutsideOrNot == 1){
-            Intent WeeklyIntent = new Intent(MonthlySchedule.this, WeekView.class);
+            Intent WeeklyIntent =
+                    new Intent(MonthlySchedule.this, WeekView.class);
             startActivity(WeeklyIntent);
             TestComeFromOutsideOrNot = 0;
         }
@@ -61,7 +62,8 @@ public class MonthlySchedule
         PreviousMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.minusMonths(1);
                 setMonthView();
             }
         });
@@ -69,7 +71,8 @@ public class MonthlySchedule
         NextMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.plusMonths(1);
                 setMonthView();
             }
         });
@@ -78,7 +81,8 @@ public class MonthlySchedule
         Weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(MonthlySchedule.this, WeekView.class);
+                Intent WeeklyIntent =
+                        new Intent(MonthlySchedule.this, WeekView.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -86,7 +90,8 @@ public class MonthlySchedule
         Daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent DailyIntent = new Intent(MonthlySchedule.this, DailyCalendar.class);
+                Intent DailyIntent =
+                        new Intent(MonthlySchedule.this, DailyCalendar.class);
                 startActivity(DailyIntent);
             }
         });
@@ -97,8 +102,10 @@ public class MonthlySchedule
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray();
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        CalendarAdapter calendarAdapter =
+                new CalendarAdapter(daysInMonth, this);
+        RecyclerView.LayoutManager layoutManager =
+                new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }

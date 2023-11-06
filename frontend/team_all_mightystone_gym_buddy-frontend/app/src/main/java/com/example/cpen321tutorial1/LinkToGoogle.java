@@ -26,7 +26,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import okhttp3.MediaType;
 
-public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class LinkToGoogle
+        extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener {
 
     private TextView UserName;
 
@@ -53,8 +55,10 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
         Weight = findViewById(R.id.Weight);
 
         RoleSpinner = findViewById(R.id.planets_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.roles, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.roles, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
         RoleSpinner.setAdapter(adapter);
         RoleSpinner.setOnItemSelectedListener(this);
 
@@ -64,19 +68,25 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                 Log.d(TAG, "Trying to Sign in");
 
                 int NumberOfAge = StringToInteger(Age.getText().toString());
-                int NumberOfWeight = StringToInteger(Weight.getText().toString());
 
-                if (UserName.getText().toString().isEmpty() || Age.getText().toString().isEmpty() || Weight.getText().toString().isEmpty()){
+                int NumberOfWeight =
+                        StringToInteger(Weight.getText().toString());
+
+                if (UserName.getText().toString().isEmpty() ||
+                        Age.getText().toString().isEmpty() ||
+                        Weight.getText().toString().isEmpty()){
+
                     Toast.makeText(LinkToGoogle.this, "Do not leave space!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                account.setUsername(UserName.getText().toString());
 
+                account.setUsername(UserName.getText().toString());
 
                 if (RoleSpinner.getSelectedItem().toString().equals("Select Your Gender")) {
                     Toast.makeText(LinkToGoogle.this, "Please Select the Gender", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 account.setGender(RoleSpinner.getSelectedItem().toString());
 
 
@@ -86,6 +96,7 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                             "Invalid Age", Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 account.setAge(NumberOfAge);
 
                 if (NumberOfWeight <= 0)
@@ -94,27 +105,38 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
                             "Invalid Weight", Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 account.setWeight(NumberOfWeight);
 
-
                 Toast.makeText(LinkToGoogle.this,
-                        "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+                        "Account Created Successfully!",
+                        Toast.LENGTH_SHORT).show();
 
                 ArrayList<Account> TheEmptyFriendList = new ArrayList<>();
+
                 ArrayList<Account> TheEmptyBlockList = new ArrayList<>();
 
                 account.setFriendsList(TheEmptyFriendList);
+
                 account.setBlockList(TheEmptyBlockList);
 
                 ////////////////POST account into data base/////////////////
 
                 String Json = "";
-                    String JsonName = JsonFunctions.JsonName(GlobalClass.myAccount.getUsername());
-                    String JsonEmail = JsonFunctions.JsonEmail(GlobalClass.myAccount.getEmailAddress());
-                    String JsonAge = JsonFunctions.JsonAge(GlobalClass.myAccount.getAge());
-                    String JsonWeight = JsonFunctions.JsonWeight(GlobalClass.myAccount.getWeight());
-                    String JsonGender = JsonFunctions.JsonGender(GlobalClass.myAccount.getGender());
-                    Json = "{" + JsonName + "," + JsonEmail + "," + JsonAge + "," + JsonWeight + "," + JsonGender + "}";
+                    String JsonName =
+                            JsonFunctions.JsonName(GlobalClass.myAccount.getUsername());
+                    String JsonEmail =
+                            JsonFunctions.JsonEmail(GlobalClass.myAccount.getEmailAddress());
+                    String JsonAge =
+                            JsonFunctions.JsonAge(GlobalClass.myAccount.getAge());
+                    String JsonWeight =
+                            JsonFunctions.JsonWeight(GlobalClass.myAccount.getWeight());
+                    String JsonGender =
+                            JsonFunctions.JsonGender(GlobalClass.myAccount.getGender());
+
+                    Json = "{" + JsonName + "," + JsonEmail + "," +
+                            JsonAge + "," + JsonWeight + "," + JsonGender + "}";
+
                     Log.d(TAG, Json);
 
                 RequestBody body = RequestBody.create(Json,
@@ -129,10 +151,12 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
 
                 NewCallPost(client, requestName);
 
-                ConnectionToBackend c = new ConnectionToBackend();
+                ConnectionToBackend c =
+                        new ConnectionToBackend();
                 c.getAccountInformationFromEmail(myAccount.getEmailAddress());
 
-                Intent PersonalProfile = new Intent(LinkToGoogle.this, LoginPage.class);
+                Intent PersonalProfile =
+                        new Intent(LinkToGoogle.this, LoginPage.class);
                 startActivity(PersonalProfile);
 
             }
@@ -140,7 +164,8 @@ public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemSelected(AdapterView<?> adapterView,
+                               View view, int i, long l) {
 
     }
 

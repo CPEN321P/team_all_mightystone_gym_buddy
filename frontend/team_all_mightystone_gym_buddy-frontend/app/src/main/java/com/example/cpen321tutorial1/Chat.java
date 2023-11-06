@@ -92,7 +92,8 @@ public class Chat extends AppCompatActivity {
         return chatModelFromBackend;
     }
 
-    public void setChatModelFromBackend(ChatModelFromBackend chatModelFromBackend) {
+    public void setChatModelFromBackend
+            (ChatModelFromBackend chatModelFromBackend) {
         this.chatModelFromBackend = chatModelFromBackend;
     }
 }

@@ -35,10 +35,14 @@ public class CalendarUtils {
                 );
             }
             else if (i > daysInMonth +  dayOfWeek){
-                daysInMonthArray.add(LocalDate.of(nextMonth.getYear(),nextMonth.getMonth(), i - dayOfWeek - daysInMonth));
+                daysInMonthArray.add(LocalDate.of(nextMonth.getYear(),
+                        nextMonth.getMonth(),
+                        i - dayOfWeek - daysInMonth));
             }
             else{
-                daysInMonthArray.add(LocalDate.of(selectedDate.getYear(),selectedDate.getMonth(), i - dayOfWeek));
+                daysInMonthArray.add(LocalDate.of(selectedDate.getYear(),
+                        selectedDate.getMonth(),
+                        i - dayOfWeek));
             }
         }
         return daysInMonthArray;

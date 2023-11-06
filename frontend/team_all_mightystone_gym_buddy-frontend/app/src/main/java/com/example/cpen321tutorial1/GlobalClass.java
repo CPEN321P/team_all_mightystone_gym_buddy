@@ -14,7 +14,8 @@ public class GlobalClass extends Application {
     public static ArrayList<Event> MyeventsList = new ArrayList<>();
 
     public final static OkHttpClient client =
-            new OkHttpClient.Builder().hostnameVerifier((hostname, session) -> true).build();
+            new OkHttpClient.Builder().
+                    hostnameVerifier((hostname, session) -> true).build();
     //public final static OkHttpClient client = new OkHttpClient();
 
     public static Manager manager = new Manager();

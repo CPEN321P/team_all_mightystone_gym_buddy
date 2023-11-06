@@ -2,7 +2,13 @@ package com.example.cpen321tutorial1;
 
 public class Manager {
 
-    private String _id, name, username, email;
+    private String _id;
+
+    private String name;
+
+    private String username;
+
+    private String email;
 
     public String get_id() {
         return _id;

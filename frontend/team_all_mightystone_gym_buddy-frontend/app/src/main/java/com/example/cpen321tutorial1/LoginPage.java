@@ -56,7 +56,8 @@ public class LoginPage extends AppCompatActivity {
                             Intent intent = activityResult.getData();
                             if (intent != null){
                                 Log.d(TAG, "User signed in");
-                                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(intent);
+                                Task<GoogleSignInAccount> task =
+                                        GoogleSignIn.getSignedInAccountFromIntent(intent);
                                 handleSignInResult(task);
                             }
 
@@ -102,7 +103,9 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "Trying to Switch to Manager Mode");
 
-                Intent LoginPageManagerIntent = new Intent(LoginPage.this, LoginPageManager.class);
+                Intent LoginPageManagerIntent =
+                        new Intent(LoginPage.this, LoginPageManager.class);
+
                 startActivity(LoginPageManagerIntent);
             }
         });
@@ -111,14 +114,16 @@ public class LoginPage extends AppCompatActivity {
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso =
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sign_in_button).
+                setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
@@ -136,7 +141,8 @@ public class LoginPage extends AppCompatActivity {
 
             @Override public void onResponse(Call call, Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
                     Log.d(TAG, "POST Something");
                 }
             }
@@ -173,7 +179,9 @@ public class LoginPage extends AppCompatActivity {
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);
-            Toast.makeText(LoginPage.this, "Log in successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginPage.this,
+                    "Log in successful",
+                    Toast.LENGTH_SHORT).show();
 
 
         } catch (ApiException e) {
@@ -201,20 +209,25 @@ public class LoginPage extends AppCompatActivity {
 
             } else {
                 ConnectionToBackend c = new ConnectionToBackend();
-                Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
-                Intent LinkAccountIntent = new Intent(LoginPage.this, Logo.class);
+                Log.d("THIS IS WHAT YOURE LOOKING FOR",
+                        "YIPPIEEEEE U EXIST ON THE DATABASE");
+                Intent LinkAccountIntent =
+                        new Intent(LoginPage.this, Logo.class);
                 startActivity(LinkAccountIntent);
             }
 
 
             if(!checkIfEventsExists()){
                 MyeventsList = new ArrayList<>();
-                //String JsonUserId = JsonFunctions.JsonUserId(myAccount.getUserId());
-                //String JsonDate = JsonFunctions.JsonUserId(myAccount)
+                //String JsonUserId =
+                //      JsonFunctions.JsonUserId(myAccount.getUserId());
+                //String JsonDate =
+                //      JsonFunctions.JsonUserId(myAccount)
             }
 
 
-            //If the EmailAddress did not search from the database, then jump to activity_link_to_google
+            //If the EmailAddress did not search from the database,
+            // then jump to activity_link_to_google
 
             //Otherwise, jump to the User home page
         }
@@ -237,7 +250,8 @@ public class LoginPage extends AppCompatActivity {
 
     private boolean checkIfEventsExists() {
         ConnectionToBackend c = new ConnectionToBackend();
-        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(myAccount.getUserId());
+        ArrayList<Event> TheEventsofThisAccount =
+                c.getScheduleByUser(myAccount.getUserId());
         if(TheEventsofThisAccount == null){
             Log.d(TAG, "No Events Exist!!!");
             return false;

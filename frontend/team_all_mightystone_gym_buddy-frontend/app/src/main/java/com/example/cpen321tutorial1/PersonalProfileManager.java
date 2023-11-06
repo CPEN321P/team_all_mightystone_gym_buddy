@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class PersonalProfileManager extends AppCompatActivity {
+public class PersonalProfileManager
+        extends AppCompatActivity {
 
     private Button MyGyms;
 
@@ -33,7 +34,8 @@ public class PersonalProfileManager extends AppCompatActivity {
         //    @Override
         //    public void onClick(View view) {
         //        Intent PersonalProfileIntent =
-        //              new Intent(PersonalProfileManager.this, PersonalProfileEdit.class);
+        //              new Intent(PersonalProfileManager.this,
+        //                  PersonalProfileEdit.class);
         //        startActivity(PersonalProfileIntent);
         //    }
         //});
@@ -62,11 +64,13 @@ public class PersonalProfileManager extends AppCompatActivity {
                 //TODO FIX THIS WTFS
                 if (true) {
                     Intent NewGymsIntent =
-                            new Intent(PersonalProfileManager.this, NewGyms.class);
+                            new Intent(PersonalProfileManager.this,
+                                    NewGyms.class);
                     startActivity(NewGymsIntent);
                 } else {
                     Intent NewGymsIntent =
-                            new Intent(PersonalProfileManager.this, GymsProfileManager.class);
+                            new Intent(PersonalProfileManager.this,
+                                    GymsProfileManager.class);
                     startActivity(NewGymsIntent);
                 }
 

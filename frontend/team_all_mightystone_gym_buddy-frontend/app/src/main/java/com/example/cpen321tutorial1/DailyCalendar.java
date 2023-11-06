@@ -64,7 +64,8 @@ public class DailyCalendar extends AppCompatActivity {
         Monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(DailyCalendar.this, MonthlySchedule.class);
+                Intent WeeklyIntent =
+                        new Intent(DailyCalendar.this, MonthlySchedule.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -72,7 +73,8 @@ public class DailyCalendar extends AppCompatActivity {
         Weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(DailyCalendar.this, WeekView.class);
+                Intent WeeklyIntent =
+                        new Intent(DailyCalendar.this, WeekView.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -80,7 +82,8 @@ public class DailyCalendar extends AppCompatActivity {
         NewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(DailyCalendar.this, EventEdit.class);
+                Intent WeeklyIntent =
+                        new Intent(DailyCalendar.this, EventEdit.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -124,7 +127,8 @@ public class DailyCalendar extends AppCompatActivity {
     }
 
     private void setHourAdapter() {
-        HourAdapter hourAdapter = new HourAdapter(getApplicationContext(), hourEventList());
+        HourAdapter hourAdapter =
+                new HourAdapter(getApplicationContext(), hourEventList());
         HoureventList.setAdapter(hourAdapter);
     }
 
@@ -132,7 +136,8 @@ public class DailyCalendar extends AppCompatActivity {
         ArrayList<HourEvent> list = new ArrayList<>();
         for (int HalfHour = 0; HalfHour < 48; HalfHour++) {
             LocalTime Time = LocalTime.of(HalfHour/2, HalfHour%2 * 30);
-            ArrayList<Event> events = Event.eventsForDateAndTime(selectedDate, Time);
+            ArrayList<Event> events =
+                    Event.eventsForDateAndTime(selectedDate, Time);
             HourEvent hourEvent = new HourEvent(Time, events);
             list.add(hourEvent);
         }

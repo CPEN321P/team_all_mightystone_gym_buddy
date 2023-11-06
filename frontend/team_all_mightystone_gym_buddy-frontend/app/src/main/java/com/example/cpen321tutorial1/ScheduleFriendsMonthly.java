@@ -2,6 +2,7 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.CalendarUtils.daysInMonthArray;
 import static com.example.cpen321tutorial1.CalendarUtils.monthYearFromDate;
+import static com.example.cpen321tutorial1.CalendarUtils.selectedDate;
 import static com.example.cpen321tutorial1.MainActivity.TestComeFromOutsideOrNot;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,9 @@ import android.widget.TextView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ScheduleFriendsMonthly extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class ScheduleFriendsMonthly
+        extends AppCompatActivity
+        implements CalendarAdapter.OnItemListener{
 
     private TextView monthYearText;
 
@@ -40,11 +43,15 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_friends_monthly);
         initinalWidgets();
-        CalendarUtils.selectedDate = LocalDate.now();
+        selectedDate = LocalDate.now();
         setMonthView();
 
         if(TestComeFromOutsideOrNot == 1){
-            Intent WeeklyIntent = new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
+
+            Intent WeeklyIntent =
+                    new Intent(ScheduleFriendsMonthly.this,
+                            ScheduleFriendsWeekly.class);
+
             startActivity(WeeklyIntent);
             TestComeFromOutsideOrNot = 0;
         }
@@ -53,7 +60,7 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
         PreviousMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
+                selectedDate = selectedDate.minusMonths(1);
                 setMonthView();
             }
         });
@@ -61,7 +68,7 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
         NextMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
+                selectedDate = selectedDate.plusMonths(1);
                 setMonthView();
             }
         });
@@ -86,11 +93,13 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
     }
 
     private void setMonthView() {
-        monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
+        monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray();
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        CalendarAdapter calendarAdapter =
+                new CalendarAdapter(daysInMonth, this);
+        RecyclerView.LayoutManager layoutManager =
+                new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
@@ -109,7 +118,7 @@ public class ScheduleFriendsMonthly extends AppCompatActivity implements Calenda
     @Override
     public void onItemClick(int position, LocalDate date) {
         if(date != null) {
-            CalendarUtils.selectedDate = date;
+            selectedDate = date;
             setMonthView();
         }
     }

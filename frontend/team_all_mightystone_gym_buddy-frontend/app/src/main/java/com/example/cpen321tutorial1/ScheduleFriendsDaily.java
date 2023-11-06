@@ -16,7 +16,8 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ScheduleFriendsDaily extends AppCompatActivity {
+public class ScheduleFriendsDaily
+        extends AppCompatActivity {
 
     private TextView MonthDayText;
 
@@ -96,8 +97,13 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
     }
 
     private void setDayView() {
-        MonthDayText.setText(CalendarUtils.monthDayFromDate(selectedDate));
-        String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        MonthDayText.setText
+                (CalendarUtils.monthDayFromDate(selectedDate));
+
+        String dayOfWeek = selectedDate.
+                getDayOfWeek().
+                getDisplayName(TextStyle.FULL, Locale.getDefault());
+
         DayOfWeek.setText(dayOfWeek);
 
         setHourAdapter();
@@ -115,8 +121,11 @@ public class ScheduleFriendsDaily extends AppCompatActivity {
         ArrayList<Event> FriendsEvent = PersonalProfileFriend.FriendsEvent;
         for (int HalfHour = 0; HalfHour < 48; HalfHour++) {
             LocalTime Time = LocalTime.of(HalfHour/2, HalfHour%2 * 30);
+
             ArrayList<Event> events =
-                    Event.eventsForDateAndTimeOthers(selectedDate, Time, FriendsEvent);
+                    Event.eventsForDateAndTimeOthers
+                            (selectedDate, Time, FriendsEvent);
+
             HourEvent hourEvent = new HourEvent(Time, events);
             list.add(hourEvent);
         }

@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
     private int RC_SIGN_IN = 1;
 
-//    private Button Gyms;
-//    private Button Friends;
-//    private Button MFour;
-//    private Button Schedule;
-//    private Button PersonalProfile;
-//    private Button AddGym;
-//    private Button OtherProfile, FriendProfile, UserGyms;
+    //private Button Gyms;
+    //private Button Friends;
+    //private Button MFour;
+    //private Button Schedule;
+    //private Button PersonalProfile;
+    //private Button AddGym;
+    //private Button OtherProfile, FriendProfile, UserGyms;
 
     private Button GetStarted;
 

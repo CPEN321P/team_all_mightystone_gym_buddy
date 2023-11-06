@@ -20,16 +20,22 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position,
+                        @Nullable View convertView,
+                        @NonNull ViewGroup parent) {
+
         Event event = getItem(position);
 
         if (convertView == null)
-            convertView =
-                    LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
+            convertView = LayoutInflater.from(getContext()).
+                    inflate(R.layout.event_cell, parent, false);
 
         TextView eventCell = convertView.findViewById(R.id.EventCell);
 
-        String eventTitle = event.getName() + " " + event.getStartTime() + "-" + event.getEndtime();
+        String eventTitle = event.getName() +
+                " " + event.getStartTime() +
+                "-" + event.getEndtime();
+
         eventCell.setText(eventTitle);
         return convertView;
     }

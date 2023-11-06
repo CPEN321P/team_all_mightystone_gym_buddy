@@ -17,7 +17,9 @@ import android.widget.TextView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class WeekView extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class WeekView
+        extends AppCompatActivity
+        implements CalendarAdapter.OnItemListener{
 
     private TextView monthYearText;
 
@@ -67,7 +69,8 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
         NewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(WeekView.this, EventEdit.class);
+                Intent WeeklyIntent =
+                        new Intent(WeekView.this, EventEdit.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -95,11 +98,6 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
             @Override
             public void onClick(View view) {
                 Event.CleareventsForDate(CalendarUtils.selectedDate);
-
-                //////////////////////////////////////////////////////////////////////////////////////////
-                ////DELETE the last event in event list of the giving date(CalendarUtils.selectedDate)////
-                //////////////////////////////////////////////////////////////////////////////////////////
-
                 setEventAdapter();
             }
         });

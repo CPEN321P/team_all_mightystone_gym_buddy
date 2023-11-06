@@ -35,7 +35,8 @@ public class LoginPageManager extends AppCompatActivity {
                     new ActivityResultContracts.StartActivityForResult(),
                     new ActivityResultCallback<ActivityResult>() {
                         @Override
-                        public void onActivityResult(ActivityResult activityResult) {
+                        public void onActivityResult
+                                (ActivityResult activityResult) {
                             int requestCode = activityResult.getResultCode();
                             Intent intent = activityResult.getData();
                             if (intent != null){
@@ -53,7 +54,8 @@ public class LoginPageManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page_manager);
 
-        //Account.CurrentAccount.clear(); //Clear the current account information
+        //Account.CurrentAccount.clear();
+            // Clear the current account information
         //Gym.CurrentGym.clear();
 
         ModeButton = findViewById(R.id.ManagerMode);
@@ -63,7 +65,8 @@ public class LoginPageManager extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "Trying to Switch to User Mode");
 
-                Intent LoginPageUserIntent = new Intent(LoginPageManager.this, LoginPage.class);
+                Intent LoginPageUserIntent =
+                        new Intent(LoginPageManager.this, LoginPage.class);
                 startActivity(LoginPageUserIntent);
             }
         });
@@ -104,12 +107,18 @@ public class LoginPageManager extends AppCompatActivity {
             Toast.makeText(LoginPageManager.this,
                     "Log in successful",
                     Toast.LENGTH_SHORT).show();
-            //Intent Informationintent = new Intent(LoginPage.this, ServerInfo.class);
+
+            //Intent Informationintent =
+            //      new Intent(LoginPage.this, ServerInfo.class);
+
             //startActivity(Informationintent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+
+            Log.w(TAG, "signInResult:failed code=" +
+                    e.getStatusCode());
+
             updateUI(null);
         }
     }
@@ -135,7 +144,8 @@ public class LoginPageManager extends AppCompatActivity {
 
             } else {
                 ConnectionToBackend c = new ConnectionToBackend();
-                Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
+                Log.d("THIS IS WHAT YOURE LOOKING FOR",
+                        "YIPPIEEEEE U EXIST ON THE DATABASE");
                 Intent LinkAccountIntent = new Intent(LoginPageManager.this, PersonalProfileManager.class);
                 startActivity(LinkAccountIntent);
             }
@@ -143,9 +153,10 @@ public class LoginPageManager extends AppCompatActivity {
     }
 
     private boolean checkIfUserExists(String email) {
-        ConnectionToBackend c = new ConnectionToBackend();
-        Manager thisManagerFromBackend = c.getManagerInformationFromEmail(email);
 
+        ConnectionToBackend c = new ConnectionToBackend();
+        Manager thisManagerFromBackend =
+                c.getManagerInformationFromEmail(email);
 
         if(thisManagerFromBackend == null){
             Log.d("THISSSSSSS", "manager is null :c");
