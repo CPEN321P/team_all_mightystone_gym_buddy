@@ -107,14 +107,14 @@ public class EventEdit
                 }
 
                 for (Event event: MyeventsList){
-                    if(event.getDate().equals(EventDate)) {
-                        if(!(StrTime.compareTo(event.getEndtime()) >= 0 ||
-                                EndTime.compareTo(event.getStartTime()) <= 0)){
-                            Toast.makeText(EventEdit.this,
-                                    "TimeConflict!",
-                                    Toast.LENGTH_LONG).show();
-                            return;
-                        }
+                    if(event.getDate().equals(EventDate) &&
+                            !(StrTime.compareTo(event.getEndtime()) >= 0 ||
+                                    EndTime.compareTo(event.getStartTime()) <= 0)) {
+
+                        Toast.makeText(EventEdit.this,
+                                "TimeConflict!",
+                                Toast.LENGTH_LONG).show();
+                        return;
                     }
                 }
 
