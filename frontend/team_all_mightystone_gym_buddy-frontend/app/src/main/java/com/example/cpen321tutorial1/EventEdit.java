@@ -6,9 +6,6 @@ import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.ConvertEventArrayListToJson;
 import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
-import static com.example.cpen321tutorial1.JsonFunctions.JsonFriends;
-import static com.example.cpen321tutorial1.JsonFunctions.JsonName;
-import static com.example.cpen321tutorial1.JsonFunctions.JsonUserId;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 

@@ -3,8 +3,6 @@ package com.example.cpen321tutorial1;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

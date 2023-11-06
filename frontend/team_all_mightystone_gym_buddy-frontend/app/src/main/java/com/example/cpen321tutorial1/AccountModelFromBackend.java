@@ -1,6 +1,5 @@
 package com.example.cpen321tutorial1;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountModelFromBackend {
@@ -158,6 +157,9 @@ public class AccountModelFromBackend {
     }
 
     public String toString() {
-        return String.format("_id:%s,name:%d,phone:%s,email:%s,age:%s,gender:%s,weight:%s,pfp:%s,friends:%s,friendRequests:%s,description:%s,homeGym:%s,reported:%s,chats:%s", _id, name, phone, email, age, gender, weight, pfp, friends, friendRequests, description, homeGym, reported, chats);
+        return String.format("_id:%s,name:%d,phone:%s,email:%s,age:%s,gender:%s,weight:%s,pfp:%s," +
+                        "friends:%s,friendRequests:%s,description:%s,homeGym:%s,reported:%s,chats:%s",
+                _id, name, phone, email, age, gender, weight, pfp,
+                friends, friendRequests, description, homeGym, reported, chats);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.cpen321tutorial1;
 
-import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 

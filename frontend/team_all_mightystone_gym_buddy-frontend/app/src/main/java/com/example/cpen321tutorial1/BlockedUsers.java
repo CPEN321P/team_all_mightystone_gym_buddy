@@ -26,23 +26,28 @@ public class BlockedUsers extends AppCompatActivity {
 
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
+        recyclerView.setLayoutManager
+                (new LinearLayoutManager(this));
+        recyclerView.setAdapter
+                (new PersonAdapter(getApplicationContext(), items));
 
 
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(BlockedUsers.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(BlockedUsers.this, recyclerView ,
+                        new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent UnblockIntent
                                 = new Intent(BlockedUsers.this, Unblock.class);
                         if(!items.isEmpty()){
                             Account Person = items.get(position);
-                            UnblockIntent.putExtra("PersonName", Person.getUsername());
+                            UnblockIntent.putExtra
+                                    ("PersonName", Person.getUsername());
                         }
                         startActivity(UnblockIntent);
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override public void onLongItemClick
+                            (View view, int position) {
                         // do whatever
                     }
                 }));

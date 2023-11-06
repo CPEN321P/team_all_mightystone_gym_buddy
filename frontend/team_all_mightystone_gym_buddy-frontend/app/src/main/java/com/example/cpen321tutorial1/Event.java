@@ -6,7 +6,6 @@ import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.ConvertEventArrayListToJson;
 import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
-import static java.time.temporal.ChronoUnit.MINUTES;
 
 import android.util.Log;
 
@@ -20,7 +19,18 @@ import okhttp3.RequestBody;
 
 public class Event {
 
+    private String name;
+
+    private LocalDate date;
+
+    private LocalTime StartTime;
+
+    private LocalTime EndTime;
+
+    private String UserId;
+
     final static String TAG = "Event";
+
     public static ArrayList<Event> eventsForDate(LocalDate date)
     {
         ArrayList<Event> events = new ArrayList<>();
@@ -48,15 +58,22 @@ public class Event {
         return events;
     }
 
-    public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime StartTime)
+    public static ArrayList<Event> eventsForDateAndTime
+            (LocalDate date, LocalTime StartTime)
     {
         ArrayList<Event> events = new ArrayList<>();
 
         for(Event event: MyeventsList)
         {
 
-            int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
-            int eventMinsEnd = round(event.EndTime.getHour()*60 + event.EndTime.getMinute(), 30);
+            int eventMinsStart =
+                    round(event.StartTime.getHour()*60 + event.StartTime.getMinute(),
+                            30);
+
+            int eventMinsEnd =
+                    round(event.EndTime.getHour()*60 + event.EndTime.getMinute(),
+                            30);
+
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
 
 
@@ -69,15 +86,23 @@ public class Event {
     }
 
     //For the comparsion between the user and their friend
-    public static ArrayList<Event> eventsForDateAndTimeOthers(LocalDate date, LocalTime StartTime, ArrayList<Event> OtherEventArray)
+    public static ArrayList<Event> eventsForDateAndTimeOthers(LocalDate date,
+                                                              LocalTime StartTime,
+                                                              ArrayList<Event> OtherEventArray)
     {
         ArrayList<Event> events = new ArrayList<>();
 
         for(Event event: MyeventsList)
         {
 
-            int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
-            int eventMinsEnd = round(event.EndTime.getHour()*60 + event.EndTime.getMinute(), 30);
+            int eventMinsStart =
+                    round(event.StartTime.getHour()*60 + event.StartTime.getMinute(),
+                            30);
+
+            int eventMinsEnd =
+                    round(event.EndTime.getHour()*60 + event.EndTime.getMinute(),
+                            30);
+
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
 
             if(event.getDate().equals(date))
@@ -87,8 +112,15 @@ public class Event {
 
         for(Event event: OtherEventArray)
         {
-            int eventMinsStart = round(event.StartTime.getHour()*60 + event.StartTime.getMinute(), 30);
-            int eventMinsEnd = round(event.EndTime.getHour()*60 + event.EndTime.getMinute(), 30);
+
+            int eventMinsStart =
+                    round(event.StartTime.getHour()*60 + event.StartTime.getMinute(),
+                            30);
+
+            int eventMinsEnd =
+                    round(event.EndTime.getHour()*60 + event.EndTime.getMinute(),
+                            30);
+
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
 
 
@@ -100,11 +132,14 @@ public class Event {
         return events;
     }
 
-    public static int round(double value, int nearest) {       //Round the mins of current into the multiple of 30
+    //Round the mins of current into the multiple of 30
+    public static int round(double value, int nearest) {
+
         return (int) Math.round(value / nearest) * nearest;
     }
 
-    public static void CleareventsForDate(LocalDate date)      //Clear the last event of the specific date
+    //Clear the last event of the specific date
+    public static void CleareventsForDate(LocalDate date)
     {
 
         int count = MyeventsList.size()-1;
@@ -136,12 +171,6 @@ public class Event {
         NewCallPost(client, requestName);
     }
 
-    private String name;
-    private LocalDate date;
-    private LocalTime StartTime;
-    private LocalTime EndTime;
-    private String UserId;
-
     public LocalTime getEndTime() {
         return EndTime;
     }
@@ -158,7 +187,10 @@ public class Event {
         UserId = userId;
     }
 
-    public Event(String name, LocalDate date, LocalTime startTime, LocalTime endtime) {
+    public Event(String name,
+                 LocalDate date,
+                 LocalTime startTime,
+                 LocalTime endtime) {
         this.name = name;
         this.date = date;
         StartTime = startTime;

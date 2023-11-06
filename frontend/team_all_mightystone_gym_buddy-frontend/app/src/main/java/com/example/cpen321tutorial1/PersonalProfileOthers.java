@@ -2,7 +2,6 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-import static com.example.cpen321tutorial1.JsonFunctions.JsonHomeGym;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
 import androidx.appcompat.app.AppCompatActivity;

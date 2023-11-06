@@ -5,6 +5,9 @@ public class ChatMessage {
     //private String _id;
     private Long schedule;
     //senderId
-    private String sender, body;
+
+    private String sender;
+
+    private String body;
 
 }
