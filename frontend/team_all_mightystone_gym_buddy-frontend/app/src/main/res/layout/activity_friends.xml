@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".Friends">
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#818080">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friends"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <Button
+            android:id="@+id/find_new_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@id/top_bar_messages"
+            android:backgroundTint="#FF3A3A3A"
+            android:text="Find New Friends" />
+
+        <Button
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/top_bar_messages"
+            android:contentDescription="Messages"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/message"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_bar"/>
+
+    <RelativeLayout
+        android:id="@+id/navigation_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/navigation_home"
+            android:contentDescription="Home"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#3A3A3A"
+            app:icon="@drawable/home" />
+
+        <Button
+            android:id="@+id/navigation_friends"
+            android:contentDescription="Friends"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_home"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/friends" />
+
+        <Button
+            android:id="@+id/navigation_schedule"
+            android:contentDescription="Schedule"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_friends"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/baseline_calendar_month_24" />
+
+        <Button
+            android:id="@+id/navigation_gyms"
+            android:contentDescription="Gyms"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_schedule"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/gym"
+            />
+        <Button
+            android:id="@+id/navigation_profile"
+            android:contentDescription="Profile"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_gyms"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/user"
+            />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
