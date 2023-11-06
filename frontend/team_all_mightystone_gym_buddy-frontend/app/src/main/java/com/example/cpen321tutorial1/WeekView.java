@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -43,10 +44,12 @@ public class WeekView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view);
         initinalWidgets();
         setWeekView();
+
 
 
         PreviousWeek.setOnClickListener(new View.OnClickListener() {
@@ -107,14 +110,15 @@ public class WeekView
     private void setWeekView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
-
         CalendarAdapter calendarAdapter =
                 new CalendarAdapter(days, this);
         RecyclerView.LayoutManager layoutManager =
                 new GridLayoutManager(getApplicationContext(), 7);
+
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
         setEventAdapter();
+
     }
 
     private void initinalWidgets() {
