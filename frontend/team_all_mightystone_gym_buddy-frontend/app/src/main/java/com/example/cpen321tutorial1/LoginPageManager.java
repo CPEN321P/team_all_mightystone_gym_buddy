@@ -38,11 +38,11 @@ public class LoginPageManager
                         @Override
                         public void onActivityResult
                                 (ActivityResult activityResult) {
-                            int requestCode = activityResult.getResultCode();
                             Intent intent = activityResult.getData();
                             if (intent != null){
                                 Log.d(TAG, "User signed in");
-                                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(intent);
+                                Task<GoogleSignInAccount> task =
+                                        GoogleSignIn.getSignedInAccountFromIntent(intent);
                                 handleSignInResult(task);
                             }
 
@@ -56,7 +56,7 @@ public class LoginPageManager
         setContentView(R.layout.activity_login_page_manager);
 
         //Account.CurrentAccount.clear();
-            // Clear the current account information
+        //     Clear the current account information
         //Gym.CurrentGym.clear();
 
         ModeButton = findViewById(R.id.ManagerMode);
@@ -67,21 +67,24 @@ public class LoginPageManager
                 Log.d(TAG, "Trying to Switch to User Mode");
 
                 Intent LoginPageUserIntent =
-                        new Intent(LoginPageManager.this, LoginPage.class);
+                        new Intent(LoginPageManager.this,
+                                LoginPage.class);
                 startActivity(LoginPageUserIntent);
             }
         });
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sign_in_button).
+                setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
@@ -141,15 +144,16 @@ public class LoginPageManager
 
             if(!checkIfUserExists(account.getEmail())){
                 Intent LinkAccountIntent =
-                        new Intent(LoginPageManager.this, LinkToGoogleManager.class);
+                        new Intent(LoginPageManager.this,
+                                LinkToGoogleManager.class);
                 startActivity(LinkAccountIntent);
 
             } else {
-                ConnectionToBackend c = new ConnectionToBackend();
                 Log.d("THIS IS WHAT YOURE LOOKING FOR",
                         "YIPPIEEEEE U EXIST ON THE DATABASE");
                 Intent LinkAccountIntent =
-                        new Intent(LoginPageManager.this, PersonalProfileManager.class);
+                        new Intent(LoginPageManager.this,
+                                PersonalProfileManager.class);
                 startActivity(LinkAccountIntent);
             }
         }

@@ -53,7 +53,8 @@ public class PersonalProfileOthers
         Age.setText(posFriendAge);
         Weight.setText(posFriendWeight);
         Gender.setText(posFriendGender);
-        ArrayList<Account> MyCurrentBlockList = GlobalClass.myAccount.getBlockList();
+        ArrayList<Account> MyCurrentBlockList =
+                GlobalClass.myAccount.getBlockList();
         //ArrayList<Account> OtherCurrentBlockList = /The Account that you get//.getBlockList();
 
         /*
@@ -70,7 +71,11 @@ public class PersonalProfileOthers
         /*
         for (int i = 0; i < OtherCurrentBlockList.size(); i++){
             if (OtherCurrentBlockList.get(i).equals(GlobalClass.myAccount)){
-                Toast.makeText(PersonalProfileOthers.this, "In Block List!", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(PersonalProfileOthers.this,
+                    "In Block List!",
+                    Toast.LENGTH_SHORT).show();
+
                 finish();
                 // }
         }
@@ -143,7 +148,9 @@ public class PersonalProfileOthers
                         .build();
                 NewCallPost(client, blockUser);
                 //POST the account to the database
-                Toast.makeText(PersonalProfileOthers.this, "Add the user in block list", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalProfileOthers.this,
+                        "Add the user in block list",
+                        Toast.LENGTH_SHORT).show();
 
                 finish();
             }

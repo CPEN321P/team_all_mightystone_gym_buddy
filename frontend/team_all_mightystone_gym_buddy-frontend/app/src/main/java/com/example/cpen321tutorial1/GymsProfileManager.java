@@ -42,7 +42,8 @@ public class GymsProfileManager
             @Override
             public void onClick(View view) {
                 Intent EditGymProfile =
-                        new Intent(GymsProfileManager.this, EditGymsProfile.class);
+                        new Intent(GymsProfileManager.this,
+                                EditGymsProfile.class);
                 startActivity(EditGymProfile);
             }
         });
@@ -51,7 +52,8 @@ public class GymsProfileManager
             @Override
             public void onClick(View view) {
                 Intent CancelProfile =
-                        new Intent(GymsProfileManager.this, PersonalProfileManager.class);
+                        new Intent(GymsProfileManager.this,
+                                PersonalProfileManager.class);
                 startActivity(CancelProfile);
             }
         });

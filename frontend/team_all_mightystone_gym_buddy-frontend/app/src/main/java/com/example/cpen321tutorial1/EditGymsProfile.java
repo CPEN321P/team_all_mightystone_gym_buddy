@@ -72,7 +72,8 @@ public class EditGymsProfile
                 //////////////////////////////////////////////////
 
                 Intent NewGymsIntent =
-                        new Intent(EditGymsProfile.this, GymsProfileManager.class);
+                        new Intent(EditGymsProfile.this,
+                                GymsProfileManager.class);
 
                 startActivity(NewGymsIntent);
             }

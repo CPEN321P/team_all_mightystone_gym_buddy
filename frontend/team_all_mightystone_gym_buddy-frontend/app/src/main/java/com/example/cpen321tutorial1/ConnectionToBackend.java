@@ -64,7 +64,8 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    ScheduleModelFromBackend[] scheduleModelFromBackend = new Gson().fromJson(jsonResponse, ScheduleModelFromBackend[].class);
+                    ScheduleModelFromBackend[] scheduleModelFromBackend =
+                            new Gson().fromJson(jsonResponse, ScheduleModelFromBackend[].class);
 
                     if (scheduleModelFromBackend == null) {
                         throw new IOException("Schedule model is null");
@@ -112,7 +113,8 @@ public class ConnectionToBackend {
                     String jsonResponse = responseBody.string();
 
                     ScheduleModelFromBackend SingleScheduleModelFromBackend =
-                            new Gson().fromJson(jsonResponse, ScheduleModelFromBackend.class);
+                            new Gson().fromJson(jsonResponse,
+                                    ScheduleModelFromBackend.class);
 
                     if (SingleScheduleModelFromBackend == null) {
                         throw new IOException("Single Schedule model is null");
@@ -134,7 +136,8 @@ public class ConnectionToBackend {
         }
     }
 
-    public static ArrayList<Event> setSingleEventInformationFromBackend(ScheduleModelFromBackend scheduleModel){
+    public static ArrayList<Event> setSingleEventInformationFromBackend
+            (ScheduleModelFromBackend scheduleModel){
         
         ArrayList<Event> ReturnedEvent =  new ArrayList<>();
 
@@ -166,7 +169,8 @@ public class ConnectionToBackend {
             long dateint = scheduleModel[i].getDate();
             LocalDate date = NumToLocalDate(dateint);
 
-            List<EventModelFromBackend> TheExercises = scheduleModel[i].getExercises();
+            List<EventModelFromBackend> TheExercises =
+                    scheduleModel[i].getExercises();
             for (int j = 0; j < TheExercises.size(); j++){
                 String name = TheExercises.get(j).getName();
 
@@ -225,7 +229,6 @@ public class ConnectionToBackend {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return null;
-            //throw new RuntimeException("Error while fetching account information", e);
         }
 
     }
@@ -239,7 +242,8 @@ public class ConnectionToBackend {
                         .url("https://20.172.9.70/users/userEmail/" + email)
                         .build();
 
-                Response response = client.newCall(getAccountInformation).execute();
+                Response response =
+                        client.newCall(getAccountInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -247,9 +251,10 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
+
                     AccountModelFromBackend accountModelFromBackend =
                             new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
+
                     Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     if (accountModelFromBackend == null) {
@@ -265,7 +270,8 @@ public class ConnectionToBackend {
         Future<Account> future = executorService.submit(asyncCall);
 
         try {
-            return future.get(); // This will block until the async call is complete
+            return future.get();
+            // This will block until the async call is complete
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return null;
@@ -301,7 +307,8 @@ public class ConnectionToBackend {
                                 userId + "/friends")
                         .build();
 
-                Response response = client.newCall(getFriendsProfiles).execute();
+                Response response =
+                        client.newCall(getFriendsProfiles).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -364,8 +371,7 @@ public class ConnectionToBackend {
                         .build();
 
                 Response response = client.
-                        newCall(getBlocekdProfiles).
-                        execute();
+                        newCall(getBlocekdProfiles).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -373,7 +379,8 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    Type listType = new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
+                    Type listType =
+                            new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
 
                     List<AccountModelFromBackend> listOfBlocked =
                             new Gson().fromJson(jsonResponse, listType);
@@ -408,7 +415,8 @@ public class ConnectionToBackend {
     public ArrayList<Account> getRecommendedUsers(final String userId) {
 
         ArrayList<Account> listOfAllAccounts = new ArrayList<>();
-        Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
+        Callable<ArrayList<Account>> asyncCall =
+                new Callable<ArrayList<Account>>() {
             @Override
             public ArrayList<Account> call() throws Exception {
                 Request getRecommendedProfiles = new Request.Builder()
@@ -476,7 +484,8 @@ public class ConnectionToBackend {
                         .url("https://20.172.9.70/chat/userId/"+ userId)
                         .build();
 
-                Response response = client.newCall(getRecommendedProfiles).execute();
+                Response response =
+                        client.newCall(getRecommendedProfiles).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -623,7 +632,8 @@ public class ConnectionToBackend {
                         .url("https://20.172.9.70/gyms")
                         .build();
 
-                Response response = client.newCall(getGymInformation).execute();
+                Response response =
+                        client.newCall(getGymInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -637,7 +647,8 @@ public class ConnectionToBackend {
 
                     Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
-                    List<GymModelFromBackend> listOfGymModels = new Gson().fromJson(jsonResponse, listType);
+                    List<GymModelFromBackend> listOfGymModels =
+                            new Gson().fromJson(jsonResponse, listType);
                     Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
 
 
@@ -683,7 +694,8 @@ public class ConnectionToBackend {
         returnedGym.setAddress(gymModelFromBackend.getLocation());
         //returnedGym.setImage(R.drawable.gym);
 
-        //FOR NOW WE ARE ADDING THE IMAGE SINCE THAT FIELD DOESNT EXIST ON THE BACKEND
+        //FOR NOW WE ARE ADDING THE IMAGE
+        // SINCE THAT FIELD DOESNT EXIST ON THE BACKEND
 
         return returnedGym;
     }

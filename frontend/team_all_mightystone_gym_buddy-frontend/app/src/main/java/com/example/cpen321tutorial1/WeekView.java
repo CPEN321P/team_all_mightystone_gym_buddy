@@ -61,7 +61,8 @@ public class WeekView
         NextWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
+                CalendarUtils.selectedDate =
+                        CalendarUtils.selectedDate.plusWeeks(1);
                 setWeekView();
             }
         });

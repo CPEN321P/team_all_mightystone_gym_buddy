@@ -223,7 +223,8 @@ public class JsonFunctions {
             }
         }
         JsonExercises = JsonExercises + "]";
-        String Json = "{" + JsonUserId + "," + JsonDate + "," + JsonExercises + "}";
+        String Json = "{" + JsonUserId + "," +
+                JsonDate + "," + JsonExercises + "}";
         return Json;
     }
 

@@ -53,7 +53,6 @@ public class PersonalProfileManager
         MyGyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String ManagerEmail;
                 //Scarch for the backend database to search for
                 //      the gym base on the manager Email;
                 //If search it, then jump to the GymProfileManager Activity

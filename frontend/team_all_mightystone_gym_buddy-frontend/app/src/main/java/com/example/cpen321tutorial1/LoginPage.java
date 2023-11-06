@@ -51,13 +51,14 @@ public class LoginPage extends AppCompatActivity {
                     new ActivityResultContracts.StartActivityForResult(),
                     new ActivityResultCallback<ActivityResult>() {
                         @Override
-                        public void onActivityResult(ActivityResult activityResult) {
-                            int requestCode = activityResult.getResultCode();
+                        public void onActivityResult
+                                (ActivityResult activityResult) {
+
                             Intent intent = activityResult.getData();
                             if (intent != null){
                                 Log.d(TAG, "User signed in");
-                                Task<GoogleSignInAccount> task =
-                                        GoogleSignIn.getSignedInAccountFromIntent(intent);
+                                Task<GoogleSignInAccount> task = GoogleSignIn.
+                                        getSignedInAccountFromIntent(intent);
                                 handleSignInResult(task);
                             }
 
@@ -115,7 +116,8 @@ public class LoginPage extends AppCompatActivity {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso =
-                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                new GoogleSignInOptions.
+                        Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -139,7 +141,8 @@ public class LoginPage extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            @Override public void onResponse(Call call, Response response) throws IOException {
+            @Override public void onResponse(Call call, Response response)
+                    throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful())
                         throw new IOException("Unexpected code " + response);
@@ -157,7 +160,8 @@ public class LoginPage extends AppCompatActivity {
 
             @Override public void onResponse(Call call, Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
                     Log.d(TAG, responseBody.string());
                 }
             }
@@ -186,7 +190,8 @@ public class LoginPage extends AppCompatActivity {
 
         } catch (ApiException e) {
             // ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            // Please refer to the GoogleSignInStatusCodes class
+            //  reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             updateUI(null);
         }
@@ -208,7 +213,6 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(LinkAccountIntent);
 
             } else {
-                ConnectionToBackend c = new ConnectionToBackend();
                 Log.d("THIS IS WHAT YOURE LOOKING FOR",
                         "YIPPIEEEEE U EXIST ON THE DATABASE");
                 Intent LinkAccountIntent =
@@ -245,7 +249,6 @@ public class LoginPage extends AppCompatActivity {
         //Log.d("THISSSSSSS", "TRUE");
         myAccount = thisAccount;
         return true;
-
     }
 
     private boolean checkIfEventsExists() {

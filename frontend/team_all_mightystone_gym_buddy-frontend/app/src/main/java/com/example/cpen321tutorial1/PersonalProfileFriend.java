@@ -71,7 +71,8 @@ public class PersonalProfileFriend
             public void onClick(View view) {
                 MainActivity.TestComeFromOutsideOrNot = 1;
                 Intent ScheduleIntent =
-                        new Intent(PersonalProfileFriend.this, ScheduleFriendsMonthly.class);
+                        new Intent(PersonalProfileFriend.this,
+                                ScheduleFriendsMonthly.class);
                 startActivity(ScheduleIntent);
             }
         });

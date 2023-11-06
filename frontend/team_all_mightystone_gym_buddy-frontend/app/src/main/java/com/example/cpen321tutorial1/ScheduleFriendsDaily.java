@@ -45,8 +45,7 @@ public class ScheduleFriendsDaily
         PreviousDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate =
-                        CalendarUtils.selectedDate.minusDays(1);
+                selectedDate = selectedDate.minusDays(1);
                 setDayView();
             }
         });
@@ -54,8 +53,7 @@ public class ScheduleFriendsDaily
         NextDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate =
-                        CalendarUtils.selectedDate.plusDays(1);
+                selectedDate = selectedDate.plusDays(1);
                 setDayView();
             }
         });
@@ -64,7 +62,8 @@ public class ScheduleFriendsDaily
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(ScheduleFriendsDaily.this, ScheduleFriendsMonthly.class);
+                        new Intent(ScheduleFriendsDaily.this,
+                                ScheduleFriendsMonthly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -73,7 +72,8 @@ public class ScheduleFriendsDaily
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(ScheduleFriendsDaily.this, ScheduleFriendsWeekly.class);
+                        new Intent(ScheduleFriendsDaily.this,
+                                ScheduleFriendsWeekly.class);
                 startActivity(WeeklyIntent);
             }
         });

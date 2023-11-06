@@ -75,7 +75,9 @@ public class EventEdit
                         StringToInteger(HowLong.getText().toString());
                 if (NumberOfHour <= 0)
                 {
-                    Toast.makeText(EventEdit.this, "Invalid Number Of Hours", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EventEdit.this,
+                            "Invalid Number Of Hours",
+                            Toast.LENGTH_LONG).show();
                     return;
                 }
                 try {
@@ -97,8 +99,7 @@ public class EventEdit
                     }
 
                 } catch (DateTimeParseException | NullPointerException e) {
-                    Log.d(TAG,
-                            "Invalid time string for Start Time, End Time or Date!");
+                    Log.d(TAG, "Invalid time string for Start Time, End Time or Date!");
                     Toast.makeText(EventEdit.this,
                             "Invalid time for Start Time or End Time!",
                             Toast.LENGTH_LONG).show();
@@ -130,16 +131,20 @@ public class EventEdit
                 String JsonDate =
                         JsonFunctions.JsonDate(EventDate);
 
-                String JsonEventName = JsonFunctions.JsonName
-                        (myAccount.getUsername() + ": " + eventName.getText().toString());
+                String JsonEventName =
+                        JsonFunctions.JsonName(myAccount.getUsername() + ": " +
+                                eventName.getText().toString());
+
                 String JsonEventWeight = JsonFunctions.JsonWeightEvent("");
                 String JsonEventSets = JsonFunctions.JsonSets(0);
                 String JsonEventReps = JsonFunctions.JsonReps(0);
-                String JsonEventTimeStart = JsonFunctions.JsonStartTime(StrTime);
+                String JsonEventTimeStart =
+                        JsonFunctions.JsonStartTime(StrTime);
                 String JsonEventTimeEnd = JsonFunctions.JsonEndTime(EndTime);
                 String JsonEvent = JsonFunctions.JsonEvent
-                        (JsonEventName, JsonEventWeight, JsonEventSets,
-                                JsonEventReps, JsonEventTimeStart, JsonEventTimeEnd);
+                        (JsonEventName, JsonEventWeight,
+                                JsonEventSets, JsonEventReps,
+                                JsonEventTimeStart, JsonEventTimeEnd);
 
                 String JsonSchedule = JsonFunctions.JsonSchedule(JsonEvent);
 
@@ -172,7 +177,8 @@ public class EventEdit
                             MediaType.parse("application/json"));
 
                     Request requestName = new Request.Builder()
-                            .url("https://20.172.9.70/schedules/byUser/" + myAccount.getUserId() + "/" + DateString)
+                            .url("https://20.172.9.70/schedules/byUser/" +
+                                    myAccount.getUserId() + "/" + DateString)
                             .put(body)
                             .build();
 

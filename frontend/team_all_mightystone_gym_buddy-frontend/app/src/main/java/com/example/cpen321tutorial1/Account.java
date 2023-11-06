@@ -68,7 +68,8 @@ public class Account {
 
     public Account(String username, String emailAddress,
                    int age, int weight, String gender,
-                   ArrayList<Account> friendsList, ArrayList<Account> blockList) {
+                   ArrayList<Account> friendsList,
+                   ArrayList<Account> blockList) {
 
         Username = username;
         EmailAddress = emailAddress;

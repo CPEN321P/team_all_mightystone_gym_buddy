@@ -19,8 +19,6 @@ public class MainActivity
 
     final static String TAG = "MainActivity";
 
-    private int RC_SIGN_IN = 1;
-
     //private Button Gyms;
     //private Button Friends;
     //private Button MFour;
@@ -31,7 +29,8 @@ public class MainActivity
 
     private Button GetStarted;
 
-    public static int TestComeFromOutsideOrNot = 0; //A public integer that use for jump to weekly schedule
+    public static int TestComeFromOutsideOrNot = 0;
+    //A public integer that use for jump to weekly schedule
 
     private static String stringName = "NONE";
     //private ActivityMainBinding binding;
@@ -129,7 +128,8 @@ public class MainActivity
             public void onClick(View view) {
                 Log.d(TAG, "Trying to open google maps");
 
-                Intent mfourIntent = new Intent(MainActivity.this, LoginPage.class);
+                Intent mfourIntent =
+                        new Intent(MainActivity.this, LoginPage.class);
                 startActivity(mfourIntent);
             }
         });
@@ -154,7 +154,8 @@ public class MainActivity
             @Override
             public void onClick(View view) {
                 Intent Intent =
-                      new Intent(MainActivity.this, PersonalProfileOthers.class);
+                      new Intent(MainActivity.this,
+                            PersonalProfileOthers.class);
                 startActivity(Intent);
             }
         });
@@ -163,7 +164,8 @@ public class MainActivity
             @Override
             public void onClick(View view) {
                 Intent Intent =
-                      new Intent(MainActivity.this, PersonalProfileFriend.class);
+                      new Intent(MainActivity.this,
+                      PersonalProfileFriend.class);
                 startActivity(Intent);
             }
         });
@@ -188,7 +190,9 @@ public class MainActivity
                     public void onComplete(@NonNull Task<Void> task) {
                         // ...
                         Log.d(TAG, "Log out successful");
-                        Toast.makeText(MainActivity.this, "Log out successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,
+                                "Log out successful",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -199,19 +203,28 @@ public class MainActivity
     private void checkLocationPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
             && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(MainActivity.this, "Location Permissions Accessed", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(MainActivity.this,
+                    "Location Permissions Accessed",
+                    Toast.LENGTH_LONG).show();
+
             return;
         }
         else{
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                Toast.makeText(MainActivity.this, "We need these location permissions to run!", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(MainActivity.this,
+                        "We need these location permissions to run!",
+                        Toast.LENGTH_LONG).show();
+
                 new AlertDialog.Builder(this)
                         .setTitle
                                 ("Need Location Permissions")
                         .setMessage
                                 ("We need the location permissions to mark your location on a map")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton
+                                ("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Toast.makeText(MainActivity.this, "We need these location permission to run!", Toast.LENGTH_LONG).show();
@@ -230,7 +243,10 @@ public class MainActivity
                         .show();
             }
             else{
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(this,
+                        new String[] {Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
             }
         }
     }

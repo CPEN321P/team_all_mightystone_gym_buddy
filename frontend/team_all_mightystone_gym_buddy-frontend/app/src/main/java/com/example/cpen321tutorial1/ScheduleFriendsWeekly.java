@@ -124,7 +124,8 @@ public class ScheduleFriendsWeekly
         ArrayList<Event> FriendsEvent =
                 PersonalProfileFriend.FriendsEvent;
         ArrayList<Event> dailyEvents =
-                Event.eventsForDateOthers(CalendarUtils.selectedDate, FriendsEvent);
+                Event.eventsForDateOthers(CalendarUtils.selectedDate,
+                        FriendsEvent);
         EventAdapter eventAdapter =
                 new EventAdapter(getApplicationContext(), dailyEvents);
         eventList.setAdapter(eventAdapter);

@@ -51,8 +51,11 @@ public class Friends
                         recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+
                         Intent FriendIntent =
-                                new Intent(Friends.this, PersonalProfileFriend.class);
+                                new Intent(Friends.this,
+                                        PersonalProfileFriend.class);
+
                         if(!items.isEmpty()){
                             Account Friend = items.get(position);
                             FriendIntent.putExtra

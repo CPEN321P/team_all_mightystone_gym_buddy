@@ -57,12 +57,16 @@ public class LinkToGoogleManager
                 //adding manager to database
 
                 String Json = "";
-                String JsonName =
-                        JsonFunctions.JsonName(manager.getName());
-                String JsonUsername =
-                        JsonFunctions.JsonUsername(manager.getUsername());
-                String JsonEmail =
-                        JsonFunctions.JsonEmail(manager.getEmail());
+
+                String JsonName = JsonFunctions.
+                        JsonName(manager.getName());
+
+                String JsonUsername = JsonFunctions.
+                        JsonUsername(manager.getUsername());
+
+                String JsonEmail = JsonFunctions.
+                        JsonEmail(manager.getEmail());
+
                 Json = "{" + JsonName + "," + JsonUsername +
                         "," + JsonEmail + "}";
 
@@ -85,7 +89,9 @@ public class LinkToGoogleManager
                 c.getManagerInformationFromEmail(manager.getEmail());
 
                 Intent PersonalProfileManager =
-                        new Intent(LinkToGoogleManager.this, PersonalProfileManager.class);
+                        new Intent(LinkToGoogleManager.this,
+                                PersonalProfileManager.class);
+
                 startActivity(PersonalProfileManager);
 
             }
@@ -94,6 +100,7 @@ public class LinkToGoogleManager
 
 
     }
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView,
                                View view, int i, long l) {

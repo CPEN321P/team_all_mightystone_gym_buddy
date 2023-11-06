@@ -42,7 +42,7 @@ public class LinkToGoogle
 
     final static String TAG = "LinkActivity";
 
-    Account account = GlobalClass.myAccount;
+    Account account = myAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +55,11 @@ public class LinkToGoogle
         Weight = findViewById(R.id.Weight);
 
         RoleSpinner = findViewById(R.id.planets_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(this,
                 R.array.roles, android.R.layout.simple_spinner_item);
+
         adapter.setDropDownViewResource
                 (android.R.layout.simple_spinner_dropdown_item);
         RoleSpinner.setAdapter(adapter);
@@ -76,15 +79,22 @@ public class LinkToGoogle
                         Age.getText().toString().isEmpty() ||
                         Weight.getText().toString().isEmpty()){
 
-                    Toast.makeText(LinkToGoogle.this, "Do not leave space!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LinkToGoogle.this,
+                            "Do not leave space!",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 account.setUsername(UserName.getText().toString());
 
-                if (RoleSpinner.getSelectedItem().toString().equals("Select Your Gender")) {
-                    Toast.makeText(LinkToGoogle.this, "Please Select the Gender", Toast.LENGTH_SHORT).show();
+                if (RoleSpinner.getSelectedItem().toString().
+                        equals("Select Your Gender")) {
+
+                    Toast.makeText(LinkToGoogle.this,
+                            "Please Select the Gender",
+                            Toast.LENGTH_SHORT).show();
                     return;
+
                 }
 
                 account.setGender(RoleSpinner.getSelectedItem().toString());
@@ -123,16 +133,16 @@ public class LinkToGoogle
                 ////////////////POST account into data base/////////////////
 
                 String Json = "";
-                    String JsonName =
-                            JsonFunctions.JsonName(GlobalClass.myAccount.getUsername());
-                    String JsonEmail =
-                            JsonFunctions.JsonEmail(GlobalClass.myAccount.getEmailAddress());
-                    String JsonAge =
-                            JsonFunctions.JsonAge(GlobalClass.myAccount.getAge());
-                    String JsonWeight =
-                            JsonFunctions.JsonWeight(GlobalClass.myAccount.getWeight());
-                    String JsonGender =
-                            JsonFunctions.JsonGender(GlobalClass.myAccount.getGender());
+                    String JsonName = JsonFunctions.
+                                    JsonName(GlobalClass.myAccount.getUsername());
+                    String JsonEmail = JsonFunctions.
+                                    JsonEmail(GlobalClass.myAccount.getEmailAddress());
+                    String JsonAge = JsonFunctions.
+                                    JsonAge(GlobalClass.myAccount.getAge());
+                    String JsonWeight = JsonFunctions.
+                                    JsonWeight(GlobalClass.myAccount.getWeight());
+                    String JsonGender = JsonFunctions.
+                                    JsonGender(GlobalClass.myAccount.getGender());
 
                     Json = "{" + JsonName + "," + JsonEmail + "," +
                             JsonAge + "," + JsonWeight + "," + JsonGender + "}";

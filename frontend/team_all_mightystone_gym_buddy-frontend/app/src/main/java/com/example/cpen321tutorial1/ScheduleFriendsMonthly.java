@@ -78,7 +78,8 @@ public class ScheduleFriendsMonthly
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
+                        new Intent(ScheduleFriendsMonthly.this,
+                                ScheduleFriendsWeekly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -87,7 +88,8 @@ public class ScheduleFriendsMonthly
             @Override
             public void onClick(View view) {
                 Intent DailyIntent =
-                        new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsDaily.class);
+                        new Intent(ScheduleFriendsMonthly.this,
+                                ScheduleFriendsDaily.class);
                 startActivity(DailyIntent);
             }
         });

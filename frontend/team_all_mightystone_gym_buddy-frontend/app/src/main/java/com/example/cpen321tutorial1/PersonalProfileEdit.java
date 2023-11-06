@@ -73,12 +73,18 @@ public class PersonalProfileEdit
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (StringToInteger(Age.getText().toString())<= 0 || StringToInteger(Age.getText().toString()) >= 150){
-                    Toast.makeText(PersonalProfileEdit.this, "Invalid Age", Toast.LENGTH_LONG).show();
+                if (StringToInteger(Age.getText().toString())<= 0 ||
+                        StringToInteger(Age.getText().toString()) >= 150){
+
+                    Toast.makeText(PersonalProfileEdit.this,
+                            "Invalid Age",
+                            Toast.LENGTH_LONG).show();
+
                     return;
                 }
                 if (StringToInteger(Weight.getText().toString()) <= 0)
                 {
+
                     Toast.makeText(PersonalProfileEdit.this,
                             "Invalid Weight",
                             Toast.LENGTH_LONG).show();
@@ -156,7 +162,8 @@ public class PersonalProfileEdit
             public void onClick(View view) {
                 signOut();
                 Intent LogOutIntent =
-                        new Intent(PersonalProfileEdit.this, LoginPage.class);
+                        new Intent(PersonalProfileEdit.this,
+                                LoginPage.class);
                 startActivity(LogOutIntent);
             }
         });
