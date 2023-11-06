@@ -30,8 +30,8 @@ public class Unblock extends AppCompatActivity {
         Confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ConfirmIntent = new Intent
-                        (Unblock.this, BlockedUsers.class);
+                Intent ConfirmIntent =
+                        new Intent(Unblock.this, BlockedUsers.class);
                 startActivity(ConfirmIntent);
             }
         });
@@ -39,8 +39,8 @@ public class Unblock extends AppCompatActivity {
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent CancelIntent = new Intent
-                        (Unblock.this, BlockedUsers.class);
+                Intent CancelIntent =
+                        new Intent(Unblock.this, BlockedUsers.class);
                 startActivity(CancelIntent);
             }
         });

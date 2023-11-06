@@ -77,7 +77,8 @@ public class ScheduleFriendsMonthly
         Weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WeeklyIntent = new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
+                Intent WeeklyIntent =
+                        new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsWeekly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -85,7 +86,8 @@ public class ScheduleFriendsMonthly
         Daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent DailyIntent = new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsDaily.class);
+                Intent DailyIntent =
+                        new Intent(ScheduleFriendsMonthly.this, ScheduleFriendsDaily.class);
                 startActivity(DailyIntent);
             }
         });

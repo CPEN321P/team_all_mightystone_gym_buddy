@@ -67,9 +67,9 @@ public class ScheduleFriendsWeekly
         MonthlyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent EventIntent = new Intent
-                        (ScheduleFriendsWeekly.this,
-                        ScheduleFriendsMonthly.class);
+                Intent EventIntent =
+                        new Intent(ScheduleFriendsWeekly.this,
+                                ScheduleFriendsMonthly.class);
                 startActivity(EventIntent);
             }
         });
@@ -77,9 +77,9 @@ public class ScheduleFriendsWeekly
         DailyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent DailyIntent = new Intent
-                        (ScheduleFriendsWeekly.this,
-                        ScheduleFriendsDaily.class);
+                Intent DailyIntent =
+                        new Intent(ScheduleFriendsWeekly.this,
+                                ScheduleFriendsDaily.class);
                 startActivity(DailyIntent);
             }
         });

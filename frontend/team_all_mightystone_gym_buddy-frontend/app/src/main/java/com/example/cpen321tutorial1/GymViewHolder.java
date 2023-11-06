@@ -7,7 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class GymViewHolder extends RecyclerView.ViewHolder {
+public class GymViewHolder
+        extends RecyclerView.ViewHolder {
 
     ImageView imageView;
 

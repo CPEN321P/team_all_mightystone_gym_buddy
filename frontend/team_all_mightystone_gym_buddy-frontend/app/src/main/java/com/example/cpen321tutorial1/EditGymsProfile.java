@@ -34,14 +34,15 @@ public class EditGymsProfile
         setContentView(R.layout.activity_edit_gyms_profile);
         initWidgets();
 
-        //the manager is the gym's owner and they are the only ones able to edit it
+        //the manager is the gym's owner and
+        // they are the only ones able to edit it
 
         //TODO: uncomment these later
-//        Name.setText(Gym.CurrentGym.get(0).getGymName());
-//        Location.setText(Gym.CurrentGym.get(0).getLocation());
-//        AccessTime.setText(Gym.CurrentGym.get(0).getAccessTime());
-//        Website.setText(Gym.CurrentGym.get(0).getWebsite());
-//        Tips.setText(Gym.CurrentGym.get(0).getTips());
+        //Name.setText(Gym.CurrentGym.get(0).getGymName());
+        //Location.setText(Gym.CurrentGym.get(0).getLocation());
+        //AccessTime.setText(Gym.CurrentGym.get(0).getAccessTime());
+        //Website.setText(Gym.CurrentGym.get(0).getWebsite());
+        //Tips.setText(Gym.CurrentGym.get(0).getTips());
 
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +63,25 @@ public class EditGymsProfile
                 Log.d(TAG, "Website: " + InputWebsite);
                 Log.d(TAG, "Tips: " + InputTips);
 
-                //Gym TheAddGym = new Gym( InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
+                //Gym TheAddGym = new Gym( InputName,
+                //        InputLocation, InputAccessTime,
+                //        InputWebsite, InputTips);
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///
                 //////////////////////////////////////////////////
 
-                Intent NewGymsIntent = new Intent(EditGymsProfile.this, GymsProfileManager.class);
+                Intent NewGymsIntent =
+                        new Intent(EditGymsProfile.this, GymsProfileManager.class);
+
                 startActivity(NewGymsIntent);
+            }
+        });
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

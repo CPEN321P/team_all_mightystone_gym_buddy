@@ -34,8 +34,8 @@ public class Messages
                         new RecyclerItemClickListener.OnItemClickListener() {
 
                     @Override public void onItemClick(View view, int position) {
-                        Intent ChatIntent = new Intent
-                                (Messages.this, Chat.class);
+                        Intent ChatIntent =
+                                new Intent(Messages.this, Chat.class);
 
                         //import recipient's account information from backend
 

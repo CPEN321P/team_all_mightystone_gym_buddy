@@ -22,7 +22,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class LoginPageManager extends AppCompatActivity {
+public class LoginPageManager
+        extends AppCompatActivity {
 
     private Button ModeButton;
 
@@ -139,14 +140,16 @@ public class LoginPageManager extends AppCompatActivity {
             //Log.d("THIS IS", GlobalClass.manager.getEmail());
 
             if(!checkIfUserExists(account.getEmail())){
-                Intent LinkAccountIntent = new Intent(LoginPageManager.this, LinkToGoogleManager.class);
+                Intent LinkAccountIntent =
+                        new Intent(LoginPageManager.this, LinkToGoogleManager.class);
                 startActivity(LinkAccountIntent);
 
             } else {
                 ConnectionToBackend c = new ConnectionToBackend();
                 Log.d("THIS IS WHAT YOURE LOOKING FOR",
                         "YIPPIEEEEE U EXIST ON THE DATABASE");
-                Intent LinkAccountIntent = new Intent(LoginPageManager.this, PersonalProfileManager.class);
+                Intent LinkAccountIntent =
+                        new Intent(LoginPageManager.this, PersonalProfileManager.class);
                 startActivity(LinkAccountIntent);
             }
         }

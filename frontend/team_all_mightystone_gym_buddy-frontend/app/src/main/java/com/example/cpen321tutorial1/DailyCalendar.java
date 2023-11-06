@@ -91,7 +91,7 @@ public class DailyCalendar extends AppCompatActivity {
         ClearEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CleareventsForDate(CalendarUtils.selectedDate);
+                CleareventsForDate(selectedDate);
                 setHourAdapter();
             }
         });
@@ -118,8 +118,8 @@ public class DailyCalendar extends AppCompatActivity {
 
     private void setDayView() {
         MonthDayText.setText(CalendarUtils.monthDayFromDate(selectedDate));
-        String dayOfWeek =
-                selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        String dayOfWeek = selectedDate.getDayOfWeek().
+                        getDisplayName(TextStyle.FULL, Locale.getDefault());
         DayOfWeek.setText(dayOfWeek);
 
         setHourAdapter();

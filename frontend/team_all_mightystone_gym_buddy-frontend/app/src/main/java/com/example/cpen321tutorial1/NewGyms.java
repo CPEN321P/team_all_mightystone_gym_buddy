@@ -65,8 +65,8 @@ public class NewGyms
                 ///Upload the CurrentAccount information into database///
                 //////////////////////////////////////////////////
 
-                Intent NewGymsIntent = new Intent(NewGyms.this,
-                        GymsProfileManager.class);
+                Intent NewGymsIntent =
+                        new Intent(NewGyms.this, GymsProfileManager.class);
                 startActivity(NewGymsIntent);
             }
         });

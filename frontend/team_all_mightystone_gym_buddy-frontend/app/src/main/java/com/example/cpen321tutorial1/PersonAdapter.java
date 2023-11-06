@@ -8,7 +8,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PersonAdapter extends RecyclerView.Adapter<FriendViewHolder> {
+public class PersonAdapter
+        extends RecyclerView.Adapter<FriendViewHolder> {
 
     Context context;
 

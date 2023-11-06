@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Logo extends AppCompatActivity {
+public class Logo
+        extends AppCompatActivity {
 
     private Button Home;
 
@@ -40,7 +41,8 @@ public class Logo extends AppCompatActivity {
         Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendsIntent = new Intent(Logo.this, Friends.class);
+                Intent FriendsIntent =
+                        new Intent(Logo.this, Friends.class);
                 startActivity(FriendsIntent);
             }
         });
@@ -61,7 +63,8 @@ public class Logo extends AppCompatActivity {
         Gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymIntent = new Intent(Logo.this, Gyms.class);
+                Intent GymIntent =
+                        new Intent(Logo.this, Gyms.class);
                 startActivity(GymIntent);
             }
         });
@@ -71,7 +74,8 @@ public class Logo extends AppCompatActivity {
         PersonalProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ProfileIntent = new Intent(Logo.this, PersonalProfileUsers.class);
+                Intent ProfileIntent =
+                        new Intent(Logo.this, PersonalProfileUsers.class);
                 startActivity(ProfileIntent);
             }
         });

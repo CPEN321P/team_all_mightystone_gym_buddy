@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class GymsProfileManager extends AppCompatActivity {
+public class GymsProfileManager
+        extends AppCompatActivity {
 
     TextView Name;
 
@@ -40,8 +41,8 @@ public class GymsProfileManager extends AppCompatActivity {
         Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent EditGymProfile = new Intent
-                        (GymsProfileManager.this, EditGymsProfile.class);
+                Intent EditGymProfile =
+                        new Intent(GymsProfileManager.this, EditGymsProfile.class);
                 startActivity(EditGymProfile);
             }
         });
@@ -49,8 +50,8 @@ public class GymsProfileManager extends AppCompatActivity {
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent CancelProfile = new Intent
-                        (GymsProfileManager.this, PersonalProfileManager.class);
+                Intent CancelProfile =
+                        new Intent(GymsProfileManager.this, PersonalProfileManager.class);
                 startActivity(CancelProfile);
             }
         });

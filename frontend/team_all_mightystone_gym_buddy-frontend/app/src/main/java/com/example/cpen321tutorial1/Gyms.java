@@ -65,7 +65,8 @@ public class Gyms
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent HomeIntent = new Intent(Gyms.this, Logo.class);
+                Intent HomeIntent =
+                        new Intent(Gyms.this, Logo.class);
                 startActivity(HomeIntent);
             }
         });

@@ -79,8 +79,8 @@ public class WeekView
         MonthlyModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent EventIntent = new Intent
-                        (WeekView.this, MonthlySchedule.class);
+                Intent EventIntent =
+                        new Intent(WeekView.this, MonthlySchedule.class);
                 startActivity(EventIntent);
             }
         });

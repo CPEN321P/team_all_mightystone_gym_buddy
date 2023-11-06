@@ -14,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity
+        extends AppCompatActivity {
 
     final static String TAG = "MainActivity";
 
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         checkLocationPermissions();
 
-        //Intent LoginIntent = new Intent(MainActivity.this, LoginPage.class);
+        //Intent LoginIntent =
+        //        new Intent(MainActivity.this, LoginPage.class);
         //startActivity(LoginIntent);
 
         GetStarted = findViewById(R.id.getStarted);
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         GetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent LoginIntent = new Intent(MainActivity.this, LoginPage.class);
+                Intent LoginIntent =
+                        new Intent(MainActivity.this, LoginPage.class);
                 startActivity(LoginIntent);
             }
         });
@@ -66,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         Gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymIntent = new Intent(MainActivity.this, Gyms.class);
+                Intent GymIntent =
+                        new Intent(MainActivity.this, Gyms.class);
                 startActivity(GymIntent);
             }
         });
@@ -79,31 +83,33 @@ public class MainActivity extends AppCompatActivity {
         Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendIntent = new Intent(MainActivity.this, Friends.class);
+                Intent FriendIntent =
+                        new Intent(MainActivity.this, Friends.class);
                 startActivity(FriendIntent);
             }
         });
          */
 
-//        Schedule = findViewById(R.id.scheduleTest);
-//        Schedule.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TestComeFromOutsideOrNot = 1;
-//                Intent ScheduleIntent = new Intent(MainActivity.this, MonthlySchedule.class);
-//                startActivity(ScheduleIntent);
-//            }
-//        });
-//
-//        PersonalProfile = findViewById(R.id.EditPersonalProfile);
-//        PersonalProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent PersonalProfileEditIntent =
-//                        new Intent(MainActivity.this, PersonalProfileUsers.class);
-//                startActivity(PersonalProfileEditIntent);
-//            }
-//        });
+        //Schedule = findViewById(R.id.scheduleTest);
+        //Schedule.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        TestComeFromOutsideOrNot = 1;
+        //        Intent ScheduleIntent =
+        //              new Intent(MainActivity.this, MonthlySchedule.class);
+        //        startActivity(ScheduleIntent);
+        //    }
+        //});
+
+        //PersonalProfile = findViewById(R.id.EditPersonalProfile);
+        //PersonalProfile.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        Intent PersonalProfileEditIntent =
+        //                new Intent(MainActivity.this, PersonalProfileUsers.class);
+        //        startActivity(PersonalProfileEditIntent);
+        //    }
+        //});
 
         /*
         signOutButton = findViewById(R.id.Sign_out_button);
@@ -116,56 +122,61 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
-//        MFour = findViewById(R.id.mfour);
-//        MFour.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "Trying to open google maps");
-//
-//                Intent mfourIntent = new Intent(MainActivity.this, LoginPage.class);
-//                startActivity(mfourIntent);
-//            }
-//        });
-//
-//        AddGym = findViewById(R.id.AddGym);
-//        AddGym.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "Add Gym");
-//
-//                Intent mfourIntent =
-//                      new Intent(MainActivity.this, NewGyms.class);
-//                startActivity(mfourIntent);
-//            }
-//        });
-//
-//        OtherProfile = findViewById(R.id.OthersProfile);
-//        FriendProfile = findViewById(R.id.FriendsProfile);
-//        UserGyms = findViewById(R.id.GymProfileUser);
-//
-//        OtherProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent Intent = new Intent(MainActivity.this, PersonalProfileOthers.class);
-//                startActivity(Intent);
-//            }
-//        });
-//
-//        FriendProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent Intent = new Intent(MainActivity.this, PersonalProfileFriend.class);
-//                startActivity(Intent);
-//            }
-//        });
-//
-//        UserGyms.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent Intent = new Intent(MainActivity.this, GymProfile.class);
-//                startActivity(Intent);
-//            }
-//        });
+        /*
+        MFour = findViewById(R.id.mfour);
+        MFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Trying to open google maps");
+
+                Intent mfourIntent = new Intent(MainActivity.this, LoginPage.class);
+                startActivity(mfourIntent);
+            }
+        });
+
+        AddGym = findViewById(R.id.AddGym);
+        AddGym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Add Gym");
+
+                Intent mfourIntent =
+                      new Intent(MainActivity.this, NewGyms.class);
+                startActivity(mfourIntent);
+            }
+        });
+
+        OtherProfile = findViewById(R.id.OthersProfile);
+        FriendProfile = findViewById(R.id.FriendsProfile);
+        UserGyms = findViewById(R.id.GymProfileUser);
+
+        OtherProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent =
+                      new Intent(MainActivity.this, PersonalProfileOthers.class);
+                startActivity(Intent);
+            }
+        });
+
+        FriendProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent =
+                      new Intent(MainActivity.this, PersonalProfileFriend.class);
+                startActivity(Intent);
+            }
+        });
+
+        UserGyms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent =
+                      new Intent(MainActivity.this, GymProfile.class);
+                startActivity(Intent);
+            }
+        });
+         */
     }
 
 
