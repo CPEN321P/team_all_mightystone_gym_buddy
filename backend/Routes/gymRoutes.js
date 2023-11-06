@@ -117,7 +117,7 @@ router.put('/gymId/:gymId', async (req, res) => {
 });
 
 //ChatGPT use: NO
-// Delete a user by ID
+// Delete a gym by ID
 router.delete('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();

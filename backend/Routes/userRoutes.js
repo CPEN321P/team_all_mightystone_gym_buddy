@@ -837,9 +837,16 @@ router.delete('/userId/:userId', async (req, res) => {
   try {
     const db = getDB();
     const id = new ObjectId(req.params.userId);
-    
-    const result = await db.collection('users').deleteOne({ _id: id });
 
+    const result = await db.collection('users').deleteOne({ _id: id });
+    const chatsFilter = {
+      $or:[
+        {'members.0': id},
+        {'members.1': id}
+      ]
+    };
+    const chatDelete = await db.collection('chats').findOne({chatsFilter});
+    const schedulesDelete = await db.collection('schedules').deleteMany({ userId: id });
     if (result.deletedCount === 0) {
       res.status(404).send('User not found');
     } else {
@@ -852,6 +859,7 @@ router.delete('/userId/:userId', async (req, res) => {
 
 //ChatGPT use: YES
 // Delete all users
+//This is for debugging only (DEV USE)
 router.delete('/', async (req, res) => {
   try {
     const db = getDB();

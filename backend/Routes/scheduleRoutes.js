@@ -257,6 +257,7 @@ router.delete('/byId/:scheduleId', async (req, res) => {
 
 //ChatGPT use: YES
 // Delete all
+//This is for debugging only (DEV USE)
 router.delete('/', async (req, res) => {
   try {
     const db = getDB();
