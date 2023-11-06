@@ -4,7 +4,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class HourEvent {
+
     LocalTime Time;
+
     ArrayList<Event> events;
 
     public HourEvent(LocalTime time, ArrayList<Event> events) {

@@ -12,7 +12,9 @@ public class PersonalProfileManager extends AppCompatActivity {
 
     private Button MyGyms;
 
-    private TextView Username, Email;
+    private TextView Username;
+
+    private TextView Email;
 
     private Button TheAnnouncement;
 

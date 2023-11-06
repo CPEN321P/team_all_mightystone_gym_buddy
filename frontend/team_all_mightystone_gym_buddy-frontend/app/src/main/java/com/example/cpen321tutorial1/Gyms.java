@@ -17,9 +17,13 @@ import java.util.List;
 public class Gyms extends AppCompatActivity {
 
     private Button Home;
+
     private Button Friends;
+
     private Button Schedule;
+
     private Button Gyms;
+
     private Button PersonalProfile;
 
     @Override

@@ -5,12 +5,19 @@ import java.util.List;
 public class ManagerModelFromBackend {
 
     private String _id;
+
     private String name;
+
     private String username;
+
     private String gymId;
+
     private String phone;
+
     private String email;
+
     private String pfp;
+
     private String description;
 
     private Long reported;

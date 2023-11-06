@@ -35,12 +35,18 @@ import okhttp3.RequestBody;
 
 public class PersonalProfileEdit extends AppCompatActivity {
 
-    private TextView UserName, Age, Weight;
+    private TextView UserName;
+
+    private TextView Age;
+
+    private TextView Weight;
 
     private Spinner GenderSpinner;
 
     private Button Done;
+
     private Button Cancel;
+
     private Button LogOut;
 
     private GoogleSignInClient mGoogleSignInClient;

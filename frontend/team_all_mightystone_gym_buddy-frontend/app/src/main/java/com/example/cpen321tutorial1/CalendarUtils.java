@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CalendarUtils {
+
     public static LocalDate selectedDate;
 
     public static ArrayList<LocalDate> daysInMonthArray() {
@@ -83,7 +84,7 @@ public class CalendarUtils {
             if(selectedDate.getDayOfWeek() == DayOfWeek.SUNDAY)
                 return selectedDate;
 
-            selectedDate = selectedDate.minusDays(1);
+            selectedDate.minusDays(1);
         }
 
         return null;

@@ -33,8 +33,11 @@ public class MonthlySchedule
     private RecyclerView calendarRecyclerView;
 
     private Button PreviousMonth;
+
     private Button NextMonth;
+
     private Button Weekly;
+
     private Button Daily;
 
     final static String TAG = "Schedule";

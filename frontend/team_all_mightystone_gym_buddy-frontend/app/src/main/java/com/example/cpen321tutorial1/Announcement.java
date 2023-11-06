@@ -2,9 +2,11 @@ package com.example.cpen321tutorial1;
 
 public class Announcement {
 
-    private String _id,
-            header,
-            body;
+    private String _id;
+
+    private String header;
+
+    private String body;
 
     public String get_id() {
         return _id;

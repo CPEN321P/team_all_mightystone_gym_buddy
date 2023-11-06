@@ -11,10 +11,25 @@ import android.widget.TextView;
 
 public class PersonalProfileUsers extends AppCompatActivity {
 
-    Button FriendsList, GymList, BlockList;
-    Button Profile, Schedule;
+    Button FriendsList;
 
-    TextView Username, Email, Age, Weight, Gender;
+    Button GymList;
+
+    Button BlockList;
+
+    Button Profile;
+
+    Button Schedule;
+
+    TextView Username;
+
+    TextView Email;
+
+    TextView Age;
+
+    TextView Weight;
+
+    TextView Gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

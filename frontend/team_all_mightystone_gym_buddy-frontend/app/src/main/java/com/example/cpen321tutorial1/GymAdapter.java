@@ -12,6 +12,7 @@ import java.util.List;
 public class GymAdapter extends RecyclerView.Adapter<GymViewHolder>{
 
     Context context;
+
     List<Gym> items;
 
     public GymAdapter(Context context, List<Gym> items) {

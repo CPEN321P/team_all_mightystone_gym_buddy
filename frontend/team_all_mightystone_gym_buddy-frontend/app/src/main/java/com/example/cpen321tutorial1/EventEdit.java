@@ -34,15 +34,24 @@ import okhttp3.RequestBody;
 public class EventEdit extends AppCompatActivity {
 
     //private EditText eventName;
-    private TextView eventDate, eventStartTime, HowLong, eventName;
+    private TextView eventDate;
+
+    private TextView eventStartTime;
+
+    private TextView HowLong;
+
+    private TextView eventName;
 
     private LocalTime StrTime;
+
     private LocalTime EndTime;
 
     private LocalDate EventDate;
 
     private Button Done;
+
     private Button Cancel;
+
     final static String TAG = "EventEdit";
 
     @Override

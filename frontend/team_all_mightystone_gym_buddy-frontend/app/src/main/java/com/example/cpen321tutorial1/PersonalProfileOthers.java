@@ -22,8 +22,19 @@ import okhttp3.RequestBody;
 
 public class PersonalProfileOthers extends AppCompatActivity {
 
-    Button AddFriend, Block;
-    TextView Username, Email, Age, Weight, Gender;
+    Button AddFriend;
+
+    Button Block;
+
+    TextView Username;
+
+    TextView Email;
+
+    TextView Age;
+
+    TextView Weight;
+
+    TextView Gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

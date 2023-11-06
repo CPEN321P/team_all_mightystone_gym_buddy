@@ -27,7 +27,13 @@ public class ScheduleFriendsWeekly
 
     private ListView eventList;
 
-    private Button PreviousWeek, NextWeek, MonthlyModel, DailyModel;
+    private Button PreviousWeek;
+
+    private Button NextWeek;
+
+    private Button MonthlyModel;
+
+    private Button DailyModel;
 
     final static String TAG = "ScheduleFriendsWeekly";
 

@@ -11,7 +11,9 @@ public class GymViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageView;
 
-    TextView nameView, addressView;
+    TextView nameView;
+
+    TextView addressView;
 
     public GymViewHolder(@NonNull View itemView) {
         super(itemView);

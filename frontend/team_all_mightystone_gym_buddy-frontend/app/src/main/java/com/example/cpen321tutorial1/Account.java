@@ -9,21 +9,30 @@ import java.util.ArrayList;
 public class Account {
 
     //public static ArrayList<Account> CurrentAccount = new ArrayList<>();
-    private String Username,
-            EmailAddress,
-            Gender,
-            UserId;
+    private String Username;
 
-    private int Age,
-            Weight;
+    private String EmailAddress;
+
+    private String Gender;
+
+    private String UserId;
+
+    private int Age;
+
+    private int Weight;
 
     private Gym myGym;
 
-    private ArrayList<Account> FriendsList,
-            BlockList;
+    private ArrayList<Account> FriendsList;
+
+    private ArrayList<Account> BlockList;
 
     public String getUserId() {
         return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 
     public ArrayList<Account> getBlockList() {

@@ -19,8 +19,19 @@ import okhttp3.Request;
 
 public class Friends extends AppCompatActivity {
 
-    private Button FindNewFriends, Messages, Home;
-    private Button Friends, Schedule, Gyms, PersonalProfile;
+    private Button FindNewFriends;
+
+    private Button Messages;
+
+    private Button Home;
+
+    private Button Friends;
+
+    private Button Schedule;
+
+    private Button Gyms;
+
+    private Button PersonalProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

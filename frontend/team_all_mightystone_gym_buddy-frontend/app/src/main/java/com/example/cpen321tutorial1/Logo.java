@@ -9,9 +9,15 @@ import android.widget.Button;
 
 public class Logo extends AppCompatActivity {
 
-    private Button Home, Friends;
+    private Button Home;
 
-    private Button Schedule, Gyms, PersonalProfile;
+    private Button Friends;
+
+    private Button Schedule;
+
+    private Button Gyms;
+
+    private Button PersonalProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

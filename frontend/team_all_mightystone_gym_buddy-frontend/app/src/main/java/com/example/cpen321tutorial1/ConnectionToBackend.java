@@ -27,12 +27,16 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class ConnectionToBackend {
-    private AccountModelFromBackend accountModelFromBackend;
-    public Account accountFromBackend;
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-    final static String TAG = "ConnectionToBackend";
 
-    private Account account;
+    //private AccountModelFromBackend accountModelFromBackend;
+
+    //public Account accountFromBackend;
+
+    //public Account account;
+
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    final static String TAG = "ConnectionToBackend";
 
     public void subscribeToGym(String gymId) {
 
@@ -100,13 +104,15 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    ScheduleModelFromBackend SingleScheduleModelFromBackend = new Gson().fromJson(jsonResponse, ScheduleModelFromBackend.class);
+                    ScheduleModelFromBackend SingleScheduleModelFromBackend =
+                            new Gson().fromJson(jsonResponse, ScheduleModelFromBackend.class);
 
                     if (SingleScheduleModelFromBackend == null) {
                         throw new IOException("Single Schedule model is null");
                     }
 
-                    return setSingleEventInformationFromBackend(SingleScheduleModelFromBackend);
+                    return setSingleEventInformationFromBackend
+                            (SingleScheduleModelFromBackend);
                 }
             }
         };
@@ -122,8 +128,7 @@ public class ConnectionToBackend {
     }
 
     public static ArrayList<Event> setSingleEventInformationFromBackend(ScheduleModelFromBackend scheduleModel){
-
-        String userId = scheduleModel.getUserId();
+        
         ArrayList<Event> ReturnedEvent =  new ArrayList<>();
 
         long dateint = scheduleModel.getDate();
@@ -147,8 +152,6 @@ public class ConnectionToBackend {
     }
 
     public static ArrayList<Event> setEventInformationFromBackend(ScheduleModelFromBackend[] scheduleModel){
-        //Log.d(TAG, Integer.toString(scheduleModel.length));
-        String userId = scheduleModel[0].getUserId();
         ArrayList<Event> ReturnedEvent =  new ArrayList<>();
         for (int i = 0; i < scheduleModel.length; i++)
         {
@@ -159,9 +162,12 @@ public class ConnectionToBackend {
             for (int j = 0; j < TheExercises.size(); j++){
                 String name = TheExercises.get(j).getName();
 
-                LocalTime StartTime = NumToLocalTime(TheExercises.get(j).getTimeStart());
-                LocalTime EndTime = NumToLocalTime(TheExercises.get(j).getTimeEnd());
-                Event TheEvent = new Event(name, date, StartTime, EndTime);
+                LocalTime StartTime =
+                        NumToLocalTime(TheExercises.get(j).getTimeStart());
+                LocalTime EndTime =
+                        NumToLocalTime(TheExercises.get(j).getTimeEnd());
+                Event TheEvent =
+                        new Event(name, date, StartTime, EndTime);
 
                 ReturnedEvent.add(TheEvent);
             }
@@ -189,7 +195,8 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    AccountModelFromBackend accountModelFromBackend = new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
+                    AccountModelFromBackend accountModelFromBackend =
+                            new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
                     //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
                     //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
@@ -197,7 +204,8 @@ public class ConnectionToBackend {
                         throw new IOException("Account model is null");
                     }
 
-                    return setAccountInformationFromBackend(accountModelFromBackend);
+                    return setAccountInformationFromBackend
+                            (accountModelFromBackend);
                 }
             }
         };
@@ -328,7 +336,9 @@ public class ConnectionToBackend {
                         .url("https://20.172.9.70/users/userId/"+ userId+ "/blockedUsers")
                         .build();
 
-                Response response = client.newCall(getBlocekdProfiles).execute();
+                Response response = client.
+                        newCall(getBlocekdProfiles).
+                        execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());

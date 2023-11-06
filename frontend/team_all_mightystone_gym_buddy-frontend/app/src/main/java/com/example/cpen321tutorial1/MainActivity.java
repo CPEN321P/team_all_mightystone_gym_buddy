@@ -16,7 +16,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
+
     final static String TAG = "MainActivity";
+
     private int RC_SIGN_IN = 1;
 
 //    private Button Gyms;
@@ -26,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 //    private Button PersonalProfile;
 //    private Button AddGym;
 //    private Button OtherProfile, FriendProfile, UserGyms;
-    private Button GetStarted;
 
+    private Button GetStarted;
 
     public static int TestComeFromOutsideOrNot = 0; //A public integer that use for jump to weekly schedule
 

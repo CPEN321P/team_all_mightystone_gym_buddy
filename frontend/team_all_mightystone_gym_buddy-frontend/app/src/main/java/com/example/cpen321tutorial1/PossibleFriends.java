@@ -17,11 +17,17 @@ import java.util.List;
 public class PossibleFriends extends AppCompatActivity {
 
     private Button MyFriends;
+
     private Button Messages;
+
     private Button Home;
+
     private Button Friends;
+
     private Button Schedule;
+
     private Button Gyms;
+
     private Button PersonalProfile;
 
     @Override

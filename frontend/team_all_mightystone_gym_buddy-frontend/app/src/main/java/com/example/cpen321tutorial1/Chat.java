@@ -59,13 +59,11 @@ public class Chat extends AppCompatActivity {
 
     }
 
+
     private void sendMessageToUser(String message) {
-
-
         //ChatMessageModel chatMessageModel = new ChatMessageModel(message, )
-
-
     }
+
 
     private void getOrCreateChatModel() {
         //get chatroom from backend

@@ -13,9 +13,19 @@ import java.util.ArrayList;
 
 public class EditGymsProfile extends AppCompatActivity {
 
-    private TextView Name, Location, AccessTime, Website, Tips;
+    private TextView Name;
 
-    private Button Done, Cancel;
+    private TextView Location;
+
+    private TextView AccessTime;
+
+    private TextView Website;
+
+    private TextView Tips;
+
+    private Button Done;
+
+    private Button Cancel;
 
     final static String TAG = "Gym Edit";
 
@@ -39,7 +49,7 @@ public class EditGymsProfile extends AppCompatActivity {
             public void onClick(View view) {
 
                 Account Owner = GlobalClass.myAccount;
-                ArrayList<Account> SubscribedUserss = new ArrayList<>();
+                //ArrayList<Account> SubscribedUserss = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();
                 String InputAccessTime = AccessTime.getText().toString();
@@ -53,7 +63,7 @@ public class EditGymsProfile extends AppCompatActivity {
                 Log.d(TAG, "Website: " + InputWebsite);
                 Log.d(TAG, "Tips: " + InputTips);
 
-                Gym TheAddGym = new Gym( InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
+                //Gym TheAddGym = new Gym( InputName, InputLocation, InputAccessTime, InputWebsite, InputTips);
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///

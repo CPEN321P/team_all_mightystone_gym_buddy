@@ -16,9 +16,19 @@ import java.util.ArrayList;
 
 public class NewGyms extends AppCompatActivity {
 
-    private TextView Name, Location, AccessTime, Website, Tips;
+    private TextView Name;
 
-    private Button Done, Cancel;
+    private TextView Location;
+
+    private TextView AccessTime;
+
+    private TextView Website;
+
+    private TextView Tips;
+
+    private Button Done;
+
+    private Button Cancel;
 
     final static String TAG = "NewGyms";
 

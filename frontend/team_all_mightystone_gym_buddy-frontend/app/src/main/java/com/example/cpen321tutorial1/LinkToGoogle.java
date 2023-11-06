@@ -29,9 +29,13 @@ import okhttp3.MediaType;
 public class LinkToGoogle extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView UserName;
+
     private TextView Age;
+
     private TextView Weight;
+
     private Spinner RoleSpinner;
+
     private Button Done;
 
     final static String TAG = "LinkActivity";

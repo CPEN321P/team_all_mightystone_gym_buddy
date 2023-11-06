@@ -40,6 +40,7 @@ public class LoginPage extends AppCompatActivity {
     private Button ModeButton;
 
     final static String TAG = "UserLogInActivity";
+
     private static String TheEmail = "NONE";
 
     private GoogleSignInClient mGoogleSignInClient;

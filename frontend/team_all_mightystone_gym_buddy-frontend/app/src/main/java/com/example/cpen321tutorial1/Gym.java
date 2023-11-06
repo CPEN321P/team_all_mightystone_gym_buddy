@@ -2,8 +2,15 @@ package com.example.cpen321tutorial1;
 
 public class Gym {
 
-    private String name, address, AccessTime;
-    private String Website, Tips;
+    private String name;
+
+    private String address;
+
+    private String AccessTime;
+
+    private String Website;
+
+    private String Tips;
 
     private int image;
 

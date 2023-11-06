@@ -10,9 +10,19 @@ import android.widget.TextView;
 
 public class GymsProfileManager extends AppCompatActivity {
 
-    TextView Name, Location, AccessTime, Website, Tips;
+    TextView Name;
 
-    Button Edit, Cancel;
+    TextView Location;
+
+    TextView AccessTime;
+
+    TextView Website;
+
+    TextView Tips;
+
+    Button Edit;
+
+    Button Cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

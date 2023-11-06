@@ -1,43 +1,42 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.CalendarUtils.selectedDate;
-import static com.example.cpen321tutorial1.GlobalClass.client;
-import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
-import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
+import static com.example.cpen321tutorial1.Event.CleareventsForDate;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 public class DailyCalendar extends AppCompatActivity {
 
     private TextView MonthDayText;
+
     private TextView DayOfWeek;
+
     private ListView HoureventList;
+
     private Button PreviousDay;
+
     private Button NextDay;
+
     private Button Monthly;
+
     private Button Weekly;
+
     private Button NewEvent;
+
     private Button ClearEvents;
+
     final static String TAG = "Daily";
 
     @Override
@@ -49,7 +48,7 @@ public class DailyCalendar extends AppCompatActivity {
         PreviousDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusDays(1);
+                selectedDate = selectedDate.minusDays(1);
                 setDayView();
             }
         });
@@ -57,8 +56,7 @@ public class DailyCalendar extends AppCompatActivity {
         NextDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate =
-                        CalendarUtils.selectedDate.plusDays(1);
+                selectedDate = selectedDate.plusDays(1);
                 setDayView();
             }
         });
@@ -90,7 +88,7 @@ public class DailyCalendar extends AppCompatActivity {
         ClearEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Event.CleareventsForDate(CalendarUtils.selectedDate);
+                CleareventsForDate(CalendarUtils.selectedDate);
                 setHourAdapter();
             }
         });

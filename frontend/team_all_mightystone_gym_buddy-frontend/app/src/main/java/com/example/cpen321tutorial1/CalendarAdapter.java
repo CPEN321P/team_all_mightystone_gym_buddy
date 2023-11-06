@@ -12,7 +12,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
+
     private final ArrayList<LocalDate> days;
+
     private final OnItemListener onItemListener;
 
     public CalendarAdapter(ArrayList<LocalDate> days, OnItemListener onItemListener) {
@@ -33,7 +35,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
             layoutParams.height = (int) (parent.getHeight() * 0.166666666);
         else
             layoutParams.height = (int) parent.getHeight();
-        
+
         return new CalendarViewHolder(view, onItemListener, days);
     }
 

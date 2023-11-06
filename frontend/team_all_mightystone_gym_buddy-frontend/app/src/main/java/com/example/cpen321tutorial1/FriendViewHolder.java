@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class FriendViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageView;
-    TextView nameView, usernameView;
+
+    TextView nameView;
+
+    TextView usernameView;
 
     public FriendViewHolder(@NonNull View itemView) {
         super(itemView);

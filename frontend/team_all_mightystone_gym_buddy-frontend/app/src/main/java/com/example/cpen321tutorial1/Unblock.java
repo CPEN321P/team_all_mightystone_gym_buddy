@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 public class Unblock extends AppCompatActivity {
 
-    Button Confirm,
-            Cancel;
+    Button Confirm;
+
+    Button Cancel;
 
     TextView Username;
 

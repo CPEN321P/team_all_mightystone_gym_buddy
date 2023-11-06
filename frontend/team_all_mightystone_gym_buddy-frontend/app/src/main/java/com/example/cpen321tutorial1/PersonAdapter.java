@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PersonAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     Context context;
+
     List<Account> items;
 
     public PersonAdapter(Context context, List<Account> items) {

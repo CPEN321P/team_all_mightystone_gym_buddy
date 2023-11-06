@@ -21,7 +21,15 @@ import okhttp3.RequestBody;
 
 public class GymProfile extends AppCompatActivity {
 
-    private TextView Name, Location, AccessTime, Website, Tips;
+    private TextView Name;
+
+    private TextView Location;
+
+    private TextView AccessTime;
+
+    private TextView Website;
+
+    private TextView Tips;
 
     private Button Subscript, CancelSubscript;
 

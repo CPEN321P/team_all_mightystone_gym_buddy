@@ -25,11 +25,15 @@ public class WeekView extends AppCompatActivity implements CalendarAdapter.OnIte
 
     private ListView eventList;
 
-    private Button PreviousWeek,
-            NextWeek,
-            MonthlyModel,
-            DailyModel,
-            NewEvent;
+    private Button PreviousWeek;
+
+    private Button NextWeek;
+
+    private Button MonthlyModel;
+
+    private Button DailyModel;
+
+    private Button NewEvent;
 
     private Button ClearEvents;
 

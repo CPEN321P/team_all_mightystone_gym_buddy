@@ -16,8 +16,22 @@ import java.util.ArrayList;
 
 public class PersonalProfileFriend extends AppCompatActivity {
 
-    Button Schedule, Message, Block;
-    TextView Username, Email, Age, Weight, Gender;
+    Button Schedule;
+
+    Button Message;
+
+    Button Block;
+
+    TextView Username;
+
+    TextView Email;
+
+    TextView Age;
+
+    TextView Weight;
+
+    TextView Gender;
+
     public static ArrayList<Event> FriendsEvent = new ArrayList<>();
 
     @Override

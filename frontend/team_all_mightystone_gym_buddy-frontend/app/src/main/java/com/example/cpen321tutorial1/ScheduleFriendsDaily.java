@@ -18,11 +18,19 @@ import java.util.Locale;
 
 public class ScheduleFriendsDaily extends AppCompatActivity {
 
-    private TextView MonthDayText, DayOfWeek;
+    private TextView MonthDayText;
+
+    private TextView DayOfWeek;
 
     private ListView HoureventList;
 
-    private Button PreviousDay, NextDay, Monthly, Weekly;
+    private Button PreviousDay;
+
+    private Button NextDay;
+
+    private Button Monthly;
+
+    private Button Weekly;
 
     final static String TAG = "Daily";
 

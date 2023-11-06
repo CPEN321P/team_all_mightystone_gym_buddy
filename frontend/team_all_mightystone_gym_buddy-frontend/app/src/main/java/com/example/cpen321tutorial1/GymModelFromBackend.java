@@ -3,12 +3,19 @@ package com.example.cpen321tutorial1;
 import java.util.List;
 
 public class GymModelFromBackend {
+
     private String _id;
+
     private String name;
+
     private String description;
+
     private String location;
+
     private String phone;
+
     private String email;
+
     private List<String> images;
 
     public String get_id() {
