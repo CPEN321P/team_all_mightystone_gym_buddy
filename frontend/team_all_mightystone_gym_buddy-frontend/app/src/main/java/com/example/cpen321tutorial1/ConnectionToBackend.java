@@ -98,11 +98,11 @@ public class ConnectionToBackend {
 
                 Request getEventInformation = new Request.Builder()
                         .url("https://20.172.9.70/schedules/byUser/" +
-                                UserId +
-                                "/" + JsonDate)
+                                UserId + "/" + JsonDate)
                         .build();
 
-                Response response = client.newCall(getEventInformation).execute();
+                Response response =
+                        client.newCall(getEventInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -110,6 +110,7 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
+
                     ScheduleModelFromBackend SingleScheduleModelFromBackend =
                             new Gson().fromJson(jsonResponse, ScheduleModelFromBackend.class);
 
@@ -203,9 +204,8 @@ public class ConnectionToBackend {
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
                     AccountModelFromBackend accountModelFromBackend =
-                            new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", accountModelFromBackend.getEmail());
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+                            new Gson().fromJson(jsonResponse,
+                                    AccountModelFromBackend.class);
 
                     if (accountModelFromBackend == null) {
                         throw new IOException("Account model is null");
@@ -220,7 +220,8 @@ public class ConnectionToBackend {
         Future<Account> future = executorService.submit(asyncCall);
 
         try {
-            return future.get(); // This will block until the async call is complete
+            return future.get();
+            // This will block until the async call is complete
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return null;
@@ -272,10 +273,17 @@ public class ConnectionToBackend {
         }
     }
 
-    public Account setAccountInformationFromBackend(AccountModelFromBackend accountModel){
-        Account returnedAccount = new Account(accountModel.getName(),accountModel.getEmail(),
-                accountModel.getAge().intValue(), accountModel.getWeight().intValue(),
-                accountModel.getGender(),new ArrayList<>(), new ArrayList<>());
+    public Account setAccountInformationFromBackend
+            (AccountModelFromBackend accountModel){
+
+        Account returnedAccount =
+                new Account(accountModel.getName(),
+                accountModel.getEmail(),
+                accountModel.getAge().intValue(),
+                accountModel.getWeight().intValue(),
+                accountModel.getGender(),new ArrayList<>(),
+                new ArrayList<>());
+
         returnedAccount.setUserId(accountModel.getId());
         return returnedAccount;
 
@@ -343,8 +351,11 @@ public class ConnectionToBackend {
 
     public ArrayList<Account> getAllBlocked(final String userId) {
 
-        ArrayList<Account> listOfAllAccounts = new ArrayList<>();
-        Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
+        ArrayList<Account> listOfAllAccounts =
+                new ArrayList<>();
+
+        Callable<ArrayList<Account>> asyncCall =
+                new Callable<ArrayList<Account>>() {
             @Override
             public ArrayList<Account> call() throws Exception {
                 Request getBlocekdProfiles = new Request.Builder()
@@ -372,8 +383,8 @@ public class ConnectionToBackend {
                     }
 
                     for(int i = 0; i<listOfBlocked.size(); i++){
-                        listOfAllAccounts.add
-                                (setAccountInformationFromBackend(listOfBlocked.get(i)));
+                        listOfAllAccounts.
+                                add(setAccountInformationFromBackend(listOfBlocked.get(i)));
                     }
 
                     return listOfAllAccounts;
@@ -406,7 +417,8 @@ public class ConnectionToBackend {
                                 "/recommendedUsers")
                         .build();
 
-                Response response = client.newCall(getRecommendedProfiles).execute();
+                Response response =
+                        client.newCall(getRecommendedProfiles).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -548,7 +560,8 @@ public class ConnectionToBackend {
                         .url("https://20.172.9.70/gymsUsers/userEmail/" + email)
                         .build();
 
-                Response response = client.newCall(getManagerInformation).execute();
+                Response response =
+                        client.newCall(getManagerInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -585,7 +598,8 @@ public class ConnectionToBackend {
 
     }
 
-    private Manager setManagerFromBackend(ManagerModelFromBackend managerModelFromBackend) {
+    private Manager setManagerFromBackend
+            (ManagerModelFromBackend managerModelFromBackend) {
         Manager returnedManager = new Manager();
 
         returnedManager.set_id(managerModelFromBackend.get_id());
@@ -640,7 +654,6 @@ public class ConnectionToBackend {
                     for(int i = 0; i<listOfGymModels.size(); i++){
                         listOfAllGyms.add
                                 (setGymInformationFromBackend(listOfGymModels.get(i)));
-
                     }
 
                     return listOfAllGyms;

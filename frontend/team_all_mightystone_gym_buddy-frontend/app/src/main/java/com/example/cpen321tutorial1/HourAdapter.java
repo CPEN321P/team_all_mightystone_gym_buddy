@@ -14,7 +14,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HourAdapter extends ArrayAdapter<HourEvent> {
+public class HourAdapter
+        extends ArrayAdapter<HourEvent> {
 
     final static String TAG = "Hour";
 
@@ -24,7 +25,10 @@ public class HourAdapter extends ArrayAdapter<HourEvent> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position,
+                        @Nullable View convertView,
+                        @NonNull ViewGroup parent) {
+
         HourEvent event = getItem(position);
 
         if (convertView == null)

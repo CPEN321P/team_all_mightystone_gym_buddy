@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +27,8 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-public class EventEdit extends AppCompatActivity {
+public class EventEdit
+        extends AppCompatActivity {
 
     //private EditText eventName;
     private TextView eventDate;
@@ -69,8 +69,10 @@ public class EventEdit extends AppCompatActivity {
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String StartTimeInString = eventStartTime.getText().toString() + ":00";
-                int NumberOfHour = StringToInteger(HowLong.getText().toString());
+                String StartTimeInString =
+                        eventStartTime.getText().toString() + ":00";
+                int NumberOfHour =
+                        StringToInteger(HowLong.getText().toString());
                 if (NumberOfHour <= 0)
                 {
                     Toast.makeText(EventEdit.this, "Invalid Number Of Hours", Toast.LENGTH_LONG).show();
@@ -88,12 +90,15 @@ public class EventEdit extends AppCompatActivity {
                     Log.d(TAG, "Valid time ending: " + EndTime);
                     Log.d(TAG, "Date: " + EventDate);
                     if((value2 < 0 && value1 > 0) || NumberOfHour >= 24){
-                        Toast.makeText(EventEdit.this, "Invalid time for Start Time or End Time!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EventEdit.this,
+                                "Invalid time for Start Time or End Time!",
+                                Toast.LENGTH_LONG).show();
                         return;
                     }
 
                 } catch (DateTimeParseException | NullPointerException e) {
-                    Log.d(TAG, "Invalid time string for Start Time, End Time or Date!");
+                    Log.d(TAG,
+                            "Invalid time string for Start Time, End Time or Date!");
                     Toast.makeText(EventEdit.this,
                             "Invalid time for Start Time or End Time!",
                             Toast.LENGTH_LONG).show();
@@ -104,33 +109,45 @@ public class EventEdit extends AppCompatActivity {
                     if(event.getDate().equals(EventDate)) {
                         if(!(StrTime.compareTo(event.getEndtime()) >= 0 ||
                                 EndTime.compareTo(event.getStartTime()) <= 0)){
-                            Toast.makeText(EventEdit.this, "TimeConflict!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(EventEdit.this,
+                                    "TimeConflict!",
+                                    Toast.LENGTH_LONG).show();
                             return;
                         }
                     }
                 }
 
-                Event newEvent = new Event(myAccount.getUsername() + ": " + eventName.getText().toString(), EventDate, StrTime, EndTime);
+                Event newEvent = new Event(myAccount.getUsername() +
+                        ": " + eventName.getText().toString(),
+                        EventDate, StrTime, EndTime);
                 newEvent.setUserId(myAccount.getUserId());
                 MyeventsList.add(newEvent);
 
 
 
-                String JsonUserId = JsonFunctions.JsonUserId(myAccount.getUserId());
-                String JsonDate = JsonFunctions.JsonDate(EventDate);
+                String JsonUserId =
+                        JsonFunctions.JsonUserId(myAccount.getUserId());
+                String JsonDate =
+                        JsonFunctions.JsonDate(EventDate);
 
-                String JsonEventName = JsonFunctions.JsonName(myAccount.getUsername() + ": " + eventName.getText().toString());
+                String JsonEventName = JsonFunctions.JsonName
+                        (myAccount.getUsername() + ": " + eventName.getText().toString());
                 String JsonEventWeight = JsonFunctions.JsonWeightEvent("");
                 String JsonEventSets = JsonFunctions.JsonSets(0);
                 String JsonEventReps = JsonFunctions.JsonReps(0);
                 String JsonEventTimeStart = JsonFunctions.JsonStartTime(StrTime);
                 String JsonEventTimeEnd = JsonFunctions.JsonEndTime(EndTime);
-                String JsonEvent = JsonFunctions.JsonEvent(JsonEventName, JsonEventWeight, JsonEventSets, JsonEventReps, JsonEventTimeStart, JsonEventTimeEnd);
+                String JsonEvent = JsonFunctions.JsonEvent
+                        (JsonEventName, JsonEventWeight, JsonEventSets,
+                                JsonEventReps, JsonEventTimeStart, JsonEventTimeEnd);
 
                 String JsonSchedule = JsonFunctions.JsonSchedule(JsonEvent);
 
                 if(!checkIfSingleEventsExists(EventDate)){
-                    String Json = "{" +  JsonUserId + "," + JsonDate + "," + JsonSchedule + "}";
+
+                    String Json = "{" +  JsonUserId + "," +
+                            JsonDate + "," + JsonSchedule + "}";
+
                     Log.d(TAG, Json);
                     RequestBody body = RequestBody.create(Json,
                             MediaType.parse("application/json"));
@@ -181,7 +198,8 @@ public class EventEdit extends AppCompatActivity {
 
     private boolean checkIfSingleEventsExists(LocalDate Today) {
         ConnectionToBackend c = new ConnectionToBackend();
-        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUserAndDate(myAccount.getUserId(), Today);
+        ArrayList<Event> TheEventsofThisAccount =
+                c.getScheduleByUserAndDate(myAccount.getUserId(), Today);
         if(TheEventsofThisAccount == null){
             Log.d("THIS IS", "FALSE BRO");
             return false;

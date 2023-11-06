@@ -1,7 +1,5 @@
 package com.example.cpen321tutorial1;
 
-import android.content.Intent;
-
 import java.util.ArrayList;
 
 public class Account {
@@ -68,7 +66,10 @@ public class Account {
         UserId = "";
     }
 
-    public Account(String username, String emailAddress, int age, int weight, String gender, ArrayList<Account> friendsList, ArrayList<Account> blockList) {
+    public Account(String username, String emailAddress,
+                   int age, int weight, String gender,
+                   ArrayList<Account> friendsList, ArrayList<Account> blockList) {
+
         Username = username;
         EmailAddress = emailAddress;
         Age = age;

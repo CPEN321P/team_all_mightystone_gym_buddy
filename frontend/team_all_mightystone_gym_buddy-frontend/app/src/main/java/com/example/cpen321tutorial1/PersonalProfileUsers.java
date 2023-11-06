@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class PersonalProfileUsers extends AppCompatActivity {
+public class PersonalProfileUsers
+        extends AppCompatActivity {
 
     Button FriendsList;
 
@@ -39,14 +40,17 @@ public class PersonalProfileUsers extends AppCompatActivity {
         MainActivity.TestComeFromOutsideOrNot = 0;
         Username.setText(GlobalClass.myAccount.getUsername());
         Email.setText(GlobalClass.myAccount.getEmailAddress());
-        Age.setText(Integer.toString(GlobalClass.myAccount.getAge()) + " years old");
-        Weight.setText(Integer.toString(GlobalClass.myAccount.getWeight()) + " kg");
+        Age.setText(Integer.toString(GlobalClass.myAccount.getAge()) +
+                " years old");
+        Weight.setText(Integer.toString(GlobalClass.myAccount.getWeight()) +
+                " kg");
         Gender.setText(GlobalClass.myAccount.getGender());
 
         FriendsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendsIntent = new Intent(PersonalProfileUsers.this, Friends.class);
+                Intent FriendsIntent =
+                        new Intent(PersonalProfileUsers.this, Friends.class);
                 startActivity(FriendsIntent);
             }
         });
@@ -54,7 +58,8 @@ public class PersonalProfileUsers extends AppCompatActivity {
         GymList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymsIntent = new Intent(PersonalProfileUsers.this, Gyms.class);
+                Intent GymsIntent =
+                        new Intent(PersonalProfileUsers.this, Gyms.class);
                 startActivity(GymsIntent);
             }
         });
@@ -62,7 +67,8 @@ public class PersonalProfileUsers extends AppCompatActivity {
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent PersonalProfileIntent = new Intent(PersonalProfileUsers.this, PersonalProfileEdit.class);
+                Intent PersonalProfileIntent =
+                        new Intent(PersonalProfileUsers.this, PersonalProfileEdit.class);
                 startActivity(PersonalProfileIntent);
             }
         });
@@ -71,7 +77,8 @@ public class PersonalProfileUsers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MainActivity.TestComeFromOutsideOrNot = 1;
-                Intent ScheduleIntent = new Intent(PersonalProfileUsers.this, MonthlySchedule.class);
+                Intent ScheduleIntent =
+                        new Intent(PersonalProfileUsers.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -79,7 +86,9 @@ public class PersonalProfileUsers extends AppCompatActivity {
         BlockList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent BlockIntent = new Intent(PersonalProfileUsers.this, BlockedUsers.class);
+                Intent BlockIntent =
+                        new Intent(PersonalProfileUsers.this, BlockedUsers.class);
+
                 startActivity(BlockIntent);
             }
         });

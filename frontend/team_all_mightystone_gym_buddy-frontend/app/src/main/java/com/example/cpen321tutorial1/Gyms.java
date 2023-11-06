@@ -11,7 +11,8 @@ import android.widget.Button;
 
 import java.util.List;
 
-public class Gyms extends AppCompatActivity {
+public class Gyms
+        extends AppCompatActivity {
 
     private Button Home;
 
@@ -39,7 +40,8 @@ public class Gyms extends AppCompatActivity {
                 new RecyclerItemClickListener(Gyms.this, recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent GymIntent = new Intent(Gyms.this, GymProfile.class);
+                        Intent GymIntent =
+                                new Intent(Gyms.this, GymProfile.class);
                         if(!items.isEmpty()){
                             Gym Gym = items.get(position);
                             GymIntent.putExtra("GymAddress", Gym.getAddress());
@@ -49,7 +51,8 @@ public class Gyms extends AppCompatActivity {
                         startActivity(GymIntent);
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override public void onLongItemClick
+                            (View view, int position) {
                         // do whatever
                     }
                 }));

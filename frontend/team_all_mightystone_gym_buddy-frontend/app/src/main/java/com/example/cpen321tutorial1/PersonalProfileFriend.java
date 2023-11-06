@@ -11,7 +11,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class PersonalProfileFriend extends AppCompatActivity {
+public class PersonalProfileFriend
+        extends AppCompatActivity {
 
     Button Schedule;
 
@@ -52,8 +53,12 @@ public class PersonalProfileFriend extends AppCompatActivity {
         Gender.setText(friendGender);
 
         FriendsEvent.clear();
+
         ConnectionToBackend c = new ConnectionToBackend();
-        ArrayList<Event> TheEventsofFriendsAccount = c.getScheduleByUser(friendId);
+
+        ArrayList<Event> TheEventsofFriendsAccount =
+                c.getScheduleByUser(friendId);
+
         if(TheEventsofFriendsAccount != null){
             FriendsEvent = TheEventsofFriendsAccount;
         }
@@ -65,8 +70,8 @@ public class PersonalProfileFriend extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MainActivity.TestComeFromOutsideOrNot = 1;
-                Intent ScheduleIntent = new Intent
-                        (PersonalProfileFriend.this, ScheduleFriendsMonthly.class);
+                Intent ScheduleIntent =
+                        new Intent(PersonalProfileFriend.this, ScheduleFriendsMonthly.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -74,7 +79,8 @@ public class PersonalProfileFriend extends AppCompatActivity {
         Message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent chatIntent = new Intent(PersonalProfileFriend.this,Chat.class);
+                Intent chatIntent =
+                        new Intent(PersonalProfileFriend.this,Chat.class);
                 chatIntent.putExtra("Username", friendName);
                 startActivity(chatIntent);
                 //Go to the page which send the message to friends
@@ -86,11 +92,15 @@ public class PersonalProfileFriend extends AppCompatActivity {
             public void onClick(View view) {
                 //Block the user
                 //Get the account information from the database
-                ArrayList<Account> BlockAccounts = GlobalClass.myAccount.getBlockList();
+                ArrayList<Account> BlockAccounts =
+                        GlobalClass.myAccount.getBlockList();
                 //BlockAccounts.add(//the account information from the database//);
                 GlobalClass.myAccount.setBlockList(BlockAccounts);
                 //POST the account to the database
-                Toast.makeText(PersonalProfileFriend.this, "Add the user in block list", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(PersonalProfileFriend.this,
+                        "Add the user in block list",
+                        Toast.LENGTH_SHORT).show();
 
                 finish();
             }

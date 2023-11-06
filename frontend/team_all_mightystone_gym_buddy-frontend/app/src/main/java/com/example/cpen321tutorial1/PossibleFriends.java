@@ -13,7 +13,8 @@ import android.widget.Button;
 
 import java.util.List;
 
-public class PossibleFriends extends AppCompatActivity {
+public class PossibleFriends
+        extends AppCompatActivity {
 
     private Button MyFriends;
 
@@ -45,13 +46,18 @@ public class PossibleFriends extends AppCompatActivity {
         List<Account> items = c.getRecommendedUsers(myAccount.getUserId());
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
+        recyclerView.setLayoutManager
+                (new LinearLayoutManager(this));
+        recyclerView.setAdapter
+                (new PersonAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(PossibleFriends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(PossibleFriends.this,
+                        recyclerView ,
+                        new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileOthers.class);
+                        Intent FriendIntent =
+                                new Intent(PossibleFriends.this, PersonalProfileOthers.class);
                         if(!items.isEmpty()){
                             Account posFriend = items.get(position);
                             FriendIntent.putExtra("posFriendName",
@@ -68,7 +74,8 @@ public class PossibleFriends extends AppCompatActivity {
                         startActivity(FriendIntent);
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override public void onLongItemClick
+                            (View view, int position) {
                         // do whatever
                     }
                 }));
@@ -79,7 +86,8 @@ public class PossibleFriends extends AppCompatActivity {
         MyFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent MyFriendsIntent = new Intent(PossibleFriends.this, Friends.class);
+                Intent MyFriendsIntent =
+                        new Intent(PossibleFriends.this, Friends.class);
                 startActivity(MyFriendsIntent);
             }
         });
@@ -89,7 +97,8 @@ public class PossibleFriends extends AppCompatActivity {
         Messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent MessageIntent = new Intent(PossibleFriends.this, Messages.class);
+                Intent MessageIntent =
+                        new Intent(PossibleFriends.this, Messages.class);
                 startActivity(MessageIntent);
             }
         });
@@ -99,8 +108,8 @@ public class PossibleFriends extends AppCompatActivity {
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent HomeIntent = new Intent
-                        (PossibleFriends.this, Logo.class);
+                Intent HomeIntent =
+                        new Intent(PossibleFriends.this, Logo.class);
                 startActivity(HomeIntent);
             }
         });
@@ -110,8 +119,8 @@ public class PossibleFriends extends AppCompatActivity {
         Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendsIntent = new Intent
-                        (PossibleFriends.this, Friends.class);
+                Intent FriendsIntent =
+                        new Intent(PossibleFriends.this, Friends.class);
                 startActivity(FriendsIntent);
             }
         });
@@ -121,7 +130,8 @@ public class PossibleFriends extends AppCompatActivity {
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ScheduleIntent = new Intent(PossibleFriends.this, MonthlySchedule.class);
+                Intent ScheduleIntent =
+                        new Intent(PossibleFriends.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -131,7 +141,8 @@ public class PossibleFriends extends AppCompatActivity {
         Gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymIntent = new Intent(PossibleFriends.this, Gyms.class);
+                Intent GymIntent =
+                        new Intent(PossibleFriends.this, Gyms.class);
                 startActivity(GymIntent);
             }
         });
@@ -141,7 +152,8 @@ public class PossibleFriends extends AppCompatActivity {
         PersonalProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ProfileIntent = new Intent(PossibleFriends.this, PersonalProfileUsers.class);
+                Intent ProfileIntent =
+                        new Intent(PossibleFriends.this, PersonalProfileUsers.class);
                 startActivity(ProfileIntent);
             }
         });

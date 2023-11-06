@@ -11,7 +11,8 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Messages extends AppCompatActivity {
+public class Messages
+        extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +29,18 @@ public class Messages extends AppCompatActivity {
                 (new PersonAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(Messages.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(Messages.this,
+                        recyclerView ,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+
                     @Override public void onItemClick(View view, int position) {
                         Intent ChatIntent = new Intent
                                 (Messages.this, Chat.class);
 
                         //import recipient's account information from backend
 
-                        //MainActivity.passAccountAsIntent(ChatIntent, RecipientAccount);
+                        //MainActivity.passAccountAsIntent
+                        //      (ChatIntent, RecipientAccount);
 
                         startActivity(ChatIntent);
                     }

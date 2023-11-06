@@ -19,7 +19,8 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-public class PersonalProfileOthers extends AppCompatActivity {
+public class PersonalProfileOthers
+        extends AppCompatActivity {
 
     Button AddFriend;
 
@@ -58,7 +59,9 @@ public class PersonalProfileOthers extends AppCompatActivity {
         /*
         for (int i = 0; i < MyCurrentBlockList.size(); i++){
             if (MyCurrentBlockList.get(i).equals( //The Account that you get// )){
-                Toast.makeText(PersonalProfileOthers.this, "In Block List!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalProfileOthers.this,
+                    "In Block List!",
+                    Toast.LENGTH_SHORT).show();
                 finish();
                 // }
         }
@@ -85,27 +88,37 @@ public class PersonalProfileOthers extends AppCompatActivity {
             public void onClick(View view) {
                 //Send the friend request
                 //get the Account class of this person
-                ArrayList<Account> CurrentFriendList = GlobalClass.myAccount.getFriendsList();
-                //CurrentFriendList.add( //The Account information of this person // );
+                ArrayList<Account> CurrentFriendList =
+                        GlobalClass.myAccount.getFriendsList();
+                //CurrentFriendList.add( //Account information of this person // );
                 GlobalClass.myAccount.setFriendsList(CurrentFriendList);
                 //POST the account to the database
 
                 //ArrayList<Account> CurrentFriendListOthers =
-                    // The Account that you get//.getFriendsList();
+                //    Account that you get//.getFriendsList();
                 //CurrentFriendListOthers.add(GlobalClass.myAccount);
-                ////The Account that you get//.setFriendsList(CurrentFriendListOthers);
+                ////Account that you get//.setFriendsList(CurrentFriendListOthers);
                 //POST the account to the database
+
                 RequestBody body = RequestBody.create("{"+ "}",
                         MediaType.parse("application/json"));
+
                 Request addFriend = new Request.Builder()
                         .url("https://20.172.9.70/users/addFriend/"
                                 + myAccount.getUserId()
                                 + "/" + posFriendId)
                         .put(body)
                         .build();
+
                 NewCallPost(client, addFriend);
-                Toast.makeText(PersonalProfileOthers.this, "You made a new friend!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PersonalProfileOthers.this, PossibleFriends.class);
+
+                Toast.makeText(PersonalProfileOthers.this,
+                        "You made a new friend!",
+                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(PersonalProfileOthers.this,
+                                PossibleFriends.class);
+
                 startActivity(intent);
             }
         });
@@ -115,14 +128,17 @@ public class PersonalProfileOthers extends AppCompatActivity {
             public void onClick(View view) {
                 //Block the user
                 //Get the account information from the database
-                ArrayList<Account> BlockAccounts = GlobalClass.myAccount.getBlockList();
-                //BlockAccounts.add(//the account information from the database//);
+                ArrayList<Account> BlockAccounts =
+                        GlobalClass.myAccount.getBlockList();
+                //BlockAccounts.add(//account information from the database//);
                 GlobalClass.myAccount.setBlockList(BlockAccounts);
 
                 RequestBody body = RequestBody.create("{"+ "}",
                         MediaType.parse("application/json"));
                 Request blockUser = new Request.Builder()
-                        .url("https://20.172.9.70/users/blockUser/" + myAccount.getUserId() + "/" + posFriendId)
+                        .url("https://20.172.9.70/users/blockUser/" +
+                                myAccount.getUserId() + "/" +
+                                posFriendId)
                         .put(body)
                         .build();
                 NewCallPost(client, blockUser);

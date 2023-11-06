@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class NewGyms extends AppCompatActivity {
+public class NewGyms
+        extends AppCompatActivity {
 
     private TextView Name;
 
@@ -57,8 +58,8 @@ public class NewGyms extends AppCompatActivity {
                 Gym TheAddGym = new Gym(InputName,
                         InputLocation, InputAccessTime,
                         InputWebsite, InputTips);
-//                Gym.CurrentGym.clear();
-//                Gym.CurrentGym.add(TheAddGym);
+                //Gym.CurrentGym.clear();
+                //Gym.CurrentGym.add(TheAddGym);
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///

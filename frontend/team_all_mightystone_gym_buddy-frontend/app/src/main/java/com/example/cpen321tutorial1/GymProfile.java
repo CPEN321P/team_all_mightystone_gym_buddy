@@ -18,7 +18,8 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-public class GymProfile extends AppCompatActivity {
+public class GymProfile
+        extends AppCompatActivity {
 
     private TextView Name;
 
@@ -30,7 +31,9 @@ public class GymProfile extends AppCompatActivity {
 
     private TextView Tips;
 
-    private Button Subscript, CancelSubscript;
+    private Button Subscript;
+
+    private Button CancelSubscript;
 
 
     @Override
@@ -64,16 +67,21 @@ public class GymProfile extends AppCompatActivity {
 
                 //TheOldGymUserList.add(GlobalClass.myAccount);
                 //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList)
-                RequestBody body = RequestBody.create("{"+ JsonHomeGym(gymName) + "}",
+                RequestBody body = RequestBody.create
+                        ("{"+ JsonHomeGym(gymName) + "}",
                         MediaType.parse("application/json"));
+
                 Request subscribeToGym = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/" + myAccount.getUserId())
+                        .url("https://20.172.9.70/users/userId/" +
+                                myAccount.getUserId())
                         .put(body)
                         .build();
                 NewCallPost(client, subscribeToGym);
 
 
-                Toast.makeText(GymProfile.this, "Subscribed to the Gym!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GymProfile.this,
+                        "Subscribed to the Gym!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -87,14 +95,17 @@ public class GymProfile extends AppCompatActivity {
 
                 /*
                 for(int i = 0; i < TheOldGymUserList.size(); i++){
-                    if ((TheOldGymUserList.get(i)).equals(GlobalClass.myAccount)){
+                    if ((TheOldGymUserList.get(i)).
+                        equals(GlobalClass.myAccount)){
                         TheOldGymUserList.remove(i);
                         //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList);
                         return;
                     }
                 }
                  */
-                Toast.makeText(GymProfile.this, "Subscription Cancelled!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GymProfile.this,
+                        "Subscription Cancelled!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

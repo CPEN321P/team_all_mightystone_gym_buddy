@@ -31,7 +31,8 @@ public class JsonFunctions {
                 e.printStackTrace();
             }
 
-            @Override public void onResponse(Call call, Response response) throws IOException {
+            @Override public void onResponse(Call call, Response response)
+                    throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful())
                         throw new IOException("Unexpected code " + response);

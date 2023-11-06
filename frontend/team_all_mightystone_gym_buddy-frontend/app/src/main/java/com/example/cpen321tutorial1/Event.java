@@ -67,11 +67,13 @@ public class Event {
         {
 
             int eventMinsStart =
-                    round(event.StartTime.getHour()*60 + event.StartTime.getMinute(),
+                    round(event.StartTime.getHour()*60 +
+                            event.StartTime.getMinute(),
                             30);
 
             int eventMinsEnd =
-                    round(event.EndTime.getHour()*60 + event.EndTime.getMinute(),
+                    round(event.EndTime.getHour()*60 +
+                            event.EndTime.getMinute(),
                             30);
 
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
@@ -86,9 +88,8 @@ public class Event {
     }
 
     //For the comparsion between the user and their friend
-    public static ArrayList<Event> eventsForDateAndTimeOthers(LocalDate date,
-                                                              LocalTime StartTime,
-                                                              ArrayList<Event> OtherEventArray)
+    public static ArrayList<Event> eventsForDateAndTimeOthers
+        (LocalDate date, LocalTime StartTime, ArrayList<Event> OtherEventArray)
     {
         ArrayList<Event> events = new ArrayList<>();
 
@@ -96,11 +97,13 @@ public class Event {
         {
 
             int eventMinsStart =
-                    round(event.StartTime.getHour()*60 + event.StartTime.getMinute(),
+                    round(event.StartTime.getHour()*60 +
+                                    event.StartTime.getMinute(),
                             30);
 
             int eventMinsEnd =
-                    round(event.EndTime.getHour()*60 + event.EndTime.getMinute(),
+                    round(event.EndTime.getHour()*60 +
+                                    event.EndTime.getMinute(),
                             30);
 
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
@@ -114,11 +117,13 @@ public class Event {
         {
 
             int eventMinsStart =
-                    round(event.StartTime.getHour()*60 + event.StartTime.getMinute(),
+                    round(event.StartTime.getHour()*60 +
+                                    event.StartTime.getMinute(),
                             30);
 
             int eventMinsEnd =
-                    round(event.EndTime.getHour()*60 + event.EndTime.getMinute(),
+                    round(event.EndTime.getHour()*60 +
+                                    event.EndTime.getMinute(),
                             30);
 
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
@@ -154,7 +159,9 @@ public class Event {
 
         //Talk to backend
         ArrayList<Event> TodaysEvent = eventsForDate(date);
-        String Json = ConvertEventArrayListToJson(TodaysEvent, myAccount.getUserId(), date);
+        String Json = ConvertEventArrayListToJson
+                (TodaysEvent, myAccount.getUserId(), date);
+
         Log.d(TAG + " delete", Json);
         Log.d(TAG + "1", Integer.toString(MyeventsList.size()));
 
@@ -164,7 +171,8 @@ public class Event {
                 MediaType.parse("application/json"));
 
         Request requestName = new Request.Builder()
-                .url("https://20.172.9.70/schedules/byUser/" + myAccount.getUserId() + "/" + DateString)
+                .url("https://20.172.9.70/schedules/byUser/" +
+                        myAccount.getUserId() + "/" + DateString)
                 .put(body)
                 .build();
 

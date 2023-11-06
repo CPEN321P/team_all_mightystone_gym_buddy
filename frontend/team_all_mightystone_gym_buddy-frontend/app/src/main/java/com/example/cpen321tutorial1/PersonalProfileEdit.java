@@ -28,7 +28,8 @@ import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-public class PersonalProfileEdit extends AppCompatActivity {
+public class PersonalProfileEdit
+        extends AppCompatActivity {
 
     private TextView UserName;
 
@@ -78,15 +79,24 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 }
                 if (StringToInteger(Weight.getText().toString()) <= 0)
                 {
-                    Toast.makeText(PersonalProfileEdit.this, "Invalid Weight", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PersonalProfileEdit.this,
+                            "Invalid Weight",
+                            Toast.LENGTH_LONG).show();
+
                     return;
                 }
-                if (GenderSpinner.getSelectedItem().toString().equals("Select Your Gender")) {
-                    Toast.makeText(PersonalProfileEdit.this, "Please Select your Gender", Toast.LENGTH_SHORT).show();
+                if (GenderSpinner.getSelectedItem().toString().
+                        equals("Select Your Gender")) {
+
+                    Toast.makeText(PersonalProfileEdit.this,
+                            "Please Select your Gender",
+                            Toast.LENGTH_SHORT).show();
+
                     return;
                 }
 
-                Account updatedAccount = new Account(UserName.getText().toString(),
+                Account updatedAccount =
+                        new Account(UserName.getText().toString(),
                         GlobalClass.myAccount.getEmailAddress(),
                         StringToInteger(Age.getText().toString()),
                         StringToInteger(Weight.getText().toString()),
@@ -97,10 +107,6 @@ public class PersonalProfileEdit extends AppCompatActivity {
                 updatedAccount.setUserId(myAccount.getUserId());
 
                 myAccount = updatedAccount;
-
-                //Log.d("THIS IS WHAT YOURE LOOKING FOR",myAccount.getUsername());
-
-
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///
@@ -114,15 +120,17 @@ public class PersonalProfileEdit extends AppCompatActivity {
                         .build();
 
                 Request putUserRequest = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/"+ myAccount.getUserId())
+                        .url("https://20.172.9.70/users/userId/" +
+                                myAccount.getUserId())
                         .put(formBody)
                         .build();
 
                 NewCallPost(client, putUserRequest);
                 Log.d("THIS IS WHAT YOURE LOOKING FOR","DID PUT");
 
-               Intent PersonalProfileIntent = new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
-                    startActivity(PersonalProfileIntent);
+                Intent PersonalProfileIntent =
+                        new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
+                startActivity(PersonalProfileIntent);
 
             }
         });
@@ -135,17 +143,20 @@ public class PersonalProfileEdit extends AppCompatActivity {
             }
         });
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso =
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(PersonalProfileEdit.this, gso);
+        mGoogleSignInClient =
+                GoogleSignIn.getClient(PersonalProfileEdit.this, gso);
 
         LogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
-                Intent LogOutIntent = new Intent(PersonalProfileEdit.this, LoginPage.class);
+                Intent LogOutIntent =
+                        new Intent(PersonalProfileEdit.this, LoginPage.class);
                 startActivity(LogOutIntent);
             }
         });
@@ -168,7 +179,9 @@ public class PersonalProfileEdit extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         // ...
                         Log.d(TAG, "Log out successful");
-                        Toast.makeText(PersonalProfileEdit.this, "Log out successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PersonalProfileEdit.this,
+                                "Log out successful",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }

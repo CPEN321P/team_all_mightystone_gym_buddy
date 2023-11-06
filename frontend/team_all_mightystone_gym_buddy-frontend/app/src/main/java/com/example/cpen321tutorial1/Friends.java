@@ -13,7 +13,8 @@ import android.widget.Button;
 
 import java.util.List;
 
-public class Friends extends AppCompatActivity {
+public class Friends
+        extends AppCompatActivity {
 
     private Button FindNewFriends;
 
@@ -40,11 +41,15 @@ public class Friends extends AppCompatActivity {
         ConnectionToBackend c = new ConnectionToBackend();
         List<Account> items = c.getAllFriends(myAccount.getUserId());
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new PersonAdapter(getApplicationContext(), items));
+        recyclerView.setLayoutManager
+                (new LinearLayoutManager(this));
+        recyclerView.setAdapter
+                (new PersonAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(Friends.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(Friends.this,
+                        recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Intent FriendIntent = new Intent
                                 (Friends.this, PersonalProfileFriend.class);
@@ -66,7 +71,8 @@ public class Friends extends AppCompatActivity {
                         startActivity(FriendIntent);
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override public void onLongItemClick
+                            (View view, int position) {
                         // do whatever
                     }
                 }));
@@ -76,7 +82,8 @@ public class Friends extends AppCompatActivity {
         FindNewFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FindFriendsIntent = new Intent(Friends.this, PossibleFriends.class);
+                Intent FindFriendsIntent =
+                        new Intent(Friends.this, PossibleFriends.class);
                 startActivity(FindFriendsIntent);
             }
         });
@@ -86,7 +93,8 @@ public class Friends extends AppCompatActivity {
         Messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent MessageIntent = new Intent(Friends.this, Messages.class);
+                Intent MessageIntent =
+                        new Intent(Friends.this, Messages.class);
                 startActivity(MessageIntent);
             }
         });
@@ -96,7 +104,8 @@ public class Friends extends AppCompatActivity {
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent HomeIntent = new Intent(Friends.this, Logo.class);
+                Intent HomeIntent =
+                        new Intent(Friends.this, Logo.class);
                 startActivity(HomeIntent);
             }
         });
@@ -106,7 +115,8 @@ public class Friends extends AppCompatActivity {
         Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent FriendsIntent = new Intent(Friends.this, Friends.class);
+                Intent FriendsIntent =
+                        new Intent(Friends.this, Friends.class);
                 startActivity(FriendsIntent);
             }
         });
@@ -116,7 +126,8 @@ public class Friends extends AppCompatActivity {
         Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ScheduleIntent = new Intent(Friends.this, MonthlySchedule.class);
+                Intent ScheduleIntent =
+                        new Intent(Friends.this, MonthlySchedule.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -126,8 +137,8 @@ public class Friends extends AppCompatActivity {
         Gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymIntent = new Intent
-                        (Friends.this, Gyms.class);
+                Intent GymIntent =
+                        new Intent(Friends.this, Gyms.class);
                 startActivity(GymIntent);
             }
         });
@@ -137,8 +148,8 @@ public class Friends extends AppCompatActivity {
         PersonalProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ProfileIntent = new Intent
-                        (Friends.this, PersonalProfileUsers.class);
+                Intent ProfileIntent =
+                        new Intent(Friends.this, PersonalProfileUsers.class);
                 startActivity(ProfileIntent);
             }
         });

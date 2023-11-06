@@ -89,8 +89,10 @@ public class ScheduleFriendsWeekly
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        CalendarAdapter calendarAdapter =
+                new CalendarAdapter(days, this);
+        RecyclerView.LayoutManager layoutManager =
+                new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
         setEventAdapter();
@@ -119,8 +121,10 @@ public class ScheduleFriendsWeekly
     }
 
     private void setEventAdapter() {
-        ArrayList<Event> FriendsEvent = PersonalProfileFriend.FriendsEvent;
-        ArrayList<Event> dailyEvents = Event.eventsForDateOthers(CalendarUtils.selectedDate, FriendsEvent);
+        ArrayList<Event> FriendsEvent =
+                PersonalProfileFriend.FriendsEvent;
+        ArrayList<Event> dailyEvents =
+                Event.eventsForDateOthers(CalendarUtils.selectedDate, FriendsEvent);
         EventAdapter eventAdapter =
                 new EventAdapter(getApplicationContext(), dailyEvents);
         eventList.setAdapter(eventAdapter);

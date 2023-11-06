@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class GymAdapter extends RecyclerView.Adapter<GymViewHolder>{
+public class GymAdapter
+        extends RecyclerView.Adapter<GymViewHolder>{
 
     Context context;
 
@@ -25,7 +26,8 @@ public class GymAdapter extends RecyclerView.Adapter<GymViewHolder>{
     public GymViewHolder onCreateViewHolder
             (@NonNull ViewGroup parent, int viewType) {
         return new GymViewHolder
-                (LayoutInflater.from(context).inflate(R.layout.gym_item_view, parent, false));
+                (LayoutInflater.from(context).inflate(R.layout.gym_item_view,
+                parent, false));
     }
 
     @Override
