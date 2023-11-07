@@ -39,11 +39,11 @@ public class EventEdit
 
     private TextView eventName;
 
-    private LocalTime StrTime;
+    LocalTime StrTime;
 
-    private LocalTime EndTime;
+    LocalTime EndTime;
 
-    private LocalDate EventDate;
+    LocalDate EventDate;
 
     private Button Done;
 
