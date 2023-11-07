@@ -132,7 +132,7 @@ router.put('/makeAnnouncement/:userId', async (req, res) => {
       }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(500).send('Announcement not made');
     } else {
       res.status(200).json(announcements);
@@ -185,7 +185,7 @@ router.put('/editAnnouncement/:userId/:announcementId', async (req, res) => {
       }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(500).send('Announcement not updated');
     } else {
       res.status(200).json(announcements);
@@ -236,7 +236,7 @@ router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
       }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(500).send('Announcement not deleted');
     } else {
       res.status(200).send('Announcement deleted');
@@ -277,7 +277,7 @@ router.put('/userId/:userId', async (req, res) => {
       { $set: updatedGymUser }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(404).send('Gym user not found');
     } else {
       res.status(200).json(updatedGymUser);
@@ -293,9 +293,9 @@ router.delete('/userId/:userId', async (req, res) => {
   try {
     const db = getDB();
     const id = new ObjectId(req.params.userId);
-    const gymUser = await db.collection('gymUsers').findOne({_id: id});
-    const gymDelete = await db.collection('gyms').deleteOne({_id: gymUser.gymId});
+
     const result = await db.collection('gymUsers').deleteOne({ _id: id });
+
     if (result.deletedCount === 0) {
       res.status(404).send('Gym user not found');
     } else {

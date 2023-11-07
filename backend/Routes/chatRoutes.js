@@ -87,7 +87,7 @@ const addChatToUser = async (db, userId, chatId) => {
       }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       return 0;
     } else {
       return 1;
@@ -131,7 +131,7 @@ const sendMessageById = async (db, _chatId, sender, message) => {
       }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       return 0;
     } else {
       let otherMember = chat.members[0];
@@ -186,7 +186,7 @@ const sendScheduleById = async (db, chatId, sender, scheduleId) => {
       }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       return 0;
     } else {
       let otherMember = chat.members[0];
@@ -244,7 +244,7 @@ const userMustHaveChat = async (db, chat) => {
           } 
         }
       );
-      if (result.matchedCount == 0) {
+      if (result.matchedCount === 0) {
         return 0;
       }
     }
@@ -268,7 +268,7 @@ const userMustHaveChat = async (db, chat) => {
           } 
         }
       );
-      if (result.matchedCount == 0) {
+      if (result.matchedCount === 0) {
         return 0;
       }
     }
@@ -340,7 +340,7 @@ const notifyRecipient = async (db, chatId, userId) => {
       }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       return 0;
     } else {
       return 1;

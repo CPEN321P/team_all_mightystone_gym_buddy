@@ -162,7 +162,7 @@ router.put('/byId/:scheduleId', async (req, res) => {
       { $set: updatedSchedule }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(404).send('Schedule not found');
     } else {
       res.status(200).json(updatedSchedule);
@@ -209,7 +209,7 @@ router.put('/byUser/:userId/:date', async (req, res) => {
       { $set: updatedSchedule }
     );
 
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(404).send('Schedule not found');
     } else {
       res.status(200).json(updatedSchedule);
