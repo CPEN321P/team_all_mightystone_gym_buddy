@@ -316,7 +316,7 @@ router.put('/userId/:userId', async (req, res) => {
       { $set: updatedUser }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(404).send('User not found');
     } else {
       res.status(200).json(updatedUser);
@@ -422,7 +422,7 @@ router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
       }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(404).send('User not found');
     } else {
       res.status(200).send('Friend Request Sent');
@@ -473,7 +473,7 @@ router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
       }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(404).send('User not found');
     } else {
       res.status(200).send('Friend Request Unsent');
@@ -540,7 +540,7 @@ router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
       }
     );
     
-    if (resultSender.matchedCount == 0 || resultReciever.matchedCount == 0) {
+    if (resultSender.matchedCount === 0 || resultReciever.matchedCount === 0) {
       res.status(500).send('Friend request not accepted');
     } else {
       res.status(200).send('Friend Request Accepted');
@@ -592,7 +592,7 @@ router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
       }
     );
     
-    if (resultReciever.matchedCount == 0) {
+    if (resultReciever.matchedCount === 0) {
       res.status(500).send('Friend request not declined');
     } else {
       res.status(200).send('Friend Request Declined');
@@ -669,7 +669,7 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
         } 
       }
     );
-    if (resultUnfriender.matchedCount == 0) {
+    if (resultUnfriender.matchedCount === 0) {
       return 0;
     }
 
@@ -681,7 +681,7 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
         } 
       }
     );
-    if (resultUnfriended.matchedCount == 0) {
+    if (resultUnfriended.matchedCount === 0) {
       return 0;
     }
 
@@ -719,7 +719,7 @@ router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
       }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(500).send('User not blocked');
     } else {
       res.status(200).send('User blocked');
@@ -770,7 +770,7 @@ router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
       }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(500).send('User not unblocked');
     } else {
       res.status(200).send('User unblocked');
@@ -821,7 +821,7 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
       }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(500).send('Chat not deleted');
     } else {
       res.status(200).send('Chat deleted');
@@ -836,9 +836,21 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
 router.delete('/userId/:userId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.userId);
-    
-    const result = await db.collection('users').deleteOne({ _id: id });
+    const _id = new ObjectId(req.params.userId);
+
+    const resultClearData = await clearData(db, _id);
+
+    if (!resultClearData) {
+      res.status(500).send('User data not cleared');
+      return;
+    }
+
+    const result = await db.collection('users').deleteOne({ _id: _id });
+
+    if (!schedulesDelete) {
+      res.status(500).send('User schedules not properly deleted');
+      return;
+    }
 
     if (result.deletedCount === 0) {
       res.status(404).send('User not found');
@@ -850,8 +862,69 @@ router.delete('/userId/:userId', async (req, res) => {
   }
 });
 
+const clearData = async (db, _id) => {
+  try {
+    const user = await db.collection('users').findOne({ _id: _id });
+
+    if (!user) {
+      return 0;
+    }
+
+    const chats = user.chats;
+  
+    for (const currChat of chats) {
+      const _chatId = new ObjectId(currChat.chatId);
+      const chat = await db.collection('chat').findOne({ _id: _chatId });
+
+      if (!chat) {
+        continue;
+      }
+
+      let otherMemberId = chat.members[0];
+
+      if (otherMemberId == _id.toString()) {
+        otherMemberId = chat.members[1];
+      }
+
+      const _otherMemberId = new ObjectId(otherMemberId);
+      const otherUser = await db.collection('users').findOne({ _id: _otherMemberId });
+
+      if (!otherUser) {
+        continue;
+      }
+
+      otherChats = otherUser.chats;
+
+      let i = -1;
+      for (let j = 0; j < otherChats.length; j++) {
+        if (otherChats[j].chatId == currChat.chatId) {
+          i = j;
+          break;
+        }
+      }
+      otherChats.splice(i, 1);
+
+      const result = await db.collection('chat').deleteOne({ _id: _chatId });
+
+      if (!result) {
+        continue;
+      }
+    }
+
+    const schedulesDelete = await db.collection('schedules').deleteMany({ userId: id });
+  
+    if (!schedulesDelete) {
+      return 0;
+    }
+  }
+  catch {
+    return 0;
+  }
+}
+
 //ChatGPT use: YES
 // Delete all users
+//This is for debugging only (DEV USE)
 router.delete('/', async (req, res) => {
   try {
     const db = getDB();
