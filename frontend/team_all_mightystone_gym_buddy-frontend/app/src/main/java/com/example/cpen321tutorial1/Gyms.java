@@ -18,11 +18,11 @@ public class Gyms
 
     Button Friends;
 
-    private Button Schedule;
+    Button Schedule;
 
     Button Gyms;
 
-    private Button PersonalProfile;
+    Button PersonalProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
