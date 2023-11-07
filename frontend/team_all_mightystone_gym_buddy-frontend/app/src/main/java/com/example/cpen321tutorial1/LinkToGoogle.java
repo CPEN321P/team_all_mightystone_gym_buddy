@@ -177,11 +177,11 @@ public class LinkToGoogle
     @Override
     public void onItemSelected(AdapterView<?> adapterView,
                                View view, int i, long l) {
-
+        //Do nothing
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        //Do nothing
     }
 }
