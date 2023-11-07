@@ -130,9 +130,9 @@ public class Event {
             int cellMins = StartTime.getHour()*60 + StartTime.getMinute();
 
 
-            if(event.getDate().equals(date) &&
-                    eventMinsStart <= cellMins && cellMins < eventMinsEnd)
-                events.add(event);
+            if(event.getDate().equals(date))
+                if(eventMinsStart <= cellMins && cellMins < eventMinsEnd)
+                    events.add(event);
         }
 
         return events;

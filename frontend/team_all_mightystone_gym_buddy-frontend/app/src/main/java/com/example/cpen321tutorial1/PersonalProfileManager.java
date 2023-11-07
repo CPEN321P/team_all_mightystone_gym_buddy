@@ -61,7 +61,6 @@ public class PersonalProfileManager
                 //startActivity(MyGymsIntent);
                 //Otherwise, jump to the NewGyms Activity
                 //TODO FIX THIS WTFS
-                /*
                 if (true) {
                     Intent NewGymsIntent =
                             new Intent(PersonalProfileManager.this,
@@ -73,12 +72,6 @@ public class PersonalProfileManager
                                     GymsProfileManager.class);
                     startActivity(NewGymsIntent);
                 }
-
-                 */
-                Intent NewGymsIntent =
-                        new Intent(PersonalProfileManager.this,
-                                NewGyms.class);
-                startActivity(NewGymsIntent);
 
             }
         });

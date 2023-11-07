@@ -16,19 +16,19 @@ import java.util.List;
 public class Friends
         extends AppCompatActivity {
 
-    Button FindNewFriends;
+    private Button FindNewFriends;
 
-    Button Messages;
+    private Button Messages;
 
-    Button Home;
+    private Button Home;
 
     private Button Friends;
 
-    Button Schedule;
+    private Button Schedule;
 
-    Button Gyms;
+    private Button Gyms;
 
-    Button PersonalProfile;
+    private Button PersonalProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
