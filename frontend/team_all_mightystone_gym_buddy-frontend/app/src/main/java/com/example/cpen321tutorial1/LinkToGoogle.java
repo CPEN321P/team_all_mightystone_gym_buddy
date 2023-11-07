@@ -38,7 +38,7 @@ public class LinkToGoogle
 
     private Spinner RoleSpinner;
 
-    private Button Done;
+    Button Done;
 
     final static String TAG = "LinkActivity";
 
