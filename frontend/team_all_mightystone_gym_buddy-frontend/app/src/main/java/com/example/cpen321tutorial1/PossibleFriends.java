@@ -43,7 +43,7 @@ public class PossibleFriends
 
         //get all possible friends from backend
         ConnectionToBackend c = new ConnectionToBackend();
-        List<Account> items = c.getRecommendedUsers(myAccount.getUserId());
+        List<Account> items = c.getAllInList(myAccount.getUserId(), 2);
 
 
         recyclerView.setLayoutManager

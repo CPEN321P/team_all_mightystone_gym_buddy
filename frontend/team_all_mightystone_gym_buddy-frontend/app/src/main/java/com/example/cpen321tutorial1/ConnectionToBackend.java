@@ -90,22 +90,18 @@ public class ConnectionToBackend {
         }
     }
 
-    public ArrayList<Event> getScheduleByUserAndDate
-            (final String UserId, final LocalDate date){
-        Callable<ArrayList<Event>> asyncCall =
-                new Callable<ArrayList<Event>>() {
+    public ArrayList<Event> getScheduleByUser (final String UserId, final LocalDate date){
+        Callable<ArrayList<Event>> asyncCall = new Callable<ArrayList<Event>>() {
             @Override
             public ArrayList<Event> call() throws Exception {
-
                 String JsonDate = JsonFunctions.DateToStringNum(date);
 
+
                 Request getEventInformation = new Request.Builder()
-                        .url("https://20.172.9.70/schedules/byUser/" +
-                                UserId + "/" + JsonDate)
+                        .url("https://20.172.9.70/schedules/byUser/" + UserId + "/" + JsonDate)
                         .build();
 
-                Response response =
-                        client.newCall(getEventInformation).execute();
+                Response response = client.newCall(getEventInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -113,17 +109,13 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-
-                    ScheduleModelFromBackend SingleScheduleModelFromBackend =
-                            new Gson().fromJson(jsonResponse,
-                                    ScheduleModelFromBackend.class);
+                    ScheduleModelFromBackend SingleScheduleModelFromBackend = new Gson().fromJson(jsonResponse, ScheduleModelFromBackend.class);
 
                     if (SingleScheduleModelFromBackend == null) {
                         throw new IOException("Single Schedule model is null");
                     }
 
-                    return setSingleEventInformationFromBackend
-                            (SingleScheduleModelFromBackend);
+                    return setSingleEventInformationFromBackend(SingleScheduleModelFromBackend);
                 }
             }
         };
@@ -191,14 +183,23 @@ public class ConnectionToBackend {
 
     //ACCOUNT FUNCTIONS!!!
 
-    private Account getAccountInformationFromUserId(String userId) {
+    public Account getAccountInformation(String userIdOrEmail) {
 
         Callable<Account> asyncCall = new Callable<Account>() {
             @Override
             public Account call() throws Exception {
-                Request getAccountInformation = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/" + userId)
-                        .build();
+                Request getAccountInformation;
+
+                if(userIdOrEmail.contains("@")) {
+                    getAccountInformation = new Request.Builder()
+                            .url("https://20.172.9.70/users/userEmail/" + userIdOrEmail)
+                            .build();
+
+                } else {
+                    getAccountInformation= new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/" + userIdOrEmail)
+                            .build();
+                }
 
                 Response response =
                         client.newCall(getAccountInformation).execute();
@@ -235,52 +236,6 @@ public class ConnectionToBackend {
 
     }
 
-    public Account getAccountInformationFromEmail(final String email) {
-
-        Callable<Account> asyncCall = new Callable<Account>() {
-            @Override
-            public Account call() throws Exception {
-                Request getAccountInformation = new Request.Builder()
-                        .url("https://20.172.9.70/users/userEmail/" + email)
-                        .build();
-
-                Response response =
-                        client.newCall(getAccountInformation).execute();
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response.code());
-                }
-
-                try (ResponseBody responseBody = response.body()) {
-                    String jsonResponse = responseBody.string();
-
-                    AccountModelFromBackend accountModelFromBackend =
-                            new Gson().fromJson(jsonResponse, AccountModelFromBackend.class);
-
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
-
-                    if (accountModelFromBackend == null) {
-                        throw new IOException("Account model is null");
-                    }
-
-                    return setAccountInformationFromBackend
-                            (accountModelFromBackend);
-                }
-            }
-        };
-
-        Future<Account> future = executorService.submit(asyncCall);
-
-        try {
-            return future.get();
-            // This will block until the async call is complete
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return null;
-            //throw new RuntimeException("Error while fetching account information", e);
-        }
-    }
-
     public Account setAccountInformationFromBackend
             (AccountModelFromBackend accountModel){
 
@@ -297,20 +252,38 @@ public class ConnectionToBackend {
 
     }
 
-    public ArrayList<Account> getAllFriends(final String userId) {
+    public ArrayList<Account> getAllInList(final String userId, int typeOfProfile) {
 
         ArrayList<Account> listOfAllAccounts = new ArrayList<>();
-        Callable<ArrayList<Account>> asyncCall =
-                new Callable<ArrayList<Account>>() {
+        Callable<ArrayList<Account>> asyncCall = new Callable<ArrayList<Account>>() {
             @Override
             public ArrayList<Account> call() throws Exception {
-                Request getFriendsProfiles = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/"+
-                                userId + "/friends")
-                        .build();
+                Request getProfiles;
+
+                //getting friends
+                if(typeOfProfile == 0) {
+                    getProfiles = new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/"+ userId+ "/friends")
+                            .build();
+                }
+                //getting blocked
+                else if (typeOfProfile == 1){
+                    getProfiles = new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/"+ userId+ "/blockedUsers")
+                            .build();
+                } 
+                //getting recommended users
+                else {
+                    getProfiles = new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/"+
+                                    userId+
+                                    "/recommendedUsers")
+                            .build();
+                }
+
 
                 Response response =
-                        client.newCall(getFriendsProfiles).execute();
+                        client.newCall(getProfiles).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -322,12 +295,12 @@ public class ConnectionToBackend {
                     Type listType =
                             new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
 
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     List<AccountModelFromBackend> listOfFriends =
                             new Gson().fromJson(jsonResponse, listType);
 
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "FRIENDS GOTTTTT");
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", "FRIENDS GOTTTTT");
 
 
                     if (listOfFriends == null) {
@@ -355,121 +328,6 @@ public class ConnectionToBackend {
             return null;
             //throw new RuntimeException("Error while fetching account information", e);
         }
-
-    }
-
-    public ArrayList<Account> getAllBlocked(final String userId) {
-
-        ArrayList<Account> listOfAllAccounts =
-                new ArrayList<>();
-
-        Callable<ArrayList<Account>> asyncCall =
-                new Callable<ArrayList<Account>>() {
-            @Override
-            public ArrayList<Account> call() throws Exception {
-                Request getBlocekdProfiles = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/" +
-                                userId + "/blockedUsers")
-                        .build();
-
-                Response response = client.
-                        newCall(getBlocekdProfiles).execute();
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response.code());
-                }
-
-                try (ResponseBody responseBody = response.body()) {
-                    String jsonResponse = responseBody.string();
-                    Type listType =
-                            new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
-
-                    List<AccountModelFromBackend> listOfBlocked =
-                            new Gson().fromJson(jsonResponse, listType);
-
-                    if (listOfBlocked == null) {
-                        throw new IOException("Gym model is null");
-                    }
-
-                    for(int i = 0; i<listOfBlocked.size(); i++){
-                        listOfAllAccounts.
-                                add(setAccountInformationFromBackend(listOfBlocked.get(i)));
-                    }
-
-                    return listOfAllAccounts;
-
-                }
-            }
-        };
-
-        Future<ArrayList<Account>> future = executorService.submit(asyncCall);
-
-        try {
-            return future.get(); // This will block until the async call is complete
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return null;
-            //throw new RuntimeException("Error while fetching account information", e);
-        }
-
-    }
-
-    public ArrayList<Account> getRecommendedUsers(final String userId) {
-
-        ArrayList<Account> listOfAllAccounts = new ArrayList<>();
-        Callable<ArrayList<Account>> asyncCall =
-                new Callable<ArrayList<Account>>() {
-            @Override
-            public ArrayList<Account> call() throws Exception {
-                Request getRecommendedProfiles = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/"+
-                                userId+
-                                "/recommendedUsers")
-                        .build();
-
-                Response response =
-                        client.newCall(getRecommendedProfiles).execute();
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response.code());
-                }
-
-                try (ResponseBody responseBody = response.body()) {
-                    String jsonResponse = responseBody.string();
-                    Type listType =
-                            new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
-
-                    List<AccountModelFromBackend> listOfRecommended =
-                            new Gson().fromJson(jsonResponse, listType);
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
-
-
-                    if (listOfRecommended == null) {
-                        throw new IOException("Gym model is null");
-                    }
-
-                    for(int i = 0; i<listOfRecommended.size(); i++){
-                        listOfAllAccounts.add(setAccountInformationFromBackend(listOfRecommended.get(i)));
-
-                    }
-
-                    return listOfAllAccounts;
-
-                }
-            }
-        };
-
-        Future<ArrayList<Account>> future = executorService.submit(asyncCall);
-
-        try {
-            return future.get(); // This will block until the async call is complete
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return null;
-            //throw new RuntimeException("Error while fetching account information", e);
-        }
-
 
     }
 
@@ -538,10 +396,10 @@ public class ConnectionToBackend {
         Account otherAccount;
 
         if(chatModelFromBackend.members.get(0) == myAccount.getUserId()){
-            otherAccount = getAccountInformationFromUserId
+            otherAccount = getAccountInformation
                     (chatModelFromBackend.members.get(1));
         } else {
-            otherAccount = getAccountInformationFromUserId
+            otherAccount = getAccountInformation
                     (chatModelFromBackend.members.get(0));
         }
         returnedChat.setOtherAccount(otherAccount);
@@ -582,7 +440,7 @@ public class ConnectionToBackend {
                     String jsonResponse = responseBody.string();
                     ManagerModelFromBackend managerModelFromBackend =
                             new Gson().fromJson(jsonResponse, ManagerModelFromBackend.class);
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     if (managerModelFromBackend == null) {
 
@@ -647,21 +505,19 @@ public class ConnectionToBackend {
                     Type listType =
                             new TypeToken<ArrayList<GymModelFromBackend>>(){}.getType();
 
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     List<GymModelFromBackend> listOfGymModels =
                             new Gson().fromJson(jsonResponse, listType);
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
 
 
                     if (listOfGymModels == null) {
                         throw new IOException("Gym model is null");
                     }
 
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR",
-                            listOfGymModels.size()+"");
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR",
-                            listOfGymModels.get(0).getName());
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.size()+"");
+                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.get(0).getName());
 
 
                     for(int i = 0; i<listOfGymModels.size(); i++){

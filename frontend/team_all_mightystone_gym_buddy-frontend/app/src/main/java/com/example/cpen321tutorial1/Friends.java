@@ -39,7 +39,7 @@ public class Friends
 
         //GET ALL FRIEND FROM BACKEND
         ConnectionToBackend c = new ConnectionToBackend();
-        List<Account> items = c.getAllFriends(myAccount.getUserId());
+        List<Account> items = c.getAllInList(myAccount.getUserId(), 0);
 
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
