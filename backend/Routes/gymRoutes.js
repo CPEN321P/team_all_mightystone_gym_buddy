@@ -106,7 +106,7 @@ router.put('/gymId/:gymId', async (req, res) => {
       { $set: updatedGym }
     );
     
-    if (result.matchedCount == 0) {
+    if (result.matchedCount === 0) {
       res.status(404).send('Gym not found');
     } else {
       res.status(200).json(updatedGym);
@@ -117,7 +117,7 @@ router.put('/gymId/:gymId', async (req, res) => {
 });
 
 //ChatGPT use: NO
-// Delete a user by ID
+// Delete a gym by ID
 router.delete('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();
