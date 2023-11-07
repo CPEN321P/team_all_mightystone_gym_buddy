@@ -135,7 +135,6 @@ public class LoginPage extends AppCompatActivity {
         signOut();
     }
 
-    /*
     private void NewCall(OkHttpClient client, Request requestName) {
         client.newCall(requestName).enqueue(new Callback() {
             @Override public void onFailure(Call call, IOException e) {
@@ -153,9 +152,6 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-     */
-
-    /*
     private void NewCallGet(OkHttpClient client, Request requestName) {
         client.newCall(requestName).enqueue(new Callback() {
             @Override public void onFailure(Call call, IOException e) {
@@ -171,8 +167,6 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
-
-     */
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
