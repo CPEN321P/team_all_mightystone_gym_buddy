@@ -3,11 +3,11 @@ package com.example.cpen321tutorial1;
 public class ChatMessage {
 
     //private String _id;
-    private Long schedule;
+    Long schedule;
     //senderId
 
-    private String sender;
+    String sender;
 
-    private String body;
+    String body;
 
 }

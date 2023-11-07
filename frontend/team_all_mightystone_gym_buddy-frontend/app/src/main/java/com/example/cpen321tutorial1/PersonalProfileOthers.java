@@ -53,8 +53,7 @@ public class PersonalProfileOthers
         Age.setText(posFriendAge);
         Weight.setText(posFriendWeight);
         Gender.setText(posFriendGender);
-        ArrayList<Account> MyCurrentBlockList =
-                GlobalClass.myAccount.getBlockList();
+        //ArrayList<Account> MyCurrentBlockList = GlobalClass.myAccount.getBlockList();
         //ArrayList<Account> OtherCurrentBlockList = /The Account that you get//.getBlockList();
 
         /*

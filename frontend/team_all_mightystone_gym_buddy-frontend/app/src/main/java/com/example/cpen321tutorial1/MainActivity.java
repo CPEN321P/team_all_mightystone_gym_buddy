@@ -27,7 +27,7 @@ public class MainActivity
     //private Button AddGym;
     //private Button OtherProfile, FriendProfile, UserGyms;
 
-    private Button GetStarted;
+    Button GetStarted;
 
     public static int TestComeFromOutsideOrNot = 0;
     //A public integer that use for jump to weekly schedule

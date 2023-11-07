@@ -39,9 +39,11 @@ public class ConnectionToBackend {
 
     final static String TAG = "ConnectionToBackend";
 
+    /*
     public void subscribeToGym(String gymId) {
 
     }
+     */
 
     //SCHEDULE FUNCTIONS!!!!
 

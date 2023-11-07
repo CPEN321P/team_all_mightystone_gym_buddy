@@ -173,6 +173,7 @@ public class LinkToGoogle
         });
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView,
                                View view, int i, long l) {

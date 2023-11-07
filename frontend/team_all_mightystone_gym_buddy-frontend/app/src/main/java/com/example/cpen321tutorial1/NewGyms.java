@@ -41,8 +41,7 @@ public class NewGyms
             public void onClick(View view) {
 
                 Account Owner = GlobalClass.myAccount;
-                ArrayList<Account> SubscribedUserss =
-                        new ArrayList<>();
+                //ArrayList<Account> SubscribedUserss = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();
                 String InputAccessTime = AccessTime.getText().toString();
