@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:name=".GlobalClass"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CPEN321Tutorial1"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".LinkToGoogleManager"
+            android:exported="false" />
+        <activity
+            android:name=".Logo"
+            android:exported="false" />
+        <activity
+            android:name=".PossibleFriends"
+            android:exported="false" />
+        <activity
+            android:name=".BlockedUsers"
+            android:exported="false" />
+        <activity
+            android:name=".Unblock"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Chat"
+            android:exported="false" />
+        <activity
+            android:name=".Messages"
+            android:exported="false" />
+        <activity
+            android:name=".Gyms"
+            android:exported="false" />
+        <activity
+            android:name=".Friends"
+            android:exported="false" />
+        <activity
+            android:name=".EditGymsProfile"
+            android:exported="false" />
+        <activity
+            android:name=".NewGyms"
+            android:exported="false" />
+        <activity
+            android:name=".GymsProfileManager"
+            android:exported="false" />
+        <activity
+            android:name=".GymProfile"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleFriendsMonthly"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleFriendsDaily"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleFriendsWeekly"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileFriend"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileOthers"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileManager"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileEdit"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalProfileUsers"
+            android:exported="false" />
+        <activity
+            android:name=".DailyCalendar"
+            android:exported="false" />
+        <activity
+            android:name=".WeekView"
+            android:exported="false" />
+        <activity
+            android:name=".CalenderCell"
+            android:exported="false" />
+        <activity
+            android:name=".EventEdit"
+            android:exported="false" />
+        <activity
+            android:name=".MonthlySchedule"
+            android:exported="false" />
+        <activity
+            android:name=".LinkToGoogle"
+            android:exported="false" />
+        <activity
+            android:name=".LoginPageManager"
+            android:exported="false" />
+        <activity
+            android:name=".LoginPage"
+            android:exported="false"
+            android:label="@string/title_activity_login_page"
+            android:theme="@style/Theme.CPEN321Tutorial1" />
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCs3wpgj1i0man7AYlApdbe_-zUZ-0rYYo" />
+
+        <activity
+            android:name=".Splash"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

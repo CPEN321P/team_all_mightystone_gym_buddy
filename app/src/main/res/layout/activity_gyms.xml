@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Gyms">
+
+    <RelativeLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:background="#818080">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gyms"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerview"
+        android:layout_below="@+id/top_bar"/>
+
+    <RelativeLayout
+        android:id="@+id/navigation_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/navigation_home"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#3A3A3A"
+            app:icon="@drawable/home" />
+
+        <Button
+            android:id="@+id/navigation_friends"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_home"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/friends" />
+
+        <Button
+            android:id="@+id/navigation_schedule"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_friends"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/baseline_calendar_month_24" />
+
+        <Button
+            android:id="@+id/navigation_gyms"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_schedule"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/gym"
+            />
+        <Button
+            android:id="@+id/navigation_profile"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_gyms"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/user" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

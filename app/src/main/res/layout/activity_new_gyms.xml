@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NewGyms">
+
+    <TextView
+        android:id="@+id/AddGym"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="Add a New Gym"
+        android:textColor="@color/black"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/GymName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AddGym"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30D9DDDC"
+        android:drawableLeft="@drawable/baseline_drive_file_rename_outline_24"
+        android:drawablePadding="20dp"
+        android:hint="Gym Name"
+        android:padding="20dp"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/Location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GymName"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30D9DDDC"
+        android:drawableLeft="@drawable/baseline_location_on_24"
+        android:drawablePadding="20dp"
+        android:hint="Location"
+        android:padding="20dp"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/AccessTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Location"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30D9DDDC"
+        android:drawableLeft="@drawable/baseline_access_time_24"
+        android:drawablePadding="20dp"
+        android:hint="Access Time (Mon-Sun 00:00-24:00)"
+        android:padding="20dp"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/Website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AccessTime"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30D9DDDC"
+        android:drawableLeft="@drawable/baseline_web_24"
+        android:drawablePadding="20dp"
+        android:hint="Website"
+        android:padding="20dp"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/Tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Website"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30D9DDDC"
+        android:drawableLeft="@drawable/baseline_push_pin_24"
+        android:drawablePadding="20dp"
+        android:hint="Tips"
+        android:padding="20dp"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:layout_below="@+id/Tips">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/Done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Tips"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/black"
+                android:text="@string/DONE"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/Cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Done"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/black"
+                android:text="CANCEL"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
