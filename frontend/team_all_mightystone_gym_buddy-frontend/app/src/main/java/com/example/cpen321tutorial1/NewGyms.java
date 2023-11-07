@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class NewGyms
         extends AppCompatActivity {
 
@@ -55,9 +53,12 @@ public class NewGyms
                 Log.d(TAG, "Website: " + InputWebsite);
                 Log.d(TAG, "Tips: " + InputTips);
 
+                /*
                 Gym TheAddGym = new Gym(InputName,
                         InputLocation, InputAccessTime,
                         InputWebsite, InputTips);
+
+                 */
                 //Gym.CurrentGym.clear();
                 //Gym.CurrentGym.add(TheAddGym);
 
