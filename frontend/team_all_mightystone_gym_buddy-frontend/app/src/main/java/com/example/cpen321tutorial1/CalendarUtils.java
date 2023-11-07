@@ -1,7 +1,5 @@
 package com.example.cpen321tutorial1;
 
-import android.util.Log;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -90,7 +88,8 @@ public class CalendarUtils {
             if(selectedDate.getDayOfWeek() == DayOfWeek.SUNDAY)
                 return selectedDate;
 
-            selectedDate = selectedDate.minusDays(1);
+            LocalDate Temp = selectedDate.minusDays(1);
+            selectedDate = Temp;
         }
 
         return null;
