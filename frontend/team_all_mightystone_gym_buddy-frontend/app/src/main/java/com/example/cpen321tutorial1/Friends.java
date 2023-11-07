@@ -22,7 +22,7 @@ public class Friends
 
     private Button Home;
 
-    private Button Friends;
+    Button Friends;
 
     private Button Schedule;
 

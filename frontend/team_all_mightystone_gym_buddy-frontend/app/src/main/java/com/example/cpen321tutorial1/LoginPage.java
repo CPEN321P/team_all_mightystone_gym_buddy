@@ -37,7 +37,7 @@ import okhttp3.ResponseBody;
 
 public class LoginPage extends AppCompatActivity {
 
-    private Button ModeButton;
+    Button ModeButton;
 
     final static String TAG = "UserLogInActivity";
 

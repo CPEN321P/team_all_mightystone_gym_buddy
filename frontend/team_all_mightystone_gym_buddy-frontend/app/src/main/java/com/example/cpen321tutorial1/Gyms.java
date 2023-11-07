@@ -14,13 +14,13 @@ import java.util.List;
 public class Gyms
         extends AppCompatActivity {
 
-    private Button Home;
+    Button Home;
 
-    private Button Friends;
+    Button Friends;
 
     private Button Schedule;
 
-    private Button Gyms;
+    Button Gyms;
 
     private Button PersonalProfile;
 

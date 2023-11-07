@@ -25,7 +25,7 @@ import com.google.android.gms.tasks.Task;
 public class LoginPageManager
         extends AppCompatActivity {
 
-    private Button ModeButton;
+    Button ModeButton;
 
     final static String TAG = "ManagerLogInActivity";
 

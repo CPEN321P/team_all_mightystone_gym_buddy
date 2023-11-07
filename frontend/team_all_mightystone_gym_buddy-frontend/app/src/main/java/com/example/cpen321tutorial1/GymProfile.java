@@ -25,11 +25,11 @@ public class GymProfile
 
     private TextView Location;
 
-    private TextView AccessTime;
+    //private TextView AccessTime;
 
-    private TextView Website;
+    //private TextView Website;
 
-    private TextView Tips;
+    //private TextView Tips;
 
     private Button Subscript;
 
@@ -112,10 +112,10 @@ public class GymProfile
 
     private void initWidgets() {
         Location = findViewById(R.id.Location);
-        AccessTime = findViewById(R.id.AccessTime);
-        Website = findViewById(R.id.Website);
+        //AccessTime = findViewById(R.id.AccessTime);
+        //Website = findViewById(R.id.Website);
         Name = findViewById(R.id.GymName);
-        Tips = findViewById(R.id.Tips);
+        //Tips = findViewById(R.id.Tips);
         Subscript = findViewById(R.id.Subscribe);
         CancelSubscript = findViewById(R.id.CancelSubscription);
     }

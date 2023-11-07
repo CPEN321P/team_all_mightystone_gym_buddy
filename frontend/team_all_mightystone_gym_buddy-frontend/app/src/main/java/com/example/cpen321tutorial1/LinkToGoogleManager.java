@@ -25,7 +25,7 @@ public class LinkToGoogleManager
     private TextView UserName;
 
     //private TextView
-    private Button Done;
+    Button Done;
 
 
     @Override
