@@ -78,6 +78,24 @@ router.get('/gymId/:gymId', async (req, res) => {
 });
 
 //ChatGPT use: NO
+// Get a gym by email
+router.get('/byEmail/:email', async (req, res) => {
+  try {
+    const db = getDB();
+
+    const gym = await db.collection('gyms').findOne({ email: req.params.email });
+
+    if (gym) {
+      res.status(200).json(gym);
+    } else {
+      res.status(404).send('Gym not found');
+    }
+  } catch (error) {
+    res.status(404).send('Gym not found');
+  }
+});
+
+//ChatGPT use: NO
 // Edit a gym by ID
 router.put('/gymId/:gymId', async (req, res) => {
   try {
