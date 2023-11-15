@@ -131,7 +131,7 @@ public class PossibleFriends
             @Override
             public void onClick(View view) {
                 Intent ScheduleIntent =
-                        new Intent(PossibleFriends.this, MonthlySchedule.class);
+                        new Intent(PossibleFriends.this, ScheduleMonthly.class);
                 startActivity(ScheduleIntent);
             }
         });

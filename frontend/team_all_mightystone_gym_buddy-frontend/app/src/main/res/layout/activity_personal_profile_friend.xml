@@ -164,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="2">
             <LinearLayout
                 android:gravity="center"
                 android:orientation="vertical"
@@ -176,6 +176,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Block"
+                    android:textSize="20dp"
+                    android:backgroundTint="@color/black"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/Cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
                     android:textSize="20dp"
                     android:backgroundTint="@color/black"/>
 

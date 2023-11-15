@@ -88,7 +88,7 @@ public class Gyms
             @Override
             public void onClick(View view) {
                 Intent ScheduleIntent =
-                        new Intent(Gyms.this, MonthlySchedule.class);
+                        new Intent(Gyms.this, ScheduleMonthly.class);
                 startActivity(ScheduleIntent);
             }
         });

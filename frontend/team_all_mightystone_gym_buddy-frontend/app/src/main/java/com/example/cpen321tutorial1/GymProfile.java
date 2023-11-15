@@ -2,6 +2,7 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.GlobalClass.myGym;
 import static com.example.cpen321tutorial1.JsonFunctions.JsonHomeGym;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
@@ -25,11 +26,11 @@ public class GymProfile
 
     private TextView Location;
 
-    //private TextView AccessTime;
+    private TextView Phone;
 
-    //private TextView Website;
+    private TextView Email;
 
-    //private TextView Tips;
+    private TextView Description;
 
     private Button Subscript;
 
@@ -43,17 +44,13 @@ public class GymProfile
         initWidgets();
         Intent i = getIntent();
 
-        String gymAddress = i.getStringExtra("GymAddress");
-        String gymName = i.getStringExtra("GymName");
+        //String gymAddress = i.getStringExtra("GymAddress");
+        //String gymName = i.getStringExtra("GymName");
         //Log.d("HAHA", "address: " + gymAddress);
-        Name.setText(gymName);
-        Location.setText(gymAddress);
+        //Name.setText(gymName);
+        //Location.setText(gymAddress);
         //Get the relative information from the database
-        //Name.setText();
-        //Location.setText();
-        //AccessTime.setText();
-        //Website.setText();
-        //Tips.setText();
+
 
         //ArrayList<Account> TheOldGymUserList =
         // Gym class that you get from database//.getSubscribedUsers();
@@ -68,7 +65,7 @@ public class GymProfile
                 //TheOldGymUserList.add(GlobalClass.myAccount);
                 //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList)
                 RequestBody body = RequestBody.create
-                        ("{"+ JsonHomeGym(gymName) + "}",
+                        ("{"+ JsonHomeGym(myGym.getName()) + "}",
                         MediaType.parse("application/json"));
 
                 Request subscribeToGym = new Request.Builder()
@@ -112,10 +109,10 @@ public class GymProfile
 
     private void initWidgets() {
         Location = findViewById(R.id.Location);
-        //AccessTime = findViewById(R.id.AccessTime);
-        //Website = findViewById(R.id.Website);
+        Phone = findViewById(R.id.Phone);
+        Email = findViewById(R.id.Email);
         Name = findViewById(R.id.GymName);
-        //Tips = findViewById(R.id.Tips);
+        Description = findViewById(R.id.Description);
         Subscript = findViewById(R.id.Subscribe);
         CancelSubscript = findViewById(R.id.CancelSubscription);
     }

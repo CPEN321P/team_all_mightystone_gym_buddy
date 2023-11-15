@@ -24,7 +24,7 @@ import java.util.ArrayList;
 //https://www.youtube.com/watch?v=Aig99t-gNqM&list=LL&index=6&t=238s
 //Thanks for the support from @Code With Cal
 
-public class MonthlySchedule
+public class ScheduleMonthly
         extends AppCompatActivity
         implements CalendarAdapter.OnItemListener{
 
@@ -46,14 +46,14 @@ public class MonthlySchedule
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weekly_schedule);
+        setContentView(R.layout.activity_schedule_monthly);
         initinalWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
 
         if(TestComeFromOutsideOrNot == 1){
             Intent WeeklyIntent =
-                    new Intent(MonthlySchedule.this, WeekView.class);
+                    new Intent(ScheduleMonthly.this, ScheduleWeekly.class);
             startActivity(WeeklyIntent);
             TestComeFromOutsideOrNot = 0;
         }
@@ -82,7 +82,7 @@ public class MonthlySchedule
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(MonthlySchedule.this, WeekView.class);
+                        new Intent(ScheduleMonthly.this, ScheduleWeekly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -91,7 +91,7 @@ public class MonthlySchedule
             @Override
             public void onClick(View view) {
                 Intent DailyIntent =
-                        new Intent(MonthlySchedule.this, DailyCalendar.class);
+                        new Intent(ScheduleMonthly.this, ScheduleDaily.class);
                 startActivity(DailyIntent);
             }
         });

@@ -11,17 +11,26 @@ import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -31,13 +40,15 @@ public class EventEdit
         extends AppCompatActivity {
 
     //private EditText eventName;
-    private TextView eventDate;
+    //private TextView eventDate;
 
-    private TextView eventStartTime;
+    //private TextView eventStartTime;
 
     private TextView HowLong;
 
     private TextView eventName;
+
+
 
     LocalTime StrTime;
 
@@ -49,13 +60,53 @@ public class EventEdit
 
     private Button Cancel;
 
+    private Button dateButton;
+
+    private Button timeButton;
+
+    int hour;
+
+    int minute;
+
     final static String TAG = "EventEdit";
+
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit);
         initWidgets();
+        initDatePicker();
+        dateButton.setText(getTodaysDate());
+
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show();
+            }
+        });
+
+        timeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener(){
+                    public void onTimeSet(TimePicker timePocker, int selectedHour, int selectedMinute){
+                        hour = selectedHour;
+                        minute = selectedMinute;
+                        timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                    }
+                };
+
+                int style = AlertDialog.THEME_HOLO_LIGHT;
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(EventEdit.this, style, onTimeSetListener, hour, minute, true);
+
+                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.show();
+            }
+        });
 
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +121,7 @@ public class EventEdit
             @Override
             public void onClick(View view) {
                 String StartTimeInString =
-                        eventStartTime.getText().toString() + ":00";
+                        timeButton.getText().toString() + ":00";
                 int NumberOfHour =
                         StringToInteger(HowLong.getText().toString());
                 if (NumberOfHour <= 0)
@@ -83,7 +134,7 @@ public class EventEdit
                 try {
                     StrTime = LocalTime.parse(StartTimeInString);
                     EndTime = StrTime.plusHours(NumberOfHour);
-                    EventDate = LocalDate.parse(eventDate.getText().toString());
+                    EventDate = LocalDate.parse(dateButton.getText().toString());
                     int value1 = EndTime.compareTo(LocalTime.parse("00:00:00"));
                     //Compare the time to see is it excess 24:00
                     int value2 = EndTime.compareTo(StrTime);
@@ -193,14 +244,103 @@ public class EventEdit
         });
     }
 
+    private String getTodaysDate() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return makeDateStringFromal(day, month, year);
+    }
+
     private void initWidgets(){
         Done = findViewById(R.id.Done);
         Cancel = findViewById(R.id.CancelAddEvent);
-        eventDate = findViewById(R.id.Date);
+        //eventDate = findViewById(R.id.Date);
         eventName = findViewById(R.id.Event);
-        eventStartTime = findViewById(R.id.StartTime);
+        //eventStartTime = findViewById(R.id.StartTime);
         HowLong = findViewById(R.id.HowLong);
+        dateButton = findViewById(R.id.Date);
+        timeButton = findViewById(R.id.StartTime);
     }
+
+    private void initDatePicker(){
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = makeDateStringFromal(day, month, year);
+                dateButton.setText(date);
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+    }
+
+    private String makeDateStringFromal(int day, int month, int year) {
+        return year + "-" + ConvertNumFormal(month) + "-" + ConvertNumFormal(day);
+    }
+
+    private String ConvertNumFormal (int num)
+    {
+        Log.d(TAG, "TheNum: " + num);
+        if (num == 1)
+            return "01";
+        if (num == 2)
+            return "02";
+        if (num == 3)
+            return "03";
+        if (num == 4)
+            return "04";
+        if (num == 5)
+            return "05";
+        if (num == 6)
+            return "06";
+        if (num == 7)
+            return "07";
+        if (num == 8)
+            return "08";
+        if (num == 9)
+            return "09";
+        return Integer.toString(num);
+
+    }
+
+    private String getMonthFormat(int month) {
+        if (month == 1)
+            return "JAN";
+        if (month == 2)
+            return "FEB";
+        if (month == 3)
+            return "MAR";
+        if (month == 4)
+            return "APR";
+        if (month == 5)
+            return "MAY";
+        if (month == 6)
+            return "JUN";
+        if (month == 7)
+            return "JUL";
+        if (month == 8)
+            return "AUG";
+        if (month == 9)
+            return "SEP";
+        if (month == 10)
+            return "OCT";
+        if (month == 12)
+            return "NOV";
+        if (month == 13)
+            return "DEC";
+
+        return "NON";
+    }
+
 
     private boolean checkIfSingleEventsExists(LocalDate Today) {
         ConnectionToBackend c = new ConnectionToBackend();

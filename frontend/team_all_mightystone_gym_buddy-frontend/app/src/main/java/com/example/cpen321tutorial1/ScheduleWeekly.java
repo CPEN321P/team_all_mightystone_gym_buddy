@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class WeekView
+public class ScheduleWeekly
         extends AppCompatActivity
         implements CalendarAdapter.OnItemListener{
 
@@ -39,13 +39,15 @@ public class WeekView
 
     private Button ClearEvents;
 
+    private Button Cancel;
+
     final static String TAG = "WeekView";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week_view);
+        setContentView(R.layout.activity_schedule_weekly);
         initinalWidgets();
         setWeekView();
 
@@ -73,7 +75,7 @@ public class WeekView
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(WeekView.this, EventEdit.class);
+                        new Intent(ScheduleWeekly.this, EventEdit.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -83,7 +85,7 @@ public class WeekView
             @Override
             public void onClick(View view) {
                 Intent EventIntent =
-                        new Intent(WeekView.this, MonthlySchedule.class);
+                        new Intent(ScheduleWeekly.this, ScheduleMonthly.class);
                 startActivity(EventIntent);
             }
         });
@@ -92,7 +94,7 @@ public class WeekView
             @Override
             public void onClick(View view) {
                 Intent DailyIntent = new Intent
-                        (WeekView.this, DailyCalendar.class);
+                        (ScheduleWeekly.this, ScheduleDaily.class);
                 startActivity(DailyIntent);
             }
         });
@@ -102,6 +104,15 @@ public class WeekView
             public void onClick(View view) {
                 Event.CleareventsForDate(CalendarUtils.selectedDate);
                 setEventAdapter();
+            }
+        });
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent DailyIntent = new Intent
+                        (ScheduleWeekly.this, Logo.class);
+                startActivity(DailyIntent);
             }
         });
     }
@@ -130,6 +141,7 @@ public class WeekView
         ClearEvents = findViewById(R.id.ClearEvent);
         MonthlyModel = findViewById(R.id.Weekly);
         DailyModel = findViewById(R.id.Daily);
+        Cancel = findViewById(R.id.Cancel);
     }
 
     @Override

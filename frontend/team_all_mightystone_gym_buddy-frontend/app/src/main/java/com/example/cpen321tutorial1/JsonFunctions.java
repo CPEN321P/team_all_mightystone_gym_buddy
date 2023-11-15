@@ -97,8 +97,8 @@ public class JsonFunctions {
         return Json;
     }
 
-    public static String JsonPhone(int phone){
-        String Json = "\"phone\": \""+ String.valueOf(phone) + "\"";
+    public static String JsonPhone(String phone){
+        String Json = "\"phone\": \""+ phone + "\"";
         return Json;
     }
 

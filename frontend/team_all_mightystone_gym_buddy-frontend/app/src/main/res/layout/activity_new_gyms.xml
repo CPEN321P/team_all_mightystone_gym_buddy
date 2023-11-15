@@ -54,7 +54,7 @@
         android:textColor="@color/black" />
 
     <EditText
-        android:id="@+id/AccessTime"
+        android:id="@+id/Phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Location"
@@ -63,33 +63,17 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_access_time_24"
+        android:drawableLeft="@drawable/baseline_phone_24"
         android:drawablePadding="20dp"
-        android:hint="Access Time (Mon-Sun 00:00-24:00)"
+        android:hint="Phone"
         android:padding="20dp"
         android:textColor="@color/black" />
 
     <EditText
-        android:id="@+id/Website"
+        android:id="@+id/Description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AccessTime"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_web_24"
-        android:drawablePadding="20dp"
-        android:hint="Website"
-        android:padding="20dp"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:id="@+id/Tips"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Website"
+        android:layout_below="@+id/Phone"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -97,7 +81,7 @@
         android:background="#30D9DDDC"
         android:drawableLeft="@drawable/baseline_push_pin_24"
         android:drawablePadding="20dp"
-        android:hint="Tips"
+        android:hint="Description"
         android:padding="20dp"
         android:textColor="@color/black" />
 
@@ -105,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="2"
-        android:layout_below="@+id/Tips">
+        android:layout_below="@+id/Description">
         <LinearLayout
             android:gravity="center"
             android:orientation="vertical"

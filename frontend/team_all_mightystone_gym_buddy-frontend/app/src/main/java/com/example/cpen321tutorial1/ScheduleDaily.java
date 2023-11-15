@@ -17,7 +17,7 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class DailyCalendar extends AppCompatActivity {
+public class ScheduleDaily extends AppCompatActivity {
 
     private TextView MonthDayText;
 
@@ -37,12 +37,14 @@ public class DailyCalendar extends AppCompatActivity {
 
     private Button ClearEvents;
 
+    private Button Cancel;
+
     final static String TAG = "Daily";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily_calendar);
+        setContentView(R.layout.activity_schedule_daily);
         initWidgets();
 
         PreviousDay.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +67,7 @@ public class DailyCalendar extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(DailyCalendar.this, MonthlySchedule.class);
+                        new Intent(ScheduleDaily.this, ScheduleMonthly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -74,7 +76,7 @@ public class DailyCalendar extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(DailyCalendar.this, WeekView.class);
+                        new Intent(ScheduleDaily.this, ScheduleWeekly.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -83,7 +85,7 @@ public class DailyCalendar extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent WeeklyIntent =
-                        new Intent(DailyCalendar.this, EventEdit.class);
+                        new Intent(ScheduleDaily.this, EventEdit.class);
                 startActivity(WeeklyIntent);
             }
         });
@@ -93,6 +95,15 @@ public class DailyCalendar extends AppCompatActivity {
             public void onClick(View view) {
                 CleareventsForDate(selectedDate);
                 setHourAdapter();
+            }
+        });
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent DailyIntent = new Intent
+                        (ScheduleDaily.this, Logo.class);
+                startActivity(DailyIntent);
             }
         });
     }
@@ -105,7 +116,7 @@ public class DailyCalendar extends AppCompatActivity {
         NextDay = findViewById(R.id.NextDayAction);
         NewEvent = findViewById(R.id.AddEvent);
         ClearEvents = findViewById(R.id.ClearEvent);
-
+        Cancel = findViewById(R.id.Cancel);
         Monthly = findViewById(R.id.Monthly);
         Weekly = findViewById(R.id.Weekly);
     }

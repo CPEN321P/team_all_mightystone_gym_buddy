@@ -11,6 +11,8 @@ public class GlobalClass extends Application {
 
     public static Account myAccount = new Account();
 
+    public static Gym myGym = new Gym();
+
     public static ArrayList<Event> MyeventsList = new ArrayList<>();
 
     public final static OkHttpClient client =

@@ -21,6 +21,8 @@ public class PersonalProfileUsers
 
     Button Schedule;
 
+    Button Cancel;
+
     TextView Username;
 
     TextView Email;
@@ -78,7 +80,7 @@ public class PersonalProfileUsers
             public void onClick(View view) {
                 MainActivity.TestComeFromOutsideOrNot = 1;
                 Intent ScheduleIntent =
-                        new Intent(PersonalProfileUsers.this, MonthlySchedule.class);
+                        new Intent(PersonalProfileUsers.this, ScheduleMonthly.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -90,6 +92,13 @@ public class PersonalProfileUsers
                         new Intent(PersonalProfileUsers.this, BlockedUsers.class);
 
                 startActivity(BlockIntent);
+            }
+        });
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -105,5 +114,6 @@ public class PersonalProfileUsers
         Profile = findViewById(R.id.EditPersonalProfile);
         Schedule = findViewById(R.id.EditSchedule);
         BlockList = findViewById(R.id.BlockList);
+        Cancel = findViewById(R.id.Cancel);
     }
 }

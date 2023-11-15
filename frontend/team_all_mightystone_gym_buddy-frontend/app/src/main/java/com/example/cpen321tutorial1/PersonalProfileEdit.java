@@ -134,6 +134,10 @@ public class PersonalProfileEdit
                 NewCallPost(client, putUserRequest);
                 Log.d("THIS IS WHAT YOURE LOOKING FOR","DID PUT");
 
+                Toast.makeText(PersonalProfileEdit.this,
+                        "Personal Profile Edit Success",
+                        Toast.LENGTH_SHORT).show();
+
                 Intent PersonalProfileIntent =
                         new Intent(PersonalProfileEdit.this, PersonalProfileUsers.class);
                 startActivity(PersonalProfileIntent);

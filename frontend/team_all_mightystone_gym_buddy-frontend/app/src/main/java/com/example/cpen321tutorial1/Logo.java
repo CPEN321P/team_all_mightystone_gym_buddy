@@ -1,11 +1,20 @@
 package com.example.cpen321tutorial1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class Logo
         extends AppCompatActivity {
@@ -19,6 +28,12 @@ public class Logo
     Button Gyms;
 
     Button PersonalProfile;
+
+    Button LogOut;
+
+    private GoogleSignInClient mGoogleSignInClient;
+
+    final static String TAG = "Logo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +68,7 @@ public class Logo
             @Override
             public void onClick(View view) {
                 Intent ScheduleIntent =
-                        new Intent(Logo.this, MonthlySchedule.class);
+                        new Intent(Logo.this, ScheduleMonthly.class);
                 startActivity(ScheduleIntent);
             }
         });
@@ -80,5 +95,40 @@ public class Logo
             }
         });
 
+        GoogleSignInOptions gso =
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build();
+
+        mGoogleSignInClient =
+                GoogleSignIn.getClient(Logo.this, gso);
+
+        LogOut = findViewById(R.id.LogOut);
+
+        LogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+                Intent LogOutIntent =
+                        new Intent(Logo.this,
+                                LoginPage.class);
+                startActivity(LogOutIntent);
+            }
+        });
+
+    }
+
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                        Log.d(TAG, "Log out successful");
+                        Toast.makeText(Logo.this,
+                                "Log out successful",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

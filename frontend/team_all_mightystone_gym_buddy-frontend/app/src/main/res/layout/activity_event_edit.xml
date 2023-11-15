@@ -14,82 +14,222 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="25dp"
         android:gravity="center"
         android:text="Add Event"
         android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/Event"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:layout_below="@+id/addevent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_drive_file_rename_outline_24"
-        android:drawablePadding="20dp"
-        android:hint="Event Name"
-        android:padding="20dp"
-        android:textColor="@color/black" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/Bar">
 
-    <EditText
-        android:id="@+id/Date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Event"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_calendar_month_24"
-        android:drawablePadding="20dp"
-        android:hint="Date (YYYY-MM-DD)"
-        android:padding="20dp"
-        android:textColor="@color/black" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-    <EditText
-        android:id="@+id/StartTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Date"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_access_time_24"
-        android:drawablePadding="20dp"
-        android:hint="Start Time (00:00-24:00)"
-        android:padding="20dp"
-        android:textColor="@color/black" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="4">
 
-    <EditText
-        android:id="@+id/HowLong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/StartTime"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#30D9DDDC"
-        android:drawableLeft="@drawable/baseline_timer_24"
-        android:drawablePadding="20dp"
-        android:hint="Number Of Hours"
-        android:padding="20dp"
-        android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/Event"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#30D9DDDC"
+                    android:drawableLeft="@drawable/baseline_drive_file_rename_outline_24"
+                    android:drawablePadding="10dp"
+                    android:hint="Event Name"
+                    android:padding="20dp"
+                    android:textColor="@color/black" />
+
+                <!--
+                <EditText
+                    android:id="@+id/Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Event"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#30D9DDDC"
+                    android:drawableLeft="@drawable/baseline_calendar_month_24"
+                    android:drawablePadding="10dp"
+                    android:hint="Date"
+                    android:padding="20dp"
+                    android:textColor="@color/black" />
+                -->
+                <LinearLayout
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_width="380dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/DateLayOut"
+                    android:background="#30D9DDDC">
+                    <Button
+                        android:layout_gravity="center"
+                        android:id="@+id/Date"
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:text="Jan 01 2020"
+                        android:drawablePadding="20dp"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        style="?android:spinnerStyle"
+                        android:drawableLeft="@drawable/baseline_calendar_month_24" />
+                </LinearLayout>
+
+                <!--
+                <EditText
+                    android:id="@+id/StartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_below="@+id/DateLayOut"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#30D9DDDC"
+                    android:drawableLeft="@drawable/baseline_access_time_24"
+                    android:drawablePadding="20dp"
+                    android:hint="Start Time"
+                    android:padding="20dp"
+                    android:textColor="@color/black" />
+                 -->
+                <LinearLayout
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_width="380dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/StartTimeLayOut"
+                    android:background="#30D9DDDC">
+                    <Button
+                        android:layout_gravity="center"
+                        android:id="@+id/StartTime"
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:text="00:00"
+                        android:drawablePadding="20dp"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        style="?android:spinnerStyle"
+                        android:drawableLeft="@drawable/baseline_access_time_24" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/HowLong"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_below="@+id/StartTime"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#30D9DDDC"
+                    android:drawableLeft="@drawable/baseline_timer_24"
+                    android:drawablePadding="20dp"
+                    android:hint="Num Of Hours"
+                    android:padding="20dp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <!--
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+                <EditText
+                    android:id="@+id/Weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#30D9DDDC"
+                    android:drawableLeft="@drawable/baseline_drive_file_rename_outline_24"
+                    android:drawablePadding="20dp"
+                    android:hint="Weight"
+                    android:padding="20dp"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/Sets"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_below="@+id/Weight"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#30D9DDDC"
+                    android:drawableLeft="@drawable/baseline_timelapse_24"
+                    android:drawablePadding="20dp"
+                    android:hint="Sets"
+                    android:padding="20dp"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/Reps"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_below="@+id/Date"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#30D9DDDC"
+                    android:drawableLeft="@drawable/baseline_more_time_24"
+                    android:drawablePadding="20dp"
+                    android:hint="Reps"
+                    android:padding="20dp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            -->
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
 
     <Button
         android:id="@+id/Done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/HowLong"
+        android:layout_below="@+id/Bar"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"

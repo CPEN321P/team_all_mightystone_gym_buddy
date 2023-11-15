@@ -38,6 +38,8 @@ public class LoginPage extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
 
 
+
+
     ActivityResultLauncher<Intent> activityResult =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
@@ -64,6 +66,7 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        myAccount = new Account();
         /*
         String Json = JsonFunctions.JsonName("Zheng Xu");
 
@@ -87,7 +90,6 @@ public class LoginPage extends AppCompatActivity {
 
         NewCallGet(client, requestName);
         */
-
 
         ModeButton = findViewById(R.id.ManagerMode);
 
@@ -201,7 +203,7 @@ public class LoginPage extends AppCompatActivity {
         }
         else {
 
-            myAccount.setEmailAddress(account.getEmail());
+
 
             //CHECK IF EMAIL ALREADY EXISTS IN DATABASE BEFORE CREATING
 

@@ -175,7 +175,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="2">
+        android:weightSum="3">
         <LinearLayout
             android:gravity="center"
             android:orientation="vertical"
@@ -185,9 +185,9 @@
             <Button
                 android:id="@+id/EditPersonalProfile"
                 android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="Edit Profile"
+                android:text="Edit Profile or logout"
                 android:backgroundTint="@color/black"/>
         </LinearLayout>
         <LinearLayout
@@ -202,6 +202,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit Schedule"
+                android:backgroundTint="@color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/Cancel"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
                 android:backgroundTint="@color/black"/>
         </LinearLayout>
 

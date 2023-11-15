@@ -10,6 +10,16 @@ public class Manager {
 
     private String email;
 
+    private String gymId;
+
+    public String getGymId() {
+        return gymId;
+    }
+
+    public void setGymId(String gymId) {
+        this.gymId = gymId;
+    }
+
     public String get_id() {
         return _id;
     }

@@ -86,10 +86,10 @@
             android:name=".PersonalProfileUsers"
             android:exported="false" />
         <activity
-            android:name=".DailyCalendar"
+            android:name=".ScheduleDaily"
             android:exported="false" />
         <activity
-            android:name=".WeekView"
+            android:name=".ScheduleWeekly"
             android:exported="false" />
         <activity
             android:name=".CalenderCell"
@@ -98,7 +98,7 @@
             android:name=".EventEdit"
             android:exported="false" />
         <activity
-            android:name=".MonthlySchedule"
+            android:name=".ScheduleMonthly"
             android:exported="false" />
         <activity
             android:name=".LinkToGoogle"

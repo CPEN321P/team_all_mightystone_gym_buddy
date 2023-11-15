@@ -473,6 +473,7 @@ public class ConnectionToBackend {
         returnedManager.setName(managerModelFromBackend.getName());
         returnedManager.setUsername(managerModelFromBackend.getUsername());
         returnedManager.setEmail(managerModelFromBackend.getEmail());
+        returnedManager.setGymId(managerModelFromBackend.getGymId());
 
         return returnedManager;
     }
@@ -541,13 +542,100 @@ public class ConnectionToBackend {
 
     }
 
+    public Gym getGymById (final String Id){
+        Callable<Gym> asyncCall =
+                new Callable<Gym>() {
+                    @Override
+                    public Gym call() throws Exception {
+
+                        Request getEventInformation = new Request.Builder()
+                                .url("https://20.172.9.70/gyms/gymId/" + Id)
+                                .build();
+
+                        Response response =
+                                client.newCall(getEventInformation).execute();
+
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response.code());
+                        }
+
+                        try (ResponseBody responseBody = response.body()) {
+                            String jsonResponse = responseBody.string();
+                            GymModelFromBackend GymModelFromBackend =
+                                    new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
+
+                            if (GymModelFromBackend == null) {
+                                throw new IOException("Schedule model is null");
+                            }
+
+
+                            return setGymInformationFromBackend(GymModelFromBackend);
+                        }
+                    }
+                };
+
+        Future<Gym> future = executorService.submit(asyncCall);
+        try {
+            return future.get();
+            // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Gym getGymByEmail (final String Email){
+        Callable<Gym> asyncCall =
+                new Callable<Gym>() {
+                    @Override
+                    public Gym call() throws Exception {
+
+                        Request getEventInformation = new Request.Builder()
+                                .url("https://20.172.9.70/gyms/byEmail/" + Email)
+                                .build();
+
+                        Response response =
+                                client.newCall(getEventInformation).execute();
+
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response.code());
+                        }
+
+                        try (ResponseBody responseBody = response.body()) {
+                            String jsonResponse = responseBody.string();
+                            GymModelFromBackend GymModelFromBackend =
+                                    new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
+
+                            if (GymModelFromBackend == null) {
+                                throw new IOException("Schedule model is null");
+                            }
+
+
+                            return setGymInformationFromBackend(GymModelFromBackend);
+                        }
+                    }
+                };
+
+        Future<Gym> future = executorService.submit(asyncCall);
+        try {
+            return future.get();
+            // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private Gym setGymInformationFromBackend
             (GymModelFromBackend gymModelFromBackend) {
+
         Gym returnedGym = new Gym();
-
-
         returnedGym.setName(gymModelFromBackend.getName());
         returnedGym.setAddress(gymModelFromBackend.getLocation());
+        returnedGym.setPhone(gymModelFromBackend.getPhone());
+        returnedGym.setEmail(gymModelFromBackend.getEmail());
+        returnedGym.setDescription(gymModelFromBackend.getDescription());
+        returnedGym.setGymId(gymModelFromBackend.get_id());
         //returnedGym.setImage(R.drawable.gym);
 
         //FOR NOW WE ARE ADDING THE IMAGE

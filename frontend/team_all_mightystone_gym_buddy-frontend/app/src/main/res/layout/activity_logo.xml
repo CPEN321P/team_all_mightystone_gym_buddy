@@ -67,4 +67,11 @@
 
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/LogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:backgroundTint="#FF3A3A3A"/>
+
 </RelativeLayout>

@@ -90,7 +90,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="3">
+        android:weightSum="2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,6 +106,21 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/black"
                 android:text="Announce" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/LogOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/black"
+                android:text="Log Out" />
         </LinearLayout>
 
     </LinearLayout>
