@@ -43,36 +43,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="3">
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/Friends"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Friends"
-                        android:textSize="20dp"
-                        android:backgroundTint="@color/black"/>
 
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/Gyms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gyms"
-                        android:textSize="20dp"
-                        android:backgroundTint="@color/black"/>
-
-                </LinearLayout>
                 <LinearLayout
                     android:gravity="center"
                     android:orientation="vertical"
@@ -89,6 +60,41 @@
                         android:textSize="20dp" />
 
                 </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <Button
+                    android:id="@+id/EditPersonalProfile"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Profile"
+                    android:backgroundTint="@color/black"
+                    android:textSize="20dp"
+                />
+            </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/LogOut"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="Log Out"
+                        android:backgroundTint="@color/black"
+                        android:textSize="20dp"
+                        />
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
@@ -98,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="45dp">
+        android:layout_marginTop="35dp">
         <LinearLayout
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
@@ -170,54 +176,81 @@
                 android:paddingLeft="20dp"
                 android:text="Gender"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:paddingLeft="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/gym"/>
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/Gym"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="Gym"/>
+        </LinearLayout>
     </LinearLayout>
 
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="3">
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/EditPersonalProfile"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="Edit Profile or logout"
-                android:backgroundTint="@color/black"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/EditSchedule"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Schedule"
-                android:backgroundTint="@color/black"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/Cancel"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:backgroundTint="@color/black"/>
-        </LinearLayout>
+        android:id="@+id/navigation_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:gravity="bottom"
+        >
+
+        <Button
+            android:id="@+id/navigation_home"
+            android:contentDescription="Home"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#3A3A3A"
+            app:icon="@drawable/home" />
+
+        <Button
+            android:id="@+id/navigation_friends"
+            android:contentDescription="Friends"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_home"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/friends" />
+
+        <Button
+            android:id="@+id/navigation_schedule"
+            android:contentDescription="Schedule"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_friends"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/baseline_calendar_month_24" />
+
+        <Button
+            android:id="@+id/navigation_gyms"
+            android:contentDescription="Gyms"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_schedule"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/gym"
+            />
+        <Button
+            android:id="@+id/navigation_profile"
+            android:contentDescription="Profile"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/navigation_gyms"
+            android:backgroundTint="#FF3A3A3A"
+            app:icon="@drawable/user"
+            />
+
 
     </LinearLayout>
 

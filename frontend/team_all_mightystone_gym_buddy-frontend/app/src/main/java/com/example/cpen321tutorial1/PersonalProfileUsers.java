@@ -11,17 +11,10 @@ import android.widget.TextView;
 public class PersonalProfileUsers
         extends AppCompatActivity {
 
-    Button FriendsList;
-
-    Button GymList;
-
     Button BlockList;
 
     Button Profile;
-
-    Button Schedule;
-
-    Button Cancel;
+    Button LogOut;
 
     TextView Username;
 
@@ -32,6 +25,19 @@ public class PersonalProfileUsers
     TextView Weight;
 
     TextView Gender;
+
+    TextView Gym;
+
+    //dashboard buttons
+    Button Home;
+
+    Button Friends;
+
+    Button Schedule;
+
+    Button Gyms;
+
+    Button PersonalProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,20 @@ public class PersonalProfileUsers
                 " kg");
         Gender.setText(GlobalClass.myAccount.getGender());
 
-        FriendsList.setOnClickListener(new View.OnClickListener() {
+        Home = findViewById(R.id.navigation_home);
+
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent HomeIntent =
+                        new Intent(PersonalProfileUsers.this, Logo.class);
+                startActivity(HomeIntent);
+            }
+        });
+
+        Friends = findViewById(R.id.navigation_friends);
+
+        Friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent FriendsIntent =
@@ -57,14 +76,47 @@ public class PersonalProfileUsers
             }
         });
 
-        GymList.setOnClickListener(new View.OnClickListener() {
+        Schedule = findViewById(R.id.navigation_schedule);
+
+        Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent GymsIntent =
-                        new Intent(PersonalProfileUsers.this, Gyms.class);
-                startActivity(GymsIntent);
+                Intent ScheduleIntent =
+                        new Intent(PersonalProfileUsers.this, ScheduleMonthly.class);
+                startActivity(ScheduleIntent);
             }
         });
+
+        Gyms = findViewById(R.id.navigation_gyms);
+
+        Gyms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent GymIntent =
+                        new Intent(PersonalProfileUsers.this, Gyms.class);
+                startActivity(GymIntent);
+            }
+        });
+
+        PersonalProfile = findViewById(R.id.navigation_profile);
+
+        PersonalProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ProfileIntent =
+                        new Intent(PersonalProfileUsers.this, PersonalProfileUsers.class);
+                startActivity(ProfileIntent);
+            }
+        });
+
+        if(Gym != null){
+            Gym.setText(GlobalClass.myAccount.getMyGym().getName());
+
+        } else {
+            Gym.setText("NO GYM YET");
+        }
+
+
 
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,15 +127,15 @@ public class PersonalProfileUsers
             }
         });
 
-        Schedule.setOnClickListener(new View.OnClickListener() {
+        LogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.TestComeFromOutsideOrNot = 1;
-                Intent ScheduleIntent =
-                        new Intent(PersonalProfileUsers.this, ScheduleMonthly.class);
-                startActivity(ScheduleIntent);
+                Intent LogOutIntent =
+                        new Intent(PersonalProfileUsers.this, MainActivity.class);
+                startActivity(LogOutIntent);
             }
         });
+
 
         BlockList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,25 +147,17 @@ public class PersonalProfileUsers
             }
         });
 
-        Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     private void initWidgets() {
-        FriendsList = findViewById(R.id.Friends);
-        GymList = findViewById(R.id.Gyms);
         Username = findViewById(R.id.Username);
         Email = findViewById(R.id.Email);
         Age = findViewById(R.id.Age);
         Weight = findViewById(R.id.Weight);
         Gender = findViewById(R.id.Gender);
         Profile = findViewById(R.id.EditPersonalProfile);
-        Schedule = findViewById(R.id.EditSchedule);
+        Gym = findViewById(R.id.Gym);
+        LogOut = findViewById(R.id.LogOut);
         BlockList = findViewById(R.id.BlockList);
-        Cancel = findViewById(R.id.Cancel);
     }
 }
