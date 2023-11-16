@@ -44,11 +44,12 @@ public class GymProfile
         initWidgets();
         Intent i = getIntent();
 
-        //String gymAddress = i.getStringExtra("GymAddress");
-        //String gymName = i.getStringExtra("GymName");
+        String gymAddress = i.getStringExtra("GymAddress");
+        String gymName = i.getStringExtra("GymName");
         //Log.d("HAHA", "address: " + gymAddress);
-        //Name.setText(gymName);
-        //Location.setText(gymAddress);
+        Name.setText(gymName);
+        Location.setText(gymAddress);
+
         //Get the relative information from the database
 
 
