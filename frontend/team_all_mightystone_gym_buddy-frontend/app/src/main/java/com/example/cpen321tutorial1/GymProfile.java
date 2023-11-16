@@ -46,9 +46,17 @@ public class GymProfile
 
         String gymAddress = i.getStringExtra("GymAddress");
         String gymName = i.getStringExtra("GymName");
+        String gymEmail = i.getStringExtra("GymEmail");
+        String gymDescription = i.getStringExtra("GymDescription");
+        String gymPhone = i.getStringExtra("GymPhone");
+        String gymId = i.getStringExtra("GymId");
+
         //Log.d("HAHA", "address: " + gymAddress);
         Name.setText(gymName);
         Location.setText(gymAddress);
+        Email.setText(gymEmail);
+        Description.setText(gymDescription);
+        Phone.setText(gymPhone);
 
         //Get the relative information from the database
 
@@ -65,8 +73,9 @@ public class GymProfile
 
                 //TheOldGymUserList.add(GlobalClass.myAccount);
                 //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList)
+
                 RequestBody body = RequestBody.create
-                        ("{"+ JsonHomeGym(myGym.getName()) + "}",
+                        ("{"+ JsonHomeGym(gymId) + "}",
                         MediaType.parse("application/json"));
 
                 Request subscribeToGym = new Request.Builder()
@@ -75,7 +84,7 @@ public class GymProfile
                         .put(body)
                         .build();
                 NewCallPost(client, subscribeToGym);
-
+                myGym = new Gym(gymName,gymAddress,gymPhone,gymEmail,gymDescription,gymId);
 
                 Toast.makeText(GymProfile.this,
                         "Subscribed to the Gym!",
