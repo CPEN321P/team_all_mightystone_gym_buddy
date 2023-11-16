@@ -256,13 +256,13 @@ public class ConnectionToBackend {
                 .build();
         Response response =
                 client.newCall(getEventInformation).execute();
+        if(response.isSuccessful()){
         ResponseBody responseBody = response.body();
         String jsonResponse = responseBody.string();
         GymModelFromBackend gymModelFromBackend =
                 new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
-        if(gymModelFromBackend != null){
-            Gym gym = setGymInformationFromBackend(gymModelFromBackend);
-            returnedAccount.setMyGym(gym);
+        Gym gym = setGymInformationFromBackend(gymModelFromBackend);
+        returnedAccount.setMyGym(gym);
         }
         return returnedAccount;
 
@@ -300,23 +300,22 @@ public class ConnectionToBackend {
 
                 Response response =
                         client.newCall(getProfiles).execute();
-
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
                 }
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-
+                    Log.d("HAHA", "309 "+ jsonResponse);
                     Type listType =
                             new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
 
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     List<AccountModelFromBackend> listOfFriends =
                             new Gson().fromJson(jsonResponse, listType);
 
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", "FRIENDS GOTTTTT");
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "FRIENDS GOTTTTT");
 
 
                     if (listOfFriends == null) {
@@ -324,11 +323,12 @@ public class ConnectionToBackend {
                     }
 
                     for(int i = 0; i<listOfFriends.size(); i++){
+                        Log.d("HAHA", "326");
                         listOfAllAccounts.add
                                 (setAccountInformationFromBackend(listOfFriends.get(i)));
 
                     }
-
+                    Log.d("HAHA", "330");
                     return listOfAllAccounts;
 
                 }
