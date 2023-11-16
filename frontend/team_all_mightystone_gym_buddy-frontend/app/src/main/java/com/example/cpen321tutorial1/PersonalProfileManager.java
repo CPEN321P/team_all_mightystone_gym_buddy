@@ -165,7 +165,7 @@ public class PersonalProfileManager
             Log.d("THISSSSSSS", "manager is null :c");
             return false;
         }
-        GlobalClass.myGym = thisGymFromBackend;
+        myAccount.setMyGym(thisGymFromBackend);
         manager.setGymId(thisGymFromBackend.getGymId());
         Log.d(TAG, thisGymFromBackend.getGymId());
         return true;

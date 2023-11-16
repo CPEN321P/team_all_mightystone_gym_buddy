@@ -2,7 +2,6 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-import static com.example.cpen321tutorial1.GlobalClass.myGym;
 import static com.example.cpen321tutorial1.JsonFunctions.JsonHomeGym;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
@@ -84,7 +83,7 @@ public class GymProfile
                         .put(body)
                         .build();
                 NewCallPost(client, subscribeToGym);
-                myGym = new Gym(gymName,gymAddress,gymPhone,gymEmail,gymDescription,gymId);
+                myAccount.setMyGym(new Gym(gymName,gymAddress,gymPhone,gymEmail,gymDescription,gymId));
 
                 Toast.makeText(GymProfile.this,
                         "Subscribed to the Gym!",

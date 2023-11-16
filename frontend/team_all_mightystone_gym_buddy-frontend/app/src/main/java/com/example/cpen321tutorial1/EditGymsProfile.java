@@ -3,7 +3,6 @@ package com.example.cpen321tutorial1;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.manager;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-import static com.example.cpen321tutorial1.GlobalClass.myGym;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,10 +47,10 @@ public class EditGymsProfile
         // they are the only ones able to edit it
 
         //TODO: uncomment these later
-        Name.setText(myGym.getName());
-        Location.setText(myGym.getAddress());
-        Phone.setText(myGym.getPhone());
-        Description.setText(myGym.getDescription());
+        Name.setText(myAccount.getMyGym().getName());
+        Location.setText(myAccount.getMyGym().getAddress());
+        Phone.setText(myAccount.getMyGym().getPhone());
+        Description.setText(myAccount.getMyGym().getDescription());
 
         Done.setOnClickListener(new View.OnClickListener() {
             @Override

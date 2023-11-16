@@ -1,6 +1,6 @@
 package com.example.cpen321tutorial1;
 
-import static com.example.cpen321tutorial1.GlobalClass.myGym;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,11 +40,11 @@ public class GymsProfileManager
         //Website.setText(Gym.CurrentGym.get(0).getWebsite());
         //Tips.setText(Gym.CurrentGym.get(0).getTips());
 
-        Name.setText(myGym.getName());
-        Location.setText(myGym.getAddress());
-        Phone.setText(myGym.getPhone());
-        Email.setText(myGym.getEmail());
-        Description.setText(myGym.getDescription());
+        Name.setText(myAccount.getMyGym().getName());
+        Location.setText(myAccount.getMyGym().getAddress());
+        Phone.setText(myAccount.getMyGym().getPhone());
+        Email.setText(myAccount.getMyGym().getEmail());
+        Description.setText(myAccount.getMyGym().getDescription());
 
         Edit.setOnClickListener(new View.OnClickListener() {
             @Override

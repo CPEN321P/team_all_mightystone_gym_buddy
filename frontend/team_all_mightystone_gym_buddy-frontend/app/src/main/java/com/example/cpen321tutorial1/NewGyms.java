@@ -3,7 +3,6 @@ package com.example.cpen321tutorial1;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.manager;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-import static com.example.cpen321tutorial1.GlobalClass.myGym;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -98,11 +97,11 @@ public class NewGyms
 
 
                 /////////////////////////////////////////////
-                myGym.setName(InputName);
-                myGym.setDescription(InputDescription);
-                myGym.setAddress(InputLocation);
-                myGym.setPhone(InputPhone);
-                myGym.setEmail(manager.getEmail());
+                myAccount.getMyGym().setName(InputName);
+                myAccount.getMyGym().setDescription(InputDescription);
+                myAccount.getMyGym().setAddress(InputLocation);
+                myAccount.getMyGym().setPhone(InputPhone);
+                myAccount.getMyGym().setEmail(manager.getEmail());
                 /////////////////////////////////////////////
 
 
