@@ -1,9 +1,12 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.accountFromBackend;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NumToLocalDate;
 import static com.example.cpen321tutorial1.JsonFunctions.NumToLocalTime;
+
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -235,7 +238,7 @@ public class ConnectionToBackend {
     }
 
     public Account setAccountInformationFromBackend
-            (AccountModelFromBackend accountModel){
+            (AccountModelFromBackend accountModel) throws IOException {
 
         Account returnedAccount =
                 new Account(accountModel.getName(),
@@ -246,6 +249,21 @@ public class ConnectionToBackend {
                 new ArrayList<>());
 
         returnedAccount.setUserId(accountModel.getId());
+
+        //getting gym
+        Request getEventInformation = new Request.Builder()
+                .url("https://20.172.9.70/gyms/gymId/" + accountModel.getHomeGym())
+                .build();
+        Response response =
+                client.newCall(getEventInformation).execute();
+        ResponseBody responseBody = response.body();
+        String jsonResponse = responseBody.string();
+        GymModelFromBackend gymModelFromBackend =
+                new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
+        if(gymModelFromBackend != null){
+            Gym gym = setGymInformationFromBackend(gymModelFromBackend);
+            returnedAccount.setMyGym(gym);
+        }
         return returnedAccount;
 
     }
@@ -547,29 +565,30 @@ public class ConnectionToBackend {
                 new Callable<Gym>() {
                     @Override
                     public Gym call() throws Exception {
-
+                        Log.d("HAHAHAHA","Here 557");
                         Request getEventInformation = new Request.Builder()
                                 .url("https://20.172.9.70/gyms/gymId/" + Id)
                                 .build();
-
+                        Log.d("HAHAHAHA","Here 561");
                         Response response =
                                 client.newCall(getEventInformation).execute();
-
+                        Log.d("HAHAHAHA","Here 564");
                         if (!response.isSuccessful()) {
                             throw new IOException("Unexpected code " + response.code());
                         }
 
                         try (ResponseBody responseBody = response.body()) {
+                            Log.d("HAHAHAHA","Here 570");
                             String jsonResponse = responseBody.string();
-                            GymModelFromBackend GymModelFromBackend =
+                            GymModelFromBackend gymModelFromBackend =
                                     new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
 
-                            if (GymModelFromBackend == null) {
+                            if (gymModelFromBackend == null) {
                                 throw new IOException("Schedule model is null");
                             }
+                            Log.d("HAHAHAHA","Here 577");
 
-
-                            return setGymInformationFromBackend(GymModelFromBackend);
+                            return setGymInformationFromBackend(gymModelFromBackend);
                         }
                     }
                 };

@@ -31,10 +31,9 @@ public class GymProfile
 
     private TextView Description;
 
-    private Button Subscript;
+    private Button Subscribe;
 
-    private Button CancelSubscript;
-
+    private boolean isSubscribed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +56,15 @@ public class GymProfile
         Description.setText(gymDescription);
         Phone.setText(gymPhone);
 
+        if(myAccount.getMyGym().getGymId().equals(gymId)){
+            isSubscribed = true;
+            Subscribe.setText("Unsubscribe");
+        }
+
         //Get the relative information from the database
-
-
         //ArrayList<Account> TheOldGymUserList =
         // Gym class that you get from database//.getSubscribedUsers();
-        Subscript.setOnClickListener(new View.OnClickListener() {
+        Subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ////////////////////////////////////////////////////////////////////////////////////////
@@ -72,26 +74,46 @@ public class GymProfile
 
                 //TheOldGymUserList.add(GlobalClass.myAccount);
                 //Gym class that you get from database//.setSubscribedUsers(TheOldGymUserList)
+                if(!isSubscribed) {
+                    RequestBody body = RequestBody.create
+                            ("{" + JsonHomeGym(gymId) + "}",
+                                    MediaType.parse("application/json"));
 
-                RequestBody body = RequestBody.create
-                        ("{"+ JsonHomeGym(gymId) + "}",
-                        MediaType.parse("application/json"));
+                    Request subscribeToGym = new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/" +
+                                    myAccount.getUserId())
+                            .put(body)
+                            .build();
+                    NewCallPost(client, subscribeToGym);
+                    myAccount.setMyGym(new Gym(gymName, gymAddress, gymPhone, gymEmail, gymDescription, gymId));
+                    isSubscribed = true;
+                    Subscribe.setText("Unsubscribe");
+                    Toast.makeText(GymProfile.this,
+                            "Subscribed to the Gym!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    RequestBody body = RequestBody.create
+                            ("{" + JsonHomeGym("") + "}",
+                                    MediaType.parse("application/json"));
 
-                Request subscribeToGym = new Request.Builder()
-                        .url("https://20.172.9.70/users/userId/" +
-                                myAccount.getUserId())
-                        .put(body)
-                        .build();
-                NewCallPost(client, subscribeToGym);
-                myAccount.setMyGym(new Gym(gymName,gymAddress,gymPhone,gymEmail,gymDescription,gymId));
-
-                Toast.makeText(GymProfile.this,
-                        "Subscribed to the Gym!",
-                        Toast.LENGTH_SHORT).show();
+                    Request unsubscribeToGym = new Request.Builder()
+                            .url("https://20.172.9.70/users/userId/" +
+                                    myAccount.getUserId())
+                            .put(body)
+                            .build();
+                    NewCallPost(client, unsubscribeToGym);
+                    myAccount.setMyGym(new Gym());
+                    isSubscribed = false;
+                    Subscribe.setText("Subscribe");
+                    Toast.makeText(GymProfile.this,
+                            "Unsubscribed the Gym!",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        CancelSubscript.setOnClickListener(new View.OnClickListener() {
+        /*CancelSubscript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ////////////////////////////////////////////////////////////////////////////////////////
@@ -108,12 +130,12 @@ public class GymProfile
                         return;
                     }
                 }
-                 */
+
                 Toast.makeText(GymProfile.this,
                         "Subscription Cancelled!",
                         Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     private void initWidgets() {
@@ -122,7 +144,7 @@ public class GymProfile
         Email = findViewById(R.id.Email);
         Name = findViewById(R.id.GymName);
         Description = findViewById(R.id.Description);
-        Subscript = findViewById(R.id.Subscribe);
-        CancelSubscript = findViewById(R.id.CancelSubscription);
+        Subscribe = findViewById(R.id.Subscribe);
+        //CancelSubscript = findViewById(R.id.CancelSubscription);
     }
 }
