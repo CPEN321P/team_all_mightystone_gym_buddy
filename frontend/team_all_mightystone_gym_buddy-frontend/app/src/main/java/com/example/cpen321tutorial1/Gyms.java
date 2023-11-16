@@ -46,6 +46,11 @@ public class Gyms
                             Gym Gym = items.get(position);
                             GymIntent.putExtra("GymAddress", Gym.getAddress());
                             GymIntent.putExtra("GymName", Gym.getName());
+                            GymIntent.putExtra("GymEmail", Gym.getEmail());
+                            GymIntent.putExtra("GymDescription", Gym.getDescription());
+                            GymIntent.putExtra("GymPhone", Gym.getPhone());
+                            GymIntent.putExtra("GymId", Gym.getGymId());
+
                         }
 
                         startActivity(GymIntent);
