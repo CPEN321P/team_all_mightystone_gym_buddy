@@ -1,5 +1,9 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class PersonalProfileFriend
         extends AppCompatActivity {
@@ -97,6 +105,18 @@ public class PersonalProfileFriend
                 //Get the account information from the database
                 ArrayList<Account> BlockAccounts =
                         GlobalClass.myAccount.getBlockList();
+
+                RequestBody body = RequestBody.create("{"+ "}",
+                        MediaType.parse("application/json"));
+
+                Request blockUser = new Request.Builder()
+                        .url("https://20.172.9.70/users/blockUser/"
+                                + myAccount.getUserId()
+                                + "/" + friendId)
+                        .put(body)
+                        .build();
+
+                NewCallPost(client, blockUser);
                 //BlockAccounts.add(//the account information from the database//);
                 GlobalClass.myAccount.setBlockList(BlockAccounts);
                 //POST the account to the database
