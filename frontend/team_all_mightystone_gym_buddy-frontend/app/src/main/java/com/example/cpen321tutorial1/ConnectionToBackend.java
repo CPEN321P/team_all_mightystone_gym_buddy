@@ -191,6 +191,8 @@ public class ConnectionToBackend {
             public Account call() throws Exception {
                 Request getAccountInformation;
 
+                Log.d("THISS", userIdOrEmail);
+
                 if(userIdOrEmail.contains("@")) {
                     getAccountInformation = new Request.Builder()
                             .url("https://20.172.9.70/users/userEmail/" + userIdOrEmail)

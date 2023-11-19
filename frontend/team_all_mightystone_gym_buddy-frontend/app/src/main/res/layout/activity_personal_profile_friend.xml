@@ -9,7 +9,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="325dp">
+        android:layout_height="300dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
@@ -51,11 +51,11 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <Button
-                        android:id="@+id/Schedule"
+                        android:id="@+id/FriendSchedule"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Schedule"
-                        android:textSize="20dp"
+                        android:textSize="17dp"
                         android:backgroundTint="@color/black"/>
 
                 </LinearLayout>
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Block"
-                        android:textSize="20dp"
+                        android:textSize="17dp"
                         android:backgroundTint="@color/black"/>
 
                 </LinearLayout>
@@ -86,8 +86,8 @@
                         android:id="@+id/Message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Message"
-                        android:textSize="20dp"
+                        android:text="Mess"
+                        android:textSize="17dp"
                         android:backgroundTint="@color/black"/>
 
                 </LinearLayout>
@@ -201,53 +201,24 @@
         android:layout_weight="3"
         android:gravity="bottom"
         >
-
-        <Button
-            android:id="@+id/navigation_home"
-            android:contentDescription="Home"
-            android:layout_width="65dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#3A3A3A"
-            app:icon="@drawable/home" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp">
 
-        <Button
-            android:id="@+id/navigation_friends"
-            android:contentDescription="Friends"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/navigation_home"
-            android:backgroundTint="#FF3A3A3A"
-            app:icon="@drawable/friends" />
-
-        <Button
-            android:id="@+id/navigation_schedule"
-            android:contentDescription="Schedule"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/navigation_friends"
-            android:backgroundTint="#FF3A3A3A"
-            app:icon="@drawable/baseline_calendar_month_24" />
-
-        <Button
-            android:id="@+id/navigation_gyms"
-            android:contentDescription="Gyms"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/navigation_schedule"
-            android:backgroundTint="#FF3A3A3A"
-            app:icon="@drawable/gym"
-            />
-        <Button
-            android:id="@+id/navigation_profile"
-            android:contentDescription="Profile"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/navigation_gyms"
-            android:backgroundTint="#FF3A3A3A"
-            app:icon="@drawable/user"
-            />
-
+            <Button
+                android:id="@+id/Cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:backgroundTint="@color/black" />
+        </LinearLayout>
     </LinearLayout>
+
 
 
 </LinearLayout>

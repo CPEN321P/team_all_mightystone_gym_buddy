@@ -68,29 +68,6 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         myAccount = new Account();
-        /*
-        String Json = JsonFunctions.JsonName("Zheng Xu");
-
-        RequestBody body = RequestBody.create(Json,
-                MediaType.parse("application/json"));
-
-        final OkHttpClient client = new OkHttpClient();
-
-        Request requestName = new Request.Builder()
-                .url("http://20.172.9.70:8081/users/userId/65427bde301609e66c749a12")
-                .build();
-
-        Request requestName = new Request.Builder()
-                .url("http://20.172.9.70:8081/users")
-                .post(body)
-                .build();
-
-
-        //Call call = client.newCall(requestName);
-        //Response response = call.execute();
-
-        NewCallGet(client, requestName);
-        */
 
         ModeButton = findViewById(R.id.ManagerMode);
 
@@ -105,7 +82,6 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(LoginPageManagerIntent);
             }
         });
-
 
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -129,45 +105,6 @@ public class LoginPage extends AppCompatActivity {
 
         signOut();
     }
-
-    /*
-    private void NewCall(OkHttpClient client, Request requestName) {
-        client.newCall(requestName).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override public void onResponse(Call call, Response response)
-                    throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful())
-                        throw new IOException("Unexpected code " + response);
-                    Log.d(TAG, "POST Something");
-                }
-            }
-        });
-    }
-
-     */
-
-    /*
-    private void NewCallGet(OkHttpClient client, Request requestName) {
-        client.newCall(requestName).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override public void onResponse(Call call, Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful())
-                        throw new IOException("Unexpected code " + response);
-                    Log.d(TAG, responseBody.string());
-                }
-            }
-        });
-    }
-
-     */
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -203,12 +140,10 @@ public class LoginPage extends AppCompatActivity {
             Log.d(TAG, "There is no user signed in!");
         }
         else {
-
-
-
             //CHECK IF EMAIL ALREADY EXISTS IN DATABASE BEFORE CREATING
 
             if(!checkIfUserExists(account.getEmail())){
+                myAccount.setEmailAddress(account.getEmail());
                 Intent LinkAccountIntent =
                         new Intent(LoginPage.this, LinkToGoogle.class);
                 startActivity(LinkAccountIntent);
@@ -228,12 +163,6 @@ public class LoginPage extends AppCompatActivity {
                 //String JsonDate =
                 //      JsonFunctions.JsonUserId(myAccount)
             }
-
-
-            //If the EmailAddress did not search from the database,
-            // then jump to activity_link_to_google
-
-            //Otherwise, jump to the User home page
         }
     }
 
@@ -255,8 +184,12 @@ public class LoginPage extends AppCompatActivity {
         Log.d(TAG, "User Weight: " + thisAccount.getWeight());
         Log.d(TAG, "User Gender: " + thisAccount.getGender());
 
+
+
         ArrayList<Account> items = c.getAllInList(thisAccount.getUserId(), 0);
         Log.d(TAG, "items size: " + Integer.toString(items.size()));
+
+        myAccount.setEmailAddress(email);
         myAccount = thisAccount;
         myAccount.setFriendsList(items);
         return true;
