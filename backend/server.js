@@ -8,6 +8,7 @@ import chatRoutes from './Routes/chatRoutes.js';
 import schedulesRoutes from './Routes/scheduleRoutes.js';
 import gymRoutes from './Routes/gymRoutes.js';
 import gymUserRoutes from './Routes/gymUserRoutes.js';
+import socket from './socket.js';
 
 const app = express();
 
@@ -32,6 +33,7 @@ const run = () => {
         //ChatGPT use: YES
         const secureServer = https.createServer(options, app);
         const httpsPort = 443; // Default HTTPS port
+        socket(secureServer);
         secureServer.listen(httpsPort, () => {
             console.log(`HTTPS Server running on port:${httpsPort}`);
         });
