@@ -10,12 +10,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static com.example.cpen321tutorial1.CalendarUtils.selectedDate;
 import static com.example.cpen321tutorial1.Event.eventsForDate;
 import static com.example.cpen321tutorial1.EventEdit.getTodaysDate;
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -32,6 +34,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import com.example.cpen321tutorial1.Account;
+import com.example.cpen321tutorial1.ConnectionToBackend;
+import com.example.cpen321tutorial1.Event;
 import com.example.cpen321tutorial1.EventEdit;
 import com.example.cpen321tutorial1.GlobalClass;
 import com.example.cpen321tutorial1.Logo;
@@ -41,14 +45,15 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
 
-@RunWith(AndroidJUnit4.class)
-@LargeTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ManageTheScheduleTest {
 
     @Rule
@@ -56,10 +61,66 @@ public class ManageTheScheduleTest {
             new ActivityScenarioRule<Logo>(Logo.class);
 
     @Test
+    public void OpenEventEditWeekly(){
+        OpenSchedule();
+        NewEventThroughWeekly();
+    }
+
+    @Test
+    public void OpenEventEditDaily(){
+        OpenSchedule();
+        NewEventThroughDaily();
+    }
+
+    @Test
+    public void AddOneEventAndRemoveIt(){
+        OpenSchedule();
+        NewEventThroughWeekly();
+        AddEvent();
+        CheckEventAddedOrNot();
+        ClearLastEvent();
+        CheckAfterClearLastEvent();
+    }
+
+    @Test
+    public void AddOneEventWithWrongString(){
+        OpenSchedule();
+        NewEventThroughWeekly();
+        AddEventWithWrongString();
+    }
+
+    @Test
+    public void AddOneEventWithTimeConflict(){
+        OpenSchedule();
+        NewEventThroughWeekly();
+        AddEvent();
+        CheckEventAddedOrNot();
+        AddEventWithTimeConflict();
+        ClearLastEvent();
+        CheckAfterClearLastEvent();
+    }
+
+    @Test
+    public void FinalTest_NoMoreEventToRemove(){
+        OpenSchedule();
+        NewEventThroughWeekly();
+        AddEvent();
+        CheckEventAddedOrNot();
+        ClearLastEvent();
+        CheckAfterClearLastEvent();
+        NoMoreEventToDelete();
+    }
+
+
     public void OpenSchedule(){
 
-        GlobalClass.MyeventsList = new ArrayList<>();
-        GlobalClass.myAccount = new Account("Zheng Xu", "Libirdxz@gmail.com", 22, 80, "Male", null, null);
+        ConnectionToBackend c = new ConnectionToBackend();
+        Account thisAccount = c.getAccountInformation("libirdxz@gmail.com");
+        myAccount = thisAccount;
+        Log.d("MTST", myAccount.getUserId());
+
+        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
+        GlobalClass.MyeventsList = TheEventsofThisAccount;
 
         ViewInteraction GoToSchedule = onView(
                 Matchers.allOf(withId(R.id.navigation_schedule), withContentDescription("Schedule"),
@@ -74,10 +135,7 @@ public class ManageTheScheduleTest {
         onView(withId(R.id.ScheduleMonthly)).check(matches(isDisplayed()));
     }
 
-    @Test
     public void NewEventThroughWeekly(){
-
-        OpenSchedule();
 
         ViewInteraction WeeklySchedule = onView(
                 Matchers.allOf(withId(R.id.Weekly), withText("Weekly"),
@@ -102,10 +160,7 @@ public class ManageTheScheduleTest {
         onView(withId(R.id.EventEdit)).check(matches(isDisplayed()));
     }
 
-    @Test
     public void NewEventThroughDaily(){
-
-        OpenSchedule();
 
         ViewInteraction DailySchedule = onView(
                 Matchers.allOf(withId(R.id.Daily), withText("Daily"),
@@ -130,10 +185,7 @@ public class ManageTheScheduleTest {
         onView(withId(R.id.EventEdit)).check(matches(isDisplayed()));
     }
 
-    @Test
     public void AddEvent(){
-        NewEventThroughWeekly();
-
         ViewInteraction AddEventName = onView(
                 Matchers.allOf(withId(R.id.Event),
                         childAtPosition(
@@ -191,11 +243,11 @@ public class ManageTheScheduleTest {
                         isDisplayed()));
         Done.perform(click());
         onView(withId(R.id.ScheduleWeekly)).check(matches(isDisplayed()));
+
+
     }
 
-    @Test
     public void AddEventWithWrongString(){
-        NewEventThroughWeekly();
 
         ViewInteraction AddEventName = onView(
                 Matchers.allOf(withId(R.id.Event),
@@ -258,9 +310,8 @@ public class ManageTheScheduleTest {
         onView(withText("Invalid Number Of Hours")).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
-    @Test
     public void AddEventWithTimeConflict(){
-        AddEvent();
+        //AddEvent();
 
         ViewInteraction AddEvent = onView(
                 Matchers.allOf(withId(R.id.AddEvent), withText("New Event"),
@@ -332,11 +383,20 @@ public class ManageTheScheduleTest {
 
         //Check if toast is display
         onView(withText("TimeConflict!")).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
+
+        ViewInteraction CANCEL = onView(
+                Matchers.allOf(withId(R.id.CancelAddEvent), withText("CANCEL"),
+                        childAtPosition(
+                                Matchers.allOf(withId(R.id.EventEdit),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                3),
+                        isDisplayed()));
+        CANCEL.perform(click());
     }
 
-    @Test
     public void CheckEventAddedOrNot(){
-        AddEvent();
 
         DataInteraction EventListWeekly = onData(Matchers.anything())
                 .inAdapterView(Matchers.allOf(withId(R.id.eventList),
@@ -348,10 +408,7 @@ public class ManageTheScheduleTest {
 
     }
 
-    @Test
     public void ClearLastEvent(){
-        CheckEventAddedOrNot();
-
         ViewInteraction ClearLastEvent = onView(
                 Matchers.allOf(withId(R.id.ClearEvent), withText("Clear Last Event"),
                         childAtPosition(
@@ -363,9 +420,7 @@ public class ManageTheScheduleTest {
         ClearLastEvent.perform(click());
     }
 
-    @Test
     public void CheckAfterClearLastEvent(){
-        ClearLastEvent();
 
         DataInteraction EventListWeekly = onData(Matchers.anything())
                 .inAdapterView(Matchers.allOf(withId(R.id.eventList),
@@ -383,9 +438,7 @@ public class ManageTheScheduleTest {
         }
     }
 
-    @Test
     public void NoMoreEventToDelete(){
-        CheckAfterClearLastEvent();
 
         ViewInteraction ClearLastEvent = onView(
                 Matchers.allOf(withId(R.id.ClearEvent), withText("Clear Last Event"),
