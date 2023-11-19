@@ -148,14 +148,16 @@ public class Event {
     public static void CleareventsForDate(LocalDate date)
     {
 
-        int count = MyeventsList.size()-1;
+        int count = 0;
         for(Event event: MyeventsList)
         {
             if(event.getDate().equals(date)) {
+                Log.d(TAG + " EventDate: ", event.getDate().toString());
+                Log.d(TAG + " Today: ", date.toString());
                 MyeventsList.remove(count);
                 break;
             }
-            count--;
+            count++;
         }
 
         //Talk to backend

@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -46,13 +48,13 @@ public class PersonalProfileUsers
         initWidgets();
 
         MainActivity.TestComeFromOutsideOrNot = 0;
-        Username.setText(GlobalClass.myAccount.getUsername());
-        Email.setText(GlobalClass.myAccount.getEmailAddress());
-        Age.setText(Integer.toString(GlobalClass.myAccount.getAge()) +
+        Username.setText(myAccount.getUsername());
+        Email.setText(myAccount.getEmailAddress());
+        Age.setText(Integer.toString(myAccount.getAge()) +
                 " years old");
-        Weight.setText(Integer.toString(GlobalClass.myAccount.getWeight()) +
+        Weight.setText(Integer.toString(myAccount.getWeight()) +
                 " kg");
-        Gender.setText(GlobalClass.myAccount.getGender());
+        Gender.setText(myAccount.getGender());
 
         Home = findViewById(R.id.navigation_home);
 
@@ -109,9 +111,8 @@ public class PersonalProfileUsers
             }
         });
 
-        if(Gym != null){
-            Gym.setText(GlobalClass.myAccount.getMyGym().getName());
-
+        if(myAccount.getMyGym() != null){
+            Gym.setText(myAccount.getMyGym().getName());
         } else {
             Gym.setText("NO GYM YET");
         }

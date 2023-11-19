@@ -60,9 +60,9 @@ public class EventEdit
 
     private Button Cancel;
 
-    private Button dateButton;
+    public static Button dateButton;
 
-    private Button timeButton;
+    public static Button timeButton;
 
     int hour;
 
@@ -124,11 +124,11 @@ public class EventEdit
                         timeButton.getText().toString() + ":00";
                 int NumberOfHour =
                         StringToInteger(HowLong.getText().toString());
-                if (NumberOfHour <= 0)
+                if (NumberOfHour <= 0 || NumberOfHour >= 24)
                 {
                     Toast.makeText(EventEdit.this,
                             "Invalid Number Of Hours",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
@@ -142,10 +142,10 @@ public class EventEdit
                     Log.d(TAG, "Valid time starting: " + StrTime);
                     Log.d(TAG, "Valid time ending: " + EndTime);
                     Log.d(TAG, "Date: " + EventDate);
-                    if((value2 < 0 && value1 > 0) || NumberOfHour >= 24){
+                    if((value2 < 0 && value1 > 0)){
                         Toast.makeText(EventEdit.this,
                                 "Invalid time for Start Time or End Time!",
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -153,7 +153,7 @@ public class EventEdit
                     Log.d(TAG, "Invalid time string for Start Time, End Time or Date!");
                     Toast.makeText(EventEdit.this,
                             "Invalid time for Start Time or End Time!",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -164,7 +164,7 @@ public class EventEdit
 
                         Toast.makeText(EventEdit.this,
                                 "TimeConflict!",
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -244,7 +244,7 @@ public class EventEdit
         });
     }
 
-    private String getTodaysDate() {
+    public static String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -283,11 +283,11 @@ public class EventEdit
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }
 
-    private String makeDateStringFromal(int day, int month, int year) {
+    public static String makeDateStringFromal(int day, int month, int year) {
         return year + "-" + ConvertNumFormal(month) + "-" + ConvertNumFormal(day);
     }
 
-    private String ConvertNumFormal (int num)
+    public static String ConvertNumFormal (int num)
     {
         Log.d(TAG, "TheNum: " + num);
         if (num == 1)

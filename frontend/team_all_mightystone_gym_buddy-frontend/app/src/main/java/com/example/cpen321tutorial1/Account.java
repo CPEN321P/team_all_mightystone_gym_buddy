@@ -61,8 +61,8 @@ public class Account {
         Age = -1;
         Weight = -1;
         Gender = "NO GENDER SET";
-        FriendsList = null;
-        BlockList = null;
+        FriendsList = new ArrayList<>();
+        BlockList = new ArrayList<>();
         UserId = "";
     }
 
@@ -119,6 +119,14 @@ public class Account {
 
     public void setGender(String gender) {
         Gender = gender;
+    }
+
+    public static Account GetAccountInfromation(String UserId) {
+        ConnectionToBackend c = new ConnectionToBackend();
+        Account thisAccount = c.getAccountInformation(UserId);
+
+        return thisAccount;
+
     }
 
 }

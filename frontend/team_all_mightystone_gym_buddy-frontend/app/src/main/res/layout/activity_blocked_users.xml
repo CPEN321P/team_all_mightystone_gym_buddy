@@ -23,6 +23,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"/>
 
+
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -30,6 +32,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_bar"/>
+
+    <LinearLayout
+        android:id="@+id/button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#818080"
+        android:weightSum="1">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/Cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textSize="20dp"
+                android:backgroundTint="@color/black"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 
 </RelativeLayout>

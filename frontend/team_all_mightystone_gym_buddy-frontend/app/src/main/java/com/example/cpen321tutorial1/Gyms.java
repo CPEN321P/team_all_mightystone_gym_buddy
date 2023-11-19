@@ -24,6 +24,8 @@ public class Gyms
 
     Button PersonalProfile;
 
+    final static String TAG = "Gyms";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

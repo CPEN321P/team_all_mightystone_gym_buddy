@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PossibleFriends
@@ -30,6 +32,8 @@ public class PossibleFriends
 
     Button PersonalProfile;
 
+    final static String TAG = "PossibleFriends";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +47,15 @@ public class PossibleFriends
 
         //get all possible friends from backend
         ConnectionToBackend c = new ConnectionToBackend();
-        List<Account> items = c.getAllInList(myAccount.getUserId(), 2);
+        List<Account> items;
+        if (GlobalClass.TestTempPeopleList == 0){
+            items = c.getAllInList(myAccount.getUserId(), 2);
+        }
+        else{
+            items = GlobalClass.TempPeopleList;
+        }
 
+        ArrayList<Account> Frienditems = myAccount.getFriendsList();
 
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
@@ -56,21 +67,31 @@ public class PossibleFriends
                         recyclerView ,
                         new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent FriendIntent =
-                                new Intent(PossibleFriends.this, PersonalProfileOthers.class);
+
+                        Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileOthers.class);
                         if(!items.isEmpty()){
                             Account posFriend = items.get(position);
-                            FriendIntent.putExtra("posFriendName",
+                            for (int i = 0; i < Frienditems.size(); i++){
+                                Log.d(TAG, "Frienditems Id: " + Frienditems.get(i).getUserId());
+                                Log.d(TAG, "items Id: " + posFriend.getUserId());
+                                if (posFriend.getUserId().equals(Frienditems.get(i).getUserId())){
+                                    FriendIntent = new Intent(PossibleFriends.this, PersonalProfileFriend.class);
+                                }
+                            }
+
+                            Log.d(TAG, "Test111");
+                            FriendIntent.putExtra("Name",
                                     posFriend.getUsername());
-                            FriendIntent.putExtra("posFriendUserId",
+                            FriendIntent.putExtra("UserId",
                                     posFriend.getUserId());
-                            FriendIntent.putExtra("posFriendAge",
+                            FriendIntent.putExtra("Age",
                                     posFriend.getAge());
-                            FriendIntent.putExtra("posFriendWeight",
+                            FriendIntent.putExtra("Weight",
                                     posFriend.getWeight());
-                            FriendIntent.putExtra("posFriendGender",
+                            FriendIntent.putExtra("Gender",
                                     posFriend.getGender());
                         }
+
                         startActivity(FriendIntent);
                     }
 

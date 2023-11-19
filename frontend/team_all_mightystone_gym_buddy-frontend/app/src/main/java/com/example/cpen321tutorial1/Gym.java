@@ -33,7 +33,7 @@ public class Gym {
     }
 
     public Gym() {
-        this.name = "NO NAME";
+        this.name = "NO GYM YET";
         this.address = "NO ADDRESS";
         this.phone = "0000000000";
         this.email = "NOTHING";

@@ -1,5 +1,6 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.Account.GetAccountInfromation;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,8 +30,6 @@ public class PersonalProfileFriend
 
     Button Block;
 
-    Button Cancel;
-
     TextView Username;
 
     TextView Email;
@@ -39,6 +39,8 @@ public class PersonalProfileFriend
     TextView Weight;
 
     TextView Gender;
+
+    final static String TAG = "PersonalProfileFriends";
 
     public static ArrayList<Event> FriendsEvent = new ArrayList<>();
 
@@ -50,17 +52,24 @@ public class PersonalProfileFriend
 
         Intent i = getIntent();
 
-        String friendName = i.getStringExtra("FriendName");
-        String friendId = i.getStringExtra("FriendUserId");
-        String friendAge = i.getStringExtra("FriendAge");
-        String friendWeight = i.getStringExtra("FriendWeight");
-        String friendGender = i.getStringExtra("FriendGender");
+        Log.d(TAG, "Test111");
 
-        Username.setText(friendName);
-        Email.setText(friendId);
-        Age.setText(friendAge);
-        Weight.setText(friendWeight);
-        Gender.setText(friendGender);
+        String friendName = i.getStringExtra("Name");
+        String friendId = i.getStringExtra("UserId");
+        String friendAge = i.getStringExtra("Age");
+        String friendWeight = i.getStringExtra("Weight");
+        String friendGender = i.getStringExtra("Gender");
+
+        Log.d(TAG, "Test222");
+
+        Account TheAccount = GetAccountInfromation(friendId);
+        Log.d(TAG, friendId);
+
+        Username.setText(TheAccount.getUsername());
+        Email.setText(TheAccount.getEmailAddress());
+        Age.setText(Integer.toString(TheAccount.getAge()) + " Years Old");
+        Weight.setText(Integer.toString(TheAccount.getWeight()) + " kg");
+        Gender.setText(TheAccount.getGender());
 
         FriendsEvent.clear();
 
@@ -117,7 +126,7 @@ public class PersonalProfileFriend
                         .build();
 
                 NewCallPost(client, blockUser);
-                //BlockAccounts.add(//the account information from the database//);
+                BlockAccounts.add(TheAccount);
                 GlobalClass.myAccount.setBlockList(BlockAccounts);
                 //POST the account to the database
 
@@ -129,12 +138,6 @@ public class PersonalProfileFriend
             }
         });
 
-        Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     private void initWidgets() {
@@ -146,6 +149,5 @@ public class PersonalProfileFriend
         Weight = findViewById(R.id.Weight);
         Gender = findViewById(R.id.Gender);
         Block = findViewById(R.id.Block);
-        Cancel = findViewById(R.id.Cancel);
     }
 }
