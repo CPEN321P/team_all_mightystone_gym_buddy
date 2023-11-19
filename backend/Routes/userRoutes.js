@@ -161,13 +161,11 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
       return;
     } 
     myHomeGym = user.homeGym;
-    const friends = user.friends
     const recommendedUsers = await db.collection('users').find({}).toArray();
     const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
       
-      return id.toString() !== recommendedUser._id.toString() && !friends.includes(recommendedUser._id.toString());
+      return id.toString() !== recommendedUser._id.toString() && !user.friends.includes(recommendedUser._id.toString())  && !user.blockedUsers.includes(recommendedUser._id.toString());
     });
-
     if (!filteredRecommendedUsers) {
       res.status(500).send('Could not get recommended users');
       return;
@@ -339,8 +337,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
     const receiverFriends = recieverUser.friends;
     const senderFriends = senderUser.friends;
     if(receiverFriends.indexOf(senderId) == -1){
-      receiverFriends.push(senderId);
-      senderFriends.push(recieverId);
+      receiverFriends.push(senderId.toString());
+      senderFriends.push(recieverId.toString());
     }
     else{
       res.status(500).send('Already friends');
