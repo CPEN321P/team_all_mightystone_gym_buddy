@@ -48,6 +48,8 @@ public class BlockedUsers extends AppCompatActivity {
                             Account Person = items.get(position);
                             UnblockIntent.putExtra
                                     ("PersonName", Person.getUsername());
+                            UnblockIntent.putExtra
+                                    ("PersonId", Person.getUserId());
                         }
                         startActivity(UnblockIntent);
                     }
