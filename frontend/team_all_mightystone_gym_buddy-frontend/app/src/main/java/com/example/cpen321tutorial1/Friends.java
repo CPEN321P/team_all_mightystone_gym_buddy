@@ -34,6 +34,25 @@ public class Friends
 
     final static String TAG = "Friends";
 
+    ArrayList<Account> items;
+
+
+    @Override
+    protected void onResume() {
+
+        UpdateFriendList();
+
+        super.onResume();
+    }
+
+    void UpdateFriendList(){
+
+        ConnectionToBackend c = new ConnectionToBackend();
+
+        items = c.getAllInList(myAccount.getUserId(), 0);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +61,8 @@ public class Friends
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         //GET ALL FRIEND FROM BACKEND
-        Log.d(TAG, "Test1");
-        ArrayList<Account> items = myAccount.getFriendsList();
-        Log.d(TAG, "Test2");
+        UpdateFriendList();
+
 
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
