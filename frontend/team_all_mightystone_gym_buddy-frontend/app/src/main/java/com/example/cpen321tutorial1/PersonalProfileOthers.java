@@ -39,6 +39,17 @@ public class PersonalProfileOthers
 
     TextView Gender;
 
+    //dashboard buttons
+    Button Home;
+
+    Button Friends;
+
+    Button Schedule;
+
+    Button Gyms;
+
+    Button PersonalProfile;
+
     final static String TAG = "PersonalProfileOthers";
 
     @Override
@@ -95,6 +106,61 @@ public class PersonalProfileOthers
         //Age.setText();
         //Weight.setText();
         //Gender.setText();
+
+        Home = findViewById(R.id.navigation_home);
+
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent HomeIntent =
+                        new Intent(PersonalProfileOthers.this, Logo.class);
+                startActivity(HomeIntent);
+            }
+        });
+
+        Friends = findViewById(R.id.navigation_friends);
+
+        Friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent FriendsIntent =
+                        new Intent(PersonalProfileOthers.this, Friends.class);
+                startActivity(FriendsIntent);
+            }
+        });
+
+        Schedule = findViewById(R.id.navigation_schedule);
+
+        Schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ScheduleIntent =
+                        new Intent(PersonalProfileOthers.this, ScheduleMonthly.class);
+                startActivity(ScheduleIntent);
+            }
+        });
+
+        Gyms = findViewById(R.id.navigation_gyms);
+
+        Gyms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent GymIntent =
+                        new Intent(PersonalProfileOthers.this, Gyms.class);
+                startActivity(GymIntent);
+            }
+        });
+
+        PersonalProfile = findViewById(R.id.navigation_profile);
+
+        PersonalProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ProfileIntent =
+                        new Intent(PersonalProfileOthers.this, PersonalProfileUsers.class);
+                startActivity(ProfileIntent);
+            }
+        });
 
         AddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
