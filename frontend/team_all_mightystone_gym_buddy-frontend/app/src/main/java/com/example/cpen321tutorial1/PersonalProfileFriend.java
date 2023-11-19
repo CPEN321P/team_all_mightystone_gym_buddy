@@ -30,8 +30,6 @@ public class PersonalProfileFriend
 
     Button Block;
 
-    Button Cancel;
-
     TextView Username;
 
     TextView Email;
@@ -85,7 +83,12 @@ public class PersonalProfileFriend
         Age.setText(Integer.toString(TheAccount.getAge()) + " Years Old");
         Weight.setText(Integer.toString(TheAccount.getWeight()) + " kg");
         Gender.setText(TheAccount.getGender());
-        Gym.setText(TheAccount.getMyGym().getName());
+        if (TheAccount.getMyGym() != null){
+            Gym.setText(TheAccount.getMyGym().getName());
+        } else {
+            Gym.setText("NO GYM YET");
+        }
+
 
         FriendsEvent.clear();
 
@@ -99,7 +102,7 @@ public class PersonalProfileFriend
         }
         //Get the event list from database of this user,
         // and upload it into FriendsEvent
-        /*
+
 
         Home = findViewById(R.id.navigation_home);
 
@@ -156,7 +159,6 @@ public class PersonalProfileFriend
             }
         });
 
-         */
 
         FriendSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,14 +215,6 @@ public class PersonalProfileFriend
 
 
 
-        Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent CancelIntent = new Intent
-                        (PersonalProfileFriend.this, Friends.class);
-                startActivity(CancelIntent);
-            }
-        });
 
     }
 
@@ -234,6 +228,5 @@ public class PersonalProfileFriend
         Gender = findViewById(R.id.Gender);
         Block = findViewById(R.id.Block);
         Gym = findViewById(R.id.Gym);
-        Cancel = findViewById(R.id.Cancel);
     }
 }
