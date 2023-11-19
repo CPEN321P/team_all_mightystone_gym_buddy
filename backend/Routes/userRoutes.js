@@ -165,7 +165,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
     const recommendedUsers = await db.collection('users').find({}).toArray();
     const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
       
-      return id != recommendedUser._id && !friends.includes(recommendedUser._id);
+      return id.toString() !== recommendedUser._id.toString() && !friends.includes(recommendedUser._id.toString());
     });
 
     if (!filteredRecommendedUsers) {
