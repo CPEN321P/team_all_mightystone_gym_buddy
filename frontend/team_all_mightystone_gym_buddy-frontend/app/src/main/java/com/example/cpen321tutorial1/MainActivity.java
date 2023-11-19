@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.ArrayList;
+
 public class MainActivity
         extends AppCompatActivity {
 
@@ -47,6 +49,9 @@ public class MainActivity
         checkLocationPermissions();
 
         GlobalClass.TestTempPeopleList = 0;
+
+        GlobalClass.myAccount = new Account();
+        GlobalClass.MyeventsList = new ArrayList<>();
 
         //Intent LoginIntent =
         //        new Intent(MainActivity.this, LoginPage.class);

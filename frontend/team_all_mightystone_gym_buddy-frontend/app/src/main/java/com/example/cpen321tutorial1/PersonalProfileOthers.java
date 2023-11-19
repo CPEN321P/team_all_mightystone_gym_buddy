@@ -29,6 +29,8 @@ public class PersonalProfileOthers
 
     Button Block;
 
+    Button Cancel;
+
     TextView Username;
 
     TextView Email;
@@ -107,6 +109,8 @@ public class PersonalProfileOthers
         //Weight.setText();
         //Gender.setText();
 
+        /*
+
         Home = findViewById(R.id.navigation_home);
 
         Home.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +165,8 @@ public class PersonalProfileOthers
                 startActivity(ProfileIntent);
             }
         });
+
+         */
 
         AddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +235,16 @@ public class PersonalProfileOthers
                 finish();
             }
         });
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent CancelIntent = new Intent
+                        (PersonalProfileOthers.this, PossibleFriends.class);
+                startActivity(CancelIntent);
+            }
+        });
+
     }
 
     private void initWidgets() {
@@ -239,5 +255,6 @@ public class PersonalProfileOthers
         Gender = findViewById(R.id.Gender);
         AddFriend = findViewById(R.id.AddFriend);
         Block = findViewById(R.id.Block);
+        Cancel = findViewById(R.id.Cancel);
     }
 }

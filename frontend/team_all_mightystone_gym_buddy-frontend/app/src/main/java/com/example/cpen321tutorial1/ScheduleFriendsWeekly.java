@@ -35,6 +35,8 @@ public class ScheduleFriendsWeekly
 
     private Button DailyModel;
 
+    private Button Cancel;
+
     final static String TAG = "ScheduleFriendsWeekly";
 
     @Override
@@ -83,6 +85,16 @@ public class ScheduleFriendsWeekly
                 startActivity(DailyIntent);
             }
         });
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent CancelIntent =
+                        new Intent(ScheduleFriendsWeekly.this,
+                                Friends.class);
+                startActivity(CancelIntent);
+            }
+        });
     }
 
     private void setWeekView() {
@@ -106,6 +118,7 @@ public class ScheduleFriendsWeekly
         NextWeek = findViewById(R.id.NextWeekAction);
         MonthlyModel = findViewById(R.id.Weekly);
         DailyModel = findViewById(R.id.Daily);
+        Cancel = findViewById(R.id.Cancel);
     }
 
     @Override
