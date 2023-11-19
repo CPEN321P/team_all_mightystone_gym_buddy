@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.Account.GetAccountInfromation;
+import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
@@ -8,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,8 +29,6 @@ public class PersonalProfileOthers
 
     Button Block;
 
-    Button Cancel;
-
     TextView Username;
 
     TextView Email;
@@ -38,6 +39,8 @@ public class PersonalProfileOthers
 
     TextView Gender;
 
+    final static String TAG = "PersonalProfileOthers";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,16 +48,20 @@ public class PersonalProfileOthers
         initWidgets();
         Intent i = getIntent();
 
-        String posFriendName = i.getStringExtra("posFriendName");
-        String posFriendId = i.getStringExtra("posFriendUserId");
-        String posFriendAge = i.getStringExtra("posFriendAge");
-        String posFriendWeight = i.getStringExtra("posFriendWeight");
-        String posFriendGender = i.getStringExtra("posFriendGender");
+        String posFriendName = i.getStringExtra("Name");
+        String posFriendId = i.getStringExtra("UserId");
+        String posFriendAge = i.getStringExtra("Age");
+        String posFriendWeight = i.getStringExtra("Weight");
+        String posFriendGender = i.getStringExtra("Gender");
 
-        Username.setText(posFriendName);
-        Age.setText(posFriendAge);
-        Weight.setText(posFriendWeight);
-        Gender.setText(posFriendGender);
+        Account TheAccount = GetAccountInfromation(posFriendId);
+
+        Username.setText(TheAccount.getUsername());
+        Email.setText("Only Able To Seem By Friend");
+        Age.setText("Only Able To Seem By Friend");
+        Weight.setText("Only Able To Seem By Friend");
+        Gender.setText(TheAccount.getGender());
+
         //ArrayList<Account> MyCurrentBlockList = GlobalClass.myAccount.getBlockList();
         //ArrayList<Account> OtherCurrentBlockList = /The Account that you get//.getBlockList();
 
@@ -96,7 +103,7 @@ public class PersonalProfileOthers
                 //get the Account class of this person
                 ArrayList<Account> CurrentFriendList =
                         GlobalClass.myAccount.getFriendsList();
-                //CurrentFriendList.add( //Account information of this person // );
+                CurrentFriendList.add(TheAccount);
                 GlobalClass.myAccount.setFriendsList(CurrentFriendList);
                 //POST the account to the database
 
@@ -136,7 +143,7 @@ public class PersonalProfileOthers
                 //Get the account information from the database
                 ArrayList<Account> BlockAccounts =
                         GlobalClass.myAccount.getBlockList();
-                //BlockAccounts.add(//account information from the database//);
+                BlockAccounts.add(TheAccount);
                 GlobalClass.myAccount.setBlockList(BlockAccounts);
 
                 RequestBody body = RequestBody.create("{"+ "}",
@@ -156,13 +163,6 @@ public class PersonalProfileOthers
                 finish();
             }
         });
-
-        Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     private void initWidgets() {
@@ -173,6 +173,5 @@ public class PersonalProfileOthers
         Gender = findViewById(R.id.Gender);
         AddFriend = findViewById(R.id.AddFriend);
         Block = findViewById(R.id.Block);
-        Cancel = findViewById(R.id.Cancel);
     }
 }

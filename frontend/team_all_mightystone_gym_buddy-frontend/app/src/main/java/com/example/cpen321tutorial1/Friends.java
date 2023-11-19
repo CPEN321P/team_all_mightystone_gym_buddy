@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Friends
@@ -30,6 +32,8 @@ public class Friends
 
     Button PersonalProfile;
 
+    final static String TAG = "Friends";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +42,9 @@ public class Friends
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         //GET ALL FRIEND FROM BACKEND
-        ConnectionToBackend c = new ConnectionToBackend();
-        List<Account> items = c.getAllInList(myAccount.getUserId(), 0);
+        Log.d(TAG, "Test1");
+        ArrayList<Account> items = myAccount.getFriendsList();
+        Log.d(TAG, "Test2");
 
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
@@ -59,15 +64,15 @@ public class Friends
                         if(!items.isEmpty()){
                             Account Friend = items.get(position);
                             FriendIntent.putExtra
-                                    ("FriendName", Friend.getUsername());
+                                    ("Name", Friend.getUsername());
                             FriendIntent.putExtra
-                                    ("FriendUserId", Friend.getUserId());
+                                    ("UserId", Friend.getUserId());
                             FriendIntent.putExtra
-                                    ("FriendAge", Friend.getAge());
+                                    ("Age", Friend.getAge());
                             FriendIntent.putExtra
-                                    ("FriendWeight", Friend.getWeight());
+                                    ("Weight", Friend.getWeight());
                             FriendIntent.putExtra
-                                    ("FriendGender", Friend.getGender());
+                                    ("Gender", Friend.getGender());
                         }
 
 

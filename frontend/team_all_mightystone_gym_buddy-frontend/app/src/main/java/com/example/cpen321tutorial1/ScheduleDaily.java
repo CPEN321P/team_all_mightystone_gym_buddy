@@ -2,6 +2,7 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.CalendarUtils.selectedDate;
 import static com.example.cpen321tutorial1.Event.CleareventsForDate;
+import static com.example.cpen321tutorial1.Event.eventsForDate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalTime;
 import java.time.format.TextStyle;
@@ -93,6 +95,13 @@ public class ScheduleDaily extends AppCompatActivity {
         ClearEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int EventNumber = eventsForDate(selectedDate).size();
+                if (EventNumber == 0) {
+                    Toast.makeText(ScheduleDaily.this,
+                            "No Event For Today!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 CleareventsForDate(selectedDate);
                 setHourAdapter();
             }

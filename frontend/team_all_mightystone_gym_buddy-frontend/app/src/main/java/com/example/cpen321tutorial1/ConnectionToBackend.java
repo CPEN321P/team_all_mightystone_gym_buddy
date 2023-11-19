@@ -251,6 +251,11 @@ public class ConnectionToBackend {
         returnedAccount.setUserId(accountModel.getId());
 
         //getting gym
+        if(accountModel.getHomeGym().equals("None")) {
+            returnedAccount.setMyGym(null);
+            return returnedAccount;
+        }
+
         Request getEventInformation = new Request.Builder()
                 .url("https://20.172.9.70/gyms/gymId/" + accountModel.getHomeGym())
                 .build();
@@ -259,6 +264,7 @@ public class ConnectionToBackend {
         if(response.isSuccessful()){
         ResponseBody responseBody = response.body();
         String jsonResponse = responseBody.string();
+
         GymModelFromBackend gymModelFromBackend =
                 new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
         Gym gym = setGymInformationFromBackend(gymModelFromBackend);

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,12 +36,16 @@ public class GymProfile
 
     private boolean isSubscribed = false;
 
+    final static String TAG = "GymProfile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_profile);
         initWidgets();
         Intent i = getIntent();
+
+        Log.d(TAG, "Test1");
 
         String gymAddress = i.getStringExtra("GymAddress");
         String gymName = i.getStringExtra("GymName");
@@ -49,6 +54,8 @@ public class GymProfile
         String gymPhone = i.getStringExtra("GymPhone");
         String gymId = i.getStringExtra("GymId");
 
+        Log.d(TAG, "Test2");
+
         //Log.d("HAHA", "address: " + gymAddress);
         Name.setText(gymName);
         Location.setText(gymAddress);
@@ -56,10 +63,16 @@ public class GymProfile
         Description.setText(gymDescription);
         Phone.setText(gymPhone);
 
-        if(myAccount.getMyGym().getGymId().equals(gymId)){
-            isSubscribed = true;
-            Subscribe.setText("Unsubscribe");
+        Log.d(TAG, "Test3");
+
+        if(myAccount.getMyGym() != null){
+            if(myAccount.getMyGym().getGymId().equals(gymId)){
+                isSubscribed = true;
+                Subscribe.setText("Unsubscribe");
+            }
         }
+
+        Log.d(TAG, "Test4");
 
         //Get the relative information from the database
         //ArrayList<Account> TheOldGymUserList =
@@ -94,7 +107,7 @@ public class GymProfile
                 }
                 else{
                     RequestBody body = RequestBody.create
-                            ("{" + JsonHomeGym("") + "}",
+                            ("{" + JsonHomeGym("None") + "}",
                                     MediaType.parse("application/json"));
 
                     Request unsubscribeToGym = new Request.Builder()

@@ -10,17 +10,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.List;
 
 public class BlockedUsers extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+
+    private Button Cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blocked_users);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
 
         ConnectionToBackend c = new ConnectionToBackend();
         Log.d("HAHA","26");
@@ -32,7 +37,6 @@ public class BlockedUsers extends AppCompatActivity {
                 (new LinearLayoutManager(this));
         recyclerView.setAdapter
                 (new PersonAdapter(getApplicationContext(), items));
-
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(BlockedUsers.this, recyclerView ,
@@ -53,6 +57,17 @@ public class BlockedUsers extends AppCompatActivity {
                         // do whatever
                     }
                 }));
+
+        Cancel = findViewById(R.id.Cancel);
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent HomeIntent =
+                        new Intent(BlockedUsers.this, PersonalProfileUsers.class);
+                startActivity(HomeIntent);
+            }
+        });
 
 
 

@@ -46,6 +46,8 @@ public class MainActivity
 
         checkLocationPermissions();
 
+        GlobalClass.TestTempPeopleList = 0;
+
         //Intent LoginIntent =
         //        new Intent(MainActivity.this, LoginPage.class);
         //startActivity(LoginIntent);
