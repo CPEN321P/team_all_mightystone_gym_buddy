@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { getDB } from '../MongoDB/Connect.js';
+import { getDB } from './MongoDB/Connect.js';
 import { Server } from 'socket.io';
 
 const getChatByUserId = async (db, user1, user2) => {
