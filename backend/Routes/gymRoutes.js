@@ -1,6 +1,6 @@
-import express from 'express';
-import { ObjectId } from 'mongodb';
-import { getDB } from '../MongoDB/Connect.js';
+const express = require('express');
+const { ObjectId } = require('mongodb');
+const { getDB } = require('../MongoDB/Connect.js');
 
 const router = express.Router();
 
@@ -164,5 +164,4 @@ router.delete('/', async (req, res) => {
     res.status(500).send('All gyms Not Deleted');
   }
 });
-
-export default router;
+module.exports = router;

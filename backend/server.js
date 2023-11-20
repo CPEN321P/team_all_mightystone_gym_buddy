@@ -1,26 +1,10 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import https from 'https';
-import fs from 'fs';
-import { connectDB } from './MongoDB/Connect.js';
-import usersRoutes from './Routes/userRoutes.js';
-import chatRoutes from './Routes/chatRoutes.js';
-import schedulesRoutes from './Routes/scheduleRoutes.js';
-import gymRoutes from './Routes/gymRoutes.js';
-import gymUserRoutes from './Routes/gymUserRoutes.js';
-import socket from './socket.js';
+const https = require('https');
+const fs = require('fs');
+const connectDB = require('./MongoDB/Connect.js');
 
-const app = express();
+const socket = require('./socket.js');
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.use('/users', usersRoutes);
-app.use('/chat', chatRoutes);
-app.use('/schedules', schedulesRoutes);
-app.use('/gyms', gymRoutes);
-app.use('/gymsUsers', gymUserRoutes);
+const app = require('./app.js');
 
 const options = {
     key: fs.readFileSync('/etc/letsencrypt/live/tams.westus3.cloudapp.azure.com/privkey.pem'), // Path to your private key file
@@ -48,5 +32,5 @@ const run = () => {
         console.log(err);
     }
 }
-
 run();
+
