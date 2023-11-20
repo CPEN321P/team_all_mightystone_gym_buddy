@@ -152,8 +152,6 @@ public class LinkToGoogle
                 RequestBody body = RequestBody.create(Json,
                         MediaType.parse("application/json"));
 
-
-
                 Request requestName = new Request.Builder()
                         .url("https://20.172.9.70/users")
                         .post(body)

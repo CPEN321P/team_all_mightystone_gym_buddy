@@ -63,7 +63,6 @@ public class Friends
         //GET ALL FRIEND FROM BACKEND
         UpdateFriendList();
 
-
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
         recyclerView.setAdapter

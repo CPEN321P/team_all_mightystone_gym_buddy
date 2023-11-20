@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,12 +23,14 @@ public class Messages
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        List<Account> items = new ArrayList<Account>();
+        //
+        ConnectionToBackend c = new ConnectionToBackend();
+        List<Chat> items = c.getAllChatsFromUserId(myAccount.getUserId());
 
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
         recyclerView.setAdapter
-                (new PersonAdapter(getApplicationContext(), items));
+                (new ChatAdapter(getApplicationContext(), items));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(Messages.this,
@@ -36,11 +40,6 @@ public class Messages
                     @Override public void onItemClick(View view, int position) {
                         Intent ChatIntent =
                                 new Intent(Messages.this, Chat.class);
-
-                        //import recipient's account information from backend
-
-                        //MainActivity.passAccountAsIntent
-                        //      (ChatIntent, RecipientAccount);
 
                         startActivity(ChatIntent);
                     }

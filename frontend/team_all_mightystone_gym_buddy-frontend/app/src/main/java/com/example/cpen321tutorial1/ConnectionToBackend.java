@@ -213,6 +213,7 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
+                    //Log.d("thisss", jsonResponse);
                     AccountModelFromBackend accountModelFromBackend =
                             new Gson().fromJson(jsonResponse,
                                     AccountModelFromBackend.class);
@@ -251,18 +252,19 @@ public class ConnectionToBackend {
                 new ArrayList<>());
 
         returnedAccount.setUserId(accountModel.getId());
+        Log.d("thiss", "got here");
 
         //getting gym
-        if(accountModel.getHomeGym().equals("None")) {
+        if(accountModel.getHomeGym().isEmpty()) {
             returnedAccount.setMyGym(null);
             return returnedAccount;
         }
 
-        Request getEventInformation = new Request.Builder()
+        Request getGymInformation = new Request.Builder()
                 .url("https://20.172.9.70/gyms/gymId/" + accountModel.getHomeGym())
                 .build();
         Response response =
-                client.newCall(getEventInformation).execute();
+                client.newCall(getGymInformation).execute();
         if(response.isSuccessful()){
         ResponseBody responseBody = response.body();
         String jsonResponse = responseBody.string();
@@ -365,7 +367,7 @@ public class ConnectionToBackend {
             @Override
             public ArrayList<Chat> call() throws Exception {
                 Request getRecommendedProfiles = new Request.Builder()
-                        .url("https://20.172.9.70/chat/userId/"+ userId)
+                        .url("https://20.172.9.70/chat/allChats/"+ userId)
                         .build();
 
                 Response response =
@@ -386,7 +388,7 @@ public class ConnectionToBackend {
 
 
                     if (listOfChats == null) {
-                        throw new IOException("Gym model is null");
+                        throw new IOException("Chat model is null");
                     }
 
                     for(int i = 0; i<listOfChats.size(); i++){
@@ -428,13 +430,59 @@ public class ConnectionToBackend {
         }
         returnedChat.setOtherAccount(otherAccount);
         returnedChat.setChatId(chatModelFromBackend.get_id());
-        returnedChat.setChatModelFromBackend(chatModelFromBackend);
+        returnedChat.setMessages(chatModelFromBackend.getChatMessages());
 
         return returnedChat;
 
     }
 
+    public Chat getChatFromFriendId(String friendId) {
 
+        Callable<Chat> asyncCall = new Callable<Chat>() {
+            @Override
+            public Chat call() throws Exception {
+                Request getAccountInformation;
+
+
+                getAccountInformation = new Request.Builder()
+                            .url("https://20.172.9.70/chat/userId/" + myAccount.getUserId() + "/" + friendId)
+                            .build();
+
+
+                Response response =
+                        client.newCall(getAccountInformation).execute();
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response.code());
+                }
+
+                try (ResponseBody responseBody = response.body()) {
+                    String jsonResponse = responseBody.string();
+                    ChatModelFromBackend chatModelFromBackend =
+                            new Gson().fromJson(jsonResponse,
+                                    ChatModelFromBackend.class);
+
+                    if (chatModelFromBackend == null) {
+                        throw new IOException("Chat model is null");
+                    }
+
+                    return setChatInformationFromBackend(chatModelFromBackend);
+                }
+            }
+        };
+
+        Future<Chat> future = executorService.submit(asyncCall);
+
+        try {
+            return future.get();
+            // This will block until the async call is complete
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
 
 
     //MANAGER FUNCTIONS!!!
