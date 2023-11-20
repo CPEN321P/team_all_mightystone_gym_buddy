@@ -48,8 +48,6 @@ public class MainActivity
 
         checkLocationPermissions();
 
-        GlobalClass.TestTempPeopleList = 0;
-
         GlobalClass.myAccount = new Account();
         GlobalClass.MyeventsList = new ArrayList<>();
 

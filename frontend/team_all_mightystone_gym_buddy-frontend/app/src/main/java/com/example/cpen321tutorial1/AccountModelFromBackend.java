@@ -157,7 +157,7 @@ public class AccountModelFromBackend {
     }
 
     public String toString() {
-        return String.format("_id:%s,name:%d,phone:%s,email:%s," +
+        return String.format("_id:%s,name:%s,phone:%s,email:%s," +
                         "age:%s,gender:%s,weight:%s,pfp:%s," +
                         "friends:%s,friendRequests:%s,description:%s," +
                         "homeGym:%s,reported:%s,chats:%s",

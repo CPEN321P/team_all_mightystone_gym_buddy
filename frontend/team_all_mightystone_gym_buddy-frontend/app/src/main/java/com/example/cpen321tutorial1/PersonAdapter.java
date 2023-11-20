@@ -32,7 +32,7 @@ public class PersonAdapter
     public void onBindViewHolder
             (@NonNull FriendViewHolder holder, int position) {
         holder.nameView.setText(items.get(position).getUsername());
-        holder.usernameView.setText(items.get(position).getUserId());
+        holder.usernameView.setText(items.get(position).getEmailAddress());
         holder.imageView.setImageResource(R.drawable.user);
     }
 

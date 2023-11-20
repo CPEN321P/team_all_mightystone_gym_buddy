@@ -9,13 +9,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Chat extends AppCompatActivity {
 
     Account otherAccount;
 
     String chatId;
 
-    ChatModelFromBackend chatModelFromBackend;
+    List<ChatMessage> messages = new ArrayList<ChatMessage>();
+
+    //ChatModelFromBackend chatModelFromBackend;
 
     EditText chat_text_input;
 
@@ -44,7 +49,8 @@ public class Chat extends AppCompatActivity {
         //FOR NOW!!!!!!
         username.setText(name);
 
-        //get chatroomId from backend
+        //get chatroomId from backend using the chatId from both participants
+
 
         //getChatroom from chatroomId
         getOrCreateChatModel();
@@ -88,12 +94,11 @@ public class Chat extends AppCompatActivity {
         this.chatId = chatId;
     }
 
-    public ChatModelFromBackend getChatModelFromBackend() {
-        return chatModelFromBackend;
+    public List<ChatMessage> getMessages() {
+        return messages;
     }
 
-    public void setChatModelFromBackend
-            (ChatModelFromBackend chatModelFromBackend) {
-        this.chatModelFromBackend = chatModelFromBackend;
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
     }
 }

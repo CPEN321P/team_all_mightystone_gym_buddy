@@ -10,4 +10,32 @@ public class ChatMessage {
 
     String body;
 
+    public Long getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Long schedule) {
+        this.schedule = schedule;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String toString() {
+        return String.format("schedule:%s,sender:%s,body:%s",
+                schedule, sender, body);
+    }
 }

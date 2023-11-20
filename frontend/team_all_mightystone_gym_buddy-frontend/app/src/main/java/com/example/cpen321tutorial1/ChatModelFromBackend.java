@@ -33,4 +33,9 @@ public class ChatModelFromBackend {
     public void setChatMessages(List<ChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }
+
+    public String toString() {
+        return String.format("_id:%s,members:%s,chatMessages:%s",
+                _id, members, chatMessages);
+    }
 }

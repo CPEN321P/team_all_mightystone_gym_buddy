@@ -39,21 +39,13 @@ public class PossibleFriends
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_possible_friends);
 
-
-
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         //RecyclerView recyclerView2 = findViewById(R.id.recyclerview2);
 
 
         //get all possible friends from backend
         ConnectionToBackend c = new ConnectionToBackend();
-        List<Account> items;
-        if (GlobalClass.TestTempPeopleList == 0){
-            items = c.getAllInList(myAccount.getUserId(), 2);
-        }
-        else{
-            items = GlobalClass.TempPeopleList;
-        }
+        ArrayList<Account> items = c.getAllInList(myAccount.getUserId(), 2);
 
         ArrayList<Account> Frienditems = myAccount.getFriendsList();
 
@@ -68,31 +60,23 @@ public class PossibleFriends
                         new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        Intent FriendIntent = new Intent(PossibleFriends.this, PersonalProfileOthers.class);
+                        Intent PossibleFriendIntent = new Intent(PossibleFriends.this, PersonalProfileOthers.class);
                         if(!items.isEmpty()){
                             Account posFriend = items.get(position);
-                            for (int i = 0; i < Frienditems.size(); i++){
-                                Log.d(TAG, "Frienditems Id: " + Frienditems.get(i).getUserId());
-                                Log.d(TAG, "items Id: " + posFriend.getUserId());
-                                if (posFriend.getUserId().equals(Frienditems.get(i).getUserId())){
-                                    FriendIntent = new Intent(PossibleFriends.this, PersonalProfileFriend.class);
-                                }
-                            }
 
-                            Log.d(TAG, "Test111");
-                            FriendIntent.putExtra("Name",
+                        PossibleFriendIntent.putExtra("Name",
                                     posFriend.getUsername());
-                            FriendIntent.putExtra("UserId",
+                        PossibleFriendIntent.putExtra("UserId",
                                     posFriend.getUserId());
-                            FriendIntent.putExtra("Age",
+                        PossibleFriendIntent.putExtra("Age",
                                     posFriend.getAge());
-                            FriendIntent.putExtra("Weight",
+                        PossibleFriendIntent.putExtra("Weight",
                                     posFriend.getWeight());
-                            FriendIntent.putExtra("Gender",
+                        PossibleFriendIntent.putExtra("Gender",
                                     posFriend.getGender());
                         }
 
-                        startActivity(FriendIntent);
+                        startActivity(PossibleFriendIntent);
                     }
 
                     @Override public void onLongItemClick
