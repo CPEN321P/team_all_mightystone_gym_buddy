@@ -117,7 +117,6 @@ public class ManageTheScheduleTest {
         ConnectionToBackend c = new ConnectionToBackend();
         Account thisAccount = c.getAccountInformation("libirdxz@gmail.com");
         myAccount = thisAccount;
-        Log.d("MTST", myAccount.getUserId());
 
         ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
         GlobalClass.MyeventsList = TheEventsofThisAccount;
