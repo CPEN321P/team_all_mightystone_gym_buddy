@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,7 +39,7 @@ public class Chat extends AppCompatActivity {
 
         Intent i = getIntent();
         String name = i.getStringExtra("Username");
-        //otherAccount = MainActivity.getAccountFromIntent(getIntent());
+        String friendId = i.getStringExtra("FriendId");
 
 
         chat_text_input = findViewById(R.id.chat_text_input);
@@ -48,36 +49,38 @@ public class Chat extends AppCompatActivity {
 
         //FOR NOW!!!!!!
         username.setText(name);
+        ConnectionToBackend c = new ConnectionToBackend();
 
-        //get chatroomId from backend using the chatId from both participants
+        //check if this chat already exists on the backend
+//        if(checkIfChatExists(friendId)){
+//            //get chat information and set messages
+//            Chat thisChat = c.getChatFromFriendId(friendId);
+//            LoadPreviousMessages(thisChat);
+//        }
 
 
-        //getChatroom from chatroomId
-        getOrCreateChatModel();
+
+
 
         message_send_button.setOnClickListener((view -> {
             String message = chat_text_input.getText().toString().trim();
             if(message.isEmpty()){
                 return;
             }
-            sendMessageToUser(message);
+            sendMessage(message);
         }));
 
     }
 
+    private void LoadPreviousMessages(Chat thisChat) {
 
-    private void sendMessageToUser(String message) {
+
+
+    }
+
+    private void sendMessage(String message) {
         //ChatMessageModel chatMessageModel = new ChatMessageModel(message, )
     }
-
-
-    private void getOrCreateChatModel() {
-        //get chatroom from backend
-
-        //chatroomModel = ;
-
-    }
-
     public Account getOtherAccount() {
         return otherAccount;
     }
@@ -101,4 +104,19 @@ public class Chat extends AppCompatActivity {
     public void setMessages(List<ChatMessage> messages) {
         this.messages = messages;
     }
+
+//    private boolean checkIfChatExists(String friendId) {
+//        ConnectionToBackend c = new ConnectionToBackend();
+//        Chat thisChat = c.getChatFromFriendId(friendId);
+//
+//        //Log.d("THISSSSSSS", email + " in login page");
+//
+//        if(thisChat== null){
+//            Log.d("THISSSSSSS", "chat is null :c");
+//            return false;
+//        }
+//
+//        return true;
+//
+//    }
 }

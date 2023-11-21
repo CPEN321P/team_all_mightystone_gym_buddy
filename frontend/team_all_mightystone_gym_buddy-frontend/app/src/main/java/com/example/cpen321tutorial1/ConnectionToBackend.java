@@ -436,6 +436,8 @@ public class ConnectionToBackend {
 
     }
 
+    /*
+
     public Chat getChatFromFriendId(String friendId) {
 
         Callable<Chat> asyncCall = new Callable<Chat>() {
@@ -483,6 +485,9 @@ public class ConnectionToBackend {
 
 
     }
+
+
+     */
 
 
     //MANAGER FUNCTIONS!!!
