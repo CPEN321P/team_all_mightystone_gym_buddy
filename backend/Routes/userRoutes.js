@@ -1,6 +1,6 @@
-import express from 'express';
-import { ObjectId } from 'mongodb';
-import { getDB } from '../MongoDB/Connect.js';
+const express = require('express');
+const { ObjectId } = require('mongodb');
+const { getDB } = require('../MongoDB/Connect.js');
 
 const router = express.Router();
 
@@ -31,7 +31,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   try {
     const db = getDB();
-
+    console.log("34 DB: " + db);
     const newUser = {
       name: req.body.name || "",
       phone: req.body.phone || "",
@@ -51,15 +51,18 @@ router.post('/', async (req, res) => {
     }
 
     const result = await db.collection('users').insertOne(newUser);
-
+    console.log("54 result :" + result + " insertedId: " + result.insertedId);
     if (result && result.insertedId) {
+      console.log("SUCCESS");
       res.status(200).json(result.insertedId.toString());
+      console.log("status 200 sent");
+      return;
     }
     else {
-      res.status(500).json("User not added to the database");
+      res.status(500).json("---User not added to the database");
     }
   } catch (error) {
-    res.status(500).json("User not added to the database");
+    res.status(500).json("===User not added to the database");
   }
 });
 
@@ -67,17 +70,18 @@ router.post('/', async (req, res) => {
 // Get all users
 router.get('/', async (req, res) => {
   try {
+    console.log("70");
     const db = getDB();
-
+    
     const users = await db.collection('users').find().toArray();
-
+    console.log("74");
     if (users) {
       res.status(200).json(users);
     } else {
-      res.status(500).json("Could not retrieve data from the database");
+      res.status(500).json("----------------------------------------------------Could not retrieve data from the database");
     }
   } catch (error) {
-    res.status(500).json("Could not retrieve data from the database");
+    res.status(500).json("========================================================Could not retrieve data from the database");
   }
 });
 
@@ -161,13 +165,11 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
       return;
     } 
     myHomeGym = user.homeGym;
-    const friends = user.friends
     const recommendedUsers = await db.collection('users').find({}).toArray();
     const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
       
-      return id != recommendedUser._id && !friends.includes(recommendedUser._id);
+      return id.toString() !== recommendedUser._id.toString() && !user.friends.includes(recommendedUser._id.toString())  && !user.blockedUsers.includes(recommendedUser._id.toString());
     });
-
     if (!filteredRecommendedUsers) {
       res.status(500).send('Could not get recommended users');
       return;
@@ -339,8 +341,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
     const receiverFriends = recieverUser.friends;
     const senderFriends = senderUser.friends;
     if(receiverFriends.indexOf(senderId) == -1){
-      receiverFriends.push(senderId);
-      senderFriends.push(recieverId);
+      receiverFriends.push(senderId.toString());
+      senderFriends.push(recieverId.toString());
     }
     else{
       res.status(500).send('Already friends');
@@ -936,4 +938,4 @@ router.delete('/', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

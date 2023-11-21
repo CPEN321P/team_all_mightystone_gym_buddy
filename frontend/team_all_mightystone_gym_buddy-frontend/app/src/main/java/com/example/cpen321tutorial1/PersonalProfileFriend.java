@@ -211,7 +211,8 @@ public class PersonalProfileFriend
                         "Add the user in block list",
                         Toast.LENGTH_SHORT).show();
 
-                finish();
+                Intent FriendIntent = new Intent(PersonalProfileFriend.this, Friends.class);
+                startActivity(FriendIntent);
             }
         });
 

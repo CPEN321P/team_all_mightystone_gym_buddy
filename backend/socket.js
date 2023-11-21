@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongodb';
-import { getDB } from './MongoDB/Connect.js';
-import { Server } from 'socket.io';
+const { ObjectId } = require('mongodb');
+const { getDB } = require('./MongoDB/Connect.js');
+const { Server } = require('socket.io');
 
 const getChatByUserId = async (db, user1, user2) => {
   try {
@@ -293,4 +293,4 @@ const socket = (server) => {
   })
 }
 
-export default socket;
+module.exports = socket;

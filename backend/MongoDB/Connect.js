@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+const MongoClient =  require("mongodb");
 
 const dbName = 'gym-buddies-db';
 let db;
@@ -18,7 +18,7 @@ const getDB = () => {
   return db;
 }
 
-export {
+module.exports = {
   connectDB,
   getDB
 };

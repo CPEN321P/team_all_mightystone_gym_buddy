@@ -1,6 +1,6 @@
-import express from 'express';
-import { ObjectId } from 'mongodb';
-import { getDB } from '../MongoDB/Connect.js';
+const express = require('express');
+const { ObjectId } = require('mongodb');
+const { getDB } = require('../MongoDB/Connect.js');
 
 const router = express.Router();
 
@@ -217,5 +217,4 @@ router.get('/userId/:user1/:user2', async (req, res) => {
     res.status(404).send("No chat found");
   }
 });
-
-export default router;
+module.exports = router;
