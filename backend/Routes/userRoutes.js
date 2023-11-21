@@ -29,95 +29,82 @@ const router = express.Router();
 //ChatGPT use: NO
 // Create a new user
 router.post('/', async (req, res) => {
-  try {
-    const db = getDB();
-    console.log("34 DB: " + db);
-    const newUser = {
-      name: req.body.name || "",
-      phone: req.body.phone || "",
-      email: req.body.email || "",
-      age: req.body.age || "",
-      gender: req.body.gender || "",
-      weight: req.body.weight || "",
-      pfp: req.body.pfp || "",
-      friends: req.body.friends || [],
-      friendRequests: req.body.friendRequests || [],
-      description: req.body.description || "",
-      homeGym: req.body.homeGym || "",
-      reported: req.body.reported || 0,
-      chats: req.body.chats || [],
-      blockedUsers: req.body.blockedUsers || [],
-      getChats: 0
-    }
+  const db = getDB();
+  const newUser = {
+    name: req.body.name || "",
+    phone: req.body.phone || "",
+    email: req.body.email || "",
+    age: req.body.age || "",
+    gender: req.body.gender || "",
+    weight: req.body.weight || "",
+    pfp: req.body.pfp || "",
+    friends: req.body.friends || [],
+    friendRequests: req.body.friendRequests || [],
+    description: req.body.description || "",
+    homeGym: req.body.homeGym || "",
+    reported: req.body.reported || 0,
+    chats: req.body.chats || [],
+    blockedUsers: req.body.blockedUsers || [],
+    getChats: 0
+  }
 
-    const result = await db.collection('users').insertOne(newUser);
-    console.log("54 result :" + result + " insertedId: " + result.insertedId);
-    if (result && result.insertedId) {
-      console.log("SUCCESS");
-      res.status(200).json(result.insertedId.toString());
-      console.log("status 200 sent");
-      return;
-    }
-    else {
-      res.status(500).json("---User not added to the database");
-    }
-  } catch (error) {
-    res.status(500).json("===User not added to the database");
+  const result = await db.collection('users').insertOne(newUser);
+  if (result && result.insertedId) {
+    res.status(200).json(result.insertedId.toString());
+    return;
+  }
+  else {
+    res.status(500).json("User not added to the database");
   }
 });
 
 //ChatGPT use: NO
 // Get all users
 router.get('/', async (req, res) => {
-  try {
-    console.log("70");
-    const db = getDB();
-    
-    const users = await db.collection('users').find().toArray();
-    console.log("74");
-    if (users) {
-      res.status(200).json(users);
-    } else {
-      res.status(500).json("----------------------------------------------------Could not retrieve data from the database");
-    }
-  } catch (error) {
-    res.status(500).json("========================================================Could not retrieve data from the database");
+  const db = getDB();
+  
+  const users = await db.collection('users').find().toArray();
+  if (users) {
+    res.status(200).json(users);
+  } else {
+    res.status(500).json("Could not retrieve data from the database");
   }
 });
 
 //ChatGPT use: NO
 // Get a specific user by ID
 router.get('/userId/:userId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = new ObjectId(req.params.userId);
+  const db = getDB();
 
-    const user = await db.collection('users').findOne({ _id: id });
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).send('User not found');
-    }
+  let id;
+
+  try {
+    id = new ObjectId(req.params.userId);
   } catch (error) {
-    res.status(500).send('User not retrieved');
+    res.status(500).json('Invalid user ID');
+    return;
+  }
+
+  const user = await db.collection('users').findOne({ _id: id });
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json('User not found');
   }
 });
 
 //ChatGPT use: NO
 // Get a specific user by email
 router.get('/userEmail/:userEmail', async (req, res) => {
-  try {
-    const db = getDB();
-    const userEmail = req.params.userEmail;
+  const db = getDB();
+  const userEmail = req.params.userEmail;
 
-    const user = await db.collection('users').findOne({ email: userEmail });
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).send('User not found');
-    }
-  } catch (error) {
-    res.status(500).send('User not retrieved');
+  const user = await db.collection('users').findOne({ email: userEmail });
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json('User not found');
   }
 });
 
@@ -151,34 +138,33 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 //ChatGPT use: YES
 // Get recommended users by ID
 router.get('/userId/:userId/recommendedUsers', async (req, res) => {
-  try {
-    const db = getDB();
-    var myHomeGym;
-    var user;
-    var id
-    id = new ObjectId(req.params.userId);
-
-    user = await db.collection('users').findOne({ _id: id });
+  const db = getDB();
+  var myHomeGym;
+  var user;
+  var id
   
-    if (!user) {
-      res.status(404).send('User not found');
-      return;
-    } 
-    myHomeGym = user.homeGym;
-    const recommendedUsers = await db.collection('users').find({}).toArray();
-    const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
-      
-      return id.toString() !== recommendedUser._id.toString() && !user.friends.includes(recommendedUser._id.toString())  && !user.blockedUsers.includes(recommendedUser._id.toString());
-    });
-    if (!filteredRecommendedUsers) {
-      res.status(500).send('Could not get recommended users');
-      return;
-    }
-
-    res.status(200).json(filteredRecommendedUsers);
+  try {    
+    id = new ObjectId(req.params.userId);
   } catch (error) {
-    res.status(500).send('Users not retrieved');
+    res.status(500).json('Users not retrieved');
+    return;
   }
+
+  user = await db.collection('users').findOne({ _id: id });
+
+  if (!user) {
+    res.status(404).json('User not found');
+    return;
+  } 
+
+  myHomeGym = user.homeGym;
+  const recommendedUsers = await db.collection('users').find({}).toArray();
+  
+  const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
+    return ((id.toString() !== recommendedUser._id.toString()) && (!user.friends.includes(recommendedUser._id.toString()))  && (!user.blockedUsers.includes(recommendedUser._id.toString())));
+  });
+
+  res.status(200).json(filteredRecommendedUsers);
 });
 
 //ChatGPT use: NO
@@ -192,7 +178,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
     const user = await db.collection('users').findOne({ _id: id });
 
     if (!user) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
     friendsId = user.friends;
@@ -210,7 +196,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
 
     res.status(200).json(friends);
   } catch (error) {
-    res.status(500).send('Friends not retrieved');
+    res.status(500).json('Friends not retrieved');
   }
 });
 
@@ -225,7 +211,7 @@ router.get('/userId/:userId/friendRequests', async (req, res) => {
     const user = await db.collection('users').findOne({ _id: id });
 
     if (!user) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -244,7 +230,7 @@ router.get('/userId/:userId/friendRequests', async (req, res) => {
 
     res.status(200).json(friends);
   } catch (error) {
-    res.status(500).send('Friend requests not retrieved');
+    res.status(500).json('Friend requests not retrieved');
   }
 });
 
@@ -258,7 +244,7 @@ router.get('/userId/:userId/blockedUsers', async (req, res) => {
     const user = await db.collection('users').findOne({ _id: id });
 
     if (!user) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -276,7 +262,7 @@ router.get('/userId/:userId/blockedUsers', async (req, res) => {
 
     res.status(200).json(blockedUsers);
   } catch (error) {
-    res.status(500).send('Blocked users not retrieved');
+    res.status(500).json('Blocked users not retrieved');
   }
 });
 
@@ -290,7 +276,7 @@ router.put('/userId/:userId', async (req, res) => {
     const user = await db.collection('users').findOne({ _id: id });
 
     if (!user) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -319,12 +305,12 @@ router.put('/userId/:userId', async (req, res) => {
     );
     
     if (result.matchedCount === 0) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
     } else {
       res.status(200).json(updatedUser);
     }
   } catch (error) {
-    res.status(500).send('User not updated');
+    res.status(500).json('User not updated');
   }
 });
 
@@ -345,7 +331,7 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
       senderFriends.push(recieverId.toString());
     }
     else{
-      res.status(500).send('Already friends');
+      res.status(500).json('Already friends');
     }
     const result = await db.collection('users').updateOne(
       { _id: recieverId },
@@ -363,9 +349,9 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
         } 
       }
     );
-    res.status(200).send('Friend added');
+    res.status(200).json('Friend added');
   } catch (error) {
-    res.status(500).send('Friend not added');
+    res.status(500).json('Friend not added');
   }
 });
 
@@ -380,7 +366,7 @@ router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
     const recieverUser = await db.collection('users').findOne({ _id: recieverId });
 
     if (!recieverUser) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -397,7 +383,7 @@ router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
 
     if (i != -1) {
-      res.status(500).send('Friend request already sent');
+      res.status(500).json('Friend request already sent');
       return;
     }
 
@@ -409,7 +395,7 @@ router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
 
     if (i != -1) {
-      res.status(500).send('Already friends');
+      res.status(500).json('Already friends');
       return;
     }
 
@@ -425,12 +411,12 @@ router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
     );
     
     if (result.matchedCount === 0) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
     } else {
-      res.status(200).send('Friend Request Sent');
+      res.status(200).json('Friend Request Sent');
     }
   } catch (error) {
-    res.status(500).send('Friend Request Not Sent');
+    res.status(500).json('Friend Request Not Sent');
   }
 });
 
@@ -445,7 +431,7 @@ router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
     const recieverUser = await db.collection('users').findOne({ _id: recieverId });
 
     if (!recieverUser) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -460,7 +446,7 @@ router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
 
     if (i == -1) {
-      res.status(500).send('No Friend request');
+      res.status(500).json('No Friend request');
       return;
     }
 
@@ -476,12 +462,12 @@ router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
     );
     
     if (result.matchedCount === 0) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
     } else {
-      res.status(200).send('Friend Request Unsent');
+      res.status(200).json('Friend Request Unsent');
     }
   } catch (error) {
-    res.status(500).send('Friend Request Not Unsent');
+    res.status(500).json('Friend Request Not Unsent');
   }
 });
 
@@ -497,7 +483,7 @@ router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
     const senderUser = await db.collection('users').findOne({ _id: recieverId });
 
     if (!recieverUser || !senderUser) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -515,7 +501,7 @@ router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
 
     if (i == -1) {
-      res.status(404).send('Request not found');
+      res.status(404).json('Request not found');
       return;
     }
 
@@ -543,12 +529,12 @@ router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
     );
     
     if (resultSender.matchedCount === 0 || resultReciever.matchedCount === 0) {
-      res.status(500).send('Friend request not accepted');
+      res.status(500).json('Friend request not accepted');
     } else {
-      res.status(200).send('Friend Request Accepted');
+      res.status(200).json('Friend Request Accepted');
     }
   } catch (error) {
-    res.status(500).send('Friend Request Not Accepted');
+    res.status(500).json('Friend Request Not Accepted');
   }
 });
 
@@ -563,7 +549,7 @@ router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
     const recieverUser = await db.collection('users').findOne({ _id: recieverId });
 
     if (!recieverUser) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -579,7 +565,7 @@ router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
     }
 
     if (i == -1) {
-      res.status(404).send('Request not found');
+      res.status(404).json('Request not found');
       return;
     }
 
@@ -595,12 +581,12 @@ router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
     );
     
     if (resultReciever.matchedCount === 0) {
-      res.status(500).send('Friend request not declined');
+      res.status(500).json('Friend request not declined');
     } else {
-      res.status(200).send('Friend Request Declined');
+      res.status(200).json('Friend Request Declined');
     }
   } catch (error) {
-    res.status(500).send('Friend Request Not Declined');
+    res.status(500).json('Friend Request Not Declined');
   }
 });
 
@@ -613,12 +599,12 @@ router.put('/unfriend/:unfrienderId/:unfriendedId', async (req, res) => {
     const result = await unfriend(db, req.params.unfrienderId, req.params.unfriendedId);
 
     if (result) {
-      res.status(200).send('User unfriended');
+      res.status(200).json('User unfriended');
     } else {
-      res.status(500).send('User not unfriended');
+      res.status(500).json('User not unfriended');
     }
   } catch (error) {
-    res.status(500).send('User Not Unfriended');
+    res.status(500).json('User Not Unfriended');
   }
 });
 
@@ -703,7 +689,7 @@ router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
     const blockerUser = await db.collection('users').findOne({ _id: blockerId });
 
     if (!blockerUser) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -722,12 +708,12 @@ router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
     );
     
     if (result.matchedCount === 0) {
-      res.status(500).send('User not blocked');
+      res.status(500).json('User not blocked');
     } else {
-      res.status(200).send('User blocked');
+      res.status(200).json('User blocked');
     }
   } catch (error) {
-    res.status(500).send('User Not Blocked');
+    res.status(500).json('User Not Blocked');
   }
 });
 
@@ -741,7 +727,7 @@ router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
     const blockerUser = await db.collection('users').findOne({ _id: blockerId });
 
     if (!blockerUser) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -757,7 +743,7 @@ router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
     }
 
     if (i == -1) {
-      res.status(404).send('Blocked user not found');
+      res.status(404).json('Blocked user not found');
       return;
     }
 
@@ -773,12 +759,12 @@ router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
     );
     
     if (result.matchedCount === 0) {
-      res.status(500).send('User not unblocked');
+      res.status(500).json('User not unblocked');
     } else {
-      res.status(200).send('User unblocked');
+      res.status(200).json('User unblocked');
     }
   } catch (error) {
-    res.status(500).send('User Not Unblocked');
+    res.status(500).json('User Not Unblocked');
   }
 });
 
@@ -792,7 +778,7 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
     const user = await db.collection('users').findOne({ _id: userId });
 
     if (!user) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
       return;
     }
 
@@ -808,7 +794,7 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
     }
 
     if (i == -1) {
-      res.status(404).send('Chat not found');
+      res.status(404).json('Chat not found');
       return;
     }
 
@@ -824,12 +810,12 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
     );
     
     if (result.matchedCount === 0) {
-      res.status(500).send('Chat not deleted');
+      res.status(500).json('Chat not deleted');
     } else {
-      res.status(200).send('Chat deleted');
+      res.status(200).json('Chat deleted');
     }
   } catch (error) {
-    res.status(500).send('Chat Not Deleted');
+    res.status(500).json('Chat Not Deleted');
   }
 });
 
@@ -843,24 +829,24 @@ router.delete('/userId/:userId', async (req, res) => {
     const resultClearData = await clearData(db, _id);
 
     if (!resultClearData) {
-      res.status(500).send('User data not cleared');
+      res.status(500).json('User data not cleared');
       return;
     }
 
     const result = await db.collection('users').deleteOne({ _id: _id });
 
     if (!schedulesDelete) {
-      res.status(500).send('User schedules not properly deleted');
+      res.status(500).json('User schedules not properly deleted');
       return;
     }
 
     if (result.deletedCount === 0) {
-      res.status(404).send('User not found');
+      res.status(404).json('User not found');
     } else {
-      res.status(200).send('User deleted successfully');
+      res.status(200).json('User deleted successfully');
     }
   } catch (error) {
-    res.status(500).send('User Not Deleted');
+    res.status(500).json('User Not Deleted');
   }
 });
 
@@ -932,9 +918,9 @@ router.delete('/', async (req, res) => {
     const db = getDB();
     
     const result = await db.collection('users').deleteMany({});
-    res.status(200).send('Users deleted successfully');
+    res.status(200).json('Users deleted successfully');
   } catch (error) {
-    res.status(500).send('All Users Not Deleted');
+    res.status(500).json('All Users Not Deleted');
   }
 });
 
