@@ -177,8 +177,7 @@ public class PersonalProfileFriend
                 Intent chatIntent =
                         new Intent(PersonalProfileFriend.this,Chat.class);
                 chatIntent.putExtra("Username", friendName);
-
-                checkIfChatExists(friendId);
+                chatIntent.putExtra("FriendId", friendId);
 
                 startActivity(chatIntent);
                 //Go to the page which send the message to friends
@@ -219,21 +218,6 @@ public class PersonalProfileFriend
 
 
 
-
-    }
-
-    private boolean checkIfChatExists(String friendId) {
-        ConnectionToBackend c = new ConnectionToBackend();
-        Chat thisChat = c.getChatFromFriendId(friendId);
-
-        //Log.d("THISSSSSSS", email + " in login page");
-
-        if(thisChat== null){
-            Log.d("THISSSSSSS", "chat is null :c");
-            return false;
-        }
-
-        return true;
 
     }
 
