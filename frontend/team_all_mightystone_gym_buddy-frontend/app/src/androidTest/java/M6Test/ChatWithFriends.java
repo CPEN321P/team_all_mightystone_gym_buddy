@@ -2,6 +2,8 @@ package M6Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -45,15 +47,199 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
 public class ChatWithFriends {
 
+    public static String inputString;
+
     @Rule
     public ActivityScenarioRule<Logo> activityRule =
             new ActivityScenarioRule<Logo>(Logo.class);
+
+    @Test
+    public void A_CheckPersonalProfileFriendsAndCheckMessageButton(){
+        Login();
+        GoToPeople();
+        GoToPersonalProfileFriends();
+        CheckMessageButtonIsThere();
+    }
+
+    @Test
+    public void B_CheckPersonalProfileAndCheckMessageButtonIsNotHere(){
+        Login();
+        GoToPeople();
+        GoToPossibleFriendsList();
+        GoToPersonalProfileOthers();
+        CheckMessageButtonIsNotThere();
+    }
+
+    @Test
+    public void C_SendTheMessageAndCheckit(){
+        Login();
+        GoToPeople();
+        GoToPersonalProfileFriends();
+        CheckMessageButtonIsThere();
+        ClickMessageButton();
+        SendMessageAndCheckMessage();
+        CheckMessage();
+    }
+
+    @Test
+    public void D_CheckSentMessageFromAnother(){
+        LoginAsOthers();
+        GoToPeople();
+        GoToPersonalProfileFriendsFromAnother();
+        CheckMessageButtonIsThere();
+        ClickMessageButton();
+        CheckMessage();
+    }
+
+    public void Login(){
+        ConnectionToBackend c = new ConnectionToBackend();
+        Account thisAccount = c.getAccountInformation("libirdxz@gmail.com");
+        myAccount = thisAccount;
+
+        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
+        GlobalClass.MyeventsList = TheEventsofThisAccount;
+    }
+
+    public void LoginAsOthers(){
+        ConnectionToBackend c = new ConnectionToBackend();
+        Account thisAccount = c.getAccountInformation("zhengxu3635@gmail.com");
+        myAccount = thisAccount;
+
+        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
+        GlobalClass.MyeventsList = TheEventsofThisAccount;
+    }
+
+    public void GoToPeople(){
+        ViewInteraction FriendsList = onView(
+                allOf(withId(R.id.navigation_friends), withContentDescription("Friends"),
+                        childAtPosition(
+                                allOf(withId(R.id.navigation_bar),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.RelativeLayout")),
+                                                1)),
+                                1),
+                        isDisplayed()));
+        FriendsList.perform(click());
+        onView(withId(R.id.Friends)).check(matches(isDisplayed()));
+        //onView(withId(R.id.recyclerview)).check(matches(isDisplayed()));
+    }
+
+    public void GoToPossibleFriendsList(){
+        ViewInteraction PossiblePeopleList = onView(
+                allOf(withId(R.id.find_new_friends), withText("Find New Friends"),
+                        childAtPosition(
+                                allOf(withId(R.id.top_bar),
+                                        childAtPosition(
+                                                withId(R.id.Friends),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        PossiblePeopleList.perform(click());
+        onView(withId(R.id.PossibleFriends)).check(matches(isDisplayed()));
+    }
+
+    public void GoToFriendsList(){
+        ViewInteraction FriendsPage = onView(
+                allOf(withId(R.id.my_friends), withText("My Friends"),
+                        childAtPosition(
+                                allOf(withId(R.id.top_bar),
+                                        childAtPosition(
+                                                withId(R.id.PossibleFriends),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        FriendsPage.perform(click());
+        onView(withId(R.id.Friends)).check(matches(isDisplayed()));
+    }
+
+    public void GoToPersonalProfileOthers(){
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.name), withText("Sav"),
+                        withParent(withParent(withId(R.id.recyclerview))),
+                        isDisplayed()));
+        textView.check(matches(withText("Sav")));
+
+        textView.perform(click());
+
+        onView(withId(R.id.PersonalProfileOthers)).check(matches(isDisplayed()));
+    }
+
+    public void GoToPersonalProfileFriends(){
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.name), withText("Tommy"),
+                        withParent(withParent(withId(R.id.recyclerview))),
+                        isDisplayed()));
+        textView.check(matches(withText("Tommy")));
+
+        textView.perform(click());
+        onView(withId(R.id.PersonalProfileFriend)).check(matches(isDisplayed()));
+    }
+
+    public void GoToPersonalProfileFriendsFromAnother(){
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.name), withText("Zheng"),
+                        withParent(withParent(withId(R.id.recyclerview))),
+                        isDisplayed()));
+        textView.check(matches(withText("Zheng")));
+
+        textView.perform(click());
+        onView(withId(R.id.PersonalProfileFriend)).check(matches(isDisplayed()));
+    }
+
+    public void CheckMessageButtonIsThere(){
+        ViewInteraction Message = onView(
+                allOf(withId(R.id.Message), withText("Message")));
+        Message.check(matches(isDisplayed()));
+    }
+
+    public void CheckMessageButtonIsNotThere(){
+        ViewInteraction Message = onView(
+                allOf(withId(R.id.Message), withText("Message")));
+        Message.check(doesNotExist());
+    }
+
+    public void ClickMessageButton(){
+        ViewInteraction Message = onView(
+                allOf(withId(R.id.Message), withText("Message"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        2),
+                                0),
+                        isDisplayed()));
+        Message.perform(click());
+        onView(withId(R.id.Chat)).check(matches(isDisplayed()));
+    }
+
+    public void SendMessageAndCheckMessage(){
+        LocalTime localTime = LocalTime.now();
+        inputString = localTime.toString();
+
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.chat_text_input),
+                        childAtPosition(
+                                allOf(withId(R.id.bottom_layout),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.RelativeLayout")),
+                                                2)),
+                                0),
+                        isDisplayed()));
+        appCompatEditText.perform(replaceText(inputString), closeSoftKeyboard());
+    }
+
+    public void CheckMessage(){
+        ViewInteraction SentMessage = onView(
+                allOf(withId(R.id.recyclerview)));
+
+        SentMessage.check(matches(withText(inputString)));
+    }
 
     public static ViewAction waitFor(long delay){
         return new ViewAction() {
