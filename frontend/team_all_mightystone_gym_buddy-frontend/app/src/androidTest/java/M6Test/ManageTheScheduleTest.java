@@ -115,7 +115,7 @@ public class ManageTheScheduleTest {
     public void OpenSchedule(){
 
         ConnectionToBackend c = new ConnectionToBackend();
-        Account thisAccount = c.getAccountInformation("libirdxz@gmail.com");
+        Account thisAccount = c.getAccountInformation("zhengxu3635@gmail.com");
         myAccount = thisAccount;
 
         ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
