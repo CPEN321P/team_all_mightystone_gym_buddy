@@ -7,21 +7,6 @@ console.log(getDB);
 
 jest.mock('../MongoDB/Connect.js');
 
-// let connection;
-// let db;
-
-// beforeAll(async () => {
-//   connection = await MongoClient.connect("mongodb://127.0.0.1:27017", {
-//     useNewUrlParser: true,
-//   });
-//   db = await connection.db('gym-buddies-db');
-// });
-
-// afterAll(async () => {
-//   await connection.close();
-//   await db.close();
-// });
-
 jest.mock('mongodb');
 
 describe('POST /', () => {
