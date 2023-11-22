@@ -54,7 +54,29 @@ describe('Create a new gym', () => {
       expect(response.statusCode).toBe(200);
       expect(response.body).toBe('mockedId');
     });
+    it('Database Error', async () => {
+      // Mock the getDB function
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          insertOne: jest.fn().mockReturnValue(null),
+      };
+      getDB.mockImplementation(()=>{
+        throw new error();
+      });
+      
+      const mockGym = {
+        fruit: 'banana',
+        color: 'yellow'
+      };
   
+      const response = await request(app)
+        .post('/gyms')
+        .send(mockGym)
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toBe('Gym not added to the database');
+    });
     it('Gym is not added to the database', async () => {
       // Mock the getDB function
       mockDB = {
@@ -108,7 +130,7 @@ describe('Create a new gym', () => {
       expect(response.body).toContainObject({ name: 'Gym B' });
     });
   
-    it('There is an error retrieving the gyms from the database', async () => {
+    it('Gym not found', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
           find: jest.fn().mockReturnThis(),
@@ -123,6 +145,25 @@ describe('Create a new gym', () => {
   
       expect(response.statusCode).toBe(404);
       expect(response.body).toBe("No gyms found");
+    });
+
+    it('There is an error retrieving the gyms from the database', async () => {
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          find: jest.fn().mockReturnThis(),
+          toArray: jest.fn().mockReturnValue(null),
+      };
+        
+      getDB.mockImplementation(()=>{
+        throw new error();
+      });
+      
+      const response = await request(app)
+        .get('/gyms')
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toBe("Could not retrieve data from the database");
     });
   });
 
@@ -231,12 +272,7 @@ describe('Create a new gym', () => {
       expect(response.body.email).toBe(mockGym.email);
     });
   
-    it('Error retrieving gym from database', async () => {
-      const mockGym = {
-        name: 'Gym A',
-        email: 'gyma@example.com',
-      };
-  
+    it('No gym found', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockReturnValue(null),
@@ -254,6 +290,26 @@ describe('Create a new gym', () => {
   
       expect(response.statusCode).toBe(404);
       expect(response.body).toBe('Gym not found');
+    });
+
+    it('Error retrieving gym from database', async () => {
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          findOne: jest.fn().mockReturnValue(null),
+      };
+        
+      getDB.mockImplementation(()=>{
+        throw new error();
+      });
+      
+      
+      const response = await request(app)
+        .get('/gyms/byEmail/example@test.com')
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toBe('Could not retrieve data from the database');
     });
   });
 
@@ -461,20 +517,6 @@ describe('Create a new gym', () => {
 
   describe('Delete gym', () => {
     it('Invalid gym ID', async () => {
-      const gyms = [
-        {
-          _id: 12345,
-          name: 'Gym A',
-          email: 'gyma@example.com',
-          phone: '987654321'
-        },
-        {
-          _id: 23456,
-          name: 'Gym B',
-          email: 'gyma@example.com',
-        },
-      ];
-  
       mockDB = {
           collection: jest.fn().mockReturnThis(),
       };
@@ -494,20 +536,6 @@ describe('Create a new gym', () => {
     });
   
     it('Gym not found', async () => {
-      const gyms = [
-        {
-          _id: 12345,
-          name: 'Gym A',
-          email: 'gyma@example.com',
-          phone: '987654321'
-        },
-        {
-          _id: 23456,
-          name: 'Gym B',
-          email: 'gyma@example.com',
-        },
-      ];
-  
       mockDB = {
           collection: jest.fn().mockReturnThis(),
           deleteOne: jest.fn().mockImplementation((param) => {
@@ -529,22 +557,7 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Gym not found');
     });
   
-    it('Gym not deleted', async () => {
-  
-      const gyms = [
-        {
-          _id: 12345,
-          name: 'Gym A',
-          email: 'gyma@example.com',
-          phone: '987654321'
-        },
-        {
-          _id: 23456,
-          name: 'Gym B',
-          email: 'gyma@example.com',
-        },
-      ];
-  
+    it('Gym not deleted', async () => {  
       mockDB = {
           collection: jest.fn().mockReturnThis(),
           deleteOne: jest.fn().mockImplementation((param) => {
@@ -567,21 +580,6 @@ describe('Create a new gym', () => {
     });
   
     it('Gym deleted', async () => {
-  
-      const gyms = [
-        {
-          _id: 12345,
-          name: 'Gym A',
-          email: 'gyma@example.com',
-          phone: '987654321'
-        },
-        {
-          _id: 23456,
-          name: 'Gym B',
-          email: 'gyma@example.com',
-        },
-      ];
-  
       mockDB = {
           collection: jest.fn().mockReturnThis(),
           deleteOne: jest.fn().mockImplementation((param) => {
