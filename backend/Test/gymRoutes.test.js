@@ -29,8 +29,12 @@ expect.extend({
       }
     }
   });
-
+//ChatGPT use: No
 describe('Create a new gym', () => {
+    // Input: mockGym
+    // Expected status code: 200
+    // Expected behavior: Successfully added
+    // Expected output: The gym object
     it('Gym is added to the database', async () => {
       // Mock the getDB function
       mockDB = {
@@ -54,6 +58,11 @@ describe('Create a new gym', () => {
       expect(response.statusCode).toBe(200);
       expect(response.body).toBe('mockedId');
     });
+
+    // Input: mockGym
+    // Expected status code: 500
+    // Expected behavior: Database error
+    // Expected output: Error message
     it('Database Error', async () => {
       // Mock the getDB function
       mockDB = {
@@ -77,6 +86,11 @@ describe('Create a new gym', () => {
       expect(response.statusCode).toBe(500);
       expect(response.body).toBe('Gym not added to the database');
     });
+
+    // Input: mockGym
+    // Expected status code: 500
+    // Expected behavior: Gym is not added to the database
+    // Expected output: Error message
     it('Gym is not added to the database', async () => {
       // Mock the getDB function
       mockDB = {
@@ -100,7 +114,9 @@ describe('Create a new gym', () => {
     });
   });
 
+  //ChatGPT use: No
   describe('Get all gyms', () => {
+    
     it('Gyms are retrieved', async () => {
       const mockGyms = [
         {
@@ -167,6 +183,7 @@ describe('Create a new gym', () => {
     });
   });
 
+  //ChatGPT use: No
   describe('Get a specific gym by ID', () => {
     it('Gym is retrieved', async () => {
       const mockGym = {
@@ -245,6 +262,7 @@ describe('Create a new gym', () => {
     });
   });
 
+  //ChatGPT use: No
   describe('Get a specific gym by email', () => {
     it('Gym is retrieved', async () => {
       const mockGym = {
@@ -304,8 +322,12 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Could not retrieve data from the database');
     });
   });
-
+  //ChatGPT use: No
   describe('Update gym', () => {
+    // Input: none
+    // Expected status code: 500
+    // Expected behavior: Failure because of invalid Id
+    // Expected output: Text "Gym not updated"
     it('Invalid gym ID', async () => {
       const updatedGym = {
         email: 'newgyma@example.com',
@@ -354,6 +376,10 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Gym not updated');
     });
   
+    // Input: none
+    // Expected status code: 404
+    // Expected behavior: Failure because gym not found
+    // Expected output: Text "Gym not found"
     it('Gym not found', async () => {
       const updatedGym = {
         name: 'Gym X',
@@ -402,6 +428,10 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Gym not found');
     });
   
+    // Input: none
+    // Expected status code: 404
+    // Expected behavior: Failure because gym not found
+    // Expected output: Text "Gym not found"
     it('Gym not updated', async () => {
       const updatedGym = {
         name: 'Gym X',
@@ -453,6 +483,10 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Gym not found');
     });
   
+    // Input: none
+    // Expected status code: 200
+    // Expected behavior: Success: gym updated
+    // Expected output: Updated gym
     it('Gym updated', async () => {
       const updatedGym = {
         email: 'newgyma@example.com',
@@ -507,7 +541,12 @@ describe('Create a new gym', () => {
     });
   });
 
+  //ChatGPT use: No
   describe('Delete gym', () => {
+    // Input: none
+    // Expected status code: 500
+    // Expected behavior: Failure because of invalid Id
+    // Expected output: Text "Gym not deleted"
     it('Invalid gym ID', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
@@ -526,7 +565,11 @@ describe('Create a new gym', () => {
       expect(response.statusCode).toBe(500);
       expect(response.body).toBe('Gym not deleted');
     });
-  
+    
+    // Input: none
+    // Expected status code: 404
+    // Expected behavior: Failure because gym not found
+    // Expected output: Text "Gym not found"
     it('Gym not found', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
@@ -548,7 +591,11 @@ describe('Create a new gym', () => {
       expect(response.statusCode).toBe(404);
       expect(response.body).toBe('Gym not found');
     });
-  
+    
+    // Input: none
+    // Expected status code: 404
+    // Expected behavior: Failure because gym not found
+    // Expected output: Text "Gym not found"
     it('Gym not deleted', async () => {  
       mockDB = {
           collection: jest.fn().mockReturnThis(),
@@ -571,6 +618,10 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Gym not found');
     });
   
+    // Input: none
+    // Expected status code: 200
+    // Expected behavior: Success: gym deleted
+    // Expected output: Text "Gym deleted successfully"
     it('Gym deleted', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
