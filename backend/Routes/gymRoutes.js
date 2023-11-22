@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
       res.status(404).json("No gyms found");
     }
   } catch (error) {
-    res.status(500).json("No Could not retrieve data from the database found");
+    res.status(500).json("Could not retrieve data from the database");
   }
 });
 
@@ -91,7 +91,7 @@ router.get('/byEmail/:email', async (req, res) => {
       res.status(404).json('Gym not found');
     }
   } catch (error) {
-    res.status(404).json('Gym not found');
+    res.status(500).json('Could not retrieve data from the database');
   }
 });
 
@@ -155,6 +155,7 @@ router.delete('/gymId/:gymId', async (req, res) => {
 
 // Delete all gyms
 //This is for debugging only (DEV USE)
+/*
 router.delete('/', async (req, res) => {
   try {
     const db = getDB();
@@ -164,4 +165,7 @@ router.delete('/', async (req, res) => {
     res.status(500).send('All gyms Not Deleted');
   }
 });
+*/
+
 module.exports = router;
+
