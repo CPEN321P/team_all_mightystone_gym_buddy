@@ -120,7 +120,7 @@ router.get('/byUser/:userId', async (req, res) => {
 router.get('/byId/:scheduleId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.scheduleId);
+    const id = ObjectId(req.params.scheduleId);
 
     const schedule = await db.collection('schedules').findOne({ 
       _id: id,
@@ -142,7 +142,7 @@ router.get('/byId/:scheduleId', async (req, res) => {
 router.put('/byId/:scheduleId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.scheduleId);
+    const id = ObjectId(req.params.scheduleId);
 
     const schedule = await db.collection('schedules').findOne({ _id: id });
 
@@ -224,7 +224,7 @@ router.put('/byUser/:userId/:date', async (req, res) => {
 router.delete('/byId/:scheduleId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.scheduleId);
+    const id = ObjectId(req.params.scheduleId);
 
     const result = await db.collection('schedules').deleteOne({ 
       _id: id,
@@ -242,7 +242,7 @@ router.delete('/byId/:scheduleId', async (req, res) => {
 
 // router.delete('/byUser/:userId', async (req, res) => {
 //   const db = getDB();
-//   const userId = new ObjectId(req.params.userId);
+//   const userId = ObjectId(req.params.userId);
 
 //   const result = await db.collection('schedules').deleteOne({ 
 //     userId: userId,

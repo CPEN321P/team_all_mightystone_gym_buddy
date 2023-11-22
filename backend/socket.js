@@ -122,8 +122,8 @@ const userMustHaveChat = async (db, chat) => {
     const chatId = chat._id.toString();
     const user1Id = chat.members[0];
     const user2Id = chat.members[1];
-    const _user1Id = new ObjectId(user1Id);
-    const _user2Id = new ObjectId(user2Id);
+    const _user1Id = ObjectId(user1Id);
+    const _user2Id = ObjectId(user2Id);
     const user1 = await db.collection('users').findOne({ _id: _user1Id });
     const user2 = await db.collection('users').findOne({ _id: _user2Id });
 
@@ -190,7 +190,7 @@ const userMustHaveChat = async (db, chat) => {
 
 const notifyRecipient = async (db, chatId, userId) => {
   try {
-    const _userId = new ObjectId(userId);
+    const _userId = ObjectId(userId);
     const user = await db.collection('users').findOne({ _id: _userId });
 
     if (!user){

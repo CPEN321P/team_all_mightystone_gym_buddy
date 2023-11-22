@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
 router.get('/userId/:userId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.userId);
+    const id = ObjectId(req.params.userId);
 
     const gymUser = await db.collection('gymUsers').findOne({ _id: id });
     if (gymUser) {
@@ -105,9 +105,9 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 router.put('/makeAnnouncement/:userId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.userId);
+    const id = ObjectId(req.params.userId);
     const announcement = req.body;
-    const announcementId = new ObjectId();
+    const announcementId = ObjectId();
 
     const gymUser = await db.collection('gymUsers').findOne({ _id: id });
 
@@ -147,7 +147,7 @@ router.put('/makeAnnouncement/:userId', async (req, res) => {
 router.put('/editAnnouncement/:userId/:announcementId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.userId);
+    const id = ObjectId(req.params.userId);
     const announcementId = req.params.announcementId;
     const announcement = req.body;
 
@@ -200,7 +200,7 @@ router.put('/editAnnouncement/:userId/:announcementId', async (req, res) => {
 router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.userId);
+    const id = ObjectId(req.params.userId);
     const announcementId = req.params.announcementId;
 
     const gymUser = await db.collection('gymUsers').findOne({ _id: id });
@@ -251,7 +251,7 @@ router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
 router.put('/userId/:userId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.userId);
+    const id = ObjectId(req.params.userId);
 
     const gymUser = await db.collection('gymUsers').findOne({ _id: id });
 
@@ -292,7 +292,7 @@ router.put('/userId/:userId', async (req, res) => {
 router.delete('/userId/:userId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.userId);
+    const id = ObjectId(req.params.userId);
 
     const result = await db.collection('gymUsers').deleteOne({ _id: id });
 
