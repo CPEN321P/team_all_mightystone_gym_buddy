@@ -183,7 +183,7 @@ public class BrowseUserandAddFriend {
                 allOf(withId(R.id.name), withText("Joy"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
-        textView.check(matches(withText("Joy")));
+        textView.check(matches(isDisplayed()));
 
         ViewInteraction Cancel = onView(
                 allOf(withId(R.id.Cancel), withText("Cancel"),
