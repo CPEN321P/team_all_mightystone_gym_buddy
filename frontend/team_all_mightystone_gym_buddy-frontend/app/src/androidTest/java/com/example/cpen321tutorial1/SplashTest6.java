@@ -2,11 +2,14 @@ package com.example.cpen321tutorial1;
 
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
@@ -30,7 +33,7 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class SplashTest3 {
+public class SplashTest6 {
 
     @Rule
     public ActivityScenarioRule<Splash> mActivityScenarioRule =
@@ -43,7 +46,7 @@ public class SplashTest3 {
                     "android.permission.ACCESS_COARSE_LOCATION");
 
     @Test
-    public void splashTest3() {
+    public void splashTest6() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.getStarted), withText("Get Started"),
                         childAtPosition(
@@ -67,6 +70,50 @@ public class SplashTest3 {
         id.perform(click());
 
         ViewInteraction materialButton2 = onView(
+                allOf(withId(R.id.navigation_friends), withContentDescription("Friends"),
+                        childAtPosition(
+                                allOf(withId(R.id.navigation_bar),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.RelativeLayout")),
+                                                1)),
+                                1),
+                        isDisplayed()));
+        materialButton2.perform(click());
+
+        ViewInteraction materialButton3 = onView(
+                allOf(withId(R.id.find_new_friends), withText("Find New Friends"),
+                        childAtPosition(
+                                allOf(withId(R.id.top_bar),
+                                        childAtPosition(
+                                                withId(R.id.Friends),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        materialButton3.perform(click());
+
+        ViewInteraction materialButton4 = onView(
+                allOf(withId(R.id.my_friends), withText("My Friends"),
+                        childAtPosition(
+                                allOf(withId(R.id.top_bar),
+                                        childAtPosition(
+                                                withId(R.id.PossibleFriends),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        materialButton4.perform(click());
+
+        ViewInteraction materialButton5 = onView(
+                allOf(withId(R.id.navigation_home), withContentDescription("Home"),
+                        childAtPosition(
+                                allOf(withId(R.id.navigation_bar),
+                                        childAtPosition(
+                                                withId(R.id.Friends),
+                                                2)),
+                                0),
+                        isDisplayed()));
+        materialButton5.perform(click());
+
+        ViewInteraction materialButton6 = onView(
                 allOf(withId(R.id.navigation_schedule), withContentDescription("Schedule"),
                         childAtPosition(
                                 allOf(withId(R.id.navigation_bar),
@@ -75,38 +122,56 @@ public class SplashTest3 {
                                                 1)),
                                 2),
                         isDisplayed()));
-        materialButton2.perform(click());
+        materialButton6.perform(click());
 
-        ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.Weekly), withText("Weekly"),
+        ViewInteraction materialButton7 = onView(
+                allOf(withId(R.id.Daily), withText("Daily"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.ScheduleMonthly),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
-        materialButton3.perform(click());
+        materialButton7.perform(click());
 
-        ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.AddEvent), withText("New Event"),
+        ViewInteraction materialButton8 = onView(
+                allOf(withId(R.id.Weekly), withText("Weekly "),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.ScheduleDaily),
+                                        0),
+                                1),
+                        isDisplayed()));
+        materialButton8.perform(click());
+
+        ViewInteraction materialButton9 = onView(
+                allOf(withId(R.id.Cancel), withText("Cancel"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.ScheduleWeekly),
-                                        4),
+                                        6),
                                 0),
                         isDisplayed()));
-        materialButton4.perform(click());
+        materialButton9.perform(click());
 
-        ViewInteraction materialButton5 = onView(
-                allOf(withId(R.id.CancelAddEvent), withText("CANCEL"),
+        ViewInteraction materialButton10 = onView(
+                allOf(withId(R.id.navigation_gyms), withContentDescription("Gyms"),
                         childAtPosition(
-                                allOf(withId(R.id.EventEdit),
+                                allOf(withId(R.id.navigation_bar),
                                         childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
+                                                withClassName(is("android.widget.RelativeLayout")),
+                                                1)),
                                 3),
                         isDisplayed()));
-        materialButton5.perform(click());
+        materialButton10.perform(click());
+
+        pressBack();
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.name), withText("Monster"),
+                        withParent(withParent(withId(R.id.recyclerview))),
+                        isDisplayed()));
+        textView.check(matches(withText("Monster")));
     }
 
     private static Matcher<View> childAtPosition(

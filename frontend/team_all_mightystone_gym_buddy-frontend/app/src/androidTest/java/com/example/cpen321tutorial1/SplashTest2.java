@@ -2,6 +2,7 @@ package com.example.cpen321tutorial1;
 
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -71,6 +72,19 @@ public class SplashTest2 {
         materialButton2.perform(click());
 
         ViewInteraction materialButton3 = onView(
+                allOf(withId(R.id.top_bar_messages), withContentDescription("Messages"),
+                        childAtPosition(
+                                allOf(withId(R.id.top_bar),
+                                        childAtPosition(
+                                                withId(R.id.Friends),
+                                                0)),
+                                2),
+                        isDisplayed()));
+        materialButton3.perform(click());
+
+        pressBack();
+
+        ViewInteraction materialButton4 = onView(
                 allOf(withId(R.id.find_new_friends), withText("Find New Friends"),
                         childAtPosition(
                                 allOf(withId(R.id.top_bar),
@@ -78,16 +92,6 @@ public class SplashTest2 {
                                                 withId(R.id.Friends),
                                                 0)),
                                 1),
-                        isDisplayed()));
-        materialButton3.perform(click());
-
-        ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.AddFriend), withText("Add Friend"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        0),
-                                0),
                         isDisplayed()));
         materialButton4.perform(click());
 
@@ -101,6 +105,16 @@ public class SplashTest2 {
                                 1),
                         isDisplayed()));
         materialButton5.perform(click());
+
+        ViewInteraction materialButton6 = onView(
+                allOf(withId(R.id.Message), withText("Message"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        2),
+                                0),
+                        isDisplayed()));
+        materialButton6.perform(click());
     }
 
     private static Matcher<View> childAtPosition(

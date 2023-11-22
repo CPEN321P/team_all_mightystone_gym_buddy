@@ -19,6 +19,7 @@ import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.rule.GrantPermissionRule;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -34,6 +35,12 @@ public class SplashTest {
     @Rule
     public ActivityScenarioRule<Splash> mActivityScenarioRule =
             new ActivityScenarioRule<>(Splash.class);
+
+    @Rule
+    public GrantPermissionRule mGrantPermissionRule =
+            GrantPermissionRule.grant(
+                    "android.permission.ACCESS_FINE_LOCATION",
+                    "android.permission.ACCESS_COARSE_LOCATION");
 
     @Test
     public void splashTest() {
@@ -60,26 +67,55 @@ public class SplashTest {
         id.perform(click());
 
         ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.navigation_friends), withContentDescription("Friends"),
+                allOf(withId(R.id.navigation_profile), withContentDescription("Profile"),
                         childAtPosition(
                                 allOf(withId(R.id.navigation_bar),
                                         childAtPosition(
                                                 withClassName(is("android.widget.RelativeLayout")),
                                                 1)),
-                                1),
+                                4),
                         isDisplayed()));
         materialButton2.perform(click());
 
         ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.find_new_friends), withText("Find New Friends"),
+                allOf(withId(R.id.BlockList), withText("Blocked Users"),
                         childAtPosition(
-                                allOf(withId(R.id.top_bar),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                0)),
-                                1),
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        0),
+                                0),
                         isDisplayed()));
         materialButton3.perform(click());
+
+        ViewInteraction materialButton4 = onView(
+                allOf(withId(R.id.Cancel), withText("Cancel"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.button_bar),
+                                        0),
+                                0),
+                        isDisplayed()));
+        materialButton4.perform(click());
+
+        ViewInteraction materialButton5 = onView(
+                allOf(withId(R.id.EditPersonalProfile), withText("Edit Profile"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        1),
+                                0),
+                        isDisplayed()));
+        materialButton5.perform(click());
+
+        ViewInteraction materialButton6 = onView(
+                allOf(withId(R.id.Cancel), withText("CANCEL"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.Last),
+                                        1),
+                                0),
+                        isDisplayed()));
+        materialButton6.perform(click());
     }
 
     private static Matcher<View> childAtPosition(
