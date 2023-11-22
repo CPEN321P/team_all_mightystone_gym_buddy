@@ -256,3 +256,350 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Gym not found');
     });
   });
+
+  describe('Update gym', () => {
+    it('Invalid gym ID', async () => {
+      const updatedGym = {
+        email: 'newgyma@example.com',
+      }
+  
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          find: jest.fn().mockReturnThis(),
+          findOne: jest.fn().mockImplementation((param) => {
+            const id = param._id;
+            for (const gym of gyms) {
+              if (gym._id == id) {
+                return gym;
+              }
+            }
+            return null;
+          })
+      };
+        
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        throw new error();
+      })
+      
+      const response = await request(app)
+        .put('/gyms/gymId/123456')
+        .send(updatedGym)
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toBe('Gym not updated');
+    });
+  
+    it('Gym not found', async () => {
+      const updatedGym = {
+        name: 'Gym X',
+      }
+  
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          find: jest.fn().mockReturnThis(),
+          findOne: jest.fn().mockImplementation((param) => {
+            const id = param._id;
+            for (const gym of gyms) {
+              if (gym._id == id) {
+                return gym;
+              }
+            }
+            return null;
+          })
+      };
+        
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        return id;
+      })
+      
+      const response = await request(app)
+        .put('/gyms/gymId/123456')
+        .send(updatedGym)
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(404);
+      expect(response.body).toBe('Gym not found');
+    });
+  
+    it('Gym not updated', async () => {
+      const updatedGym = {
+        name: 'Gym X',
+      }
+  
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          find: jest.fn().mockReturnThis(),
+          findOne: jest.fn().mockImplementation((param) => {
+            const id = param._id;
+            for (const gym of gyms) {
+              if (gym._id == id) {
+                return gym;
+              }
+            }
+            return null;
+          }),
+          updateOne: jest.fn().mockImplementation((param) => {
+            return { matchedCount: 0 }
+          })
+      };
+
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        return id;
+      })
+      
+      const response = await request(app)
+        .put('/gyms/gymId/12345')
+        .send(updatedGym)
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(404);
+      expect(response.body).toBe('Gym not found');
+    });
+  
+    it('Gym updated', async () => {
+      const updatedGym = {
+        email: 'newgyma@example.com',
+        phone: '123456789'
+      }
+  
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          find: jest.fn().mockReturnThis(),
+          findOne: jest.fn().mockImplementation((param) => {
+            const id = param._id;
+            for (const gym of gyms) {
+              if (gym._id == id) {
+                return gym;
+              }
+            }
+            return null;
+          }),
+          updateOne: jest.fn().mockImplementation((param) => {
+            return { matchedCount: 1 }
+          })
+      };
+        
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        return id;
+      })
+      
+      const response = await request(app)
+        .put('/gyms/gymId/12345')
+        .send(updatedGym)
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(200);
+      expect(response.body.email).toBe('newgyma@example.com');
+      expect(response.body.phone).toBe('123456789');
+    });
+  });
+
+  describe('Delete gym', () => {
+    it('Invalid gym ID', async () => {
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+      };
+        
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        throw new error();
+      })
+      
+      const response = await request(app)
+        .delete('/gyms/gymId/123456')
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toBe('Gym not deleted');
+    });
+  
+    it('Gym not found', async () => {
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          deleteOne: jest.fn().mockImplementation((param) => {
+            return { deletedCount: 0 }
+          })
+      };
+        
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        return id;
+      })
+      
+      const response = await request(app)
+        .delete('/gyms/gymId/123456')
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(404);
+      expect(response.body).toBe('Gym not found');
+    });
+  
+    it('Gym not deleted', async () => {
+  
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          deleteOne: jest.fn().mockImplementation((param) => {
+            return { deletedCount: 0 }
+          })
+      };
+
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        return id;
+      })
+      
+      const response = await request(app)
+        .delete('/gyms/gymId/12345')
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(404);
+      expect(response.body).toBe('Gym not found');
+    });
+  
+    it('Gym deleted', async () => {
+  
+      const gyms = [
+        {
+          _id: 12345,
+          name: 'Gym A',
+          email: 'gyma@example.com',
+          phone: '987654321'
+        },
+        {
+          _id: 23456,
+          name: 'Gym B',
+          email: 'gyma@example.com',
+        },
+      ];
+  
+      mockDB = {
+          collection: jest.fn().mockReturnThis(),
+          deleteOne: jest.fn().mockImplementation((param) => {
+            return { deletedCount: 1 }
+          })
+      };
+        
+      getDB.mockReturnValue(mockDB);
+  
+      ObjectId.mockImplementation((id) => {
+        return id;
+      })
+      
+      const response = await request(app)
+        .delete('/gyms/gymId/12345')
+        .set('Accept', 'application/json');
+  
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toBe('Gym deleted successfully');
+    });
+  });

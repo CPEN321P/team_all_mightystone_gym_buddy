@@ -105,7 +105,7 @@ router.put('/gymId/:gymId', async (req, res) => {
     const gym = await db.collection('gyms').findOne({ _id: id });
 
     if (!gym) {
-      res.status(404).send('Gym not found');
+      res.status(404).json('Gym not found');
       return;
     }
 
@@ -125,12 +125,12 @@ router.put('/gymId/:gymId', async (req, res) => {
     );
     
     if (result.matchedCount === 0) {
-      res.status(404).send('Gym not found');
+      res.status(404).json('Gym not found');
     } else {
       res.status(200).json(updatedGym);
     }
   } catch (error) {
-    res.status(500).send('Gym not updated');
+    res.status(500).json('Gym not updated');
   }
 });
 
@@ -144,12 +144,12 @@ router.delete('/gymId/:gymId', async (req, res) => {
     const result = await db.collection('gyms').deleteOne({ _id: id });
 
     if (result.deletedCount === 0) {
-      res.status(404).send('Gym not found');
+      res.status(404).json('Gym not found');
     } else {
-      res.status(200).send('Gym deleted successfully');
+      res.status(200).json('Gym deleted successfully');
     }
   } catch (error) {
-    res.status(500).send('Gym not deleted');
+    res.status(500).json('Gym not deleted');
   }
 });
 

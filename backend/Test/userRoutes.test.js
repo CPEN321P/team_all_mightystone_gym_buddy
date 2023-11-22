@@ -4003,7 +4003,7 @@ describe('Delete a user', () => {
     expect(response.body).toBe('User not deleted');
   });
 
-  it('User updated', async () => {
+  it('User deleted', async () => {
     const users = [
       {
         _id: 12345,
