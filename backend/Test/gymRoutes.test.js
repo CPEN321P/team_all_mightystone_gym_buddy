@@ -258,10 +258,6 @@ describe('Create a new gym', () => {
       };
         
       getDB.mockReturnValue(mockDB);
-  
-      ObjectId.mockImplementation((id) => {
-        return id;
-      })
       
       const response = await request(app)
         .get('/gyms/byEmail/gyma@example.com')
@@ -279,10 +275,6 @@ describe('Create a new gym', () => {
       };
         
       getDB.mockReturnValue(mockDB);
-  
-      ObjectId.mockImplementation((id) => {
-        return id;
-      })
       
       const response = await request(app)
         .get('/gyms/byEmail/example@test.com')
