@@ -30,7 +30,12 @@ expect.extend({
   }
 });
 
+// ChatGPT use: No
 describe('Create a new schedule', () => {
+    // Input: mockSchedule
+    // Expected status code: 500
+    // Expected behavior: Schedule is not added to the database because insert fails
+    // Expected output: Text "Schedule not added to the database"
   it('Schedule is not created', async () => {
     mockDB = {
         collection: jest.fn().mockReturnThis(),
@@ -53,6 +58,10 @@ describe('Create a new schedule', () => {
     expect(response.body).toBe("Schedule not added to the database");
   });
 
+  // Input: mockSchedule
+  // Expected status code: 200
+  // Expected behavior: Schedule is added to the database successfully
+  // Expected output: id of created schedule
   it('Schedule is created', async () => {
     mockDB = {
         collection: jest.fn().mockReturnThis(),
@@ -76,7 +85,12 @@ describe('Create a new schedule', () => {
   });
 });
 
+// ChatGPT use: No
 describe('Get a schedule by user id and date', () => {
+  // Input: none
+  // Expected status code: 404
+  // Expected behavior: Schedule is not not found in the database
+  // Expected output: Text "No Schedule Found"
   it('Schedule not retrieved', async () => {
     mockDB = {
         collection: jest.fn().mockReturnThis(),
@@ -93,6 +107,10 @@ describe('Get a schedule by user id and date', () => {
     expect(response.body).toBe("No Schedule Found");
   });
 
+  // Input: none
+  // Expected status code: 200
+  // Expected behavior: Schedule is returned
+  // Expected output: body contains schedule 
   it('Schedule retrieved', async () => {
     mockDB = {
         collection: jest.fn().mockReturnThis(),
@@ -110,7 +128,12 @@ describe('Get a schedule by user id and date', () => {
   });
 });
 
+// ChatGPT use: No
 describe('Get all schedules by user id', () => {
+  // Input: none
+  // Expected status code: 404
+  // Expected behavior: Schedules are not not found in the database
+  // Expected output: Text "Schedules not retrieved"
   it('Schedules not retrieved', async () => {
     const mockSchedules = [
       {
@@ -137,6 +160,10 @@ describe('Get all schedules by user id', () => {
     expect(response.body).toBe("Schedules not retrieved");
   });
 
+  // Input: none
+  // Expected status code: 200
+  // Expected behavior: Schedules are returned for the user
+  // Expected output: Array of schedules
   it('Schedules retrieved', async () => {
     const mockSchedules = [
       {
@@ -165,7 +192,12 @@ describe('Get all schedules by user id', () => {
   });
 });
 
+// ChatGPT use: No
 describe('Edit a schedule by user id and date', () => {
+  // Input: none
+  // Expected status code: 404
+  // Expected behavior: Schedules are not not found in the database
+  // Expected output: Text "Schedule not found"
   it('Schedule not found', async () => {
     const mockSchedule = {
       name: 1
@@ -190,6 +222,10 @@ describe('Edit a schedule by user id and date', () => {
     expect(response.body).toBe("Schedule not found");
   });
 
+  // Input: none
+  // Expected status code: 500
+  // Expected behavior: Schedules are not not updated because no match in db
+  // Expected output: Text "Schedules not updated"
   it('Schedule not updated', async () => {
     const mockSchedule = {
       name: 1
@@ -213,8 +249,11 @@ describe('Edit a schedule by user id and date', () => {
     expect(response.statusCode).toBe(500);
     expect(response.body).toBe("Schedule not updated");
   });
-
-  it('Schedule not updated', async () => {
+  // Input: none
+  // Expected status code: 200
+  // Expected behavior: Schedule updated in the db
+  // Expected output: Response body contains schedule
+  it('Schedule updated', async () => {
     const mockSchedule = {
       userId: 1
     };
