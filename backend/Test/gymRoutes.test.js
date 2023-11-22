@@ -29,8 +29,9 @@ expect.extend({
       }
     }
   });
-//ChatGPT use: No
-describe('Create a new gym', () => {
+  
+  //ChatGPT use: No
+  describe('Create a new gym', () => {
     // Input: mockGym
     // Expected status code: 200
     // Expected behavior: Successfully added
@@ -116,7 +117,10 @@ describe('Create a new gym', () => {
 
   //ChatGPT use: No
   describe('Get all gyms', () => {
-    
+    // Input: None
+    // Expected status code: 200
+    // Expected behavior: All gyms retrieved
+    // Expected output: List of gym objects
     it('Gyms are retrieved', async () => {
       const mockGyms = [
         {
@@ -146,6 +150,10 @@ describe('Create a new gym', () => {
       expect(response.body).toContainObject({ name: 'Gym B' });
     });
   
+    // Input: None
+    // Expected status code: 404
+    // Expected behavior: Gym not found
+    // Expected output: Error message
     it('Gym not found', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
@@ -163,6 +171,10 @@ describe('Create a new gym', () => {
       expect(response.body).toBe("No gyms found");
     });
 
+    // Input: None
+    // Expected status code: 500
+    // Expected behavior: Error retrieving data 
+    // Expected output: Error message
     it('There is an error retrieving the gyms from the database', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
@@ -185,6 +197,10 @@ describe('Create a new gym', () => {
 
   //ChatGPT use: No
   describe('Get a specific gym by ID', () => {
+    // Input: None
+    // Expected status code: 200
+    // Expected behavior: Gym retrieved
+    // Expected output: Gym object
     it('Gym is retrieved', async () => {
       const mockGym = {
         name: 'Gym A',
@@ -211,6 +227,10 @@ describe('Create a new gym', () => {
       expect(response.body.email).toBe(mockGym.email);
     });
 
+    // Input: None
+    // Expected status code: 500
+    // Expected behavior: Error thrown by ObjectId()
+    // Expected output: Error message
     it('Invalid gym ID', async () => {
         const mockGym = {
           name: 'Gym A',
@@ -236,6 +256,10 @@ describe('Create a new gym', () => {
         expect(response.body).toBe('Invalid gym ID');
       });
   
+    // Input: None
+    // Expected status code: 404
+    // Expected behavior: Gym not retieved 
+    // Expected output: Error message
     it('Error retrieving gym from database', async () => {
       const mockGym = {
         name: 'Gym A',
@@ -264,6 +288,10 @@ describe('Create a new gym', () => {
 
   //ChatGPT use: No
   describe('Get a specific gym by email', () => {
+    // Input: None
+    // Expected status code: 200
+    // Expected behavior: Gym retrieved
+    // Expected output: Gym object
     it('Gym is retrieved', async () => {
       const mockGym = {
         name: 'Gym A',
@@ -286,6 +314,10 @@ describe('Create a new gym', () => {
       expect(response.body.email).toBe(mockGym.email);
     });
   
+    // Input: None
+    // Expected status code: 404
+    // Expected behavior: Gym not found
+    // Expected output: Error message
     it('No gym found', async () => {
       mockDB = {
           collection: jest.fn().mockReturnThis(),
@@ -302,6 +334,10 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Gym not found');
     });
 
+    // Input: None
+    // Expected status code: 500
+    // Expected behavior: Gym not retieved 
+    // Expected output: Error message
     it('Error retrieving gym from database', async () => {
   
       mockDB = {
@@ -322,6 +358,7 @@ describe('Create a new gym', () => {
       expect(response.body).toBe('Could not retrieve data from the database');
     });
   });
+
   //ChatGPT use: No
   describe('Update gym', () => {
     // Input: none
