@@ -115,7 +115,14 @@ public class BrowseUserandAddFriend {
     }
 
     @Test
-    public void E_BlockUserTest(){
+    public void E_CheckFriendsListFromAnotherAccount()
+    {
+        LoginAsOthers();
+        CheckFriendsListFromAnotherAccount();
+    }
+
+    @Test
+    public void F_BlockUserTest(){
         Login();
         GoToPeople();
         GoToPersonalProfileFriends();
@@ -124,7 +131,7 @@ public class BrowseUserandAddFriend {
     }
 
     @Test
-    public void F_CheckBlockStatusAndUnblockBlockUserTest(){
+    public void G_CheckBlockStatusAndUnblockBlockUserTest(){
         Login();
         GoToPeople();
         CheckBlock();
@@ -136,6 +143,15 @@ public class BrowseUserandAddFriend {
     public void Login(){
         ConnectionToBackend c = new ConnectionToBackend();
         Account thisAccount = c.getAccountInformation("libirdxz@gmail.com");
+        myAccount = thisAccount;
+
+        ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
+        GlobalClass.MyeventsList = TheEventsofThisAccount;
+    }
+
+    public void LoginAsOthers(){
+        ConnectionToBackend c = new ConnectionToBackend();
+        Account thisAccount = c.getAccountInformation("savitoj2019@gmail.com");
         myAccount = thisAccount;
 
         ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
@@ -164,10 +180,10 @@ public class BrowseUserandAddFriend {
         onView(withId(R.id.BlockedUsers)).check(matches(isDisplayed()));
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Tommy"),
+                allOf(withId(R.id.name), withText("Joy"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
-        textView.check(matches(withText("Tommy")));
+        textView.check(matches(withText("Joy")));
 
         ViewInteraction Cancel = onView(
                 allOf(withId(R.id.Cancel), withText("Cancel"),
@@ -239,7 +255,6 @@ public class BrowseUserandAddFriend {
         onView(withId(R.id.Friends)).check(matches(isDisplayed()));
     }
 
-
     public void GoToPersonalProfileOthers(){
 
         ViewInteraction recyclerView = onView(
@@ -253,7 +268,7 @@ public class BrowseUserandAddFriend {
                 allOf(withId(R.id.name), withText("Sav"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
-        textView.check(matches(withText("Sav")));
+        textView.check(matches(isDisplayed()));
 
         textView.perform(click());
 
@@ -279,7 +294,7 @@ public class BrowseUserandAddFriend {
                 allOf(withId(R.id.name), withText("Sav"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
-        textView.check(matches(withText("Sav")));
+        textView.check(matches(isDisplayed()));
 
         textView.perform(click());
         onView(withId(R.id.PersonalProfileFriend)).check(matches(isDisplayed()));
@@ -303,6 +318,15 @@ public class BrowseUserandAddFriend {
                         withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
                         isDisplayed()));
         Weight.check(matches(not(withText("Only Able To Seem By Friend"))));
+    }
+
+    public void CheckFriendsListFromAnotherAccount(){
+        GoToPeople();
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.name), withText("Zheng"),
+                        withParent(withParent(withId(R.id.recyclerview))),
+                        isDisplayed()));
+        textView.check(matches(isDisplayed()));
     }
 
     public void CheckPersonalProfileOthers(){

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/Chat"
     tools:context=".Chat">
 
     <RelativeLayout
@@ -53,19 +54,19 @@
         android:id="@+id/bottom_layout">
 
         <EditText
+            android:id="@+id/chat_text_input"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/chat_text_input"
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@id/message_send_button"
+            android:background="@drawable/rounded_corner_message"
             android:elevation="4dp"
             android:hint="Write Message Here"
-            android:padding="10dp"
-            android:background="@drawable/rounded_corner_message"
-            android:layout_toLeftOf="@id/message_send_button"/>
+            android:padding="10dp" />
 
         <ImageButton
             android:layout_width="48dp"

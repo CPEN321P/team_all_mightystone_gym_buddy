@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
       res.status(404).json("No gyms found");
     }
   } catch (error) {
-    res.status(404).json("No gyms found");
+    res.status(500).json("No Could not retrieve data from the database found");
   }
 });
 
@@ -70,10 +70,10 @@ router.get('/gymId/:gymId', async (req, res) => {
     if (gym) {
       res.status(200).json(gym);
     } else {
-      res.status(404).send('Gym not found');
+      res.status(404).json('Gym not found');
     }
   } catch (error) {
-    res.status(404).send('Gym not found');
+    res.status(500).json('Invalid gym ID');
   }
 });
 
@@ -88,10 +88,10 @@ router.get('/byEmail/:email', async (req, res) => {
     if (gym) {
       res.status(200).json(gym);
     } else {
-      res.status(404).send('Gym not found');
+      res.status(404).json('Gym not found');
     }
   } catch (error) {
-    res.status(404).send('Gym not found');
+    res.status(404).json('Gym not found');
   }
 });
 
