@@ -205,40 +205,40 @@ router.get('/userId/:userId/friends', async (req, res) => {
 
 //ChatGPT use: NO
 // Get friend requests by ID
-router.get('/userId/:userId/friendRequests', async (req, res) => {
-  const db = getDB();
-  var friendsId;
-  let id;
+// router.get('/userId/:userId/friendRequests', async (req, res) => {
+//   const db = getDB();
+//   var friendsId;
+//   let id;
   
-  try {
-    id = ObjectId(req.params.userId);
-  } catch (error) {
-    res.status(500).json('Invalid user Id');
-    return;
-  }
+//   try {
+//     id = ObjectId(req.params.userId);
+//   } catch (error) {
+//     res.status(500).json('Invalid user Id');
+//     return;
+//   }
 
-  const user = await db.collection('users').findOne({ _id: id });
+//   const user = await db.collection('users').findOne({ _id: id });
 
-  if (!user) {
-    res.status(404).json('User not found');
-    return;
-  }
+//   if (!user) {
+//     res.status(404).json('User not found');
+//     return;
+//   }
 
-  friendsId = user.friendRequests;
+//   friendsId = user.friendRequests;
   
-  const friends = [];
+//   const friends = [];
 
-  for (const friendId of friendsId) {
-    const fid = ObjectId(friendId);
-    const friend = await db.collection('users').findOne({ _id: fid })
+//   for (const friendId of friendsId) {
+//     const fid = ObjectId(friendId);
+//     const friend = await db.collection('users').findOne({ _id: fid })
 
-    if (friend) {
-      friends.push(friend);
-    }
-  }
+//     if (friend) {
+//       friends.push(friend);
+//     }
+//   }
 
-  res.status(200).json(friends);
-});
+//   res.status(200).json(friends);
+// });
 
 //ChatGPT use: NO
 // Get blocked users by ID
@@ -382,254 +382,254 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
 
 //ChatGPT use: NO
 // Send friend request
-router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
-  const db = getDB();
-  let recieverId;
-  let senderId;
+// router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
+//   const db = getDB();
+//   let recieverId;
+//   let senderId;
 
-  try {
-    recieverId = ObjectId(req.params.recieverId);
-    senderId = ObjectId(req.params.senderId);
-  } catch (error) {
-    res.status(500).json('Invalid user Id');
-    return;
-  }
+//   try {
+//     recieverId = ObjectId(req.params.recieverId);
+//     senderId = ObjectId(req.params.senderId);
+//   } catch (error) {
+//     res.status(500).json('Invalid user Id');
+//     return;
+//   }
 
-  const recieverUser = await db.collection('users').findOne({ _id: recieverId });
+//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
 
-  if (!recieverUser) {
-    res.status(404).json('User not found');
-    return;
-  }
+//   if (!recieverUser) {
+//     res.status(404).json('User not found');
+//     return;
+//   }
 
-  const friendRequestList = recieverUser.friendRequests;
-  const friendsList = recieverUser.friends;
+//   const friendRequestList = recieverUser.friendRequests;
+//   const friendsList = recieverUser.friends;
 
-  let i = -1;
+//   let i = -1;
 
-  for (let j = 0; j < friendRequestList.length; j++) {
-    if (friendRequestList[j] == senderId) {
-      i = j;
-      break;
-    }
-  }
+//   for (let j = 0; j < friendRequestList.length; j++) {
+//     if (friendRequestList[j] == senderId) {
+//       i = j;
+//       break;
+//     }
+//   }
 
-  if (i != -1) {
-    res.status(500).json('Friend request already sent');
-    return;
-  }
+//   if (i != -1) {
+//     res.status(500).json('Friend request already sent');
+//     return;
+//   }
 
-  for (let j = 0; j < friendsList.length; j++) {
-    if (friendsList[j] == senderId) {
-      i = j;
-      break;
-    }
-  }
+//   for (let j = 0; j < friendsList.length; j++) {
+//     if (friendsList[j] == senderId) {
+//       i = j;
+//       break;
+//     }
+//   }
 
-  if (i != -1) {
-    res.status(500).json('Already friends');
-    return;
-  }
+//   if (i != -1) {
+//     res.status(500).json('Already friends');
+//     return;
+//   }
 
-  friendRequestList.push(req.params.senderId);
+//   friendRequestList.push(req.params.senderId);
 
-  const result = await db.collection('users').updateOne(
-    { _id: recieverId },
-    { 
-      $set: {
-        friendRequests: friendRequestList
-      } 
-    }
-  );
+//   const result = await db.collection('users').updateOne(
+//     { _id: recieverId },
+//     { 
+//       $set: {
+//         friendRequests: friendRequestList
+//       } 
+//     }
+//   );
   
-  if (result.matchedCount === 0) {
-    res.status(500).json('Friend Request Not Sent');
-  } else {
-    res.status(200).json('Friend Request Sent');
-  }
-});
+//   if (result.matchedCount === 0) {
+//     res.status(500).json('Friend Request Not Sent');
+//   } else {
+//     res.status(200).json('Friend Request Sent');
+//   }
+// });
 
 //ChatGPT use: NO
 // Unsend friend request
-router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
-  const db = getDB();
-  let recieverId;
-  let senderId;
+// router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
+//   const db = getDB();
+//   let recieverId;
+//   let senderId;
 
-  try {
-    recieverId = ObjectId(req.params.recieverId);
-    senderId = ObjectId(req.params.senderId);
-  } catch (error) {
-    res.status(500).json('Invalid user Id');
-    return;
-  }
+//   try {
+//     recieverId = ObjectId(req.params.recieverId);
+//     senderId = ObjectId(req.params.senderId);
+//   } catch (error) {
+//     res.status(500).json('Invalid user Id');
+//     return;
+//   }
 
-  const recieverUser = await db.collection('users').findOne({ _id: recieverId });
+//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
 
-  if (!recieverUser) {
-    res.status(404).json('User not found');
-    return;
-  }
+//   if (!recieverUser) {
+//     res.status(404).json('User not found');
+//     return;
+//   }
 
-  const friendRequestList = recieverUser.friendRequests;
+//   const friendRequestList = recieverUser.friendRequests;
 
-  let i = -1;
-  for (let j = 0; j < friendRequestList.length; j++) {
-    if (friendRequestList[j] == senderId) {
-      i = j;
-      break;
-    }
-  }
+//   let i = -1;
+//   for (let j = 0; j < friendRequestList.length; j++) {
+//     if (friendRequestList[j] == senderId) {
+//       i = j;
+//       break;
+//     }
+//   }
 
-  if (i == -1) {
-    res.status(500).json('No Friend request');
-    return;
-  }
+//   if (i == -1) {
+//     res.status(500).json('No Friend request');
+//     return;
+//   }
 
-  friendRequestList.splice(i, 1);
+//   friendRequestList.splice(i, 1);
 
-  const result = await db.collection('users').updateOne(
-    { _id: recieverId },
-    { 
-      $set: {
-        friendRequests: friendRequestList
-      } 
-    }
-  );
+//   const result = await db.collection('users').updateOne(
+//     { _id: recieverId },
+//     { 
+//       $set: {
+//         friendRequests: friendRequestList
+//       } 
+//     }
+//   );
   
-  if (result.matchedCount === 0) {
-    res.status(500).json('Friend Request Not Unsent');
-  } else {
-    res.status(200).json('Friend Request Unsent');
-  }
-});
+//   if (result.matchedCount === 0) {
+//     res.status(500).json('Friend Request Not Unsent');
+//   } else {
+//     res.status(200).json('Friend Request Unsent');
+//   }
+// });
 
 //ChatGPT use: NO
 // Accept friend request
-router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
-  const db = getDB();
-  let recieverId;
-  let senderId;
+// router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
+//   const db = getDB();
+//   let recieverId;
+//   let senderId;
 
-  try {
-    recieverId = ObjectId(req.params.recieverId);
-    senderId = ObjectId(req.params.senderId);
-  } catch (error) {
-    res.status(500).json('Invalid user Id');
-    return;
-  }
+//   try {
+//     recieverId = ObjectId(req.params.recieverId);
+//     senderId = ObjectId(req.params.senderId);
+//   } catch (error) {
+//     res.status(500).json('Invalid user Id');
+//     return;
+//   }
 
-  const recieverUser = await db.collection('users').findOne({ _id: recieverId });
-  const senderUser = await db.collection('users').findOne({ _id: recieverId });
+//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
+//   const senderUser = await db.collection('users').findOne({ _id: recieverId });
 
-  if (!recieverUser || !senderUser) {
-    res.status(404).json('User not found');
-    return;
-  }
+//   if (!recieverUser || !senderUser) {
+//     res.status(404).json('User not found');
+//     return;
+//   }
 
-  const friendRequestList = recieverUser.friendRequests;
-  const friendsListReciever = recieverUser.friends;
-  const friendsListSender = senderUser.friends;
+//   const friendRequestList = recieverUser.friendRequests;
+//   const friendsListReciever = recieverUser.friends;
+//   const friendsListSender = senderUser.friends;
 
-  let i = -1;
+//   let i = -1;
 
-  for (let j = 0; j < friendRequestList.length; j++) {
-    if (friendRequestList[j] == senderId) {
-      i = j;
-      break;
-    }
-  }
+//   for (let j = 0; j < friendRequestList.length; j++) {
+//     if (friendRequestList[j] == senderId) {
+//       i = j;
+//       break;
+//     }
+//   }
 
-  if (i == -1) {
-    res.status(500).json('Request not found');
-    return;
-  }
+//   if (i == -1) {
+//     res.status(500).json('Request not found');
+//     return;
+//   }
 
-  friendRequestList.splice(i,1);
-  friendsListReciever.push(req.params.senderId);
-  friendsListSender.push(req.params.recieverId);
+//   friendRequestList.splice(i,1);
+//   friendsListReciever.push(req.params.senderId);
+//   friendsListSender.push(req.params.recieverId);
 
-  const resultReciever = await db.collection('users').updateOne(
-    { _id: recieverId },
-    { 
-      $set: {
-        friendRequests: friendRequestList,
-        friends: friendsListReciever
-      } 
-    }
-  );
+//   const resultReciever = await db.collection('users').updateOne(
+//     { _id: recieverId },
+//     { 
+//       $set: {
+//         friendRequests: friendRequestList,
+//         friends: friendsListReciever
+//       } 
+//     }
+//   );
 
-  const resultSender = await db.collection('users').updateOne(
-    { _id: senderId },
-    { 
-      $set: {
-        friends: friendsListSender
-      } 
-    }
-  );
+//   const resultSender = await db.collection('users').updateOne(
+//     { _id: senderId },
+//     { 
+//       $set: {
+//         friends: friendsListSender
+//       } 
+//     }
+//   );
   
-  if (resultSender.matchedCount === 0 || resultReciever.matchedCount === 0) {
-    res.status(500).json('Friend request not accepted');
-  } else {
-    res.status(200).json('Friend Request Accepted');
-  }
-});
+//   if (resultSender.matchedCount === 0 || resultReciever.matchedCount === 0) {
+//     res.status(500).json('Friend request not accepted');
+//   } else {
+//     res.status(200).json('Friend Request Accepted');
+//   }
+// });
 
 //ChatGPT use: NO
 // Decline friend request
-router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
-  const db = getDB();
-  let recieverId;
-  let senderId;
+// router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
+//   const db = getDB();
+//   let recieverId;
+//   let senderId;
 
-  try {
-    recieverId = ObjectId(req.params.recieverId);
-    senderId = ObjectId(req.params.senderId);
-  } catch (error) {
-    res.status(500).json('Invalid user Id');
-    return;
-  }
+//   try {
+//     recieverId = ObjectId(req.params.recieverId);
+//     senderId = ObjectId(req.params.senderId);
+//   } catch (error) {
+//     res.status(500).json('Invalid user Id');
+//     return;
+//   }
 
-  const recieverUser = await db.collection('users').findOne({ _id: recieverId });
+//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
 
-  if (!recieverUser) {
-    res.status(404).json('User not found');
-    return;
-  }
+//   if (!recieverUser) {
+//     res.status(404).json('User not found');
+//     return;
+//   }
 
-  const friendRequestList = recieverUser.friendRequests;
+//   const friendRequestList = recieverUser.friendRequests;
 
-  let i = -1;
+//   let i = -1;
 
-  for (let j = 0; j < friendRequestList.length; j++) {
-    if (friendRequestList[j] == senderId) {
-      i = j;
-      break;
-    }
-  }
+//   for (let j = 0; j < friendRequestList.length; j++) {
+//     if (friendRequestList[j] == senderId) {
+//       i = j;
+//       break;
+//     }
+//   }
 
-  if (i == -1) {
-    res.status(500).json('Request not found');
-    return;
-  }
+//   if (i == -1) {
+//     res.status(500).json('Request not found');
+//     return;
+//   }
 
-  friendRequestList.splice(i,1);
+//   friendRequestList.splice(i,1);
 
-  const resultReciever = await db.collection('users').updateOne(
-    { _id: recieverId },
-    { 
-      $set: {
-        friendRequests: friendRequestList
-      } 
-    }
-  );
+//   const resultReciever = await db.collection('users').updateOne(
+//     { _id: recieverId },
+//     { 
+//       $set: {
+//         friendRequests: friendRequestList
+//       } 
+//     }
+//   );
   
-  if (resultReciever.matchedCount === 0) {
-    res.status(500).json('Friend request not declined');
-  } else {
-    res.status(200).json('Friend Request Declined');
-  }
-});
+//   if (resultReciever.matchedCount === 0) {
+//     res.status(500).json('Friend request not declined');
+//   } else {
+//     res.status(200).json('Friend Request Declined');
+//   }
+// });
 
 //ChatGPT use: NO
 // Unfriend user
