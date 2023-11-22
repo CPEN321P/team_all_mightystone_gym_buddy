@@ -3167,11 +3167,11 @@ describe('Block user', () => {
     })
     
     const response = await request(app)
-      .put('/users/unfriend/23456/12345')
+      .put('/users/blockUser/23456/12345')
       .set('Accept', 'application/json');
 
     expect(response.statusCode).toBe(500);
-    expect(response.body).toBe('User not unfriended');
+    expect(response.body).toBe('User not blocked');
   });
 
   it('User blocked', async () => {
@@ -3230,11 +3230,11 @@ describe('Block user', () => {
     })
     
     const response = await request(app)
-      .put('/users/unfriend/23456/12345')
+      .put('/users/blockUser/23456/12345')
       .set('Accept', 'application/json');
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toBe('User unfriended');
+    expect(response.body).toBe('User blocked');
   });
 });
 
@@ -4011,7 +4011,17 @@ describe('Delete a user', () => {
         email: 'john.doe@example.com',
         blockedUsers: [],
         friends: [],
-        chats: []
+        chats: [
+          {
+            chatId: 1
+          },
+          {
+            chatId: 2
+          },
+          {
+            chatId: 3
+          }
+        ]
       },
       {
         _id: 23456,
@@ -4019,7 +4029,11 @@ describe('Delete a user', () => {
         email: 'jane.doe@example.com',
         blockedUsers: [],
         friends: [],
-        chats: []
+        chats: [
+          {
+            chatId: 1
+          }
+        ]
       },
       {
         _id: 34567,
@@ -4028,6 +4042,22 @@ describe('Delete a user', () => {
         blockedUsers: [],
         friends: [],
         chats: []
+      },
+      {
+        _id: 1,
+        members: [
+          12345,
+          23456
+        ],
+
+      },
+      {
+        _id: 2,
+        members: [
+          12345,
+          123456
+        ],
+
       }
     ];
 

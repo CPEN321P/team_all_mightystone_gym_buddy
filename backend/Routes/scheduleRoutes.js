@@ -16,24 +16,20 @@ const router = express.Router();
 //ChatGPT use: NO
 // Create a new gym schedule
 router.post('/', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const newSchedule = {
-      userId: req.body.userId || "",
-      date: req.body.date || "",
-      exercises: req.body.exercises || []
-    };
+  const newSchedule = {
+    userId: req.body.userId || "",
+    date: req.body.date || "",
+    exercises: req.body.exercises || []
+  };
 
-    const result = await db.collection('schedules').insertOne(newSchedule);
+  const result = await db.collection('schedules').insertOne(newSchedule);
 
-    if (result && result.insertedId) {
-      res.status(200).json(result.insertedId.toString());
-    }
-    else {
-      res.status(500).json("Schedule not added to the database");
-    }
-  } catch (error) {
+  if (result && result.insertedId) {
+    res.status(200).json(result.insertedId.toString());
+  }
+  else {
     res.status(500).json("Schedule not added to the database");
   }
 });
@@ -41,50 +37,42 @@ router.post('/', async (req, res) => {
 //ChatGPT use: NO
 // Get schedule by user id and date
 router.get('/byUser/:userId/:date', async (req, res) => {
-  try {
-    const db = getDB();
-    const userId = req.params.userId;
-    const date = req.params.date
+  const db = getDB();
+  const userId = req.params.userId;
+  const date = req.params.date
 
-    const schedule = await db.collection('schedules').findOne({
-      $and: [
-        {
-          userId: userId
-        },
-        {
-          date: date
-        }
-      ] 
-    });
+  const schedule = await db.collection('schedules').findOne({
+    $and: [
+      {
+        userId: userId
+      },
+      {
+        date: date
+      }
+    ] 
+  });
 
-    if (schedule) {
-      res.status(200).json(schedule);
-    }
-    else {
-      res.status(404).json("No Schedule Found");
-    }
-  } catch (error) {
-    res.status(500).json("Could not retrieve schedule");
+  if (schedule) {
+    res.status(200).json(schedule);
+  }
+  else {
+    res.status(404).json('No Schedule Found');
   }
 });
 
 //ChatGPT use: NO
 // Get all schedules by user id
 router.get('/byUser/:userId', async (req, res) => {
-  try {
-    const db = getDB();
-    const userId = req.params.userId;
+  const db = getDB();
+  const userId = req.params.userId;
 
-    const schedules = await db.collection('schedules').find({ userId: userId }).toArray();
+  const schedules = await db.collection('schedules').find({ userId: userId }).toArray();
 
-    if (schedules) {
-      res.status(200).json(schedules);
-    }
-    else {
-      res.status(404).json("User not found");
-    }
-  } catch (error) {
-    res.status(404).json("User not found");
+  if (schedules) {
+    res.status(200).json(schedules);
+  }
+  else {
+    res.status(404).json("Schedules not retrieved");
   }
 });
 
@@ -117,128 +105,124 @@ router.get('/byUser/:userId', async (req, res) => {
 
 //ChatGPT use: NO
 // Get a specific gym schedule by ID
-router.get('/byId/:scheduleId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = ObjectId(req.params.scheduleId);
+// router.get('/byId/:scheduleId', async (req, res) => {
+//   try {
+//     const db = getDB();
+//     const id = ObjectId(req.params.scheduleId);
 
-    const schedule = await db.collection('schedules').findOne({ 
-      _id: id,
-    });
+//     const schedule = await db.collection('schedules').findOne({ 
+//       _id: id,
+//     });
 
-    if (schedule) {
-      res.status(200).json(schedule);
-    }
-    else {
-      res.status(404).json("No Schedule Found");
-    }
-  } catch (error) {
-    res.status(404).json("No Schedule Found");
-  }
-});
+//     if (schedule) {
+//       res.status(200).json(schedule);
+//     }
+//     else {
+//       res.status(404).json("No Schedule Found");
+//     }
+//   } catch (error) {
+//     res.status(404).json("No Schedule Found");
+//   }
+// });
 
 //ChatGPT use: NO
 // Update a gym schedule by ID
-router.put('/byId/:scheduleId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = ObjectId(req.params.scheduleId);
+// router.put('/byId/:scheduleId', async (req, res) => {
+//   try {
+//     const db = getDB();
+//     const id = ObjectId(req.params.scheduleId);
 
-    const schedule = await db.collection('schedules').findOne({ _id: id });
+//     const schedule = await db.collection('schedules').findOne({ _id: id });
 
-    if (!schedule) {
-      res.status(404).send('Schedule not found');
-      return;
-    }
+//     if (!schedule) {
+//       res.status(404).send('Schedule not found');
+//       return;
+//     }
 
-    const updatedSchedule = {
-      userId: req.body.userId || schedule.userId,
-      date: req.body.date || schedule.date,
-      exercises: req.body.exercises || schedule.exercises
-    };
+//     const updatedSchedule = {
+//       userId: req.body.userId || schedule.userId,
+//       date: req.body.date || schedule.date,
+//       exercises: req.body.exercises || schedule.exercises
+//     };
 
-    const result = await db.collection('schedules').updateOne(
-      { _id: id },
-      { $set: updatedSchedule }
-    );
+//     const result = await db.collection('schedules').updateOne(
+//       { _id: id },
+//       { $set: updatedSchedule }
+//     );
 
-    if (result.matchedCount === 0) {
-      res.status(404).send('Schedule not found');
-    } else {
-      res.status(200).json(updatedSchedule);
-    }
-  } catch (error) {
-    res.status(404).send('Schedule not found');
-  }
-});
+//     if (result.matchedCount === 0) {
+//       res.status(404).send('Schedule not found');
+//     } else {
+//       res.status(200).json(updatedSchedule);
+//     }
+//   } catch (error) {
+//     res.status(404).send('Schedule not found');
+//   }
+// });
 
 //ChatGPT use: NO
 // Update a gym schedule by user ID and date
 router.put('/byUser/:userId/:date', async (req, res) => {
-  try {
-    const db = getDB();
-    const userId = req.params.userId;
-    const date = req.params.date
+  const db = getDB();
+  const userId = req.params.userId;
+  const date = req.params.date
 
-    const schedule = await db.collection('schedules').findOne({
-      $and: [
-        {
-          userId: userId
-        },
-        {
-          date: date
-        }
-      ] 
-    });
+  const schedule = await db.collection('schedules').findOne({
+    $and: [
+      {
+        userId: userId
+      },
+      {
+        date: date
+      }
+    ] 
+  });
 
-    if (!schedule) {
-      res.status(404).send('Schedule not found');
-      return;
-    }
+  if (!schedule) {
+    res.status(404).json('Schedule not found');
+    return;
+  }
 
-    const id = schedule._id;
+  const id = schedule._id;
 
-    const updatedSchedule = {
-      userId: req.body.userId || schedule.userId,
-      date: req.body.date || schedule.date,
-      exercises: req.body.exercises || schedule.exercises
-    };
+  const updatedSchedule = {
+    userId: req.body.userId || schedule.userId,
+    date: req.body.date || schedule.date,
+    exercises: req.body.exercises || schedule.exercises
+  };
 
-    const result = await db.collection('schedules').updateOne(
-      { _id: id },
-      { $set: updatedSchedule }
-    );
+  const result = await db.collection('schedules').updateOne(
+    { _id: id },
+    { $set: updatedSchedule }
+  );
 
-    if (result.matchedCount === 0) {
-      res.status(404).send('Schedule not found');
-    } else {
-      res.status(200).json(updatedSchedule);
-    }
-  } catch (error) {
-    res.status(500).send('Schedule not updated');
+  if (result.matchedCount === 0) {
+    res.status(500).json('Schedule not updated');
+  } else {
+    res.status(200).json(updatedSchedule);
   }
 });
 
 //ChatGPT use: NO
 // Delete a gym schedule by ID
-router.delete('/byId/:scheduleId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = ObjectId(req.params.scheduleId);
+// router.delete('/byId/:scheduleId', async (req, res) => {
+//   try {
+//     const db = getDB();
+//     const id = ObjectId(req.params.scheduleId);
 
-    const result = await db.collection('schedules').deleteOne({ 
-      _id: id,
-    });
+//     const result = await db.collection('schedules').deleteOne({ 
+//       _id: id,
+//     });
 
-    if (result.deletedCount === 0) {
-      res.status(404).send('Schedule not found');
-    } else {
-      res.status(200).send('Schedule deleted successfully');
-    }
-  } catch (error) {
-    res.status(404).send('Schedule not found');
-  }
-});
+//     if (result.deletedCount === 0) {
+//       res.status(404).send('Schedule not found');
+//     } else {
+//       res.status(200).send('Schedule deleted successfully');
+//     }
+//   } catch (error) {
+//     res.status(404).send('Schedule not found');
+//   }
+// });
 
 // router.delete('/byUser/:userId', async (req, res) => {
 //   const db = getDB();
@@ -258,14 +242,15 @@ router.delete('/byId/:scheduleId', async (req, res) => {
 //ChatGPT use: YES
 // Delete all
 //This is for debugging only (DEV USE)
-router.delete('/', async (req, res) => {
-  try {
-    const db = getDB();
+// router.delete('/', async (req, res) => {
+//   try {
+//     const db = getDB();
   
-    const result = await db.collection('schedules').deleteMany({});
-    res.status(200).send('Schedules deleted successfully');
-  } catch (error) {
-    res.status(500).send('Schedules not deleted');
-  }
-});
+//     const result = await db.collection('schedules').deleteMany({});
+//     res.status(200).send('Schedules deleted successfully');
+//   } catch (error) {
+//     res.status(500).send('Schedules not deleted');
+//   }
+// });
+
 module.exports = router;

@@ -934,12 +934,8 @@ const clearData = async (db, _id) => {
       }
     }
     otherChats.splice(i, 1);
-
-    const result = await db.collection('chat').deleteOne({ _id: _chatId });
-
-    if (!result) {
-      continue;
-    }
+    
+    await db.collection('chat').deleteOne({ _id: _chatId });
   }
   
   await db.collection('schedules').deleteMany({ userId: _id.toString() });
@@ -950,15 +946,15 @@ const clearData = async (db, _id) => {
 //ChatGPT use: YES
 // Delete all users
 //This is for debugging only (DEV USE)
-router.delete('/', async (req, res) => {
-  try {
-    const db = getDB();
+// router.delete('/', async (req, res) => {
+//   try {
+//     const db = getDB();
     
-    const result = await db.collection('users').deleteMany({});
-    res.status(200).json('Users deleted successfully');
-  } catch (error) {
-    res.status(500).json('All Users Not Deleted');
-  }
-});
+//     const result = await db.collection('users').deleteMany({});
+//     res.status(200).json('Users deleted successfully');
+//   } catch (error) {
+//     res.status(500).json('All Users Not Deleted');
+//   }
+// });
 
 module.exports = router;
