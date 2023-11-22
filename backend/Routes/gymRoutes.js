@@ -63,7 +63,7 @@ router.get('/', async (req, res) => {
 router.get('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.gymId);
+    const id = ObjectId(req.params.gymId);
 
     const gym = await db.collection('gyms').findOne({ _id: id });
 
@@ -100,7 +100,7 @@ router.get('/byEmail/:email', async (req, res) => {
 router.put('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.gymId);
+    const id = ObjectId(req.params.gymId);
 
     const gym = await db.collection('gyms').findOne({ _id: id });
 
@@ -139,7 +139,7 @@ router.put('/gymId/:gymId', async (req, res) => {
 router.delete('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.gymId);
+    const id = ObjectId(req.params.gymId);
     
     const result = await db.collection('gyms').deleteOne({ _id: id });
 
