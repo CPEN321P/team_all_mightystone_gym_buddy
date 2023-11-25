@@ -1,6 +1,6 @@
 const https = require('https');
 const fs = require('fs');
-const connectDB = require('./MongoDB/Connect.js');
+const { connectDB } = require('./MongoDB/Connect.js');
 
 const socket = require('./socket.js');
 
