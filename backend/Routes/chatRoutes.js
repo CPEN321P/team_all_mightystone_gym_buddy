@@ -51,7 +51,7 @@ const createNewChat = async (db, senderId, recieverId) => {
 //ChatGPT use: NO
 const addChatToUser = async (db, userId, chatId) => {
   try {
-    const id = ObjectId(userId);
+    const id = new ObjectId(userId);
 
     const user = await db.collection('users').findOne({ _id: id });
 
@@ -120,7 +120,7 @@ const checkForChat = async (db, user1, user2) => {
 router.get('/allChats/:userId/', async (req, res) => {
   try {
     const db = getDB();
-    const id = ObjectId(req.params.userId);
+    const id = new ObjectId(req.params.userId);
 
     const user = await db.collection('users').findOne({ _id: id });
 
@@ -138,7 +138,7 @@ router.get('/allChats/:userId/', async (req, res) => {
     const chats = [];
 
     for (const _chat of allChats) {
-      const cid = ObjectId(_chat.chatId);
+      const cid = new ObjectId(_chat.chatId);
       const chat = await db.collection('chat').findOne({ _id: cid });
 
       if (chat) {
@@ -148,7 +148,7 @@ router.get('/allChats/:userId/', async (req, res) => {
           otherId = chat.members[1];
         }
 
-        const _id = ObjectId(otherId);
+        const _id = new ObjectId(otherId);
         const otherUser = await db.collection('users').findOne({ _id: _id });
 
         if (!otherUser) {
@@ -177,7 +177,7 @@ router.get('/allChats/:userId/', async (req, res) => {
 router.get('/chatId/:chatId', async (req, res) => {
   try {
     const db = getDB();
-    const id = ObjectId(req.params.chatId);
+    const id = new ObjectId(req.params.chatId);
 
     const chat = await db.collection('chat').findOne({ _id: id });
 
