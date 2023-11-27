@@ -201,27 +201,29 @@ router.get('/chatId/:chatId', async (req, res) => {
 //ChatGPT use: NO
 // Get a chat by user ids
 router.get('/userId/:user1/:user2', async (req, res) => {
-  try {
-    const db = getDB();
-    const user1 = req.params.user1;
-    const user2 = req.params.user2;
+  const db = getDB();
+  const user1 = req.params.user1;
+  const user2 = req.params.user2;
 
-    const chat = await checkForChat(db, user1, user2);
+  const chat = await checkForChat(db, user1, user2);
 
-    if (chat) {
-      res.status(200).json(chat);
-    } else {
-      const newChatId = await createNewChat(db, user1, user2);
-      const newChat = await db.collection('chat').findOne({ _id: newChatId });
+  if (chat) {
+    res.status(200).json(chat);
+  } else {
+    const newChatId = await createNewChat(db, user1, user2);
 
-      if (newChat) {
-        res.status(200).json(newChat);
-      } else {
-        res.status(500).send("Failed to create chat");
-      }
+    if (!newChatId) {
+      res.status(500).send("Failed to create chat");
+      return;
     }
-  } catch (error) {
-    res.status(404).send("No chat found");
+
+    const newChat = await db.collection('chat').findOne({ _id: newChatId });
+
+    if (newChat) {
+      res.status(200).json(newChat);
+    } else {
+      res.status(500).send("Failed find created chat");
+    }
   }
 });
 module.exports = router;
