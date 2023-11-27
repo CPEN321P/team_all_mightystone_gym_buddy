@@ -65,10 +65,7 @@ const addChatToUser = async (db, userId, chatId) => {
       return 0;
     }
 
-    chatsList.push({
-      chatId: chatId,
-      notification: 0
-    });
+    chatsList.push(chatId);
 
     const result = await db.collection('users').updateOne(
       { _id: id },
@@ -147,32 +144,7 @@ router.get('/allChats/:userId', async (req, res) => {
     const chat = await db.collection('chat').findOne({ _id: cid });
 
     if (chat) {
-      let otherId = chat.members[0];
-
-      if (otherId == req.params.userId) {
-        otherId = chat.members[1];
-      }
-
-      let _id;
-      try {
-        _id = new ObjectId(otherId)
-      } catch (error) {
-        res.status(500).send('Invalid other user ID');
-      }
-      const otherUser = await db.collection('users').findOne({ _id: _id });
-
-      if (!otherUser) {
-        res.status(404).send('User not found');
-        return;
-      }
-
-      const i = chat.messages.length;
-
-      chats.push({
-        chatId: _chat.chatId,
-        notification: _chat.notification,
-        name: otherUser.name
-      });
+      chats.push(chat);
     }
   }
 
