@@ -137,7 +137,7 @@ public class PersonalProfileManager
         Username = findViewById(R.id.Username);
         Email = findViewById(R.id.Email);
         TheAnnouncement = findViewById(R.id.Announcement);
-        MyGyms = findViewById(R.id.MyGyms);
+        MyGyms = findViewById(R.id.MyGym);
         LogOut = findViewById(R.id.LogOut);
     }
 

@@ -24,12 +24,17 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class NewGyms
         extends AppCompatActivity {
@@ -124,15 +129,25 @@ public class NewGyms
                         .post(body)
                         .build();
 
+                client.newCall(requestName).enqueue(new Callback() {
+                    @Override public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override public void onResponse(Call call, Response response)
+                            throws IOException {
+                        try (ResponseBody responseBody = response.body()) {
+                            if (!response.isSuccessful())
+                                throw new IOException("Unexpected code " + response);
+                            manager.setGymId(responseBody.toString());
+                            Log.d(TAG, "Manager's gym id: "+ manager.getGymId());
+                        }
+                    }
+                });
                 NewCallPost(client, requestName);
 
 
                 /////////////////////////////////////////////
-                myAccount.getMyGym().setName(InputName);
-                myAccount.getMyGym().setDescription(InputDescription);
-                myAccount.getMyGym().setAddress(InputLocation);
-                myAccount.getMyGym().setPhone(InputPhone);
-                myAccount.getMyGym().setEmail(manager.getEmail());
                 /////////////////////////////////////////////
 
 
