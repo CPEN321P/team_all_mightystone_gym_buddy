@@ -134,11 +134,6 @@ router.get('/allChats/:userId', async (req, res) => {
     return;
   }
 
-  if (!result) {
-    res.status(404).send('User not found');
-    return;
-  }
-
   const allChats = user.chats;
   const chats = [];
 
