@@ -117,7 +117,7 @@ const checkForChat = async (db, user1, user2) => {
 
 //ChatGPT use: NO
 // Get all chats by user ID
-router.get('/allChats/:userId/', async (req, res) => {
+router.get('/allChats/:userId', async (req, res) => {
   try {
     const db = getDB();
     const id = new ObjectId(req.params.userId);
