@@ -137,9 +137,9 @@ router.get('/allChats/:userId', async (req, res) => {
   for (const _chat of allChats) {
     let cid;
     try {
-      cid = new ObjectId(_chat.chatId);
+      cid = new ObjectId(_chat);
     } catch (error) {
-      res.status(500).send('Invalid chat ID');
+      continue;
     }
     const chat = await db.collection('chat').findOne({ _id: cid });
 
