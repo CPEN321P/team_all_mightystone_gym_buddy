@@ -198,4 +198,18 @@ router.get('/userId/:user1/:user2', async (req, res) => {
     }
   }
 });
+
+// Delete all chats
+// This is for debugging only (DEV USE)
+router.delete('/', async (req, res) => {
+  try {
+    const db = getDB();
+    
+    const result = await db.collection('chat').deleteMany({});
+    res.status(200).json('Users deleted successfully');
+  } catch (error) {
+    res.status(500).json('All Users Not Deleted');
+  }
+});
+
 module.exports = router;
