@@ -118,58 +118,70 @@ const checkForChat = async (db, user1, user2) => {
 //ChatGPT use: NO
 // Get all chats by user ID
 router.get('/allChats/:userId', async (req, res) => {
+  const db = getDB();
+  let id;
+
   try {
-    const db = getDB();
-    const id = new ObjectId(req.params.userId);
-
-    const user = await db.collection('users').findOne({ _id: id });
-
-    if (!user) {
-      res.status(404).send('User not found');
-      return;
-    }
-
-    if (!result) {
-      res.status(404).send('User not found');
-      return;
-    }
-
-    const allChats = user.chats;
-    const chats = [];
-
-    for (const _chat of allChats) {
-      const cid = new ObjectId(_chat.chatId);
-      const chat = await db.collection('chat').findOne({ _id: cid });
-
-      if (chat) {
-        let otherId = chat.members[0];
-
-        if (otherId == req.params.userId) {
-          otherId = chat.members[1];
-        }
-
-        const _id = new ObjectId(otherId);
-        const otherUser = await db.collection('users').findOne({ _id: _id });
-
-        if (!otherUser) {
-          res.status(404).send('User not found');
-          return;
-        }
-
-        const i = chat.messages.length;
-
-        chats.push({
-          chatId: _chat.chatId,
-          notification: _chat.notification,
-          name: otherUser.name
-        });
-      }
-    }
-
-    res.status(200).json(chats);
+    id = new ObjectId(req.params.userId);
   } catch (error) {
-    res.status(500).send('Chats not retrieved');
+    res.status(500).send('Invalid ID');
   }
+
+  const user = await db.collection('users').findOne({ _id: id });
+
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  if (!result) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const allChats = user.chats;
+  const chats = [];
+
+  for (const _chat of allChats) {
+    let cid;
+    try {
+      cid = new ObjectId(_chat.chatId);
+    } catch (error) {
+      res.status(500).send('Invalid chat ID');
+    }
+    const chat = await db.collection('chat').findOne({ _id: cid });
+
+    if (chat) {
+      let otherId = chat.members[0];
+
+      if (otherId == req.params.userId) {
+        otherId = chat.members[1];
+      }
+
+      let _id;
+      try {
+        _id = new ObjectId(otherId)
+      } catch (error) {
+        res.status(500).send('Invalid other user ID');
+      }
+      const otherUser = await db.collection('users').findOne({ _id: _id });
+
+      if (!otherUser) {
+        res.status(404).send('User not found');
+        return;
+      }
+
+      const i = chat.messages.length;
+
+      chats.push({
+        chatId: _chat.chatId,
+        notification: _chat.notification,
+        name: otherUser.name
+      });
+    }
+  }
+
+  res.status(200).json(chats);
 });
 
 //ChatGPT use: NO
