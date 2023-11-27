@@ -836,7 +836,7 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
   let i = -1;
 
   for (let j = 0; j < chatsLists.length; j++) {
-    if (chatsLists[j].chatId == req.params.chatId) {
+    if (chatsLists[j] == req.params.chatId) {
       i = j;
       break;
     }
