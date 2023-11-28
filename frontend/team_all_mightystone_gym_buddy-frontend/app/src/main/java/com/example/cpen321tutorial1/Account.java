@@ -23,6 +23,16 @@ public class Account {
 
     private ArrayList<Account> BlockList;
 
+    private ArrayList<Chat> ChatList;
+
+    public ArrayList<Chat> getChatList() {
+        return ChatList;
+    }
+
+    public void setChatList(ArrayList<Chat> chatList) {
+        ChatList = chatList;
+    }
+
     public String getUserId() {
         return UserId;
     }
@@ -64,12 +74,13 @@ public class Account {
         FriendsList = new ArrayList<>();
         BlockList = new ArrayList<>();
         UserId = "";
+        ChatList = new ArrayList<>();
     }
 
     public Account(String username, String emailAddress,
                    int age, int weight, String gender,
                    ArrayList<Account> friendsList,
-                   ArrayList<Account> blockList) {
+                   ArrayList<Account> blockList, ArrayList<Chat> chatList) {
 
         Username = username;
         EmailAddress = emailAddress;
@@ -79,6 +90,7 @@ public class Account {
         FriendsList = friendsList;
         BlockList = blockList;
         UserId = "";
+        ChatList = chatList;
     }
 
     public String getUsername() {
