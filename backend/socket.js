@@ -236,7 +236,9 @@ const socket = (server) => {
 
   const io = new Server(server);
 
-  console.log("WORKING");
+  console.log("server: " + server);
+
+  console.log("io: " + io);
 
   io.use(async (socket, next) => {
     console.log("USE")
