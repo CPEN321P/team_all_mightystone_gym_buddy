@@ -52,7 +52,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.0-alpha01'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test:rules:1.6.0-alpha01'
-
-    //androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.2')
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
     androidTestImplementation ("com.android.support.test.espresso:espresso-contrib:3.0.2")
 }

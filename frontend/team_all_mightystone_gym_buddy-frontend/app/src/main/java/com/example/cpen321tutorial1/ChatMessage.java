@@ -10,6 +10,12 @@ public class ChatMessage {
 
     String body;
 
+    public ChatMessage(Long schedule, String sender, String body) {
+        this.schedule = schedule;
+        this.sender = sender;
+        this.body = body;
+    }
+
     public Long getSchedule() {
         return schedule;
     }
