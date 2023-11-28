@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "scripts": {
     "start": "nodemon server.js",
     "test": "jest --coverage"

@@ -79,7 +79,7 @@ router.get('/userId/:userId', async (req, res) => {
   let id;
 
   try {
-    id = ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -109,7 +109,7 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 });
 
 // const getRecommendedUsers = async(db,userId)=> {
-//   const _userId = ObjectId(userId);
+//   const _userId = new ObjectId(userId);
 //   const myUser = await db.collection('users').findOne({ _id: _userId });
 //   const recommendedUserIdList = [];
 //   const weightDiff = [];
@@ -125,7 +125,7 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 
 // // modifies recommendedUserIdList
 // const filterBlockedProfiles = async(db,userId, recommendedUserIdList)=> {
-//   const _userId = ObjectId(userId);
+//   const _userId = new ObjectId(userId);
 //   const user = await db.collection('users').findOne({ _id: _userId });
 //   recommendedUserIdList.forEach(userId => {
 //     if(user.blockedUsers.indexOf(userId) != -1){
@@ -144,7 +144,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   var id
   
   try {    
-    id = ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).json('Users not retrieved');
     return;
@@ -175,7 +175,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
   let id
 
   try {
-    id = ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -192,7 +192,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
   const friends = [];
 
   for (const friendId of friendsId) {
-    const fid = ObjectId(friendId);
+    const fid = new ObjectId(friendId);
     const friend = await db.collection('users').findOne({ _id: fid })
 
     if (friend) {
@@ -211,7 +211,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
 //   let id;
   
 //   try {
-//     id = ObjectId(req.params.userId);
+//     id = new ObjectId(req.params.userId);
 //   } catch (error) {
 //     res.status(500).json('Invalid user Id');
 //     return;
@@ -229,7 +229,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
 //   const friends = [];
 
 //   for (const friendId of friendsId) {
-//     const fid = ObjectId(friendId);
+//     const fid = new ObjectId(friendId);
 //     const friend = await db.collection('users').findOne({ _id: fid })
 
 //     if (friend) {
@@ -247,7 +247,7 @@ router.get('/userId/:userId/blockedUsers', async (req, res) => {
   let id;
 
   try {
-    id = ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -264,7 +264,7 @@ router.get('/userId/:userId/blockedUsers', async (req, res) => {
   const blockedUsers = [];
 
   for (const blockedUserId of blockedUsersId) {
-    const buid = ObjectId(blockedUserId);
+    const buid = new ObjectId(blockedUserId);
     const blockedUser = await db.collection('users').findOne({ _id: buid })
 
     if (blockedUser) {
@@ -282,7 +282,7 @@ router.put('/userId/:userId', async (req, res) => {
   let id;
 
   try {
-    id = ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -334,8 +334,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
   let senderId;
 
   try {
-    recieverId = ObjectId(req.params.recieverId);
-    senderId = ObjectId(req.params.senderId);
+    recieverId = new ObjectId(req.params.recieverId);
+    senderId = new ObjectId(req.params.senderId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -388,8 +388,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
 //   let senderId;
 
 //   try {
-//     recieverId = ObjectId(req.params.recieverId);
-//     senderId = ObjectId(req.params.senderId);
+//     recieverId = new ObjectId(req.params.recieverId);
+//     senderId = new ObjectId(req.params.senderId);
 //   } catch (error) {
 //     res.status(500).json('Invalid user Id');
 //     return;
@@ -457,8 +457,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
 //   let senderId;
 
 //   try {
-//     recieverId = ObjectId(req.params.recieverId);
-//     senderId = ObjectId(req.params.senderId);
+//     recieverId = new ObjectId(req.params.recieverId);
+//     senderId = new ObjectId(req.params.senderId);
 //   } catch (error) {
 //     res.status(500).json('Invalid user Id');
 //     return;
@@ -512,8 +512,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
 //   let senderId;
 
 //   try {
-//     recieverId = ObjectId(req.params.recieverId);
-//     senderId = ObjectId(req.params.senderId);
+//     recieverId = new ObjectId(req.params.recieverId);
+//     senderId = new ObjectId(req.params.senderId);
 //   } catch (error) {
 //     res.status(500).json('Invalid user Id');
 //     return;
@@ -583,8 +583,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
 //   let senderId;
 
 //   try {
-//     recieverId = ObjectId(req.params.recieverId);
-//     senderId = ObjectId(req.params.senderId);
+//     recieverId = new ObjectId(req.params.recieverId);
+//     senderId = new ObjectId(req.params.senderId);
 //   } catch (error) {
 //     res.status(500).json('Invalid user Id');
 //     return;
@@ -650,8 +650,8 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
   let _unfriendedId;
 
   try {
-    _unfrienderId = ObjectId(unfrienderId);
-    _unfriendedId = ObjectId(unfriendedId);
+    _unfrienderId = new ObjectId(unfrienderId);
+    _unfriendedId = new ObjectId(unfriendedId);
   } catch (error) {
     return 0;
   }
@@ -723,7 +723,7 @@ router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
   const db = getDB();
   let blockerId
   try {
-    blockerId = ObjectId(req.params.blockerId);
+    blockerId = new ObjectId(req.params.blockerId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -764,7 +764,7 @@ router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
   let blockerId;
 
   try {
-    blockerId = ObjectId(req.params.blockerId);
+    blockerId = new ObjectId(req.params.blockerId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -818,7 +818,7 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
   let userId;
 
   try {
-    userId = ObjectId(req.params.userId);
+    userId = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -872,7 +872,7 @@ router.delete('/userId/:userId', async (req, res) => {
   let _id;
 
   try {
-    _id = ObjectId(req.params.userId);
+    _id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -904,7 +904,7 @@ const clearData = async (db, _id) => {
   const chats = user.chats;
 
   for (const currChat of chats) {
-    const _chatId = ObjectId(currChat.chatId);
+    const _chatId = new ObjectId(currChat.chatId);
     const chat = await db.collection('chat').findOne({ _id: _chatId });
 
     if (!chat) {
@@ -917,7 +917,7 @@ const clearData = async (db, _id) => {
       otherMemberId = chat.members[1];
     }
 
-    const _otherMemberId = ObjectId(otherMemberId);
+    const _otherMemberId = new ObjectId(otherMemberId);
     const otherUser = await db.collection('users').findOne({ _id: _otherMemberId });
 
     if (!otherUser) {

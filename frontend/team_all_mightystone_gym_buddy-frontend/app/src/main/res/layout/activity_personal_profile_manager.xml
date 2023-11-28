@@ -49,13 +49,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent">
+
                     <Button
-                        android:id="@+id/MyGyms"
+                        android:id="@+id/MyGym"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Gyms"
-                        android:textSize="20dp"
-                        android:backgroundTint="@color/black"/>
+                        android:backgroundTint="@color/black"
+                        android:text="My Gym"
+                        android:textSize="20dp" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

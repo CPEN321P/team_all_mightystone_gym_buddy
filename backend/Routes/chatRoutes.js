@@ -51,7 +51,7 @@ const createNewChat = async (db, senderId, recieverId) => {
 //ChatGPT use: NO
 const addChatToUser = async (db, userId, chatId) => {
   try {
-    const id = ObjectId(userId);
+    const id = new ObjectId(userId);
 
     const user = await db.collection('users').findOne({ _id: id });
 
@@ -65,10 +65,7 @@ const addChatToUser = async (db, userId, chatId) => {
       return 0;
     }
 
-    chatsList.push({
-      chatId: chatId,
-      notification: 0
-    });
+    chatsList.push(chatId);
 
     const result = await db.collection('users').updateOne(
       { _id: id },
@@ -117,59 +114,41 @@ const checkForChat = async (db, user1, user2) => {
 
 //ChatGPT use: NO
 // Get all chats by user ID
-router.get('/allChats/:userId/', async (req, res) => {
+router.get('/allChats/:userId', async (req, res) => {
+  const db = getDB();
+  let id;
+
   try {
-    const db = getDB();
-    const id = ObjectId(req.params.userId);
-
-    const user = await db.collection('users').findOne({ _id: id });
-
-    if (!user) {
-      res.status(404).send('User not found');
-      return;
-    }
-
-    if (!result) {
-      res.status(404).send('User not found');
-      return;
-    }
-
-    const allChats = user.chats;
-    const chats = [];
-
-    for (const _chat of allChats) {
-      const cid = ObjectId(_chat.chatId);
-      const chat = await db.collection('chat').findOne({ _id: cid });
-
-      if (chat) {
-        let otherId = chat.members[0];
-
-        if (otherId == req.params.userId) {
-          otherId = chat.members[1];
-        }
-
-        const _id = ObjectId(otherId);
-        const otherUser = await db.collection('users').findOne({ _id: _id });
-
-        if (!otherUser) {
-          res.status(404).send('User not found');
-          return;
-        }
-
-        const i = chat.messages.length;
-
-        chats.push({
-          chatId: _chat.chatId,
-          notification: _chat.notification,
-          name: otherUser.name
-        });
-      }
-    }
-
-    res.status(200).json(chats);
+    id = new ObjectId(req.params.userId);
   } catch (error) {
-    res.status(500).send('Chats not retrieved');
+    res.status(500).send('Invalid ID');
   }
+
+  const user = await db.collection('users').findOne({ _id: id });
+
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  const allChats = user.chats;
+  const chats = [];
+
+  for (const _chat of allChats) {
+    let cid;
+    try {
+      cid = new ObjectId(_chat);
+    } catch (error) {
+      continue;
+    }
+    const chat = await db.collection('chat').findOne({ _id: cid });
+
+    if (chat) {
+      chats.push(chat);
+    }
+  }
+
+  res.status(200).json(chats);
 });
 
 //ChatGPT use: NO
@@ -177,7 +156,7 @@ router.get('/allChats/:userId/', async (req, res) => {
 router.get('/chatId/:chatId', async (req, res) => {
   try {
     const db = getDB();
-    const id = ObjectId(req.params.chatId);
+    const id = new ObjectId(req.params.chatId);
 
     const chat = await db.collection('chat').findOne({ _id: id });
 
@@ -194,27 +173,43 @@ router.get('/chatId/:chatId', async (req, res) => {
 //ChatGPT use: NO
 // Get a chat by user ids
 router.get('/userId/:user1/:user2', async (req, res) => {
-  try {
-    const db = getDB();
-    const user1 = req.params.user1;
-    const user2 = req.params.user2;
+  const db = getDB();
+  const user1 = req.params.user1;
+  const user2 = req.params.user2;
 
-    const chat = await checkForChat(db, user1, user2);
+  const chat = await checkForChat(db, user1, user2);
 
-    if (chat) {
-      res.status(200).json(chat);
-    } else {
-      const newChatId = await createNewChat(db, user1, user2);
-      const newChat = await db.collection('chat').findOne({ _id: newChatId });
+  if (chat) {
+    res.status(200).json(chat);
+  } else {
+    const newChatId = await createNewChat(db, user1, user2);
 
-      if (newChat) {
-        res.status(200).json(newChat);
-      } else {
-        res.status(500).send("Failed to create chat");
-      }
+    if (!newChatId) {
+      res.status(500).send("Failed to create chat");
+      return;
     }
-  } catch (error) {
-    res.status(404).send("No chat found");
+
+    const newChat = await db.collection('chat').findOne({ _id: newChatId });
+
+    if (newChat) {
+      res.status(200).json(newChat);
+    } else {
+      res.status(500).send("Failed find created chat");
+    }
   }
 });
+
+// Delete all chats
+// This is for debugging only (DEV USE)
+router.delete('/', async (req, res) => {
+  try {
+    const db = getDB();
+    
+    const result = await db.collection('chat').deleteMany({});
+    res.status(200).json('Users deleted successfully');
+  } catch (error) {
+    res.status(500).json('All Users Not Deleted');
+  }
+});
+
 module.exports = router;

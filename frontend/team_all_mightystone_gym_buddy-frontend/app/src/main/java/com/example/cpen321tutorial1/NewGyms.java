@@ -5,19 +5,36 @@ import static com.example.cpen321tutorial1.GlobalClass.manager;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class NewGyms
         extends AppCompatActivity {
@@ -25,6 +42,8 @@ public class NewGyms
     private TextView Name;
 
     private TextView Location;
+
+    private AutocompleteSupportFragment LocationAutoComplete;
 
     private TextView Phone;
 
@@ -43,6 +62,23 @@ public class NewGyms
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_gyms);
         initWidgets();
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), "AIzaSyAaNL7ekL0-QhFIbVPu5sexexVwmcWPeek");
+        }
+        LocationAutoComplete.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.NAME));
+        LocationAutoComplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onError(@NonNull Status status) {
+                Log.e(TAG, "Error:" + status.getStatusMessage());
+            }
+
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                Location.setText(place.getAddress());
+                Name.setText(place.getName());
+                Phone.setText(place.getPhoneNumber());
+            }
+        });
 
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,15 +129,25 @@ public class NewGyms
                         .post(body)
                         .build();
 
+                client.newCall(requestName).enqueue(new Callback() {
+                    @Override public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override public void onResponse(Call call, Response response)
+                            throws IOException {
+                        try (ResponseBody responseBody = response.body()) {
+                            if (!response.isSuccessful())
+                                throw new IOException("Unexpected code " + response);
+                            manager.setGymId(responseBody.toString());
+                            Log.d(TAG, "Manager's gym id: "+ manager.getGymId());
+                        }
+                    }
+                });
                 NewCallPost(client, requestName);
 
 
                 /////////////////////////////////////////////
-                myAccount.getMyGym().setName(InputName);
-                myAccount.getMyGym().setDescription(InputDescription);
-                myAccount.getMyGym().setAddress(InputLocation);
-                myAccount.getMyGym().setPhone(InputPhone);
-                myAccount.getMyGym().setEmail(manager.getEmail());
                 /////////////////////////////////////////////
 
 
@@ -143,6 +189,8 @@ public class NewGyms
     private void initWidgets() {
         Name = findViewById(R.id.GymName);
         Location = findViewById(R.id.Location);
+        LocationAutoComplete = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.places_autocomplete);
         Phone = findViewById(R.id.Phone);
         //Email = findViewById(R.id.Email);
         Description = findViewById(R.id.Description);
