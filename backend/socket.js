@@ -232,7 +232,11 @@ const notifyRecipient = async (db, chatId, userId) => {
 }
 
 const socket = (server) => {
+  console.log("HERE");
+
   const io = new Server(server);
+
+  console.log("WORKING");
 
   io.on("connection", async (socket) => {
 
@@ -302,4 +306,6 @@ const socket = (server) => {
   })
 }
 
-module.exports = socket;
+module.exports = {
+  socket
+};
