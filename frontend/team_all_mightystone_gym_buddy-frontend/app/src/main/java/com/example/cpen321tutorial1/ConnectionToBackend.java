@@ -249,10 +249,10 @@ public class ConnectionToBackend {
                 accountModel.getAge().intValue(),
                 accountModel.getWeight().intValue(),
                 accountModel.getGender(),new ArrayList<>(),
-                new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>());
 
         returnedAccount.setUserId(accountModel.getId());
-        Log.d("thiss", "got here");
+
 
         //getting gym
         if(accountModel.getHomeGym().isEmpty()) {
@@ -329,7 +329,7 @@ public class ConnectionToBackend {
 
 
                     if (listOfFriends == null) {
-                        throw new IOException("Gym model is null");
+                        throw new IOException("List is null");
                     }
 
                     for(int i = 0; i<listOfFriends.size(); i++){
@@ -380,11 +380,12 @@ public class ConnectionToBackend {
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
                     Type listType = new TypeToken<ArrayList<ChatModelFromBackend>>(){}.getType();
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
+                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     List<ChatModelFromBackend> listOfChats =
                             new Gson().fromJson(jsonResponse, listType);
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
+
+                    Log.d("THIS", listOfChats.get(0).toString());
 
 
                     if (listOfChats == null) {
@@ -392,8 +393,8 @@ public class ConnectionToBackend {
                     }
 
                     for(int i = 0; i<listOfChats.size(); i++){
+                        Log.d("aaa", "aaa");
                         listOfAllChats.add(setChatInformationFromBackend(listOfChats.get(i)));
-
                     }
 
                     return listOfAllChats;
@@ -418,6 +419,7 @@ public class ConnectionToBackend {
     private Chat setChatInformationFromBackend
             (ChatModelFromBackend chatModelFromBackend) {
         Chat returnedChat = new Chat();
+        Log.d("aaa", "whyyy");
 
         Account otherAccount;
 
@@ -430,29 +432,29 @@ public class ConnectionToBackend {
         }
         returnedChat.setOtherAccount(otherAccount);
         returnedChat.setChatId(chatModelFromBackend.get_id());
-        returnedChat.setMessages(chatModelFromBackend.getChatMessages());
+        //returnedChat.setMessages(chatModelFromBackend.getChatMessages());
 
         return returnedChat;
 
     }
 
-    /*
+
 
     public Chat getChatFromFriendId(String friendId) {
 
         Callable<Chat> asyncCall = new Callable<Chat>() {
             @Override
             public Chat call() throws Exception {
-                Request getAccountInformation;
+                Request getChatInformation;
 
 
-                getAccountInformation = new Request.Builder()
+                getChatInformation = new Request.Builder()
                             .url("https://20.172.9.70/chat/userId/" + myAccount.getUserId() + "/" + friendId)
                             .build();
 
 
                 Response response =
-                        client.newCall(getAccountInformation).execute();
+                        client.newCall(getChatInformation).execute();
 
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response.code());
@@ -487,7 +489,7 @@ public class ConnectionToBackend {
     }
 
 
-     */
+
 
 
     //MANAGER FUNCTIONS!!!

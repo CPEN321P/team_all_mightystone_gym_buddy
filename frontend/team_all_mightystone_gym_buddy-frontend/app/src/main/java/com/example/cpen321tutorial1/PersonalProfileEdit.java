@@ -108,7 +108,8 @@ public class PersonalProfileEdit
                         StringToInteger(Weight.getText().toString()),
                         GenderSpinner.getSelectedItem().toString(),
                         GlobalClass.myAccount.getFriendsList(),
-                        GlobalClass.myAccount.getFriendsList());
+                        GlobalClass.myAccount.getFriendsList(),
+                                myAccount.getChatList());
 
                 updatedAccount.setUserId(myAccount.getUserId());
 

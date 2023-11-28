@@ -184,8 +184,6 @@ public class LoginPage extends AppCompatActivity {
         Log.d(TAG, "User Weight: " + thisAccount.getWeight());
         Log.d(TAG, "User Gender: " + thisAccount.getGender());
 
-
-
         ArrayList<Account> items = c.getAllInList(thisAccount.getUserId(), 0);
         Log.d(TAG, "items size: " + Integer.toString(items.size()));
 

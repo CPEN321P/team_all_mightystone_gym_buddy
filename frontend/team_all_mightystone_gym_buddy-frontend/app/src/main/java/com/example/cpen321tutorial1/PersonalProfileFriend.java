@@ -180,7 +180,6 @@ public class PersonalProfileFriend
                 chatIntent.putExtra("FriendId", friendId);
 
                 startActivity(chatIntent);
-                //Go to the page which send the message to friends
             }
         });
 
