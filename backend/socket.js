@@ -239,7 +239,7 @@ const socket = (server) => {
   io.use(function(socket, next) {
     next();
   })
-  .on("connection", async (socket) => {
+  .on("connection", (socket) => {
 
     console.log("Connected");
 
