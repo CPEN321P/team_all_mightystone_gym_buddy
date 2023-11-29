@@ -78,6 +78,8 @@ public class GymProfile
             }
         }
 
+        //TEST
+
         Log.d(TAG, "Test4");
 
         //Get the relative information from the database
