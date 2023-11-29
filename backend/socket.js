@@ -235,9 +235,7 @@ const socket = (server) => {
   console.log("HERE");
 
   const io = new Server(server, {
-    cors: {
-      credentials: false
-    }
+    allowEIO3: true
   });
 
   io.use(function(socket, next) {
