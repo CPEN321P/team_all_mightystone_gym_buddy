@@ -168,9 +168,10 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
 
   filteredRecommendedUsers.forEach(rec_user => {
     var similarity = getSimilarity(user, rec_user);
-    console.log(rec_user.name);
     console.log("User sim score: " + similarity);
   });
+
+  filteredRecommendedUsers.sort((userA, userB) => getSimilarity(user, userB) - getSimilarity(user, userA));
   res.status(200).json(filteredRecommendedUsers);
 });
 
