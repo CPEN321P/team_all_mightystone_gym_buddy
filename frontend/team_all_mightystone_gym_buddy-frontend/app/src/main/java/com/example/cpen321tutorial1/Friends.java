@@ -85,9 +85,9 @@ public class Friends
                             FriendIntent.putExtra
                                     ("UserId", Friend.getUserId());
                             FriendIntent.putExtra
-                                    ("Age", Friend.getAge());
+                                    ("Age", ""+Friend.getAge());
                             FriendIntent.putExtra
-                                    ("Weight", Friend.getWeight());
+                                    ("Weight", ""+Friend.getWeight());
                             FriendIntent.putExtra
                                     ("Gender", Friend.getGender());
                         }
