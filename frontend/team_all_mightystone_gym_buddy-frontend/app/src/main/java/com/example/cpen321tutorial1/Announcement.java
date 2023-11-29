@@ -8,6 +8,18 @@ public class Announcement {
 
     private String body;
 
+    public Announcement(String header, String body) {
+        this.header = header;
+        this.body = body;
+        _id = "";
+    }
+
+    public Announcement() {
+        this.header = "";
+        this.body = "";
+        _id = "";
+    }
+
     public String get_id() {
         return _id;
     }

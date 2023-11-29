@@ -197,6 +197,13 @@ public class JsonFunctions {
         return Json;
     }
 
+    public static String JsonAnnouncement(String Header, String Body){
+        String JsonHeader = "\"header\": " + Header;
+        String JsonBody = "\"body\": " + Body;
+        String Json = "{" + JsonHeader + ", " + JsonBody + "}";
+        return Json;
+    }
+
     public static String convertArrayListToJson (ArrayList<String> arrayList) {
         JSONArray jsonArray = new JSONArray();
         for (Object item : arrayList) {

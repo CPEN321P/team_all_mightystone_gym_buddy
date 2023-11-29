@@ -232,65 +232,101 @@ const notifyRecipient = async (db, chatId, userId) => {
 }
 
 const socket = (server) => {
-  const io = new Server(server);
+  console.log("HERE");
+
+  const io = new Server(server, {});
+
+  console.log("server: " + server);
+
+  console.log("io: " + io);
+
+  io.use(async (socket, next) => {
+    console.log("USE")
+    // let userId = socket.handshake.auth.userId;
+    // if (!userId) {
+    //     return next(new Error('No userId'));
+    // }
+    // if (!(userId instanceof mongoose.Types.ObjectId)) {
+    //     userId = new mongoose.mongo.ObjectId(userId);
+    // }
+
+    // const user = await User.findById(userId);
+    // if (!user) {
+    //     return next(new Error('Invalid userId'));
+    // }
+    // socket.emit('user connected', `Welcome ${user.firstName} ${user.lastName}!`);
+    // socket.userId = socket.handshake.auth.userId;
+    next();
+  });
 
   io.on("connection", async (socket) => {
-      socket.on("join_chat", async (data) => {
-        const db = getDB();
-        const myID = data.myID;
-        const theirID = data.theirID;
 
-        // find chat by ids
-        const chat = getChatByUserId(db, myID, theirID);
+    console.log("Connected");
 
-        // join chat
-        socket.join(chat._id.toString());
-      });
+    socket.on("join_chat", async (data) => {
 
-      socket.on("send_message", async (data) => {
-        const db = getDB();
-        const myID = data.myID;
-        const theirID = data.theirID;
-        const message = data.message;
+      console.log("Joined Room");
 
-        // find chat by ids
-        const chat = getChatByUserId(db, myID, theirID);
+      const db = getDB();
+      const myID = data.myID;
+      const theirID = data.theirID;
 
-        // send message to chat db 
-        const sent = sendMessageById(db, chat, myID, message);
+      // find chat by ids
+      const chat = getChatByUserId(db, myID, theirID);
 
-        // send message to socket
-        if (sent) {
-          io.in(chat._id.toString()).emit('new_message', { 
-            schedule: 0,
-            sender: myID, 
-            body: message 
-          });
-        }
-      });
+      // join chat
+      socket.join(chat._id.toString());
+    });
 
-      socket.on("send_schedule", async (data) => {
-        const db = getDB();
-        const myID = data.myID;
-        const theirID = data.theirID;
-        const scheduleId = data.scheduleId;
+    socket.on("send_message", async (data) => {
 
-        // find chat by ids
-        const chat = getChatByUserId(db, myID, theirID);
+      console.log("Sent Message");
 
-        // send schedule to chat db 
-        const sent = sendScheduleById(db, chat, myID, scheduleId);
+      const db = getDB();
+      const myID = data.myID;
+      const theirID = data.theirID;
+      const message = data.message;
 
-        // send schedule to socket
-        if (sent) {
-          io.in(chat._id.toString()).emit('new_message', { 
-            schedule: 1,
-            sender: myID, 
-            body: scheduleId 
-          });
-        }
-      })
+      // find chat by ids
+      const chat = getChatByUserId(db, myID, theirID);
+
+      // send message to chat db 
+      const sent = sendMessageById(db, chat, myID, message);
+
+      // send message to socket
+      if (sent) {
+        io.in(chat._id.toString()).emit('new_message', { 
+          schedule: 0,
+          sender: myID, 
+          body: message 
+        });
+      }
+    });
+
+    socket.on("send_schedule", async (data) => {
+      const db = getDB();
+      const myID = data.myID;
+      const theirID = data.theirID;
+      const scheduleId = data.scheduleId;
+
+      // find chat by ids
+      const chat = getChatByUserId(db, myID, theirID);
+
+      // send schedule to chat db 
+      const sent = sendScheduleById(db, chat, myID, scheduleId);
+
+      // send schedule to socket
+      if (sent) {
+        io.in(chat._id.toString()).emit('new_message', { 
+          schedule: 1,
+          sender: myID, 
+          body: scheduleId 
+        });
+      }
+    })
   })
 }
 
-module.exports = socket;
+module.exports = {
+  socket
+};
