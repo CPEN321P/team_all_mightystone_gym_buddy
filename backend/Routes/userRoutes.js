@@ -670,7 +670,7 @@ const getSimilarity = (user1, user2) => {
   const ageSimilarity = 1 - Math.abs(user1.age - user2.age) / Math.max(user1.age, user2.age);
   const friendsIntersection = user1.friends.filter(friend => user2.friends.includes(friend));
   console.log("common friends: "+ friendsIntersection);
-  const commonFriendsSimilarity = friendsIntersection.length / Math.min(user1.friends.length, user2.commonfriends.length) || 0;
+  const commonFriendsSimilarity = friendsIntersection.length / Math.min(user1.friends.length, user2.friends.length) || 0;
 
   const similarityScore = (
     metricWeights.weight * weightSimilarity +
