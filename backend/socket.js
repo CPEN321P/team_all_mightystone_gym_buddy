@@ -235,6 +235,10 @@ const socket = (server) => {
   console.log("HERE");
 
   const io = new Server(server, {
+    cors: {
+      origin: "*",
+      credentials: true
+    },
     allowEIO3: true
   });
 
