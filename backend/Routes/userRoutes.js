@@ -166,6 +166,11 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
     return ((id.toString() !== recommendedUser._id.toString()) && (!user.friends.includes(recommendedUser._id.toString()))  && (!user.blockedUsers.includes(recommendedUser._id.toString())) && (!recommendedUser.blockedUsers.includes(user._id.toString())));
   });
 
+  filteredRecommendedUsers.forEach(rec_user => {
+    var similarity = getSimilarity(user, rec_user);
+    console.log(rec_user.name);
+    console.log("User sim score: " + similarity);
+  });
   res.status(200).json(filteredRecommendedUsers);
 });
 
@@ -646,6 +651,38 @@ router.put('/unfriend/:unfrienderId/:unfriendedId', async (req, res) => {
     res.status(500).json('User not unfriended');
   }
 });
+
+
+// metrics used: gym, gender, age, weight (in kilos), common friends
+const getSimilarity = (user1, user2) => {
+
+  const metricWeights = {
+    weight: 0.2,
+    homeGym: 0.3,
+    gender: 0.1,
+    age: 0.2,
+    commonFriends: 0.2
+  };
+
+  const weightSimilarity = 1 - Math.abs(user1.weight - user2.weight);
+  const gymSimilarity = user1.homeGym === user2.homeGym ? 1 : 0;
+  const genderSimilarity = user1.gender === user2.gender ? 1 : 0;
+  const ageSimilarity = 1 - Math.abs(user1.age - user2.age) / Math.max(user1.age, user2.age);
+  const friendsIntersection = user1.friends.filter(friend => user2.friends.includes(friend));
+  console.log("common friends: "+ friendsIntersection);
+  const commonFriendsSimilarity = friendsIntersection.length / Math.min(user1.friends.length, user2.commonfriends.length) || 0;
+
+  const similarityScore = (
+    metricWeights.weight * weightSimilarity +
+    metricWeights.homeGym * gymSimilarity +
+    metricWeights.gender * genderSimilarity +
+    metricWeights.age * ageSimilarity +
+    metricWeights.commonFriends * commonFriendsSimilarity
+  );
+
+  return similarityScore;
+
+}
 
 const unfriend = async (db, unfrienderId, unfriendedId) => {
   let _unfrienderId;
