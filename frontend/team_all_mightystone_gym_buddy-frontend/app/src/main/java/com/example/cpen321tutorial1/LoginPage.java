@@ -1,6 +1,7 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
+import static com.example.cpen321tutorial1.GlobalClass.SelectedAnnouncement;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 
 import android.content.Intent;
@@ -190,6 +191,8 @@ public class LoginPage extends AppCompatActivity {
         myAccount.setEmailAddress(email);
         myAccount = thisAccount;
         myAccount.setFriendsList(items);
+        SelectedAnnouncement = new Announcement();
+
         return true;
     }
 

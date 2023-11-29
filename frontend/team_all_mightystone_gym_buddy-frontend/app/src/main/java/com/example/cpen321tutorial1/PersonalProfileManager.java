@@ -64,6 +64,10 @@ public class PersonalProfileManager
             @Override
             public void onClick(View view) {
                 //Enter the page of announcement
+                Intent AnnouncementIntent =
+                        new Intent(PersonalProfileManager.this,
+                                AnnouncementListManager.class);
+                startActivity(AnnouncementIntent);
             }
         });
 

@@ -1,6 +1,7 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
+import static com.example.cpen321tutorial1.GlobalClass.manager;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.JsonHomeGym;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
@@ -33,6 +34,8 @@ public class GymProfile
     private TextView Description;
 
     private Button Subscribe;
+
+    private Button Announcement;
 
     private boolean isSubscribed = false;
 
@@ -126,6 +129,22 @@ public class GymProfile
             }
         });
 
+        Announcement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConnectionToBackend c = new ConnectionToBackend();
+                Manager thisManagerFromBackend =
+                        c.getManagerInformationFromEmail(gymEmail);
+
+                GlobalClass.AnnouncementList = thisManagerFromBackend.getAnnouncements();
+
+                Intent Intent =
+                        new Intent(GymProfile.this,
+                                AnnouncementList.class);
+                startActivity(Intent);
+            }
+        });
+
         /*CancelSubscript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,5 +178,6 @@ public class GymProfile
         Description = findViewById(R.id.Description);
         Subscribe = findViewById(R.id.Subscribe);
         //CancelSubscript = findViewById(R.id.CancelSubscription);
+        Announcement = findViewById(R.id.Announcement);
     }
 }

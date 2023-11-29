@@ -4,6 +4,7 @@ import android.app.Application;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 
@@ -22,7 +23,9 @@ public class GlobalClass extends Application {
 
     public static AccountModelFromBackend accountFromBackend;
 
-    public static ArrayList<Account> TempPeopleList = new ArrayList<>();
+    public static List<Announcement> AnnouncementList = new ArrayList<>();
+
+    public static Announcement SelectedAnnouncement = new Announcement();
 
     }
 
