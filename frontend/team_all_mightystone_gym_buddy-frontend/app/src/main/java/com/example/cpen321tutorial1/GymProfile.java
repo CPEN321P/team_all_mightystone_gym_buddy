@@ -66,12 +66,15 @@ public class GymProfile
         Description.setText(gymDescription);
         Phone.setText(gymPhone);
 
+        Announcement.setVisibility(View.GONE);
+
         Log.d(TAG, "Test3");
 
         if(myAccount.getMyGym() != null){
             if(myAccount.getMyGym().getGymId().equals(gymId)){
                 isSubscribed = true;
                 Subscribe.setText("Unsubscribe");
+                Announcement.setVisibility(View.VISIBLE);
             }
         }
 
@@ -107,6 +110,8 @@ public class GymProfile
                     Toast.makeText(GymProfile.this,
                             "Subscribed to the Gym!",
                             Toast.LENGTH_SHORT).show();
+
+                    Announcement.setVisibility(View.VISIBLE);
                 }
                 else{
                     RequestBody body = RequestBody.create
@@ -125,6 +130,8 @@ public class GymProfile
                     Toast.makeText(GymProfile.this,
                             "Unsubscribed the Gym!",
                             Toast.LENGTH_SHORT).show();
+
+                    Announcement.setVisibility(View.GONE);
                 }
             }
         });

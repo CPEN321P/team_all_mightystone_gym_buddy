@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -50,16 +51,16 @@ public class AnnouncementAdd extends AppCompatActivity {
                 GlobalClass.AnnouncementList.add(NewAccouncement);
 
                 //Put something into the backend
-                String JsonAnnouncement = JsonAnnouncement(Title, Body);
-                Log.d(TAG, JsonAnnouncement);
 
-                RequestBody body = RequestBody.create(JsonAnnouncement,
-                        MediaType.parse("application/json"));
+                RequestBody formBody = new FormBody.Builder()
+                        .add("header", Title)
+                        .add("body", Body)
+                        .build();
 
                 Request requestName = new Request.Builder()
-                        .url("https://20.172.9.70/makeAnnouncement/" +
+                        .url("https://20.172.9.70/gymsUsers/makeAnnouncement/" +
                                 manager.get_id())
-                        .put(body)
+                        .put(formBody)
                         .build();
 
                 NewCallPost(client, requestName);
