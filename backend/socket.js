@@ -234,13 +234,7 @@ const notifyRecipient = async (db, chatId, userId) => {
 const socket = (server) => {
   console.log("HERE");
 
-  const io = new Server(server, {
-    cors: {
-      origin: "*",
-      credentials: true
-    },
-    allowEIO3: true
-  });
+  const io = new Server(server, {});
 
   io.use(function(socket, next) {
     next();
