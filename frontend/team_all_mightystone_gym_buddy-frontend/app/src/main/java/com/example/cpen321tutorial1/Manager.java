@@ -1,5 +1,8 @@
 package com.example.cpen321tutorial1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Manager {
 
     private String _id;
@@ -11,6 +14,16 @@ public class Manager {
     private String email;
 
     private String gymId;
+
+    private List<Announcement> Announcements;
+
+    public List<Announcement> getAnnouncements() {
+        return Announcements;
+    }
+
+    public void setAnnouncements(List<Announcement> announcements) {
+        Announcements = announcements;
+    }
 
     public String getGymId() {
         return gymId;

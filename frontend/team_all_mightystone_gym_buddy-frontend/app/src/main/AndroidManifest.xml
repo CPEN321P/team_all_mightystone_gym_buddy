@@ -20,6 +20,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".AnnouncementDetail"
+            android:exported="false" />
+        <activity
+            android:name=".AnnouncementAdd"
+            android:exported="false" />
+        <activity
+            android:name=".AnnouncementListView"
+            android:exported="false" />
+        <activity
+            android:name=".AnnouncementListManager"
+            android:exported="false" />
+        <activity
+            android:name=".AnnouncementList"
+            android:exported="false" />
+        <activity
             android:name=".LinkToGoogleManager"
             android:exported="false" />
         <activity

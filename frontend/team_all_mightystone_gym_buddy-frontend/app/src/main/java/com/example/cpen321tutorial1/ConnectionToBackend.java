@@ -555,6 +555,7 @@ public class ConnectionToBackend {
         returnedManager.setUsername(managerModelFromBackend.getUsername());
         returnedManager.setEmail(managerModelFromBackend.getEmail());
         returnedManager.setGymId(managerModelFromBackend.getGymId());
+        returnedManager.setAnnouncements(managerModelFromBackend.getAnnouncements());
 
         return returnedManager;
     }

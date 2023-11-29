@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.manager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -139,7 +141,7 @@ public class LoginPageManager
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
-            GlobalClass.manager.setEmail(account.getEmail());
+            manager.setEmail(account.getEmail());
             //Log.d("THIS IS", GlobalClass.manager.getEmail());
 
             if(!checkIfUserExists(account.getEmail())){
@@ -169,7 +171,8 @@ public class LoginPageManager
             Log.d("THISSSSSSS", "manager is null :c");
             return false;
         }
-        GlobalClass.manager = thisManagerFromBackend;
+        manager = thisManagerFromBackend;
+        GlobalClass.AnnouncementList = manager.getAnnouncements();
         return true;
 
     }
