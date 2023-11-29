@@ -200,7 +200,7 @@ public class JsonFunctions {
     public static String JsonAnnouncement(String Header, String Body){
         String JsonHeader = "\"header\": " + Header;
         String JsonBody = "\"body\": " + Body;
-        String Json = "{" + JsonHeader + "," + JsonBody + "}";
+        String Json = "{" + JsonHeader + ", " + JsonBody + "}";
         return Json;
     }
 

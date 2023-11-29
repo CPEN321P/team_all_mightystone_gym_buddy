@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,8 +20,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.KeyManagementException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.net.ssl.SSLContext;
 
 import io.socket.client.Ack;
 import io.socket.client.IO;
@@ -54,6 +60,8 @@ public class Chat extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_chat);
 
         recyclerView = findViewById(R.id.recyclerview);
@@ -72,24 +80,57 @@ public class Chat extends AppCompatActivity {
         username = findViewById(R.id.username);
         message_send_button = findViewById(R.id.message_send_button);
 
-        //FOR NOW!!!!!!
         username.setText(name);
         ConnectionToBackend c = new ConnectionToBackend();
 
         //check if this chat already exists on the backend
-        if(checkIfChatExists(friendId)){
-            //get chat information and set messages
-            Log.d("thisss", "reached here");
-            Chat thisChat = c.getChatFromFriendId(friendId);
-            LoadPreviousMessages(thisChat);
-        }
+//        if(checkIfChatExists(friendId)){
+//            //get chat information and set messages
+//            Log.d("thisss", "reached here");
+//            Chat thisChat = c.getChatFromFriendId(friendId);
+//            LoadPreviousMessages(thisChat);
+//        }
+
+
+        Map<String, String> userIdMap = new HashMap<>();
+        userIdMap.put("userId", "1234");
+        IO.Options socketOptions = IO.Options.builder().setAuth(userIdMap).build();
+//        socketOptions.forceNew = true;
+//        socketOptions.reconnection = false;
+//        socketOptions.secure=true;
+
 
         try {
-            socket = IO.socket("http://20.172.9.70/");
+            socket = IO.socket("https://20.172.9.70:443", socketOptions);
             socket.connect();
+            Log.d("SOCKETTTT", "CONNECTED BROOOOO");
         } catch (URISyntaxException e) {
             Log.d("SOCKET ISSUES!", Log.getStackTraceString(e));
         }
+
+        Log.d("SOCKETTTT", "connected");
+
+        //join room in socket
+        JSONObject jsonJoinRoom = new JSONObject();
+        try {
+            jsonJoinRoom.put("myID", GlobalClass.myAccount.getUserId());
+            jsonJoinRoom.put("theirID", friendId);
+
+        } catch (JSONException e) {
+            Log.d("JSON ISSUES", Log.getStackTraceString(e));
+        }
+
+        socket.emit("join_chat", jsonJoinRoom, (Ack) args -> {
+            JSONObject response = (JSONObject) args[0];
+            try {
+                Log.d("SOCKET STUFF", "Emit event response code is " + response.getString("status"));
+            }
+            catch (JSONException e) {
+                Log.d("SOCKET ISSUES!!!", Log.getStackTraceString(e));
+            }
+        });
+
+        Log.d("SOCKETTTTT", "joined room?");
 
         message_send_button.setOnClickListener((view -> {
             String message = chat_text_input.getText().toString().trim();

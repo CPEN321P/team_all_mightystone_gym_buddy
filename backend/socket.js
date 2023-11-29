@@ -236,29 +236,6 @@ const socket = (server) => {
 
   const io = new Server(server, {});
 
-  console.log("server: " + server);
-
-  console.log("io: " + io);
-
-  io.use(async (socket, next) => {
-    console.log("USE")
-    // let userId = socket.handshake.auth.userId;
-    // if (!userId) {
-    //     return next(new Error('No userId'));
-    // }
-    // if (!(userId instanceof mongoose.Types.ObjectId)) {
-    //     userId = new mongoose.mongo.ObjectId(userId);
-    // }
-
-    // const user = await User.findById(userId);
-    // if (!user) {
-    //     return next(new Error('Invalid userId'));
-    // }
-    // socket.emit('user connected', `Welcome ${user.firstName} ${user.lastName}!`);
-    // socket.userId = socket.handshake.auth.userId;
-    next();
-  });
-
   io.on("connection", async (socket) => {
 
     console.log("Connected");
