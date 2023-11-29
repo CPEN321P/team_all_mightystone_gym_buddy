@@ -135,6 +135,8 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 //   return 0;
 // }
 
+
+
 //ChatGPT use: YES
 // Get recommended users by ID
 router.get('/userId/:userId/recommendedUsers', async (req, res) => {
@@ -161,7 +163,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   const recommendedUsers = await db.collection('users').find({}).toArray();
   
   const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
-    return ((id.toString() !== recommendedUser._id.toString()) && (!user.friends.includes(recommendedUser._id.toString()))  && (!user.blockedUsers.includes(recommendedUser._id.toString())));
+    return ((id.toString() !== recommendedUser._id.toString()) && (!user.friends.includes(recommendedUser._id.toString()))  && (!user.blockedUsers.includes(recommendedUser._id.toString())) && (!recommendedUser.blockedUsers.includes(user._id.toString())));
   });
 
   res.status(200).json(filteredRecommendedUsers);
