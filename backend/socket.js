@@ -236,7 +236,7 @@ const socket = (server) => {
 
   const io = new Server(server, {
     cors: {
-      credentials: true
+      credentials: false
     }
   });
 
