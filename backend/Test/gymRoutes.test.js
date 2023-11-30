@@ -1,9 +1,10 @@
 const request = require('supertest');
 const app = require('../app.js');
 const { getDB } = require('../MongoDB/Connect.js'); // Adjust the path as needed
-const { ObjectId } = require('mongodb');
+const { createId} = require('../Utils/mongoUtils.js');
 
 jest.mock('../MongoDB/Connect.js');
+jest.mock('../Utils/mongoUtils.js')
 
 jest.mock('mongodb');
 
@@ -214,7 +215,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
@@ -229,7 +230,7 @@ expect.extend({
 
     // Input: None
     // Expected status code: 500
-    // Expected behavior: Error thrown by ObjectId()
+    // Expected behavior: Error thrown by createId()
     // Expected output: Error message
     it('Invalid gym ID', async () => {
         const mockGym = {
@@ -244,7 +245,7 @@ expect.extend({
           
         getDB.mockReturnValue(mockDB);
     
-        ObjectId.mockImplementation((id) => {
+        createId.mockImplementation((id) => {
           throw new error();
         })
         
@@ -273,7 +274,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
@@ -400,7 +401,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         throw new error();
       })
       
@@ -452,7 +453,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
@@ -507,7 +508,7 @@ expect.extend({
 
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
@@ -563,7 +564,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
@@ -591,7 +592,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         throw new error();
       })
       
@@ -617,7 +618,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
@@ -643,7 +644,7 @@ expect.extend({
 
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
@@ -669,7 +670,7 @@ expect.extend({
         
       getDB.mockReturnValue(mockDB);
   
-      ObjectId.mockImplementation((id) => {
+      createId.mockImplementation((id) => {
         return id;
       })
       
