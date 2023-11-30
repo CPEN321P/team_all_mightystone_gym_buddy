@@ -13,7 +13,6 @@ import static com.example.cpen321tutorial1.EventEdit.getTodaysDate;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;

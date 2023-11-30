@@ -40,7 +40,6 @@ import com.example.cpen321tutorial1.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;

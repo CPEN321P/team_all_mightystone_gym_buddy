@@ -33,23 +33,18 @@ import androidx.test.filters.LargeTest;
 import com.example.cpen321tutorial1.Account;
 import com.example.cpen321tutorial1.ConnectionToBackend;
 import com.example.cpen321tutorial1.Event;
-import com.example.cpen321tutorial1.EventEdit;
 import com.example.cpen321tutorial1.GlobalClass;
 import com.example.cpen321tutorial1.Logo;
 import com.example.cpen321tutorial1.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
