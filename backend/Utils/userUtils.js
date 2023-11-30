@@ -192,11 +192,11 @@ const removeChatFromList = async (db, user1, chatId) => {
     return;
   }
 
-  console.log("4")
+  console.log(chats)
 
   chats.splice(i,1);
 
-  console.log("5")
+  console.log(chats)
 
   await db.collection('users').updateOne(
     { _id: user1._id.toString() },
@@ -207,7 +207,7 @@ const removeChatFromList = async (db, user1, chatId) => {
     }
   );
 
-  console.log("6")
+  console.log("4")
 }
 
 //ChatGPT use: NO
