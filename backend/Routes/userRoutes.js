@@ -497,4 +497,14 @@ router.delete('/userId/:userId', async (req, res) => {
   }
 });
 
+// Delete all users
+// This is for debugging only (DEV USE)
+router.delete('/', async (req, res) => {
+  const db = getDB();
+
+  await db.collection('users').deleteMany({});
+  
+  res.status(200).json('Users Deleted');
+});
+
 module.exports = router;
