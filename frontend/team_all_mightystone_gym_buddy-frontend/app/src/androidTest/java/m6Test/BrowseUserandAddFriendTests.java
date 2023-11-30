@@ -1,4 +1,4 @@
-package M6Test;
+package m6Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -33,29 +33,24 @@ import androidx.test.filters.LargeTest;
 import com.example.cpen321tutorial1.Account;
 import com.example.cpen321tutorial1.ConnectionToBackend;
 import com.example.cpen321tutorial1.Event;
-import com.example.cpen321tutorial1.EventEdit;
 import com.example.cpen321tutorial1.GlobalClass;
 import com.example.cpen321tutorial1.Logo;
 import com.example.cpen321tutorial1.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class BrowseUserandAddFriend {
+public class BrowseUserandAddFriendTests {
 
 
 
@@ -556,7 +551,7 @@ public class BrowseUserandAddFriend {
         };
     }
 
-    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcher(recyclerViewId);
+    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcherTests(recyclerViewId);
     }
 }

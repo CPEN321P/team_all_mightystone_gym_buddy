@@ -1,4 +1,4 @@
-package M6Test;
+package m6Test;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +9,10 @@ import org.hamcrest.TypeSafeMatcher;
 
 //Source: https://github.com/dannyroa/espresso-samples/blob/master/RecyclerView/app/src/androidTest/java/com/dannyroa/espresso_samples/recyclerview/RecyclerViewMatcher.java
 
-public class RecyclerViewMatcher {
+public class RecyclerViewMatcherTests {
     private final int recyclerViewId;
 
-    public RecyclerViewMatcher(int recyclerViewId) {
+    public RecyclerViewMatcherTests(int recyclerViewId) {
         this.recyclerViewId = recyclerViewId;
     }
 

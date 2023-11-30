@@ -1,4 +1,4 @@
-package M6Test;
+package m6Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -40,7 +40,6 @@ import com.example.cpen321tutorial1.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,7 +50,7 @@ import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class ChatWithFriends {
+public class ChatWithFriendsTests {
 
     public static String inputString;
 
@@ -319,7 +318,7 @@ public class ChatWithFriends {
         };
     }
 
-    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcher(recyclerViewId);
+    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcherTests(recyclerViewId);
     }
 }

@@ -1,23 +1,23 @@
-package M6Test;
+package m6Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 
-import static M6Test.NonFunctionalRequirementTest_Performance.Login;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenAddEventPage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenBlockList;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenChangePersonalProfile;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenFriendPersonalProfilePage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenGymList;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenGymProfile;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenMonthlySchedule;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenOthersPersonalProfilePage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenPeoplePage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenPersonalProfile;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenPossibleFriendsPage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenWeeklySchedule;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.Login;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenAddEventPage;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenBlockList;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenChangePersonalProfile;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenFriendPersonalProfilePage;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenGymList;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenGymProfile;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenMonthlySchedule;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenOthersPersonalProfilePage;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenPeoplePage;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenPersonalProfile;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenPossibleFriendsPage;
+import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenWeeklySchedule;
 
 import android.os.IBinder;
 import android.view.View;
@@ -45,7 +45,7 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class NonFunctionalRequirementTest_Usability {
+public class NonFunctionalRequirementTest_UsabilityTests {
 
     int NumberOfButtonPress;
 
@@ -174,6 +174,7 @@ public class NonFunctionalRequirementTest_Usability {
         };
     }
 
+    /*
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
@@ -192,6 +193,8 @@ public class NonFunctionalRequirementTest_Usability {
             }
         };
     }
+
+     */
 
     //Source: https://www.qaautomated.com/2016/01/how-to-test-toast-message-using-espresso.html
     public class ToastMatcher extends TypeSafeMatcher<Root> {
@@ -236,7 +239,7 @@ public class NonFunctionalRequirementTest_Usability {
         };
     }
 
-    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcher(recyclerViewId);
+    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcherTests(recyclerViewId);
     }
 }
