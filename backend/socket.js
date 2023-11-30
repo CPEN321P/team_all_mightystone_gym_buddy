@@ -49,25 +49,19 @@ const sendMessageById = async (db, chat, sender, message) => {
     if (result.matchedCount === 0) {
       return 0;
     } else {
-      console.log("1: " + chat.members)
       let otherMember = chat.members[0];
       if (otherMember == sender) {
         otherMember = chat.members[1];
       }
 
-      console.log("-1-")
-
       const res = await userMustHaveChat(db, chat);
       if (!res) {
         return 0;
       }
-
-      console.log("6")
       
       return 1;
     }
   } catch (error) {
-    console.log("error")
     return 0;
   }
 }
@@ -94,7 +88,6 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
     if (result.matchedCount === 0) {
       return 0;
     } else {
-      console.log("1")
       let otherMember = chat.members[0];
       if (otherMember == sender) {
         otherMember = chat.members[1];
@@ -105,12 +98,9 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
         return 0;
       }
 
-      console.log("6")
-
       return 1;
     }
   } catch (error) {
-    console.log("error")
     return 0;
   }
 }
@@ -130,13 +120,9 @@ const userMustHaveChat = async (db, chat) => {
   const user1 = await db.collection('users').findOne({ _id: _user1Id });
   const user2 = await db.collection('users').findOne({ _id: _user2Id });
 
-  console.log("2")
-
   if (!user1 || !user2){
     return 0;
   }
-
-  console.log("3")
 
   const chats1 = user1.chats;
   const chats2 = user2.chats;
@@ -162,8 +148,6 @@ const userMustHaveChat = async (db, chat) => {
     }
   }
 
-  console.log("4")
-
   i = -1;
   for (let j = 0; j < chats2.length; j++) {
     if (chats2[j] == chatId) {
@@ -184,8 +168,6 @@ const userMustHaveChat = async (db, chat) => {
       return 0;
     }
   }
-
-  console.log("5")
 
   return 1;
 }
@@ -226,11 +208,8 @@ const socket = (server) => {
 
       const chatName = chat._id.toString();
 
-      console.log(chatName)
-
       // send message to socket
       if (sent) {
-        console.log("HERE")
         io.in(chatName).emit('new_message', { 
           schedule: 0,
           sender: myID, 
