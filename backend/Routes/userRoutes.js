@@ -339,9 +339,7 @@ router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
       return;
     }
 
-    const r = await unfriend(db, req.params.blockerId, req.params.blockedId);
-
-    console.log("unfriend: " + r)
+    await unfriend(db, req.params.blockerId, req.params.blockedId);
 
     const blockedUsersList = blockerUser.blockedUsers;
     blockedUsersList.push(req.params.blockedId);

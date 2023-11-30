@@ -92,8 +92,6 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
       return 0;
     }
 
-    console.log("1")
-
     const unfriender = await db.collection('users').findOne({ _id: _unfrienderId });
     const unfriended = await db.collection('users').findOne({ _id: _unfriendedId });
 
@@ -102,8 +100,6 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
     }
 
     await removeChats(db, unfrienderId, unfriendedId, unfriender, unfriended);
-
-    console.log("2")
 
     const unfrienderFriends = unfriender.friends;
     const unfriendedFriends = unfriended.friends;
@@ -116,14 +112,10 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
       }
     }
 
-    console.log("3")
-
     if (i == -1) {
       return 0;
     }
     unfrienderFriends.splice(i, 1);
-
-    console.log("4")
 
     i = -1;
     for (let j = 0; j < unfriendedFriends.length; j++) {
@@ -133,14 +125,10 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
       }
     }
 
-    console.log("5")
-
     if (i == -1) {
     return 0;
     }
     unfriendedFriends.splice(i, 1);
-
-    console.log("6")
 
     const resultUnfriender = await db.collection('users').updateOne(
       { _id: _unfrienderId },
@@ -160,13 +148,9 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
       }
     );
 
-    console.log("7")
-
     if (resultUnfriender.matchedCount === 0 || resultUnfriended.matchedCount === 0) {
       return 0;
     }
-
-    console.log("8")
 
     return 1;
 }
