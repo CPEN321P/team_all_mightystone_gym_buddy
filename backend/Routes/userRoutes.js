@@ -150,7 +150,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
 router.get('/userId/:userId/friends', async (req, res) => {
   const db = getDB();
   var friendsId;
-  let id
+  let id;
 
   try {
     id = createId(req.params.userId);

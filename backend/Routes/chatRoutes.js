@@ -130,6 +130,7 @@ router.get('/allChats/:userId', async (req, res) => {
     id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).send('Invalid ID');
+    return;
   }
 
   const user = await db.collection('users').findOne({ _id: id });
@@ -169,6 +170,7 @@ router.get('/chatId/:chatId', async (req, res) => {
     id = new ObjectId(req.params.chatId);
   } catch (error) {
     res.status(404).send("Invalid Id");
+    return;
   }
 
   const chat = await db.collection('chat').findOne({ _id: id });
