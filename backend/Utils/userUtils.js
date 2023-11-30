@@ -1,53 +1,54 @@
 const { ObjectId } = require('mongodb');
+const { createId } = require('./mongoUtils');
 
 const clearData = async (db, _id) => {
-    const user = await db.collection('users').findOne({ _id: _id });
-  
-    if (!user) {
-      return 0;
-    }
-  
-    const chats = user.chats;
-  
-    for (const currChat of chats) {
-      const _chatId = new ObjectId(currChat.chatId);
-      const chat = await db.collection('chat').findOne({ _id: _chatId });
-  
-      if (!chat) {
-        continue;
-      }
-  
-      let otherMemberId = chat.members[0];
-  
-      if (otherMemberId == _id.toString()) {
-        otherMemberId = chat.members[1];
-      }
-  
-      const _otherMemberId = new ObjectId(otherMemberId);
-      const otherUser = await db.collection('users').findOne({ _id: _otherMemberId });
-  
-      if (!otherUser) {
-        continue;
-      }
-  
-      otherChats = otherUser.chats;
-  
-      let i = -1;
-      for (let j = 0; j < otherChats.length; j++) {
-        if (otherChats[j].chatId == currChat.chatId) {
-          i = j;
-          break;
-        }
-      }
-      otherChats.splice(i, 1);
-      
-      await db.collection('chat').deleteOne({ _id: _chatId });
-    }
-    
-    await db.collection('schedules').deleteMany({ userId: _id.toString() });
-  
-    return 1;
+  const user = await db.collection('users').findOne({ _id: _id });
+
+  if (!user) {
+    return 0;
   }
+
+  const chats = user.chats;
+
+  for (const currChat of chats) {
+    const _chatId = new ObjectId(currChat.chatId);
+    const chat = await db.collection('chat').findOne({ _id: _chatId });
+
+    if (!chat) {
+      continue;
+    }
+
+    let otherMemberId = chat.members[0];
+
+    if (otherMemberId == _id.toString()) {
+      otherMemberId = chat.members[1];
+    }
+
+    const _otherMemberId = new ObjectId(otherMemberId);
+    const otherUser = await db.collection('users').findOne({ _id: _otherMemberId });
+
+    if (!otherUser) {
+      continue;
+    }
+
+    otherChats = otherUser.chats;
+
+    let i = -1;
+    for (let j = 0; j < otherChats.length; j++) {
+      if (otherChats[j].chatId == currChat.chatId) {
+        i = j;
+        break;
+      }
+    }
+    otherChats.splice(i, 1);
+    
+    await db.collection('chat').deleteOne({ _id: _chatId });
+  }
+  
+  await db.collection('schedules').deleteMany({ userId: _id.toString() });
+
+  return 1;
+}
 
 // metrics used: gym, gender, age, weight (in kilos), common friends
 const getSimilarity = (user1, user2) => {
