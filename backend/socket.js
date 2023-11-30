@@ -65,7 +65,7 @@ const sendMessageById = async (db, chat, sender, message) => {
         return 0;
       }
 
-      console.log("5")
+      console.log("6")
       
       return 1;
     }
@@ -85,8 +85,6 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
     }
     chatMessages.push(newMessage);
 
-    console.log("1")
-
     const result = await db.collection('chat').updateOne(
       { _id: id },
       { 
@@ -96,13 +94,10 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
       }
     );
 
-    console.log("2")
-
     if (result.matchedCount === 0) {
-      console.log("3")
       return 0;
     } else {
-      console.log("4")
+      console.log("1")
       let otherMember = chat.members[0];
       if (otherMember == sender) {
         otherMember = chat.members[1];
@@ -133,25 +128,26 @@ const userMustHaveChat = async (db, chat) => {
     const user1 = await db.collection('users').findOne({ _id: _user1Id });
     const user2 = await db.collection('users').findOne({ _id: _user2Id });
 
+    console.log("2")
+
     if (!user1 || !user2){
       return 0;
     }
+
+    console.log("3")
 
     const chats1 = user1.chats;
     const chats2 = user2.chats;
 
     let i = -1;
     for (let j = 0; j < chats1.length; j++) {
-      if (chats1[j].chatId == chatId) {
+      if (chats1[j] == chatId) {
         i = j;
         break;
       }
     }
     if (i == -1) {
-      chats1.push({
-        chatId: chatId,
-        notification: 0
-      });
+      chats1.push(chatId);
       const result = await db.collection('users').updateOne(
         { _id: _user1Id },
         { $set: {
@@ -164,18 +160,17 @@ const userMustHaveChat = async (db, chat) => {
       }
     }
 
+    console.log("4")
+
     i = -1;
     for (let j = 0; j < chats2.length; j++) {
-      if (chats2[j].chatId == chatId) {
+      if (chats2[j] == chatId) {
         i = j;
         break;
       }
     }
     if (i == -1) {
-      chats2.push({
-        chatId: chatId,
-        notification: 0
-      });
+      chats2.push(chatId);
       const result = await db.collection('users').updateOne(
         { _id: _user2Id },
         { $set: {
@@ -187,6 +182,8 @@ const userMustHaveChat = async (db, chat) => {
         return 0;
       }
     }
+
+    console.log("5")
 
     return 1;
   } catch (error) {
