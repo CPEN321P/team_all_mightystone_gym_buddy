@@ -11,10 +11,6 @@ import static com.example.cpen321tutorial1.CalendarUtils.selectedDate;
 import static com.example.cpen321tutorial1.Event.eventsForDate;
 import static com.example.cpen321tutorial1.EventEdit.getTodaysDate;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.anything;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 
 import android.os.IBinder;
 import android.util.Log;
@@ -30,8 +26,6 @@ import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
 
 import com.example.cpen321tutorial1.Account;
 import com.example.cpen321tutorial1.ConnectionToBackend;
@@ -48,7 +42,6 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;

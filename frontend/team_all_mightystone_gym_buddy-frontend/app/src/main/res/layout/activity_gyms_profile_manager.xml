@@ -117,7 +117,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="3">
+        android:weightSum="2">
         <LinearLayout
             android:gravity="center"
             android:orientation="vertical"
@@ -146,20 +146,6 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/black"
                 android:text="Back" />
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/People"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="People"
-                android:backgroundTint="@color/black"/>
         </LinearLayout>
 
     </LinearLayout>
