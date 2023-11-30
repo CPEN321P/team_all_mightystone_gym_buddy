@@ -163,8 +163,11 @@ const removeChats = async (db, id1, id2, user1, user2) => {
     return;
   }
 
-  await removeChatFromList(db, user1, chat._id.toString());
-  await removeChatFromList(db, user2, chat._id.toString());
+  console.log(chat);
+  const chatId = chat._id.toString();
+
+  await removeChatFromList(db, user1, chatId);
+  await removeChatFromList(db, user2, chatId);
 }
 
 //ChatGPT use: NO
