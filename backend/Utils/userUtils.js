@@ -53,33 +53,34 @@ const clearData = async (db, _id) => {
 // metrics used: gym, gender, age, weight (in kilos), common friends
 const getSimilarity = (user1, user2) => {
 
-    const metricWeights = {
-      weight: 0.2,
-      homeGym: 0.3,
-      gender: 0.1,
-      age: 0.2,
-      commonFriends: 0.2
-    };
-  
-    const weightSimilarity = 1 - Math.abs(user1.weight - user2.weight)/ Math.max(user1.weight, user2.weight);
-    const gymSimilarity = user1.homeGym === user2.homeGym ? 1 : 0;
-    const genderSimilarity = user1.gender === user2.gender ? 1 : 0;
-    const ageSimilarity = 1 - Math.abs(user1.age - user2.age) / Math.max(user1.age, user2.age);
-    const friendsIntersection = user1.friends.filter(friend => user2.friends.includes(friend));
-    const commonFriendsSimilarity = friendsIntersection.length / Math.min(user1.friends.length, user2.friends.length) || 0;
-  
-    const similarityScore = (
-      metricWeights.weight * weightSimilarity +
-      metricWeights.homeGym * gymSimilarity +
-      metricWeights.gender * genderSimilarity +
-      metricWeights.age * ageSimilarity +
-      metricWeights.commonFriends * commonFriendsSimilarity
-    );
-  
-    return similarityScore;
-  
-  }
-  
+  const metricWeights = {
+    weight: 0.2,
+    homeGym: 0.3,
+    gender: 0.1,
+    age: 0.2,
+    commonFriends: 0.2
+  };
+
+  const weightSimilarity = 1 - Math.abs(user1.weight - user2.weight)/ Math.max(user1.weight, user2.weight);
+  const gymSimilarity = user1.homeGym === user2.homeGym ? 1 : 0;
+  const genderSimilarity = user1.gender === user2.gender ? 1 : 0;
+  const ageSimilarity = 1 - Math.abs(user1.age - user2.age) / Math.max(user1.age, user2.age);
+  const friendsIntersection = user1.friends.filter(friend => user2.friends.includes(friend));
+  const commonFriendsSimilarity = friendsIntersection.length / Math.min(user1.friends.length, user2.friends.length) || 0;
+
+  const similarityScore = (
+    metricWeights.weight * weightSimilarity +
+    metricWeights.homeGym * gymSimilarity +
+    metricWeights.gender * genderSimilarity +
+    metricWeights.age * ageSimilarity +
+    metricWeights.commonFriends * commonFriendsSimilarity
+  );
+
+  return similarityScore;
+
+}
+
+//ChatGPT use: NO
 const unfriend = async (db, unfrienderId, unfriendedId) => {
     let _unfrienderId;
     let _unfriendedId;
@@ -99,6 +100,8 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
     if (!unfriender || !unfriended) {
       return 0;
     }
+
+    await removeChats(db, unfrienderId, unfriendedId, unfriender, unfriended);
 
     console.log("2")
 
@@ -168,5 +171,72 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
     return 1;
 }
 
-  module.exports = {clearData, unfriend, getSimilarity}
+//ChatGPT use: NO
+const removeChats = async (db, id1, id2, user1, user2) => {
+  const chat = checkForChat(db, id1, id2);
+
+  if (!chat) {
+    return;
+  }
+
+  await removeChatFromList(db, user1, chat._id.toString());
+  await removeChatFromList(db, user2, chat._id.toString());
+}
+
+//ChatGPT use: NO
+const removeChatFromList = async (db, user1, chatId) => {
+  const chats = user1.chats;
+
+  let i = -1;
+
+  for (let j = 0; j < chats.length; j++) {
+    if (chats[j] == chatId) {
+      i = j;
+      break;
+    }
+  }
+
+  if (i == -1) {
+    return;
+  }
+
+  chats.splice(i,1);
+
+  await db.collection('users').updateOne(
+    { _id: user1._id.toString() },
+    { 
+      $set: {
+        chats: chats
+      } 
+    }
+  );
+}
+
+//ChatGPT use: NO
+const checkForChat = async (db, user1, user2) => {
+  try {
+    return db.collection('chat').findOne({ 
+      $and: [
+        {
+          members: {
+            $elemMatch: {
+              $eq: user1
+            }
+          }
+        },
+        {
+          members: {
+            $elemMatch: {
+              $eq: user2
+            }
+          }
+        }
+      ]
+    });
+  } catch (error) {
+    return 0;
+  }
+}
+
+module.exports = {clearData, unfriend, getSimilarity}
   
