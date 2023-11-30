@@ -4,7 +4,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 
 import static M6Test.NonFunctionalRequirementTest_Performance.Login;
 import static M6Test.NonFunctionalRequirementTest_Performance.OpenAddEventPage;
@@ -34,10 +33,6 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
-import com.example.cpen321tutorial1.Account;
-import com.example.cpen321tutorial1.ConnectionToBackend;
-import com.example.cpen321tutorial1.Event;
-import com.example.cpen321tutorial1.GlobalClass;
 import com.example.cpen321tutorial1.Logo;
 
 import org.hamcrest.Description;
@@ -47,8 +42,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
-import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
