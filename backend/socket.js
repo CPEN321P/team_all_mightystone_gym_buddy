@@ -190,7 +190,9 @@ const socket = (server) => {
 
       // join chat
       if (chat) {
-        socket.join(chat._id.toString());
+        const chatName = chat._id.toString();
+        console.log("join: " + chatName)
+        socket.join(chatName);
       }
     });
 
@@ -206,10 +208,10 @@ const socket = (server) => {
       // send message to chat db 
       const sent = await sendMessageById(db, chat, myID, message);
 
-      const chatName = chat._id.toString();
-
       // send message to socket
       if (sent) {
+        const chatName = chat._id.toString();
+        console.log("Sent: " + chatName)
         io.in(chatName).emit('new_message', { 
           schedule: 0,
           sender: myID, 
