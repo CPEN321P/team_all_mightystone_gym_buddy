@@ -58,12 +58,6 @@ const sendMessageById = async (db, chat, sender, message) => {
       if (!res) {
         return 0;
       }
-
-      const resNotify = await notifyRecipient(db, _chatId, otherMember);
-
-      if (!resNotify) {
-        return 0;
-      }
       
       return 1;
     }
@@ -101,12 +95,6 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
 
       const res = await userMustHaveChat(db, chat);
       if (!res) {
-        return 0;
-      }
-
-      const resNotify = await notifyRecipient(db, _chatId, otherMember);
-
-      if (!resNotify) {
         return 0;
       }
 
@@ -183,49 +171,6 @@ const userMustHaveChat = async (db, chat) => {
     }
 
     return 1;
-  } catch (error) {
-    return 0;
-  }
-}
-
-const notifyRecipient = async (db, chatId, userId) => {
-  try {
-    const _userId = ObjectId(userId);
-    const user = await db.collection('users').findOne({ _id: _userId });
-
-    if (!user){
-      return 0;
-    }
-
-    const chats = user.chats;
-
-    let i = -1;
-    for (let j = 0; j < chats.length; j++) {
-      if (chats[j].chatId == chatId) {
-        i = j;
-        break;
-      }
-    }
-    if (i == -1) {
-      return 0;
-    }
-
-    chats[i].notification = 1;
-
-    const result = await db.collection('users').updateOne(
-      { _id: _userId },
-      { 
-        $set: {
-          chats: chats
-        } 
-      }
-    );
-
-    if (result.matchedCount === 0) {
-      return 0;
-    } else {
-      return 1;
-    }
   } catch (error) {
     return 0;
   }
