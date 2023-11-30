@@ -1,4 +1,4 @@
-package M6Test;
+package m6Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -50,7 +50,7 @@ import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class ChatWithFriends {
+public class ChatWithFriendsTests {
 
     public static String inputString;
 
@@ -318,7 +318,7 @@ public class ChatWithFriends {
         };
     }
 
-    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcher(recyclerViewId);
+    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcherTests(recyclerViewId);
     }
 }

@@ -1,4 +1,4 @@
-package M6Test;
+package m6Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -49,7 +49,7 @@ import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class NonFunctionalRequirementTest_Performance {
+public class NonFunctionalRequirementTest_PerformanceTests {
 
     LocalTime StartTime;
 
@@ -340,10 +340,10 @@ public class NonFunctionalRequirementTest_Performance {
 
     public static void OpenAddEventPage(){
         ViewInteraction AddEvent = onView(
-                Matchers.allOf(withId(R.id.AddEvent), withText("New Event"),
+                allOf(withId(R.id.AddEvent), withText("New Event"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("android.widget.LinearLayout")),
+                                        withClassName(is("android.widget.LinearLayout")),
                                         4),
                                 0),
                         isDisplayed()));
@@ -484,7 +484,7 @@ public class NonFunctionalRequirementTest_Performance {
         };
     }
 
-    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcher(recyclerViewId);
+    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcherTests(recyclerViewId);
     }
 }

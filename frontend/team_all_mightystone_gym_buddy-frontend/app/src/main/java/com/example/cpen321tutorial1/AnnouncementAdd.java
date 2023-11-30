@@ -2,8 +2,6 @@ package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.manager;
-import static com.example.cpen321tutorial1.GlobalClass.myAccount;
-import static com.example.cpen321tutorial1.JsonFunctions.JsonAnnouncement;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import okhttp3.FormBody;
-import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 

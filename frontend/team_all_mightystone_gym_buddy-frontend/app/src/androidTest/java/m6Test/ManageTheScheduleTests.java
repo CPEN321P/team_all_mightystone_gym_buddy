@@ -1,4 +1,4 @@
-package M6Test;
+package m6Test;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -46,7 +46,7 @@ import org.junit.runners.MethodSorters;
 import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ManageTheScheduleTest {
+public class ManageTheScheduleTests {
 
     @Rule
     public ActivityScenarioRule<Logo> activityRule =
@@ -448,7 +448,7 @@ public class ManageTheScheduleTest {
     public static ViewAction waitFor(long delay){
         return new ViewAction() {
             @Override public Matcher<View> getConstraints(){
-                return ViewMatchers.isRoot();
+                return isRoot();
             }
 
             @Override public String getDescription(){
