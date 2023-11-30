@@ -173,7 +173,11 @@ const removeChats = async (db, id1, id2, user1, user2) => {
 const removeChatFromList = async (db, user1, chatId) => {
   const chats = user1.chats;
 
+  console.log("1")
+
   let i = -1;
+
+  console.log("2")
 
   for (let j = 0; j < chats.length; j++) {
     if (chats[j] == chatId) {
@@ -182,11 +186,17 @@ const removeChatFromList = async (db, user1, chatId) => {
     }
   }
 
+  console.log("3")
+
   if (i == -1) {
     return;
   }
 
+  console.log("4")
+
   chats.splice(i,1);
+
+  console.log("5")
 
   await db.collection('users').updateOne(
     { _id: user1._id.toString() },
@@ -196,6 +206,8 @@ const removeChatFromList = async (db, user1, chatId) => {
       } 
     }
   );
+
+  console.log("6")
 }
 
 //ChatGPT use: NO
