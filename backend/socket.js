@@ -55,6 +55,8 @@ const sendMessageById = async (db, chat, sender, message) => {
         otherMember = chat.members[1];
       }
 
+      console.log("-1-")
+
       const res = await userMustHaveChat(db, chat);
       if (!res) {
         return 0;
@@ -114,76 +116,78 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
 }
 
 const userMustHaveChat = async (db, chat) => {
+  const chatId = chat._id.toString();
+  const user1Id = chat.members[0];
+  const user2Id = chat.members[1];
+  let _user1Id;
+  let _user2Id;
   try {
-    const chatId = chat._id.toString();
-    const user1Id = chat.members[0];
-    const user2Id = chat.members[1];
-    const _user1Id = ObjectId(user1Id);
-    const _user2Id = ObjectId(user2Id);
-    const user1 = await db.collection('users').findOne({ _id: _user1Id });
-    const user2 = await db.collection('users').findOne({ _id: _user2Id });
-
-    console.log("2")
-
-    if (!user1 || !user2){
-      return 0;
-    }
-
-    console.log("3")
-
-    const chats1 = user1.chats;
-    const chats2 = user2.chats;
-
-    let i = -1;
-    for (let j = 0; j < chats1.length; j++) {
-      if (chats1[j] == chatId) {
-        i = j;
-        break;
-      }
-    }
-    if (i == -1) {
-      chats1.push(chatId);
-      const result = await db.collection('users').updateOne(
-        { _id: _user1Id },
-        { $set: {
-            chats: chats1
-          } 
-        }
-      );
-      if (result.matchedCount === 0) {
-        return 0;
-      }
-    }
-
-    console.log("4")
-
-    i = -1;
-    for (let j = 0; j < chats2.length; j++) {
-      if (chats2[j] == chatId) {
-        i = j;
-        break;
-      }
-    }
-    if (i == -1) {
-      chats2.push(chatId);
-      const result = await db.collection('users').updateOne(
-        { _id: _user2Id },
-        { $set: {
-            chats: chats2
-          } 
-        }
-      );
-      if (result.matchedCount === 0) {
-        return 0;
-      }
-    }
-
-    console.log("5")
-
-    return 1;
+    _user1Id = new ObjectId(user1Id);
+    _user2Id = new ObjectId(user2Id);
   } catch (error) {
     return 0;
   }
+  const user1 = await db.collection('users').findOne({ _id: _user1Id });
+  const user2 = await db.collection('users').findOne({ _id: _user2Id });
+
+  console.log("2")
+
+  if (!user1 || !user2){
+    return 0;
+  }
+
+  console.log("3")
+
+  const chats1 = user1.chats;
+  const chats2 = user2.chats;
+
+  let i = -1;
+  for (let j = 0; j < chats1.length; j++) {
+    if (chats1[j] == chatId) {
+      i = j;
+      break;
+    }
+  }
+  if (i == -1) {
+    chats1.push(chatId);
+    const result = await db.collection('users').updateOne(
+      { _id: _user1Id },
+      { $set: {
+          chats: chats1
+        } 
+      }
+    );
+    if (result.matchedCount === 0) {
+      return 0;
+    }
+  }
+
+  console.log("4")
+
+  i = -1;
+  for (let j = 0; j < chats2.length; j++) {
+    if (chats2[j] == chatId) {
+      i = j;
+      break;
+    }
+  }
+  if (i == -1) {
+    chats2.push(chatId);
+    const result = await db.collection('users').updateOne(
+      { _id: _user2Id },
+      { $set: {
+          chats: chats2
+        } 
+      }
+    );
+    if (result.matchedCount === 0) {
+      return 0;
+    }
+  }
+
+  console.log("5")
+
+  return 1;
 }
 
 const socket = (server) => {
