@@ -194,12 +194,12 @@ router.delete('/', async (req, res) => {
   
   await db.collection('chat').deleteMany({});
 
-  await removeAllChatsFromUsers();
+  await removeAllChatsFromUsers(db);
 
   res.status(200).json('Chats Deleted');
 });
 
-const removeAllChatsFromUsers = async () => {
+const removeAllChatsFromUsers = async (db) => {
   const allUsers = await db.collection('users').find().toArray();
 
   for (const user of allUsers) {
