@@ -190,14 +190,28 @@ router.post('/userId/:user1/:user2', async (req, res) => {
 // Delete all chats
 // This is for debugging only (DEV USE)
 router.delete('/', async (req, res) => {
-  try {
-    const db = getDB();
-    
-    const result = await db.collection('chat').deleteMany({});
-    res.status(200).json('Users deleted successfully');
-  } catch (error) {
-    res.status(500).json('All Users Not Deleted');
-  }
+  const db = getDB();
+  
+  await db.collection('chat').deleteMany({});
+
+  await removeAllChatsFromUsers();
+
+  res.status(200).json('Chats Deleted');
 });
+
+const removeAllChatsFromUsers = async () => {
+  const allUsers = await db.collection('users').find().toArray();
+
+  for (const user of allUsers) {
+    await db.collection('users').updateOne(
+      { _id: user._id },
+      {   
+        $set: {
+          chats: []
+        } 
+      }
+    );
+  }
+}
 
 module.exports = router;

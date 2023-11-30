@@ -232,8 +232,6 @@ const notifyRecipient = async (db, chatId, userId) => {
 }
 
 const socket = (server) => {
-  console.log("HERE");
-
   const io = new Server(server, {});
 
   io.use(function(socket, next) {
