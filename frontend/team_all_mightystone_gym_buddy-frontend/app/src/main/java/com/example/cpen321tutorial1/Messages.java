@@ -42,6 +42,13 @@ public class Messages
                         Intent ChatIntent =
                                 new Intent(Messages.this, Chat.class);
 
+                        ChatModelFromBackend chatModelFromBackend = items.get(position);
+                        //TODO CHECK FOR MEMEBR
+                        Account otherAccount = c.getAccountInformation(chatModelFromBackend.members.get(1));
+
+                        ChatIntent.putExtra("Username", otherAccount.getUsername());
+                        ChatIntent.putExtra("FriendId", otherAccount.getUserId());
+
                         startActivity(ChatIntent);
                     }
 
