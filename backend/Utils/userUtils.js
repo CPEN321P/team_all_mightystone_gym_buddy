@@ -84,69 +84,85 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
     let _unfriendedId;
 
     try {
-    _unfrienderId = createId(unfrienderId);
-    _unfriendedId = createId(unfriendedId);
+      _unfrienderId = createId(unfrienderId);
+      _unfriendedId = createId(unfriendedId);
     } catch (error) {
-    return 0;
+      return 0;
     }
+
+    console.log("1")
 
     const unfriender = await db.collection('users').findOne({ _id: _unfrienderId });
     const unfriended = await db.collection('users').findOne({ _id: _unfriendedId });
 
     if (!unfriender || !unfriended) {
-    return 0;
+      return 0;
     }
+
+    console.log("2")
 
     const unfrienderFriends = unfriender.friends;
     const unfriendedFriends = unfriended.friends;
 
     let i = -1;
     for (let j = 0; j < unfrienderFriends.length; j++) {
-    if (unfrienderFriends[j] == unfriendedId) {
+      if (unfrienderFriends[j] == unfriendedId) {
         i = j;
         break;
-    }
+      }
     }
 
+    console.log("3")
+
     if (i == -1) {
-    return 0;
+      return 0;
     }
     unfrienderFriends.splice(i, 1);
 
+    console.log("4")
+
     i = -1;
     for (let j = 0; j < unfriendedFriends.length; j++) {
-    if (unfriendedFriends[j] == unfrienderId) {
+      if (unfriendedFriends[j] == unfrienderId) {
         i = j;
         break;
+      }
     }
-    }
+
+    console.log("5")
 
     if (i == -1) {
     return 0;
     }
     unfriendedFriends.splice(i, 1);
 
+    console.log("6")
+
     const resultUnfriender = await db.collection('users').updateOne(
-    { _id: _unfrienderId },
-    { 
+      { _id: _unfrienderId },
+      { 
         $set: {
-        friends: unfrienderFriends
+          friends: unfrienderFriends
         } 
-    }
+      }
     );
 
     const resultUnfriended = await db.collection('users').updateOne(
-    { _id: _unfriendedId },
-    { 
+      { _id: _unfriendedId },
+      { 
         $set: {
-        friends: unfriendedFriends
+          friends: unfriendedFriends
         } 
-    }
+      }
     );
 
+    console.log("7")
+
     if (resultUnfriender.matchedCount === 0 || resultUnfriended.matchedCount === 0) {
-    return 0;
+      return 0;
     }
+
+    console.log("8")
 
     return 1;
 }
