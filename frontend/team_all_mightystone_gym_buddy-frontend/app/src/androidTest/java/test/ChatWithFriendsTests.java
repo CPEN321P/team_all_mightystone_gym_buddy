@@ -1,4 +1,4 @@
-package m6Test;
+package test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;

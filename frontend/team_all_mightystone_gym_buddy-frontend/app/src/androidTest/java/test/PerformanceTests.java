@@ -1,4 +1,4 @@
-package m6Test;
+package test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -36,7 +36,6 @@ import com.example.cpen321tutorial1.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -49,7 +48,7 @@ import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class NonFunctionalRequirementTest_PerformanceTests {
+public class PerformanceTests {
 
     LocalTime StartTime;
 

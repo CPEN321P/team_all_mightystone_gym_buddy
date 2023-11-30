@@ -1,28 +1,26 @@
-package m6Test;
+package test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.Login;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenAddEventPage;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenBlockList;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenChangePersonalProfile;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenFriendPersonalProfilePage;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenGymList;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenGymProfile;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenMonthlySchedule;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenOthersPersonalProfilePage;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenPeoplePage;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenPersonalProfile;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenPossibleFriendsPage;
-import static m6Test.NonFunctionalRequirementTest_PerformanceTests.OpenWeeklySchedule;
+import static test.PerformanceTests.Login;
+import static test.PerformanceTests.OpenAddEventPage;
+import static test.PerformanceTests.OpenBlockList;
+import static test.PerformanceTests.OpenChangePersonalProfile;
+import static test.PerformanceTests.OpenFriendPersonalProfilePage;
+import static test.PerformanceTests.OpenGymList;
+import static test.PerformanceTests.OpenGymProfile;
+import static test.PerformanceTests.OpenMonthlySchedule;
+import static test.PerformanceTests.OpenOthersPersonalProfilePage;
+import static test.PerformanceTests.OpenPeoplePage;
+import static test.PerformanceTests.OpenPersonalProfile;
+import static test.PerformanceTests.OpenPossibleFriendsPage;
+import static test.PerformanceTests.OpenWeeklySchedule;
 
 import android.os.IBinder;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.WindowManager;
 
 import androidx.test.espresso.Root;
@@ -45,7 +43,7 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class NonFunctionalRequirementTest_UsabilityTests {
+public class UsabilityTests {
 
     int NumberOfButtonPress;
 
