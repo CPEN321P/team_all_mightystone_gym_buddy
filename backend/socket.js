@@ -236,7 +236,10 @@ const socket = (server) => {
 
   const io = new Server(server, {});
 
-  io.on("connection", async (socket) => {
+  io.use(function(socket, next) {
+    next();
+  })
+  .on("connection", (socket) => {
 
     console.log("Connected");
 
@@ -249,7 +252,7 @@ const socket = (server) => {
       const theirID = data.theirID;
 
       // find chat by ids
-      const chat = getChatByUserId(db, myID, theirID);
+      const chat = await getChatByUserId(db, myID, theirID);
 
       // join chat
       socket.join(chat._id.toString());
@@ -265,10 +268,10 @@ const socket = (server) => {
       const message = data.message;
 
       // find chat by ids
-      const chat = getChatByUserId(db, myID, theirID);
+      const chat = await getChatByUserId(db, myID, theirID);
 
       // send message to chat db 
-      const sent = sendMessageById(db, chat, myID, message);
+      const sent = await sendMessageById(db, chat, myID, message);
 
       // send message to socket
       if (sent) {
@@ -287,10 +290,10 @@ const socket = (server) => {
       const scheduleId = data.scheduleId;
 
       // find chat by ids
-      const chat = getChatByUserId(db, myID, theirID);
+      const chat = await getChatByUserId(db, myID, theirID);
 
       // send schedule to chat db 
-      const sent = sendScheduleById(db, chat, myID, scheduleId);
+      const sent = await sendScheduleById(db, chat, myID, scheduleId);
 
       // send schedule to socket
       if (sent) {
