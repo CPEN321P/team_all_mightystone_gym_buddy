@@ -142,7 +142,6 @@ public class LoginPageManager
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
             manager.setEmail(account.getEmail());
-            //Log.d("THIS IS", GlobalClass.manager.getEmail());
 
             if(!checkIfUserExists(account.getEmail())){
                 Intent LinkAccountIntent =
@@ -151,8 +150,6 @@ public class LoginPageManager
                 startActivity(LinkAccountIntent);
 
             } else {
-                Log.d("THIS IS WHAT YOURE LOOKING FOR",
-                        "YIPPIEEEEE U EXIST ON THE DATABASE");
                 Intent LinkAccountIntent =
                         new Intent(LoginPageManager.this,
                                 PersonalProfileManager.class);
@@ -168,7 +165,6 @@ public class LoginPageManager
                 c.getManagerInformationFromEmail(email);
 
         if(thisManagerFromBackend == null){
-            Log.d("THISSSSSSS", "manager is null :c");
             return false;
         }
         manager = thisManagerFromBackend;

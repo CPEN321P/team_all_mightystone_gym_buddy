@@ -347,10 +347,8 @@ public class EventEdit
         ArrayList<Event> TheEventsofThisAccount =
                 c.getScheduleByUser(myAccount.getUserId(), Today);
         if(TheEventsofThisAccount == null){
-            Log.d("THIS IS", "FALSE BRO");
             return false;
         }
-        Log.d("THIS IS", "TRUE");
         return true;
 
     }

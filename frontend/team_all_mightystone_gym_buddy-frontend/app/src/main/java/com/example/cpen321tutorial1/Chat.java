@@ -13,22 +13,15 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.security.KeyManagementException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.net.ssl.SSLContext;
 
 import io.socket.client.Ack;
 import io.socket.client.IO;
@@ -41,7 +34,7 @@ public class Chat extends AppCompatActivity {
 
     String chatId;
 
-    List<ChatMessage> messages = new ArrayList<ChatMessage>();
+    List<ChatMessage> messages;
 
     ChatModelFromBackend thisChatModelFromBackend;
 
@@ -71,7 +64,7 @@ public class Chat extends AppCompatActivity {
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new ChatMessageAdapter(this, messages));
+        //recyclerView.setAdapter(new ChatMessageAdapter(this, messages));
 
         Intent i = getIntent();
         String name = i.getStringExtra("Username");
@@ -87,7 +80,8 @@ public class Chat extends AppCompatActivity {
 
         //check if this chat already exists on the backend
         checkIfChatExists(friendId);
-        updateUI();
+        recyclerView.setAdapter(new ChatMessageAdapter(this, messages));
+        //updateUI();
 
         //connect with socket
         try {
@@ -202,12 +196,14 @@ public class Chat extends AppCompatActivity {
         ConnectionToBackend c = new ConnectionToBackend();
         thisChatModelFromBackend = c.getChatFromFriendId(friendId);
 
-        if(thisChatModelFromBackend== null){
-            Log.d("THISSSSSSS", "chat is null :c");
-
+        if(thisChatModelFromBackend.getMessages() != null){
+            messages = thisChatModelFromBackend.getMessages();
+        } else {
+            messages = new ArrayList<>();
         }
+        Log.d("thiss", messages.toString());
 
-        messages = thisChatModelFromBackend.getChatMessages();
+
         if(thisChatModelFromBackend.members.get(0) == myAccount.getUserId()){
             otherAccount = c.getAccountInformation(thisChatModelFromBackend.members.get(1));
         } else {
@@ -216,4 +212,6 @@ public class Chat extends AppCompatActivity {
         chatId = thisChatModelFromBackend.get_id();
 
     }
+
+
 }

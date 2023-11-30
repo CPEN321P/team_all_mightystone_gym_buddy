@@ -1,6 +1,7 @@
 package com.example.cpen321tutorial1;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,8 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageViewHold
     @Override
     public void onBindViewHolder
             (@NonNull ChatMessageViewHolder holder, int position) {
-        //holder.nameView.setText(items.get(position).getUsername());
-        if(items.get(position).sender == GlobalClass.myAccount.getUserId()){
+        
+        if(items.get(position).sender.equals(GlobalClass.myAccount.getUserId())){
             holder.leftChatLayout.setVisibility(View.GONE);
             holder.rightChatLayout.setVisibility(View.VISIBLE);
             holder.rightChatText.setText(items.get(position).body);

@@ -133,7 +133,6 @@ public class PersonalProfileEdit
                         .build();
 
                 NewCallPost(client, putUserRequest);
-                Log.d("THIS IS WHAT YOURE LOOKING FOR","DID PUT");
 
                 Toast.makeText(PersonalProfileEdit.this,
                         "Personal Profile Edit Success",

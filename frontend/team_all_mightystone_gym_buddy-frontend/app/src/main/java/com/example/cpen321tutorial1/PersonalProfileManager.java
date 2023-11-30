@@ -166,7 +166,6 @@ public class PersonalProfileManager
                 c.getGymByEmail(email);
 
         if(thisGymFromBackend == null){
-            Log.d("THISSSSSSS", "manager is null :c");
             return false;
         }
         myAccount.setMyGym(thisGymFromBackend);

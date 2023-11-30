@@ -150,8 +150,7 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(LinkAccountIntent);
 
             } else {
-                //Log.d("THIS IS WHAT YOURE LOOKING FOR", "YIPPIEEEEE U EXIST ON THE DATABASE");
-                Intent LinkAccountIntent =
+               Intent LinkAccountIntent =
                         new Intent(LoginPage.this, Logo.class);
                 startActivity(LinkAccountIntent);
             }
@@ -171,22 +170,10 @@ public class LoginPage extends AppCompatActivity {
         ConnectionToBackend c = new ConnectionToBackend();
         Account thisAccount = c.getAccountInformation(email);
 
-        //Log.d("THISSSSSSS", email + " in login page");
-
         if(thisAccount== null){
-            Log.d("THISSSSSSS", "account is null :c");
             return false;
         }
-        Log.d("THISSSSSSS", "TRUE");
-        Log.d(TAG, "User Id: " + thisAccount.getUserId());
-        Log.d(TAG, "User Name: " + thisAccount.getUsername());
-        Log.d(TAG, "User Email: " + thisAccount.getEmailAddress());
-        Log.d(TAG, "User Age: " + thisAccount.getAge());
-        Log.d(TAG, "User Weight: " + thisAccount.getWeight());
-        Log.d(TAG, "User Gender: " + thisAccount.getGender());
-
         ArrayList<Account> items = c.getAllInList(thisAccount.getUserId(), 0);
-        Log.d(TAG, "items size: " + Integer.toString(items.size()));
 
         myAccount.setEmailAddress(email);
         myAccount = thisAccount;

@@ -8,7 +8,7 @@ public class ChatModelFromBackend {
 
     List<String> members;
 
-    List<ChatMessage> chatMessages;
+    List<ChatMessage> messages;
 
     public String get_id() {
         return _id;
@@ -26,16 +26,16 @@ public class ChatModelFromBackend {
         this.members = members;
     }
 
-    public List<ChatMessage> getChatMessages() {
-        return chatMessages;
+    public List<ChatMessage> getMessages() {
+        return messages;
     }
 
-    public void setChatMessages(List<ChatMessage> chatMessages) {
-        this.chatMessages = chatMessages;
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
     }
 
     public String toString() {
         return String.format("_id:%s,members:%s,chatMessages:%s",
-                _id, members, chatMessages);
+                _id, members, messages);
     }
 }

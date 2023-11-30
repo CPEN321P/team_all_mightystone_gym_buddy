@@ -53,7 +53,7 @@ public class LinkToGoogleManager
                 Toast.makeText(LinkToGoogleManager.this,
                         "Account Created Successfully!",
                         Toast.LENGTH_SHORT).show();
-                //Log.d("THIS IS WHAT YOURE LOOKING FOR", "CREATED ACCOUNT");
+
                 //adding manager to database
 
                 String Json = "";
@@ -70,7 +70,6 @@ public class LinkToGoogleManager
                 Json = "{" + JsonName + "," + JsonUsername +
                         "," + JsonEmail + "}";
 
-                //Log.d("this is what", Json);
 
                 RequestBody body = RequestBody.create(Json,
                         MediaType.parse("application/json"));
@@ -82,7 +81,6 @@ public class LinkToGoogleManager
                         .build();
 
                 NewCallPost(client, requestName);
-                //Log.d("this is what", "post worked");
 
                 ConnectionToBackend c =
                         new ConnectionToBackend();

@@ -191,8 +191,6 @@ public class ConnectionToBackend {
             public Account call() throws Exception {
                 Request getAccountInformation;
 
-                Log.d("THISS", userIdOrEmail);
-
                 if(userIdOrEmail.contains("@")) {
                     getAccountInformation = new Request.Builder()
                             .url("https://20.172.9.70/users/userEmail/" + userIdOrEmail)
@@ -213,7 +211,6 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    //Log.d("thisss", jsonResponse);
                     AccountModelFromBackend accountModelFromBackend =
                             new Gson().fromJson(jsonResponse,
                                     AccountModelFromBackend.class);
@@ -322,7 +319,6 @@ public class ConnectionToBackend {
                     List<AccountModelFromBackend> listOfFriends =
                             new Gson().fromJson(jsonResponse, listType);
 
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", "FRIENDS GOTTTTT");
 
 
                     if (listOfFriends == null) {
@@ -377,7 +373,6 @@ public class ConnectionToBackend {
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
                     Type listType = new TypeToken<ArrayList<ChatModelFromBackend>>(){}.getType();
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     ArrayList<ChatModelFromBackend> listOfChats =
                             new Gson().fromJson(jsonResponse, listType);
@@ -428,7 +423,7 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    Log.d("thisss", jsonResponse);
+                    Log.d("chatmodel info", jsonResponse);
                     ChatModelFromBackend chatModelFromBackend =
                             new Gson().fromJson(jsonResponse,
                                     ChatModelFromBackend.class);
@@ -462,14 +457,11 @@ public class ConnectionToBackend {
     //MANAGER FUNCTIONS!!!
 
     public Manager getManagerInformationFromEmail(String email) {
-        //Log.d("THIS IS WHAT YOURE LOOKING FOR", "PLS");
 
         Callable<Manager> asyncCall = new Callable<Manager>() {
 
             @Override
             public Manager call() throws Exception {
-
-                //Log.d("THIS IS WHAT YOURE LOOKING FOR", email);
 
                 Request getManagerInformation = new Request.Builder()
                         .url("https://20.172.9.70/gymsUsers/userEmail/" + email)
@@ -486,7 +478,6 @@ public class ConnectionToBackend {
                     String jsonResponse = responseBody.string();
                     ManagerModelFromBackend managerModelFromBackend =
                             new Gson().fromJson(jsonResponse, ManagerModelFromBackend.class);
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     if (managerModelFromBackend == null) {
 
@@ -553,19 +544,15 @@ public class ConnectionToBackend {
                     Type listType =
                             new TypeToken<ArrayList<GymModelFromBackend>>(){}.getType();
 
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     List<GymModelFromBackend> listOfGymModels =
                             new Gson().fromJson(jsonResponse, listType);
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", "GYMS GOTTTTT");
 
 
                     if (listOfGymModels == null) {
                         throw new IOException("Gym model is null");
                     }
 
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.size()+"");
-                    //Log.d("THIS IS WHAT YOURE LOOKING FOR", listOfGymModels.get(0).getName());
 
 
                     for(int i = 0; i<listOfGymModels.size(); i++){
