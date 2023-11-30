@@ -157,13 +157,12 @@ const unfriend = async (db, unfrienderId, unfriendedId) => {
 
 //ChatGPT use: NO
 const removeChats = async (db, id1, id2, user1, user2) => {
-  const chat = checkForChat(db, id1, id2);
+  const chat = await checkForChat(db, id1, id2);
 
   if (!chat) {
     return;
   }
 
-  console.log(chat);
   const chatId = chat._id.toString();
 
   await removeChatFromList(db, user1, chatId);
