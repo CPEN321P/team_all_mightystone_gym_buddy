@@ -1,5 +1,7 @@
 package com.example.cpen321tutorial1;
 
+import static com.example.cpen321tutorial1.GlobalClass.myAccount;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +43,7 @@ public class Chat extends AppCompatActivity {
 
     List<ChatMessage> messages = new ArrayList<ChatMessage>();
 
-    //ChatModelFromBackend chatModelFromBackend;
+    ChatModelFromBackend thisChatModelFromBackend;
 
     EditText chat_text_input;
 
@@ -84,19 +86,10 @@ public class Chat extends AppCompatActivity {
         //ConnectionToBackend c = new ConnectionToBackend();
 
         //check if this chat already exists on the backend
-        if(!checkIfChatExists(friendId)){
-            //create new chat
+        checkIfChatExists(friendId);
+        updateUI();
 
-
-        } else{
-
-        }
-
-
-//        Map<String, String> userIdMap = new HashMap<>();
-//        userIdMap.put("userId", "1234");
-//        IO.Options socketOptions = IO.Options.builder().setAuth(userIdMap).build();
-
+        //connect with socket
         try {
 
             IO.Options options = new IO.Options();
@@ -169,12 +162,6 @@ public class Chat extends AppCompatActivity {
 
     }
 
-    private void LoadPreviousMessages(Chat thisChat) {
-
-
-
-    }
-
     private void sendMessage(String message) {
 
         ChatMessage chatMessage = new ChatMessage(new Long(0), GlobalClass.myAccount.getUserId(), message);
@@ -210,40 +197,23 @@ public class Chat extends AppCompatActivity {
         recyclerView.smoothScrollToPosition(messages.size() - 1);
 
     }
-    public Account getOtherAccount() {
-        return otherAccount;
-    }
 
-    public void setOtherAccount(Account otherAccount) {
-        this.otherAccount = otherAccount;
-    }
-
-    public String getChatId() {
-        return chatId;
-    }
-
-    public void setChatId(String chatId) {
-        this.chatId = chatId;
-    }
-
-    public List<ChatMessage> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<ChatMessage> messages) {
-        this.messages = messages;
-    }
-
-    private boolean checkIfChatExists(String friendId) {
+    private void checkIfChatExists(String friendId) {
         ConnectionToBackend c = new ConnectionToBackend();
-        ChatModelFromBackend thisChat = c.getChatFromFriendId(friendId);
+        thisChatModelFromBackend = c.getChatFromFriendId(friendId);
 
-        if(thisChat== null){
+        if(thisChatModelFromBackend== null){
             Log.d("THISSSSSSS", "chat is null :c");
-            return false;
+
         }
 
-        return true;
+        messages = thisChatModelFromBackend.getChatMessages();
+        if(thisChatModelFromBackend.members.get(0) == myAccount.getUserId()){
+            otherAccount = c.getAccountInformation(thisChatModelFromBackend.members.get(1));
+        } else {
+            otherAccount = c.getAccountInformation(thisChatModelFromBackend.members.get(0));
+        }
+        chatId = thisChatModelFromBackend.get_id();
 
     }
 }

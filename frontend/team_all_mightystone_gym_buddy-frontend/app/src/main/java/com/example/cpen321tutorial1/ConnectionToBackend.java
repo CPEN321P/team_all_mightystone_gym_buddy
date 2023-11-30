@@ -382,16 +382,10 @@ public class ConnectionToBackend {
                     ArrayList<ChatModelFromBackend> listOfChats =
                             new Gson().fromJson(jsonResponse, listType);
 
-                    Log.d("THIS", listOfChats.get(0).toString());
-
 
                     if (listOfChats == null) {
                         throw new IOException("Chat model is null");
                     }
-
-//                    for(int i = 0; i<listOfChats.size(); i++){
-//                        listOfAllChats.add(setChatInformationFromBackend(listOfChats.get(i)));
-//                    }
 
                     return listOfChats;
 
@@ -411,30 +405,6 @@ public class ConnectionToBackend {
         }
 
     }
-
-    private Chat setChatInformationFromBackend
-            (ChatModelFromBackend chatModelFromBackend) {
-        Chat returnedChat = new Chat();
-        Log.d("aaa", "whyyy");
-
-        Account otherAccount;
-
-        if(chatModelFromBackend.members.get(0) == myAccount.getUserId()){
-            otherAccount = getAccountInformation
-                    (chatModelFromBackend.members.get(1));
-        } else {
-            otherAccount = getAccountInformation
-                    (chatModelFromBackend.members.get(0));
-        }
-        returnedChat.setOtherAccount(otherAccount);
-        returnedChat.setChatId(chatModelFromBackend.get_id());
-        //returnedChat.setMessages(chatModelFromBackend.getChatMessages());
-
-        return returnedChat;
-
-    }
-
-
 
     public ChatModelFromBackend getChatFromFriendId(String friendId) {
 

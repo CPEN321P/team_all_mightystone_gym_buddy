@@ -35,7 +35,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         //TODO IF ELSE TO CHECK WHO'S THE OTHER
         ConnectionToBackend c = new ConnectionToBackend();
-        Account otherAccount = c.getAccountInformation(items.get(position).getMembers().get(0));
+        Account otherAccount = c.getAccountInformation(items.get(position).getMembers().get(1));
 
         holder.nameView.setText(otherAccount.getUsername());
         holder.usernameView.setText(otherAccount.getEmailAddress());
