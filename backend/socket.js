@@ -265,9 +265,14 @@ const socket = (server) => {
       // send message to chat db 
       const sent = await sendMessageById(db, chat, myID, message);
 
+      const chatName = chat._id.toString();
+
+      console.log(chatName)
+
       // send message to socket
       if (sent) {
-        io.in(chat._id.toString()).emit('new_message', { 
+        console.log("HERE")
+        io.in(chatName).emit('new_message', { 
           schedule: 0,
           sender: myID, 
           body: message 
