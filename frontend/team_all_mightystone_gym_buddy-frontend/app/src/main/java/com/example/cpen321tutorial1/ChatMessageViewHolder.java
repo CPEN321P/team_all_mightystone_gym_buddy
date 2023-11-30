@@ -9,8 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
-    LinearLayout leftChatLayout, rightChatLayout;
-    TextView leftChatText, rightChatText;
+    LinearLayout leftChatLayout;
+
+    LinearLayout rightChatLayout;
+
+    TextView leftChatText;
+
+    TextView rightChatText;
 
     public ChatMessageViewHolder(@NonNull View itemView) {
         super(itemView);
