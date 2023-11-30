@@ -316,11 +316,8 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    Log.d("HAHA", "309 "+ jsonResponse);
                     Type listType =
                             new TypeToken<ArrayList<AccountModelFromBackend>>(){}.getType();
-
-                    Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
                     List<AccountModelFromBackend> listOfFriends =
                             new Gson().fromJson(jsonResponse, listType);
@@ -360,12 +357,12 @@ public class ConnectionToBackend {
 
     //CHAT FUNCTIONS!!!
 
-    public ArrayList<Chat> getAllChatsFromUserId(final String userId) {
+    public ArrayList<ChatModelFromBackend> getAllChatsFromUserId(final String userId) {
 
-        ArrayList<Chat> listOfAllChats = new ArrayList<>();
-        Callable<ArrayList<Chat>> asyncCall = new Callable<ArrayList<Chat>>() {
+        //ArrayList<ChatModelFromBackend> listOfAllChats = new ArrayList<>();
+        Callable<ArrayList<ChatModelFromBackend>> asyncCall = new Callable<ArrayList<ChatModelFromBackend>>() {
             @Override
-            public ArrayList<Chat> call() throws Exception {
+            public ArrayList<ChatModelFromBackend> call() throws Exception {
                 Request getRecommendedProfiles = new Request.Builder()
                         .url("https://20.172.9.70/chat/allChats/"+ userId)
                         .build();
@@ -382,7 +379,7 @@ public class ConnectionToBackend {
                     Type listType = new TypeToken<ArrayList<ChatModelFromBackend>>(){}.getType();
                     Log.d("THIS IS WHAT YOURE LOOKING FOR", jsonResponse);
 
-                    List<ChatModelFromBackend> listOfChats =
+                    ArrayList<ChatModelFromBackend> listOfChats =
                             new Gson().fromJson(jsonResponse, listType);
 
                     Log.d("THIS", listOfChats.get(0).toString());
@@ -392,18 +389,17 @@ public class ConnectionToBackend {
                         throw new IOException("Chat model is null");
                     }
 
-                    for(int i = 0; i<listOfChats.size(); i++){
-                        Log.d("aaa", "aaa");
-                        listOfAllChats.add(setChatInformationFromBackend(listOfChats.get(i)));
-                    }
+//                    for(int i = 0; i<listOfChats.size(); i++){
+//                        listOfAllChats.add(setChatInformationFromBackend(listOfChats.get(i)));
+//                    }
 
-                    return listOfAllChats;
+                    return listOfChats;
 
                 }
             }
         };
 
-        Future<ArrayList<Chat>> future = executorService.submit(asyncCall);
+        Future<ArrayList<ChatModelFromBackend>> future = executorService.submit(asyncCall);
 
         try {
             return future.get();
@@ -440,11 +436,11 @@ public class ConnectionToBackend {
 
 
 
-    public Chat getChatFromFriendId(String friendId) {
+    public ChatModelFromBackend getChatFromFriendId(String friendId) {
 
-        Callable<Chat> asyncCall = new Callable<Chat>() {
+        Callable<ChatModelFromBackend> asyncCall = new Callable<ChatModelFromBackend>() {
             @Override
-            public Chat call() throws Exception {
+            public ChatModelFromBackend call() throws Exception {
                 Request getChatInformation;
 
 
@@ -462,6 +458,7 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
+                    Log.d("thisss", jsonResponse);
                     ChatModelFromBackend chatModelFromBackend =
                             new Gson().fromJson(jsonResponse,
                                     ChatModelFromBackend.class);
@@ -470,12 +467,12 @@ public class ConnectionToBackend {
                         throw new IOException("Chat model is null");
                     }
 
-                    return setChatInformationFromBackend(chatModelFromBackend);
+                    return chatModelFromBackend;
                 }
             }
         };
 
-        Future<Chat> future = executorService.submit(asyncCall);
+        Future<ChatModelFromBackend> future = executorService.submit(asyncCall);
 
         try {
             return future.get();

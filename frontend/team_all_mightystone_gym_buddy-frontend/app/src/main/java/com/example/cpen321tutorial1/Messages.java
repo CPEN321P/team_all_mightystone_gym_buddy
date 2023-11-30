@@ -17,7 +17,7 @@ public class Messages
         extends AppCompatActivity {
 
     ConnectionToBackend c = new ConnectionToBackend();
-    List<Chat> items = c.getAllChatsFromUserId(myAccount.getUserId());
+    List<ChatModelFromBackend> items = c.getAllChatsFromUserId(myAccount.getUserId());
 
 
     @Override

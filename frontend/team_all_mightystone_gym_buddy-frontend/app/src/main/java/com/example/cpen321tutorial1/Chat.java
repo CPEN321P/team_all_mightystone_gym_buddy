@@ -81,27 +81,27 @@ public class Chat extends AppCompatActivity {
         message_send_button = findViewById(R.id.message_send_button);
 
         username.setText(name);
-        ConnectionToBackend c = new ConnectionToBackend();
+        //ConnectionToBackend c = new ConnectionToBackend();
 
         //check if this chat already exists on the backend
-//        if(checkIfChatExists(friendId)){
-//            //get chat information and set messages
-//            Log.d("thisss", "reached here");
-//            Chat thisChat = c.getChatFromFriendId(friendId);
-//            LoadPreviousMessages(thisChat);
-//        }
+        if(!checkIfChatExists(friendId)){
+            //create new chat
 
 
-        Map<String, String> userIdMap = new HashMap<>();
-        userIdMap.put("userId", "1234");
-        IO.Options socketOptions = IO.Options.builder().setAuth(userIdMap).build();
-//        socketOptions.forceNew = true;
-//        socketOptions.reconnection = false;
-//        socketOptions.secure=true;
+        } else{
 
+        }
+
+
+//        Map<String, String> userIdMap = new HashMap<>();
+//        userIdMap.put("userId", "1234");
+//        IO.Options socketOptions = IO.Options.builder().setAuth(userIdMap).build();
 
         try {
-            socket = IO.socket("https://20.172.9.70:443", socketOptions);
+
+            IO.Options options = new IO.Options();
+            options.forceNew = true;
+            socket = IO.socket("https://tams.westus3.cloudapp.azure.com/", options);
             socket.connect();
             Log.d("SOCKETTTT", "CONNECTED BROOOOO");
         } catch (URISyntaxException e) {
@@ -236,9 +236,7 @@ public class Chat extends AppCompatActivity {
 
     private boolean checkIfChatExists(String friendId) {
         ConnectionToBackend c = new ConnectionToBackend();
-        Chat thisChat = c.getChatFromFriendId(friendId);
-
-        //Log.d("THISSSSSSS", email + " in login page");
+        ChatModelFromBackend thisChat = c.getChatFromFriendId(friendId);
 
         if(thisChat== null){
             Log.d("THISSSSSSS", "chat is null :c");

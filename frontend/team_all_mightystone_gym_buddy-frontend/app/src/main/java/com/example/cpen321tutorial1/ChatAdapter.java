@@ -14,9 +14,9 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
     Context context;
 
-    List<Chat> items;
+    List<ChatModelFromBackend> items;
 
-    public ChatAdapter(Context context, List<Chat> items) {
+    public ChatAdapter(Context context, List<ChatModelFromBackend> items) {
         this.context = context;
         this.items = items;
     }
@@ -33,8 +33,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        holder.nameView.setText(items.get(position).getOtherAccount().getUsername());
-        holder.usernameView.setText(items.get(position).getOtherAccount().getEmailAddress());
+        //TODO IF ELSE TO CHECK WHO'S THE OTHER
+        ConnectionToBackend c = new ConnectionToBackend();
+        Account otherAccount = c.getAccountInformation(items.get(position).getMembers().get(0));
+
+        holder.nameView.setText(otherAccount.getUsername());
+        holder.usernameView.setText(otherAccount.getEmailAddress());
         holder.imageView.setImageResource(R.drawable.user);
     }
 
