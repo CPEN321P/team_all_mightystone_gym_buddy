@@ -1,7 +1,6 @@
 const request = require('supertest');
 const app = require('../app.js');
 const { getDB } = require('../MongoDB/Connect.js'); // Adjust the path as needed
-const { ObjectId } = require('mongodb');
 
 jest.mock('../MongoDB/Connect.js');
 

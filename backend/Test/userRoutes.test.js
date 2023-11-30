@@ -1,9 +1,12 @@
 const request = require('supertest');
 const app = require('../app.js');
 const { getDB } = require('../MongoDB/Connect.js');
-const { ObjectId } = require('mongodb');
+const {clearData} = require('../Utils/userUtils.js')
+const {createId} = require('../Utils/mongoUtils.js')
 
 jest.mock('../MongoDB/Connect.js');
+jest.mock('../Utils/userUtils.js');
+jest.mock('../Utils/mongoUtils.js');
 
 jest.mock('mongodb');
 
@@ -158,7 +161,7 @@ describe('Get a specific user by ID', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -173,7 +176,7 @@ describe('Get a specific user by ID', () => {
 
   // Input: none
   // Expected status code: 404
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const mockUser = {
@@ -188,7 +191,7 @@ describe('Get a specific user by ID', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -217,7 +220,7 @@ describe('Get a specific user by ID', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -249,7 +252,7 @@ describe('Get a specific user by email', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -279,7 +282,7 @@ describe('Get a specific user by email', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -296,7 +299,7 @@ describe('Get a specific user by email', () => {
 describe('Get recommended users', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const mockUser = {
@@ -333,7 +336,7 @@ describe('Get recommended users', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -384,7 +387,7 @@ describe('Get recommended users', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -435,7 +438,7 @@ describe('Get recommended users', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -453,7 +456,7 @@ describe('Get recommended users', () => {
 describe('Get friends', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const users = [
@@ -499,9 +502,9 @@ describe('Get friends', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id)=>{
       throw new error();
-    })
+    });
     
     const response = await request(app)
       .get('/users/userId/12345/friends')
@@ -560,9 +563,12 @@ describe('Get friends', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    // createId.mockImplementation((id) => {
+    //   return id;
+    // })
+    createId.mockImplementation((id)=>{
       return id;
-    })
+    });
     
     const response = await request(app)
       .get('/users/userId/123456/friends')
@@ -619,7 +625,7 @@ describe('Get friends', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -633,194 +639,11 @@ describe('Get friends', () => {
   });
 });
 
-// describe('Get friend requests', () => {
-//   it('Invalid user ID', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           23456,
-//           34567
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       throw new error();
-//     })
-    
-//     const response = await request(app)
-//       .get('/users/userId/12345/friendRequests')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Invalid user Id');
-//   });
-
-//   it('Cannot find user', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           23456,
-//           34567
-//         ],
-//         friendRequests: [
-//           23456,
-//           34567
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .get('/users/userId/123456/friendRequests')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(404);
-//     expect(response.body).toBe('User not found');
-//   });
-
-//   it('Retrieved user friend requests', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           23456,
-//           34567
-//         ],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .get('/users/userId/12345/friendRequests')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(200);
-//     expect(response.body).toContainObject({ name: 'Jane Doe' });
-//     expect(response.body).not.toContainObject({ name: 'Jacob Doe' });
-//   });
-// });
-
 // ChatGPT use: No
 describe('Get blocked users', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const users = [
@@ -866,7 +689,7 @@ describe('Get blocked users', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -933,7 +756,7 @@ describe('Get blocked users', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1000,7 +823,7 @@ describe('Get blocked users', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1068,7 +891,7 @@ describe('Update user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -1133,7 +956,7 @@ describe('Update user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1201,7 +1024,7 @@ describe('Update user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1269,7 +1092,7 @@ describe('Update user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1287,7 +1110,7 @@ describe('Update user', () => {
 describe('Add friend', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const users = [
@@ -1334,7 +1157,7 @@ describe('Add friend', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -1394,7 +1217,7 @@ describe('Add friend', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1458,7 +1281,7 @@ describe('Add friend', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1518,7 +1341,7 @@ describe('Add friend', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -1531,1621 +1354,11 @@ describe('Add friend', () => {
   });
 });
 
-// describe('Send friend request', () => {
-//   it('Invalid user ID', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           12345
-//         ]
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       throw new error();
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/sendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Invalid user Id');
-//   });
-
-//   it('User not found', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           23456,
-//           34567
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/sendFriendRequest/23456/123456')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(404);
-//     expect(response.body).toBe('User not found');
-//   });
-
-//   it('Friend request already sent', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/sendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Friend request already sent');
-//   });
-
-//   it('Already friends', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           23456
-//         ],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           12345
-//         ],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/sendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Already friends');
-//   });
-
-//   it('Friend request not sent', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/sendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Friend Request Not Sent');
-//   });
-
-//   it('Friend request sent', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 1 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/sendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(200);
-//     expect(response.body).toBe('Friend Request Sent');
-//   });
-// });
-
-// describe('Unsend friend request', () => {
-//   it('Invalid user ID', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           12345
-//         ]
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       throw new error();
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/unsendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Invalid user Id');
-//   });
-
-//   it('User not found', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [
-//           23456,
-//           34567
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/unsendFriendRequest/23456/123456')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(404);
-//     expect(response.body).toBe('User not found');
-//   });
-
-//   it('No friend request', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/unsendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('No Friend request');
-//   });
-
-//   it('Friend request not unsent', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/unsendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Friend Request Not Unsent');
-//   });
-
-//   it('Friend request sent', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 1 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/unsendFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(200);
-//     expect(response.body).toBe('Friend Request Unsent');
-//   });
-// });
-
-// describe('Accept friend request', () => {
-//   it('Invalid user ID', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       throw new error();
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/acceptFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Invalid user Id');
-//   });
-
-//   it('User not found', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/acceptFriendRequest/23456/123456')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(404);
-//     expect(response.body).toBe('User not found');
-//   });
-
-//   it('No friend request found', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/acceptFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Request not found');
-//   });
-
-//   it('Friend request not accepted', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/acceptFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Friend request not accepted');
-//   });
-
-//   it('Friend request accepted', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 1 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/acceptFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(200);
-//     expect(response.body).toBe('Friend Request Accepted');
-//   });
-// });
-
-// describe('Decline friend request', () => {
-//   it('Invalid user ID', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       throw new error();
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/declineFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Invalid user Id');
-//   });
-
-//   it('User not found', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/declineFriendRequest/23456/123456')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(404);
-//     expect(response.body).toBe('User not found');
-//   });
-
-//   it('No friend request found', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/declineFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Request not found');
-//   });
-
-//   it('Friend request not declined', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 0 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/declineFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(500);
-//     expect(response.body).toBe('Friend request not declined');
-//   });
-
-//   it('Friend request declined', async () => {
-//     const users = [
-//       {
-//         _id: 12345,
-//         name: 'John Doe',
-//         email: 'john.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: [
-//           23456
-//         ]
-//       },
-//       {
-//         _id: 23456,
-//         name: 'Jane Doe',
-//         email: 'jane.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       },
-//       {
-//         _id: 34567,
-//         name: 'Jacob Doe',
-//         email: 'jacob.doe@example.com',
-//         blockedUsers: [],
-//         friends: [],
-//         friendRequests: []
-//       }
-//     ];
-
-//     mockDB = {
-//         collection: jest.fn().mockReturnThis(),
-//         find: jest.fn().mockReturnThis(),
-//         findOne: jest.fn().mockImplementation((param) => {
-//           const id = param._id;
-//           for (const user of users) {
-//             if (user._id == id) {
-//               return user;
-//             }
-//           }
-//           return null;
-//         }),
-//         updateOne: jest.fn().mockImplementation((param) => {
-//           return { matchedCount: 1 }
-//         })
-//     };
-      
-//     getDB.mockReturnValue(mockDB);
-
-//     ObjectId.mockImplementation((id) => {
-//       return id;
-//     })
-    
-//     const response = await request(app)
-//       .put('/users/declineFriendRequest/23456/12345')
-//       .set('Accept', 'application/json');
-
-//     expect(response.statusCode).toBe(200);
-//     expect(response.body).toBe('Friend Request Declined');
-//   });
-// });
-
-// ChatGPT use: No
-describe('Unfriend user', () => {
-  // Input: none
-  // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
-  // Expected output: error message
-  it('Invalid user ID', async () => {
-    const users = [
-      {
-        _id: 12345,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        blockedUsers: [],
-        friends: []
-      },
-      {
-        _id: 23456,
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        blockedUsers: [],
-        friends: []
-      },
-      {
-        _id: 34567,
-        name: 'Jacob Doe',
-        email: 'jacob.doe@example.com',
-        blockedUsers: [],
-        friends: []
-      }
-    ];
-
-    mockDB = {
-        collection: jest.fn().mockReturnThis(),
-        find: jest.fn().mockReturnThis(),
-        findOne: jest.fn().mockImplementation((param) => {
-          const id = param._id;
-          for (const user of users) {
-            if (user._id == id) {
-              return user;
-            }
-          }
-          return null;
-        })
-    };
-      
-    getDB.mockReturnValue(mockDB);
-
-    ObjectId.mockImplementation((id) => {
-      throw new error();
-    })
-    
-    const response = await request(app)
-      .put('/users/unfriend/23456/12345')
-      .set('Accept', 'application/json');
-
-    expect(response.statusCode).toBe(500);
-    expect(response.body).toBe('User not unfriended');
-  });
-
-  // Input: none
-  // Expected status code: 500
-  // Expected behaviour: user not found
-  // Expected output: error message
-  it('User not found', async () => {
-    const users = [
-      {
-        _id: 12345,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        blockedUsers: [],
-        friends: []
-      },
-      {
-        _id: 23456,
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        blockedUsers: [],
-        friends: []
-      },
-      {
-        _id: 34567,
-        name: 'Jacob Doe',
-        email: 'jacob.doe@example.com',
-        blockedUsers: [],
-        friends: []
-      }
-    ];
-
-    mockDB = {
-        collection: jest.fn().mockReturnThis(),
-        find: jest.fn().mockReturnThis(),
-        findOne: jest.fn().mockImplementation((param) => {
-          const id = param._id;
-          for (const user of users) {
-            if (user._id == id) {
-              return user;
-            }
-          }
-          return null;
-        })
-    };
-      
-    getDB.mockReturnValue(mockDB);
-
-    ObjectId.mockImplementation((id) => {
-      return id;
-    })
-    
-    const response = await request(app)
-      .put('/users/unfriend/23456/123456')
-      .set('Accept', 'application/json');
-
-    expect(response.statusCode).toBe(500);
-    expect(response.body).toBe('User not unfriended');
-  });
-
-  // Input: none
-  // Expected status code: 500
-  // Expected behaviour: users not unfriended
-  // Expected output: error message
-  it('Unfriender not friends', async () => {
-    const users = [
-      {
-        _id: 12345,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        blockedUsers: [],
-        friends: [
-          23456
-        ],
-        friendRequests: []
-      },
-      {
-        _id: 23456,
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        blockedUsers: [],
-        friends: [],
-        friendRequests: []
-      },
-      {
-        _id: 34567,
-        name: 'Jacob Doe',
-        email: 'jacob.doe@example.com',
-        blockedUsers: [],
-        friends: [],
-        friendRequests: []
-      }
-    ];
-
-    mockDB = {
-        collection: jest.fn().mockReturnThis(),
-        find: jest.fn().mockReturnThis(),
-        findOne: jest.fn().mockImplementation((param) => {
-          const id = param._id;
-          for (const user of users) {
-            if (user._id == id) {
-              return user;
-            }
-          }
-          return null;
-        }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
-    };
-      
-    getDB.mockReturnValue(mockDB);
-
-    ObjectId.mockImplementation((id) => {
-      return id;
-    })
-    
-    const response = await request(app)
-      .put('/users/unfriend/23456/12345')
-      .set('Accept', 'application/json');
-
-    expect(response.statusCode).toBe(500);
-    expect(response.body).toBe('User not unfriended');
-  });
-
-  // Input: none
-  // Expected status code: 500
-  // Expected behaviour: users not unfriended
-  // Expected output: error message
-  it('Unfriended not friends', async () => {
-    const users = [
-      {
-        _id: 12345,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        blockedUsers: [],
-        friends: [],
-        friendRequests: []
-      },
-      {
-        _id: 23456,
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        blockedUsers: [],
-        friends: [
-          12345
-        ],
-        friendRequests: []
-      },
-      {
-        _id: 34567,
-        name: 'Jacob Doe',
-        email: 'jacob.doe@example.com',
-        blockedUsers: [],
-        friends: [],
-        friendRequests: []
-      }
-    ];
-
-    mockDB = {
-        collection: jest.fn().mockReturnThis(),
-        find: jest.fn().mockReturnThis(),
-        findOne: jest.fn().mockImplementation((param) => {
-          const id = param._id;
-          for (const user of users) {
-            if (user._id == id) {
-              return user;
-            }
-          }
-          return null;
-        }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
-    };
-      
-    getDB.mockReturnValue(mockDB);
-
-    ObjectId.mockImplementation((id) => {
-      return id;
-    })
-    
-    const response = await request(app)
-      .put('/users/unfriend/23456/12345')
-      .set('Accept', 'application/json');
-
-    expect(response.statusCode).toBe(500);
-    expect(response.body).toBe('User not unfriended');
-  });
-
-  // Input: none
-  // Expected status code: 500
-  // Expected behaviour: users friends list not updated
-  // Expected output: error message
-  it('Friends list not updated', async () => {
-    const users = [
-      {
-        _id: 12345,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        blockedUsers: [],
-        friends: [
-          23456
-        ],
-        friendRequests: []
-      },
-      {
-        _id: 23456,
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        blockedUsers: [],
-        friends: [
-          12345
-        ],
-        friendRequests: []
-      },
-      {
-        _id: 34567,
-        name: 'Jacob Doe',
-        email: 'jacob.doe@example.com',
-        blockedUsers: [],
-        friends: [],
-        friendRequests: []
-      }
-    ];
-
-    mockDB = {
-        collection: jest.fn().mockReturnThis(),
-        find: jest.fn().mockReturnThis(),
-        findOne: jest.fn().mockImplementation((param) => {
-          const id = param._id;
-          for (const user of users) {
-            if (user._id == id) {
-              return user;
-            }
-          }
-          return null;
-        }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
-    };
-      
-    getDB.mockReturnValue(mockDB);
-
-    ObjectId.mockImplementation((id) => {
-      return id;
-    })
-    
-    const response = await request(app)
-      .put('/users/unfriend/23456/12345')
-      .set('Accept', 'application/json');
-
-    expect(response.statusCode).toBe(500);
-    expect(response.body).toBe('User not unfriended');
-  });
-
-  // Input: none
-  // Expected status code: 200
-  // Expected behaviour: users unfriended
-  // Expected output: success message
-  it('User Unfriended', async () => {
-    const users = [
-      {
-        _id: 12345,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        blockedUsers: [],
-        friends: [
-          23456
-        ],
-        friendRequests: []
-      },
-      {
-        _id: 23456,
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        blockedUsers: [],
-        friends: [
-          12345
-        ],
-        friendRequests: []
-      },
-      {
-        _id: 34567,
-        name: 'Jacob Doe',
-        email: 'jacob.doe@example.com',
-        blockedUsers: [],
-        friends: [],
-        friendRequests: []
-      }
-    ];
-
-    mockDB = {
-        collection: jest.fn().mockReturnThis(),
-        find: jest.fn().mockReturnThis(),
-        findOne: jest.fn().mockImplementation((param) => {
-          const id = param._id;
-          for (const user of users) {
-            if (user._id == id) {
-              return user;
-            }
-          }
-          return null;
-        }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
-    };
-      
-    getDB.mockReturnValue(mockDB);
-
-    ObjectId.mockImplementation((id) => {
-      return id;
-    })
-    
-    const response = await request(app)
-      .put('/users/unfriend/23456/12345')
-      .set('Accept', 'application/json');
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toBe('User unfriended');
-  });
-});
-
 // ChatGPT use: No
 describe('Block user', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const users = [
@@ -3188,7 +1401,7 @@ describe('Block user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -3245,7 +1458,7 @@ describe('Block user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3310,7 +1523,7 @@ describe('Block user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3377,7 +1590,7 @@ describe('Block user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3394,7 +1607,7 @@ describe('Block user', () => {
 describe('Unblock user', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const users = [
@@ -3437,7 +1650,7 @@ describe('Unblock user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -3494,7 +1707,7 @@ describe('Unblock user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3559,7 +1772,7 @@ describe('Unblock user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3624,7 +1837,7 @@ describe('Unblock user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3689,7 +1902,7 @@ describe('Unblock user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3706,7 +1919,7 @@ describe('Unblock user', () => {
 describe('Delete a chat', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const users = [
@@ -3749,7 +1962,7 @@ describe('Delete a chat', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -3806,7 +2019,7 @@ describe('Delete a chat', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3874,7 +2087,7 @@ describe('Delete a chat', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -3944,7 +2157,7 @@ describe('Delete a chat', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -4014,7 +2227,7 @@ describe('Delete a chat', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -4031,7 +2244,7 @@ describe('Delete a chat', () => {
 describe('Delete a user', () => {
   // Input: none
   // Expected status code: 500
-  // Expected behaviour: error thrown by ObjectId()
+  // Expected behaviour: error thrown by createId()
   // Expected output: error message
   it('Invalid user ID', async () => {
     const users = [
@@ -4074,7 +2287,7 @@ describe('Delete a user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       throw new error();
     })
     
@@ -4134,7 +2347,7 @@ describe('Delete a user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     
@@ -4198,9 +2411,13 @@ describe('Delete a user', () => {
       
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    clearData.mockImplementation((db,id)=>{
+      return true;
+    });
+
+    createId.mockImplementation((id) => {
       return id;
-    })
+    });
     
     const response = await request(app)
       .delete('/users/userId/12345')
@@ -4253,22 +2470,6 @@ describe('Delete a user', () => {
         blockedUsers: [],
         friends: [],
         chats: []
-      },
-      {
-        _id: 1,
-        members: [
-          12345,
-          23456
-        ],
-
-      },
-      {
-        _id: 2,
-        members: [
-          12345,
-          123456
-        ],
-
       }
     ];
 
@@ -4287,12 +2488,13 @@ describe('Delete a user', () => {
         deleteOne: jest.fn().mockImplementation((param) => {
           return { deletedCount: 1 }
         }),
-        deleteMany: jest.fn().mockReturnValue(true)
     };
-      
+    clearData.mockImplementation((db,id)=>{
+      return true;
+    })  
     getDB.mockReturnValue(mockDB);
 
-    ObjectId.mockImplementation((id) => {
+    createId.mockImplementation((id) => {
       return id;
     })
     

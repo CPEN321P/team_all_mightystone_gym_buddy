@@ -1,6 +1,7 @@
 const express = require('express');
 const { ObjectId } = require('mongodb');
 const { getDB } = require('../MongoDB/Connect.js');
+const { createId} = require('../Utils/mongoUtils.js');
 
 const router = express.Router();
 
@@ -63,7 +64,7 @@ router.get('/', async (req, res) => {
 router.get('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.gymId);
+    const id = createId(req.params.gymId);
 
     const gym = await db.collection('gyms').findOne({ _id: id });
 
@@ -100,7 +101,7 @@ router.get('/byEmail/:email', async (req, res) => {
 router.put('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.gymId);
+    const id = createId(req.params.gymId);
 
     const gym = await db.collection('gyms').findOne({ _id: id });
 
@@ -139,7 +140,7 @@ router.put('/gymId/:gymId', async (req, res) => {
 router.delete('/gymId/:gymId', async (req, res) => {
   try {
     const db = getDB();
-    const id = new ObjectId(req.params.gymId);
+    const id = createId(req.params.gymId);
     
     const result = await db.collection('gyms').deleteOne({ _id: id });
 
@@ -152,20 +153,6 @@ router.delete('/gymId/:gymId', async (req, res) => {
     res.status(500).json('Gym not deleted');
   }
 });
-
-// Delete all gyms
-//This is for debugging only (DEV USE)
-/*
-router.delete('/', async (req, res) => {
-  try {
-    const db = getDB();
-    const result = await db.collection('gyms').deleteMany({});
-    res.status(200).send('gyms deleted successfully');
-  } catch (error) {
-    res.status(500).send('All gyms Not Deleted');
-  }
-});
-*/
 
 module.exports = router;
 

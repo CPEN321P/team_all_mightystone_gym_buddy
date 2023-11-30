@@ -1,6 +1,7 @@
 const express = require('express');
-const { ObjectId } = require('mongodb');
 const { getDB } = require('../MongoDB/Connect.js');
+const { createId } = require('../Utils/mongoUtils.js');
+const { clearData, unfriend, getSimilarity } = require('../Utils/userUtils.js')
 
 const router = express.Router();
 
@@ -44,8 +45,7 @@ router.post('/', async (req, res) => {
     homeGym: req.body.homeGym || "",
     reported: req.body.reported || 0,
     chats: req.body.chats || [],
-    blockedUsers: req.body.blockedUsers || [],
-    getChats: 0
+    blockedUsers: req.body.blockedUsers || []
   }
 
   const result = await db.collection('users').insertOne(newUser);
@@ -79,7 +79,7 @@ router.get('/userId/:userId', async (req, res) => {
   let id;
 
   try {
-    id = new ObjectId(req.params.userId);
+    id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -108,35 +108,6 @@ router.get('/userEmail/:userEmail', async (req, res) => {
   }
 });
 
-// const getRecommendedUsers = async(db,userId)=> {
-//   const _userId = new ObjectId(userId);
-//   const myUser = await db.collection('users').findOne({ _id: _userId });
-//   const recommendedUserIdList = [];
-//   const weightDiff = [];
-//   const ageDiff = [];
-//   db.collection('users').forEach(user => {
-//     if(user.homeGym == myUser.homeGym){
-//       recommendedUserIdList.push(user._id);
-//       weightDiff.push(Math.abs(parseInt(user.weight) - parseInt(myUser.weight)));
-//       ageDiff.push(Math.abs(parseInt(user.age) - parseInt(myUser.age)));
-//     }
-//   });
-// }
-
-// // modifies recommendedUserIdList
-// const filterBlockedProfiles = async(db,userId, recommendedUserIdList)=> {
-//   const _userId = new ObjectId(userId);
-//   const user = await db.collection('users').findOne({ _id: _userId });
-//   recommendedUserIdList.forEach(userId => {
-//     if(user.blockedUsers.indexOf(userId) != -1){
-//       recommendedUserIdList.filter(item => item !== userId);
-//     }
-//   });
-//   return 0;
-// }
-
-
-
 //ChatGPT use: YES
 // Get recommended users by ID
 router.get('/userId/:userId/recommendedUsers', async (req, res) => {
@@ -146,7 +117,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   var id
   
   try {    
-    id = new ObjectId(req.params.userId);
+    id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Users not retrieved');
     return;
@@ -167,9 +138,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   });
 
   filteredRecommendedUsers.forEach(rec_user => {
-    console.log("User name: " + rec_user.name)
     var similarity = getSimilarity(user, rec_user);
-    console.log("User sim score: " + similarity);
   });
 
   filteredRecommendedUsers.sort((userA, userB) => getSimilarity(user, userB) - getSimilarity(user, userA));
@@ -184,7 +153,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
   let id
 
   try {
-    id = new ObjectId(req.params.userId);
+    id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -201,7 +170,7 @@ router.get('/userId/:userId/friends', async (req, res) => {
   const friends = [];
 
   for (const friendId of friendsId) {
-    const fid = new ObjectId(friendId);
+    const fid = createId(friendId);
     const friend = await db.collection('users').findOne({ _id: fid })
 
     if (friend) {
@@ -213,50 +182,13 @@ router.get('/userId/:userId/friends', async (req, res) => {
 });
 
 //ChatGPT use: NO
-// Get friend requests by ID
-// router.get('/userId/:userId/friendRequests', async (req, res) => {
-//   const db = getDB();
-//   var friendsId;
-//   let id;
-  
-//   try {
-//     id = new ObjectId(req.params.userId);
-//   } catch (error) {
-//     res.status(500).json('Invalid user Id');
-//     return;
-//   }
-
-//   const user = await db.collection('users').findOne({ _id: id });
-
-//   if (!user) {
-//     res.status(404).json('User not found');
-//     return;
-//   }
-
-//   friendsId = user.friendRequests;
-  
-//   const friends = [];
-
-//   for (const friendId of friendsId) {
-//     const fid = new ObjectId(friendId);
-//     const friend = await db.collection('users').findOne({ _id: fid })
-
-//     if (friend) {
-//       friends.push(friend);
-//     }
-//   }
-
-//   res.status(200).json(friends);
-// });
-
-//ChatGPT use: NO
 // Get blocked users by ID
 router.get('/userId/:userId/blockedUsers', async (req, res) => {
   const db = getDB();
   let id;
 
   try {
-    id = new ObjectId(req.params.userId);
+    id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -273,7 +205,7 @@ router.get('/userId/:userId/blockedUsers', async (req, res) => {
   const blockedUsers = [];
 
   for (const blockedUserId of blockedUsersId) {
-    const buid = new ObjectId(blockedUserId);
+    const buid = createId(blockedUserId);
     const blockedUser = await db.collection('users').findOne({ _id: buid })
 
     if (blockedUser) {
@@ -291,7 +223,7 @@ router.put('/userId/:userId', async (req, res) => {
   let id;
 
   try {
-    id = new ObjectId(req.params.userId);
+    id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -319,8 +251,7 @@ router.put('/userId/:userId', async (req, res) => {
     homeGym: req.body.homeGym || user.homeGym,
     reported: req.body.reported || user.reported,
     chats: req.body.chats || user.chats,
-    blockedUsers: req.body.blockedUsers || user.blockedUsers,
-    getChats: req.body.getChats || user.getChats
+    blockedUsers: req.body.blockedUsers || user.blockedUsers
   }
 
   const result = await db.collection('users').updateOne(
@@ -343,8 +274,8 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
   let senderId;
 
   try {
-    recieverId = new ObjectId(req.params.recieverId);
-    senderId = new ObjectId(req.params.senderId);
+    recieverId = createId(req.params.recieverId);
+    senderId = createId(req.params.senderId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -390,386 +321,12 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
 });
 
 //ChatGPT use: NO
-// Send friend request
-// router.put('/sendFriendRequest/:senderId/:recieverId', async (req, res) => {
-//   const db = getDB();
-//   let recieverId;
-//   let senderId;
-
-//   try {
-//     recieverId = new ObjectId(req.params.recieverId);
-//     senderId = new ObjectId(req.params.senderId);
-//   } catch (error) {
-//     res.status(500).json('Invalid user Id');
-//     return;
-//   }
-
-//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
-
-//   if (!recieverUser) {
-//     res.status(404).json('User not found');
-//     return;
-//   }
-
-//   const friendRequestList = recieverUser.friendRequests;
-//   const friendsList = recieverUser.friends;
-
-//   let i = -1;
-
-//   for (let j = 0; j < friendRequestList.length; j++) {
-//     if (friendRequestList[j] == senderId) {
-//       i = j;
-//       break;
-//     }
-//   }
-
-//   if (i != -1) {
-//     res.status(500).json('Friend request already sent');
-//     return;
-//   }
-
-//   for (let j = 0; j < friendsList.length; j++) {
-//     if (friendsList[j] == senderId) {
-//       i = j;
-//       break;
-//     }
-//   }
-
-//   if (i != -1) {
-//     res.status(500).json('Already friends');
-//     return;
-//   }
-
-//   friendRequestList.push(req.params.senderId);
-
-//   const result = await db.collection('users').updateOne(
-//     { _id: recieverId },
-//     { 
-//       $set: {
-//         friendRequests: friendRequestList
-//       } 
-//     }
-//   );
-  
-//   if (result.matchedCount === 0) {
-//     res.status(500).json('Friend Request Not Sent');
-//   } else {
-//     res.status(200).json('Friend Request Sent');
-//   }
-// });
-
-//ChatGPT use: NO
-// Unsend friend request
-// router.put('/unsendFriendRequest/:senderId/:recieverId', async (req, res) => {
-//   const db = getDB();
-//   let recieverId;
-//   let senderId;
-
-//   try {
-//     recieverId = new ObjectId(req.params.recieverId);
-//     senderId = new ObjectId(req.params.senderId);
-//   } catch (error) {
-//     res.status(500).json('Invalid user Id');
-//     return;
-//   }
-
-//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
-
-//   if (!recieverUser) {
-//     res.status(404).json('User not found');
-//     return;
-//   }
-
-//   const friendRequestList = recieverUser.friendRequests;
-
-//   let i = -1;
-//   for (let j = 0; j < friendRequestList.length; j++) {
-//     if (friendRequestList[j] == senderId) {
-//       i = j;
-//       break;
-//     }
-//   }
-
-//   if (i == -1) {
-//     res.status(500).json('No Friend request');
-//     return;
-//   }
-
-//   friendRequestList.splice(i, 1);
-
-//   const result = await db.collection('users').updateOne(
-//     { _id: recieverId },
-//     { 
-//       $set: {
-//         friendRequests: friendRequestList
-//       } 
-//     }
-//   );
-  
-//   if (result.matchedCount === 0) {
-//     res.status(500).json('Friend Request Not Unsent');
-//   } else {
-//     res.status(200).json('Friend Request Unsent');
-//   }
-// });
-
-//ChatGPT use: NO
-// Accept friend request
-// router.put('/acceptFriendRequest/:senderId/:recieverId', async (req, res) => {
-//   const db = getDB();
-//   let recieverId;
-//   let senderId;
-
-//   try {
-//     recieverId = new ObjectId(req.params.recieverId);
-//     senderId = new ObjectId(req.params.senderId);
-//   } catch (error) {
-//     res.status(500).json('Invalid user Id');
-//     return;
-//   }
-
-//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
-//   const senderUser = await db.collection('users').findOne({ _id: recieverId });
-
-//   if (!recieverUser || !senderUser) {
-//     res.status(404).json('User not found');
-//     return;
-//   }
-
-//   const friendRequestList = recieverUser.friendRequests;
-//   const friendsListReciever = recieverUser.friends;
-//   const friendsListSender = senderUser.friends;
-
-//   let i = -1;
-
-//   for (let j = 0; j < friendRequestList.length; j++) {
-//     if (friendRequestList[j] == senderId) {
-//       i = j;
-//       break;
-//     }
-//   }
-
-//   if (i == -1) {
-//     res.status(500).json('Request not found');
-//     return;
-//   }
-
-//   friendRequestList.splice(i,1);
-//   friendsListReciever.push(req.params.senderId);
-//   friendsListSender.push(req.params.recieverId);
-
-//   const resultReciever = await db.collection('users').updateOne(
-//     { _id: recieverId },
-//     { 
-//       $set: {
-//         friendRequests: friendRequestList,
-//         friends: friendsListReciever
-//       } 
-//     }
-//   );
-
-//   const resultSender = await db.collection('users').updateOne(
-//     { _id: senderId },
-//     { 
-//       $set: {
-//         friends: friendsListSender
-//       } 
-//     }
-//   );
-  
-//   if (resultSender.matchedCount === 0 || resultReciever.matchedCount === 0) {
-//     res.status(500).json('Friend request not accepted');
-//   } else {
-//     res.status(200).json('Friend Request Accepted');
-//   }
-// });
-
-//ChatGPT use: NO
-// Decline friend request
-// router.put('/declineFriendRequest/:senderId/:recieverId', async (req, res) => {
-//   const db = getDB();
-//   let recieverId;
-//   let senderId;
-
-//   try {
-//     recieverId = new ObjectId(req.params.recieverId);
-//     senderId = new ObjectId(req.params.senderId);
-//   } catch (error) {
-//     res.status(500).json('Invalid user Id');
-//     return;
-//   }
-
-//   const recieverUser = await db.collection('users').findOne({ _id: recieverId });
-
-//   if (!recieverUser) {
-//     res.status(404).json('User not found');
-//     return;
-//   }
-
-//   const friendRequestList = recieverUser.friendRequests;
-
-//   let i = -1;
-
-//   for (let j = 0; j < friendRequestList.length; j++) {
-//     if (friendRequestList[j] == senderId) {
-//       i = j;
-//       break;
-//     }
-//   }
-
-//   if (i == -1) {
-//     res.status(500).json('Request not found');
-//     return;
-//   }
-
-//   friendRequestList.splice(i,1);
-
-//   const resultReciever = await db.collection('users').updateOne(
-//     { _id: recieverId },
-//     { 
-//       $set: {
-//         friendRequests: friendRequestList
-//       } 
-//     }
-//   );
-  
-//   if (resultReciever.matchedCount === 0) {
-//     res.status(500).json('Friend request not declined');
-//   } else {
-//     res.status(200).json('Friend Request Declined');
-//   }
-// });
-
-//ChatGPT use: NO
-// Unfriend user
-router.put('/unfriend/:unfrienderId/:unfriendedId', async (req, res) => {
-  const db = getDB();
-
-  const result = await unfriend(db, req.params.unfrienderId, req.params.unfriendedId);
-
-  if (result) {
-    res.status(200).json('User unfriended');
-  } else {
-    res.status(500).json('User not unfriended');
-  }
-});
-
-
-// metrics used: gym, gender, age, weight (in kilos), common friends
-const getSimilarity = (user1, user2) => {
-
-  const metricWeights = {
-    weight: 0.2,
-    homeGym: 0.3,
-    gender: 0.1,
-    age: 0.2,
-    commonFriends: 0.2
-  };
-
-  const weightSimilarity = 1 - Math.abs(user1.weight - user2.weight)/ Math.max(user1.weight, user2.weight);
-  console.log("Weight Similarity: " + weightSimilarity);
-  const gymSimilarity = user1.homeGym === user2.homeGym ? 1 : 0;
-  console.log("Gym Similarity: " + gymSimilarity);
-  const genderSimilarity = user1.gender === user2.gender ? 1 : 0;
-  console.log("Gender Similarity: " + genderSimilarity);
-  const ageSimilarity = 1 - Math.abs(user1.age - user2.age) / Math.max(user1.age, user2.age);
-  console.log("Age Similarity: " + ageSimilarity);
-  const friendsIntersection = user1.friends.filter(friend => user2.friends.includes(friend));
-  console.log("common friends: "+ friendsIntersection);
-  const commonFriendsSimilarity = friendsIntersection.length / Math.min(user1.friends.length, user2.friends.length) || 0;
-  console.log("Common friends Similarity: " + commonFriendsSimilarity);
-
-  const similarityScore = (
-    metricWeights.weight * weightSimilarity +
-    metricWeights.homeGym * gymSimilarity +
-    metricWeights.gender * genderSimilarity +
-    metricWeights.age * ageSimilarity +
-    metricWeights.commonFriends * commonFriendsSimilarity
-  );
-
-  return similarityScore;
-
-}
-
-const unfriend = async (db, unfrienderId, unfriendedId) => {
-  let _unfrienderId;
-  let _unfriendedId;
-
-  try {
-    _unfrienderId = new ObjectId(unfrienderId);
-    _unfriendedId = new ObjectId(unfriendedId);
-  } catch (error) {
-    return 0;
-  }
-
-  const unfriender = await db.collection('users').findOne({ _id: _unfrienderId });
-  const unfriended = await db.collection('users').findOne({ _id: _unfriendedId });
-
-  if (!unfriender || !unfriended) {
-    return 0;
-  }
-
-  const unfrienderFriends = unfriender.friends;
-  const unfriendedFriends = unfriended.friends;
-
-  let i = -1;
-  for (let j = 0; j < unfrienderFriends.length; j++) {
-    if (unfrienderFriends[j] == unfriendedId) {
-      i = j;
-      break;
-    }
-  }
-
-  if (i == -1) {
-    return 0;
-  }
-  unfrienderFriends.splice(i, 1);
-
-  i = -1;
-  for (let j = 0; j < unfriendedFriends.length; j++) {
-    if (unfriendedFriends[j] == unfrienderId) {
-      i = j;
-      break;
-    }
-  }
-
-  if (i == -1) {
-    return 0;
-  }
-  unfriendedFriends.splice(i, 1);
-
-  const resultUnfriender = await db.collection('users').updateOne(
-    { _id: _unfrienderId },
-    { 
-      $set: {
-        friends: unfrienderFriends
-      } 
-    }
-  );
-
-  const resultUnfriended = await db.collection('users').updateOne(
-    { _id: _unfriendedId },
-    { 
-      $set: {
-        friends: unfriendedFriends
-      } 
-    }
-  );
-
-  if (resultUnfriender.matchedCount === 0 || resultUnfriended.matchedCount === 0) {
-    return 0;
-  }
-
-  return 1;
-}
-
-//ChatGPT use: NO
 // Block user
 router.put('/blockUser/:blockerId/:blockedId', async (req, res) => {
   const db = getDB();
   let blockerId
   try {
-    blockerId = new ObjectId(req.params.blockerId);
+    blockerId = createId(req.params.blockerId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -810,7 +367,7 @@ router.put('/unblockUser/:blockerId/:blockedId', async (req, res) => {
   let blockerId;
 
   try {
-    blockerId = new ObjectId(req.params.blockerId);
+    blockerId = createId(req.params.blockerId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -864,7 +421,7 @@ router.put('/userId/:userId/deleteChat/:chatId', async (req, res) => {
   let userId;
 
   try {
-    userId = new ObjectId(req.params.userId);
+    userId = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
@@ -918,7 +475,7 @@ router.delete('/userId/:userId', async (req, res) => {
   let _id;
 
   try {
-    _id = new ObjectId(req.params.userId);
+    _id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user Id');
     return;
@@ -940,67 +497,14 @@ router.delete('/userId/:userId', async (req, res) => {
   }
 });
 
-const clearData = async (db, _id) => {
-  const user = await db.collection('users').findOne({ _id: _id });
-
-  if (!user) {
-    return 0;
-  }
-
-  const chats = user.chats;
-
-  for (const currChat of chats) {
-    const _chatId = new ObjectId(currChat.chatId);
-    const chat = await db.collection('chat').findOne({ _id: _chatId });
-
-    if (!chat) {
-      continue;
-    }
-
-    let otherMemberId = chat.members[0];
-
-    if (otherMemberId == _id.toString()) {
-      otherMemberId = chat.members[1];
-    }
-
-    const _otherMemberId = new ObjectId(otherMemberId);
-    const otherUser = await db.collection('users').findOne({ _id: _otherMemberId });
-
-    if (!otherUser) {
-      continue;
-    }
-
-    otherChats = otherUser.chats;
-
-    let i = -1;
-    for (let j = 0; j < otherChats.length; j++) {
-      if (otherChats[j].chatId == currChat.chatId) {
-        i = j;
-        break;
-      }
-    }
-    otherChats.splice(i, 1);
-    
-    await db.collection('chat').deleteOne({ _id: _chatId });
-  }
-  
-  await db.collection('schedules').deleteMany({ userId: _id.toString() });
-
-  return 1;
-}
-
-//ChatGPT use: YES
 // Delete all users
-//This is for debugging only (DEV USE)
-// router.delete('/', async (req, res) => {
-//   try {
-//     const db = getDB();
-    
-//     const result = await db.collection('users').deleteMany({});
-//     res.status(200).json('Users deleted successfully');
-//   } catch (error) {
-//     res.status(500).json('All Users Not Deleted');
-//   }
-// });
+// This is for debugging only (DEV USE)
+router.delete('/', async (req, res) => {
+  const db = getDB();
+
+  await db.collection('users').deleteMany({});
+  
+  res.status(200).json('Users Deleted');
+});
 
 module.exports = router;
