@@ -244,18 +244,22 @@ const socket = (server) => {
     console.log("Connected");
 
     socket.on("join_chat", async (data) => {
-
-      console.log("Joined Room");
-
       const db = getDB();
       const myID = data.myID;
       const theirID = data.theirID;
+
+      console.log(myID + " - " + theirID); 
 
       // find chat by ids
       const chat = await getChatByUserId(db, myID, theirID);
 
       // join chat
-      socket.join(chat._id.toString());
+      if (chat) {
+        console.log("Joined Room");
+        socket.join(chat._id.toString());
+      } else {
+        console.log("No Chat");
+      }
     });
 
     socket.on("send_message", async (data) => {
