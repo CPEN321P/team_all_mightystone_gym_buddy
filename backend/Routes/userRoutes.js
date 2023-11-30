@@ -45,8 +45,7 @@ router.post('/', async (req, res) => {
     homeGym: req.body.homeGym || "",
     reported: req.body.reported || 0,
     chats: req.body.chats || [],
-    blockedUsers: req.body.blockedUsers || [],
-    getChats: 0
+    blockedUsers: req.body.blockedUsers || []
   }
 
   const result = await db.collection('users').insertOne(newUser);
@@ -252,8 +251,7 @@ router.put('/userId/:userId', async (req, res) => {
     homeGym: req.body.homeGym || user.homeGym,
     reported: req.body.reported || user.reported,
     chats: req.body.chats || user.chats,
-    blockedUsers: req.body.blockedUsers || user.blockedUsers,
-    getChats: req.body.getChats || user.getChats
+    blockedUsers: req.body.blockedUsers || user.blockedUsers
   }
 
   const result = await db.collection('users').updateOne(
