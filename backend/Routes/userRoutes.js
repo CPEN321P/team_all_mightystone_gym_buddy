@@ -167,6 +167,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   });
 
   filteredRecommendedUsers.forEach(rec_user => {
+    console.log("User name: " + rec_user.name)
     var similarity = getSimilarity(user, rec_user);
     console.log("User sim score: " + similarity);
   });
@@ -665,13 +666,18 @@ const getSimilarity = (user1, user2) => {
     commonFriends: 0.2
   };
 
-  const weightSimilarity = 1 - Math.abs(user1.weight - user2.weight);
+  const weightSimilarity = 1 - Math.abs(user1.weight - user2.weight)/ Math.max(user1.weight, user2.weight);
+  console.log("Weight Similarity: " + weightSimilarity);
   const gymSimilarity = user1.homeGym === user2.homeGym ? 1 : 0;
+  console.log("Gym Similarity: " + gymSimilarity);
   const genderSimilarity = user1.gender === user2.gender ? 1 : 0;
+  console.log("Gender Similarity: " + genderSimilarity);
   const ageSimilarity = 1 - Math.abs(user1.age - user2.age) / Math.max(user1.age, user2.age);
+  console.log("Age Similarity: " + ageSimilarity);
   const friendsIntersection = user1.friends.filter(friend => user2.friends.includes(friend));
   console.log("common friends: "+ friendsIntersection);
   const commonFriendsSimilarity = friendsIntersection.length / Math.min(user1.friends.length, user2.friends.length) || 0;
+  console.log("Common friends Similarity: " + commonFriendsSimilarity);
 
   const similarityScore = (
     metricWeights.weight * weightSimilarity +
