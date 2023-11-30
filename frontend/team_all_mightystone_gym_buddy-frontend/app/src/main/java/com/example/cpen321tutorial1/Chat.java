@@ -80,8 +80,7 @@ public class Chat extends AppCompatActivity {
 
         //check if this chat already exists on the backend
         checkIfChatExists(friendId);
-        recyclerView.setAdapter(new ChatMessageAdapter(this, messages));
-        //updateUI();
+        updateUI();
 
         //connect with socket
         try {
@@ -131,17 +130,18 @@ public class Chat extends AppCompatActivity {
         }));
 
         //listen for new messages
-        socket.on("send_message", new Emitter.Listener() {
+        socket.on("new_message", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 JSONObject messageObjReceived = (JSONObject) args[0];
+                Log.d("socket", "got inside new_message");
                 Chat.this.runOnUiThread(() -> {
                     try {
-                        String myId = messageObjReceived.getString("myId");
-                        String theirId = messageObjReceived.getString("theirId");
-                        String message = messageObjReceived.getString("message");
+                        Long schedule = messageObjReceived.getLong("schedule");
+                        String sender = messageObjReceived.getString("sender");
+                        String body = messageObjReceived.getString("body");
 
-                         ChatMessage thisMessage = new ChatMessage(new Long(0), theirId, message);
+                         ChatMessage thisMessage = new ChatMessage(schedule, sender, body);
                          messages.add(thisMessage);
                          updateUI();
 
@@ -159,7 +159,7 @@ public class Chat extends AppCompatActivity {
     private void sendMessage(String message) {
 
         ChatMessage chatMessage = new ChatMessage(new Long(0), GlobalClass.myAccount.getUserId(), message);
-        messages.add(chatMessage);
+        //messages.add(chatMessage);
 
         //emit socket
         JSONObject jsonMessage = new JSONObject();
@@ -188,7 +188,10 @@ public class Chat extends AppCompatActivity {
     private void updateUI(){
 
         recyclerView.setAdapter(new ChatMessageAdapter(this, messages));
-        recyclerView.smoothScrollToPosition(messages.size() - 1);
+        if(messages.size() == 0){
+            return;
+        }
+        recyclerView.scrollToPosition(messages.size() - 1);
 
     }
 
@@ -201,10 +204,8 @@ public class Chat extends AppCompatActivity {
         } else {
             messages = new ArrayList<>();
         }
-        Log.d("thiss", messages.toString());
 
-
-        if(thisChatModelFromBackend.members.get(0) == myAccount.getUserId()){
+        if(thisChatModelFromBackend.members.get(0).equals(myAccount.getUserId())){
             otherAccount = c.getAccountInformation(thisChatModelFromBackend.members.get(1));
         } else {
             otherAccount = c.getAccountInformation(thisChatModelFromBackend.members.get(0));
@@ -213,5 +214,10 @@ public class Chat extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        socket.disconnect();
+        socket.close();
+    }
 }

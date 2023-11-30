@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -43,8 +44,13 @@ public class Messages
                                 new Intent(Messages.this, Chat.class);
 
                         ChatModelFromBackend chatModelFromBackend = items.get(position);
-                        //TODO CHECK FOR MEMEBR
-                        Account otherAccount = c.getAccountInformation(chatModelFromBackend.members.get(1));
+                        Account otherAccount;
+                        if(chatModelFromBackend.members.get(0).equals(myAccount.getUserId())) {
+                            otherAccount = c.getAccountInformation(chatModelFromBackend.members.get(1));
+                        } else{
+                            otherAccount = c.getAccountInformation(chatModelFromBackend.members.get(0));
+
+                        }
 
                         ChatIntent.putExtra("Username", otherAccount.getUsername());
                         ChatIntent.putExtra("FriendId", otherAccount.getUserId());

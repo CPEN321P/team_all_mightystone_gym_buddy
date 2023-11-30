@@ -3,6 +3,7 @@ package com.example.cpen321tutorial1;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -35,7 +36,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        //TODO IF ELSE TO CHECK WHO'S THE OTHER
         ConnectionToBackend c = new ConnectionToBackend();
         Account otherAccount;
 
@@ -44,6 +44,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
         } else {
             otherAccount = c.getAccountInformation(items.get(position).members.get(0));
         }
+
+        Log.d("this", otherAccount.getUsername());
 
         holder.nameView.setText(otherAccount.getUsername());
         holder.usernameView.setText(otherAccount.getEmailAddress());
