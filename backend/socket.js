@@ -239,31 +239,21 @@ const socket = (server) => {
   })
   .on("connection", (socket) => {
 
-    console.log("Connected");
-
     socket.on("join_chat", async (data) => {
       const db = getDB();
       const myID = data.myID;
       const theirID = data.theirID;
-
-      console.log(myID + " - " + theirID); 
 
       // find chat by ids
       const chat = await getChatByUserId(db, myID, theirID);
 
       // join chat
       if (chat) {
-        console.log("Joined Room");
         socket.join(chat._id.toString());
-      } else {
-        console.log("No Chat");
       }
     });
 
     socket.on("send_message", async (data) => {
-
-      console.log("Sent Message");
-
       const db = getDB();
       const myID = data.myID;
       const theirID = data.theirID;
