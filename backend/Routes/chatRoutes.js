@@ -14,6 +14,48 @@ const router = express.Router();
 // - add chat to user
 // - check for chat 
 
+const createNewChat = async (db, senderId, recieverId) => {
+  try {
+    const newChat = {
+      members: [
+        senderId,
+        recieverId
+      ],
+      messages: []
+    }
+
+    const _senderId = new ObjectId(senderId);
+    const _recieverId = new ObjectId(recieverId);
+
+    const senderUser = await db.collection('users').findOne({ _id: _senderId });
+    const recieverUser = await db.collection('users').findOne({ _id: _recieverId });
+
+    if (!senderUser || !recieverUser) {
+      return 0;
+    }
+
+    const result = await db.collection('chat').insertOne(newChat);
+
+    if (!result || !result.insertedId) {
+      return 0;
+    }
+
+    const resSender = await addChatToUser(db, senderId, result.insertedId.toString());
+    if (!resSender) {
+      return 0;
+    }
+
+    const resReciever = await addChatToUser(db, recieverId, result.insertedId.toString());
+    if (!resReciever) {
+      return 0;
+    }
+
+    return result.insertedId.toString();
+  } catch (error) {
+    return 0;
+  }
+}
+
 //ChatGPT use: NO
 const addChatToUser = async (db, userId, chatId) => {
   try {
@@ -150,41 +192,21 @@ router.get('/userId/:user1/:user2', async (req, res) => {
   if (chat) {
     res.status(200).json(chat);
   } else {
-    res.status(404).send("No chat found");
+    const newChatId = await createNewChat(db, user1, user2);
+
+    if (!newChatId) {
+      res.status(500).send("Failed to create chat");
+      return;
+    }
+
+    const newChat = await db.collection('chat').findOne({ _id: newChatId });
+
+    if (newChat) {
+      res.status(200).json(newChat);
+    } else {
+      res.status(500).send("Failed find created chat");
+    }
   }
-});
-
-//ChatGPT use: NO
-// Create new chat by user ids
-router.post('/userId/:user1/:user2', async (req, res) => {
-  const user1 = req.params.user1;
-  const user2 = req.params.user2;
-
-  const newChat = {
-    members: [
-      user1,
-      user2
-    ],
-    messages: []
-  }
-
-  const result = await db.collection('chat').insertOne(newChat);
-
-  if (!result || !result.insertedId) {
-    return 0;
-  }
-
-  const resUser1 = await addChatToUser(db, user1, result.insertedId.toString());
-  if (!resUser1) {
-    return 0;
-  }
-
-  const resUser2 = await addChatToUser(db, user2, result.insertedId.toString());
-  if (!resUser2) {
-    return 0;
-  }
-
-  return result.insertedId.toString();
 });
 
 // Delete all chats
