@@ -76,6 +76,8 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
     }
     chatMessages.push(newMessage);
 
+    console.log("1")
+
     const result = await db.collection('chat').updateOne(
       { _id: id },
       { 
@@ -85,9 +87,13 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
       }
     );
 
+    console.log("2")
+
     if (result.matchedCount === 0) {
+      console.log("3")
       return 0;
     } else {
+      console.log("4")
       let otherMember = chat.members[0];
       if (otherMember == sender) {
         otherMember = chat.members[1];
@@ -98,9 +104,12 @@ const sendScheduleById = async (db, chat, sender, scheduleId) => {
         return 0;
       }
 
+      console.log("5")
+
       return 1;
     }
   } catch (error) {
+    console.log("error")
     return 0;
   }
 }
