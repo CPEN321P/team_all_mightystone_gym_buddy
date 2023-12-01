@@ -75,90 +75,6 @@ router.get('/byUser/:userId', async (req, res) => {
   }
 });
 
-// router.put('/byUser/:userId', async (req, res) => {
-//   try {
-//     const db = getDB();
-//     const userId = req.params.userId;
-
-//     const schedule = await db.collection('schedules').find({userId: userId}).toArray();
-//     const _id = schedule._id;
-//     if (schedule) {
-//       const updatedSchedule = {
-//         userId: req.body.userId || schedule.userId,
-//         date: req.body.date || schedule.date,
-//         exercises: req.body.exercises || schedule.exercises
-//       };
-//       const result = await db.collection('schedules').updateOne(
-//         { _id: id },
-//         { $set: updatedSchedule }
-//       );
-//       res.status(200).json(schedule);
-//     }
-//     else {
-//       res.status(404).json("No Schedule Found");
-//     }
-//   } catch (error) {
-//     res.status(404).json("No Schedule Found");
-//   }
-// });
-
-//ChatGPT use: NO
-// Get a specific gym schedule by ID
-// router.get('/byId/:scheduleId', async (req, res) => {
-//   try {
-//     const db = getDB();
-//     const id = ObjectId(req.params.scheduleId);
-
-//     const schedule = await db.collection('schedules').findOne({ 
-//       _id: id,
-//     });
-
-//     if (schedule) {
-//       res.status(200).json(schedule);
-//     }
-//     else {
-//       res.status(404).json("No Schedule Found");
-//     }
-//   } catch (error) {
-//     res.status(404).json("No Schedule Found");
-//   }
-// });
-
-//ChatGPT use: NO
-// Update a gym schedule by ID
-// router.put('/byId/:scheduleId', async (req, res) => {
-//   try {
-//     const db = getDB();
-//     const id = ObjectId(req.params.scheduleId);
-
-//     const schedule = await db.collection('schedules').findOne({ _id: id });
-
-//     if (!schedule) {
-//       res.status(404).send('Schedule not found');
-//       return;
-//     }
-
-//     const updatedSchedule = {
-//       userId: req.body.userId || schedule.userId,
-//       date: req.body.date || schedule.date,
-//       exercises: req.body.exercises || schedule.exercises
-//     };
-
-//     const result = await db.collection('schedules').updateOne(
-//       { _id: id },
-//       { $set: updatedSchedule }
-//     );
-
-//     if (result.matchedCount === 0) {
-//       res.status(404).send('Schedule not found');
-//     } else {
-//       res.status(200).json(updatedSchedule);
-//     }
-//   } catch (error) {
-//     res.status(404).send('Schedule not found');
-//   }
-// });
-
 //ChatGPT use: NO
 // Update a gym schedule by user ID and date
 router.put('/byUser/:userId/:date', async (req, res) => {
@@ -169,10 +85,10 @@ router.put('/byUser/:userId/:date', async (req, res) => {
   const schedule = await db.collection('schedules').findOne({
     $and: [
       {
-        userId: userId
+        userId
       },
       {
-        date: date
+        date
       }
     ] 
   });

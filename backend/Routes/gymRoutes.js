@@ -52,19 +52,15 @@ router.get('/', async (req, res) => {
 //ChatGPT use: NO
 // Get a gym by id
 router.get('/gymId/:gymId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = createId(req.params.gymId);
+  const db = getDB();
+  const id = createId(req.params.gymId);
 
-    const gym = await db.collection('gyms').findOne({ _id: id });
+  const gym = await db.collection('gyms').findOne({ _id: id });
 
-    if (gym) {
-      res.status(200).json(gym);
-    } else {
-      res.status(404).json('Gym not found');
-    }
-  } catch (error) {
-    res.status(500).json('Invalid gym ID');
+  if (gym) {
+    res.status(200).json(gym);
+  } else {
+    res.status(404).json('Gym not found');
   }
 });
 

@@ -39,7 +39,7 @@ expect.extend({
     // Expected output: The gym object
     it('Gym is added to the database', async () => {
       // Mock the getDB function
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           insertOne: jest.fn().mockReturnValue({ insertedId: 'mockedId' }),
       };
@@ -72,7 +72,7 @@ expect.extend({
           insertOne: jest.fn().mockReturnValue(null),
       };
       getDB.mockImplementation(()=>{
-        throw new error();
+        throw new Error();
       });
       
       const mockGym = {
@@ -184,7 +184,7 @@ expect.extend({
       };
         
       getDB.mockImplementation(()=>{
-        throw new error();
+        throw new Error();
       });
       
       const response = await request(app)
@@ -246,7 +246,7 @@ expect.extend({
         getDB.mockReturnValue(mockDB);
     
         createId.mockImplementation((id) => {
-          throw new error();
+          throw new Error();
         })
         
         const response = await request(app)
@@ -347,7 +347,7 @@ expect.extend({
       };
         
       getDB.mockImplementation(()=>{
-        throw new error();
+        throw new Error();
       });
       
       
@@ -402,7 +402,7 @@ expect.extend({
       getDB.mockReturnValue(mockDB);
   
       createId.mockImplementation((id) => {
-        throw new error();
+        throw new Error();
       })
       
       const response = await request(app)
@@ -593,7 +593,7 @@ expect.extend({
       getDB.mockReturnValue(mockDB);
   
       createId.mockImplementation((id) => {
-        throw new error();
+        throw new Error();
       })
       
       const response = await request(app)

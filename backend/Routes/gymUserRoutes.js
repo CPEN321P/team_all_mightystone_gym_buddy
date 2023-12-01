@@ -45,17 +45,13 @@ router.post('/', async (req, res) => {
 //ChatGPT use: NO
 // Get all gym users
 router.get('/', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const gymUsers = await db.collection('gymUsers').find().toArray();
+  const gymUsers = await db.collection('gymUsers').find().toArray();
 
-    if (gymUsers) {
-      res.status(200).json(gymUsers);
-    } else {
-      res.status(500).json("Could not retrieve data from the database");
-    }
-  } catch (error) {
+  if (gymUsers) {
+    res.status(200).json(gymUsers);
+  } else {
     res.status(500).json("Could not retrieve data from the database");
   }
 });
@@ -227,7 +223,7 @@ router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
       { _id: id },
       { 
         $set: {
-          announcements: announcements
+          announcements
         } 
       }
     );

@@ -84,7 +84,7 @@ const addChatToUser = async (db, userId, chatId) => {
   chats.push(chatId);
 
   const result = await db.collection('users').updateOne(
-    { _id: id },
+    { _id },
     { 
       $set: {
         chats
@@ -101,28 +101,24 @@ const addChatToUser = async (db, userId, chatId) => {
 
 //ChatGPT use: NO
 const checkForChat = async (db, user1, user2) => {
-  try {
-    return db.collection('chat').findOne({ 
-      $and: [
-        {
-          members: {
-            $elemMatch: {
-              $eq: user1
-            }
-          }
-        },
-        {
-          members: {
-            $elemMatch: {
-              $eq: user2
-            }
+  return db.collection('chat').findOne({ 
+    $and: [
+      {
+        members: {
+          $elemMatch: {
+            $eq: user1
           }
         }
-      ]
-    });
-  } catch (error) {
-    return 0;
-  }
+      },
+      {
+        members: {
+          $elemMatch: {
+            $eq: user2
+          }
+        }
+      }
+    ]
+  });
 }
 
 //ChatGPT use: NO
