@@ -59,7 +59,7 @@ public class ScheduleWeekly
         PreviousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate =
+                selectedDate =
                         CalendarUtils.selectedDate.minusWeeks(1);
                 setWeekView();
             }
@@ -112,7 +112,7 @@ public class ScheduleWeekly
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Event.CleareventsForDate(CalendarUtils.selectedDate);
+                Event.CleareventsForDate(selectedDate);
                 setEventAdapter();
             }
         });
@@ -128,8 +128,8 @@ public class ScheduleWeekly
     }
 
     private void setWeekView() {
-        monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
-        ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
+        monthYearText.setText(monthYearFromDate(selectedDate));
+        ArrayList<LocalDate> days = daysInWeekArray(selectedDate);
         CalendarAdapter calendarAdapter =
                 new CalendarAdapter(days, this);
         RecyclerView.LayoutManager layoutManager =
@@ -156,7 +156,7 @@ public class ScheduleWeekly
 
     @Override
     public void onItemClick(int position, LocalDate date) {
-        CalendarUtils.selectedDate = date;
+        selectedDate = date;
         setWeekView();
     }
 
@@ -168,7 +168,7 @@ public class ScheduleWeekly
 
     private void setEventAdapter() {
         ArrayList<Event> dailyEvents =
-                Event.eventsForDate(CalendarUtils.selectedDate);
+                Event.eventsForDate(selectedDate);
         EventAdapter eventAdapter =
                 new EventAdapter(getApplicationContext(), dailyEvents);
         eventList.setAdapter(eventAdapter);

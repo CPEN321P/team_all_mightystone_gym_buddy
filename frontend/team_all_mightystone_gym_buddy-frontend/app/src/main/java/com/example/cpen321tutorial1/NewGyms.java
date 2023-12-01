@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import okhttp3.Call;
@@ -84,7 +82,7 @@ public class NewGyms
             @Override
             public void onClick(View view) {
 
-                Account Owner = GlobalClass.myAccount;
+                Account Owner = myAccount;
                 //ArrayList<Account> SubscribedUserss = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();

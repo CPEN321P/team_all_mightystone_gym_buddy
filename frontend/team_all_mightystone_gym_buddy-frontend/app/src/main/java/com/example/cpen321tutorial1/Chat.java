@@ -158,7 +158,7 @@ public class Chat extends AppCompatActivity {
 
     private void sendMessage(String message) {
 
-        ChatMessage chatMessage = new ChatMessage(new Long(0), GlobalClass.myAccount.getUserId(), message);
+        //ChatMessage chatMessage = new ChatMessage(new Long(0), GlobalClass.myAccount.getUserId(), message);
         //messages.add(chatMessage);
 
         //emit socket

@@ -69,9 +69,9 @@ public class PersonalProfileFriend
 
         String friendName = i.getStringExtra("Name");
         String friendId = i.getStringExtra("UserId");
-        String friendAge = i.getStringExtra("Age");
-        String friendWeight = i.getStringExtra("Weight");
-        String friendGender = i.getStringExtra("Gender");
+        //String friendAge = i.getStringExtra("Age");
+        //String friendWeight = i.getStringExtra("Weight");
+        //String friendGender = i.getStringExtra("Gender");
 
         Log.d(TAG, "Test222");
 

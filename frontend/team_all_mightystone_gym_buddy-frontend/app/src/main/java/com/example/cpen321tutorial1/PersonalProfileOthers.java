@@ -1,7 +1,6 @@
 package com.example.cpen321tutorial1;
 
 import static com.example.cpen321tutorial1.Account.GetAccountInfromation;
-import static com.example.cpen321tutorial1.GlobalClass.MyeventsList;
 import static com.example.cpen321tutorial1.GlobalClass.client;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -59,11 +57,11 @@ public class PersonalProfileOthers
         initWidgets();
         Intent i = getIntent();
 
-        String posFriendName = i.getStringExtra("Name");
+        //String posFriendName = i.getStringExtra("Name");
         String posFriendId = i.getStringExtra("UserId");
-        String posFriendAge = i.getStringExtra("Age");
-        String posFriendWeight = i.getStringExtra("Weight");
-        String posFriendGender = i.getStringExtra("Gender");
+        //String posFriendAge = i.getStringExtra("Age");
+        //String posFriendWeight = i.getStringExtra("Weight");
+        //String posFriendGender = i.getStringExtra("Gender");
 
         Account TheAccount = GetAccountInfromation(posFriendId);
 
