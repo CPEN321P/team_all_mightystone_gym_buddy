@@ -38,18 +38,14 @@ router.post('/', async (req, res) => {
 //ChatGPT use: NO
 // Get all gyms
 router.get('/', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const gyms = await db.collection('gyms').find().toArray();
+  const gyms = await db.collection('gyms').find().toArray();
 
-    if (gyms) {
-      res.status(200).json(gyms);
-    } else {
-      res.status(404).json("No gyms found");
-    }
-  } catch (error) {
-    res.status(500).json("Could not retrieve data from the database");
+  if (gyms) {
+    res.status(200).json(gyms);
+  } else {
+    res.status(404).json("No gyms found");
   }
 });
 

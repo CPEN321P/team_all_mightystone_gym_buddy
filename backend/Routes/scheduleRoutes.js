@@ -43,10 +43,10 @@ router.get('/byUser/:userId/:date', async (req, res) => {
   const schedule = await db.collection('schedules').findOne({
     $and: [
       {
-        userId: userId
+        userId
       },
       {
-        date: date
+        date
       }
     ] 
   });

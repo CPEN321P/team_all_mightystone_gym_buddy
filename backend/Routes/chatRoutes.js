@@ -23,9 +23,12 @@ const createNewChat = async (db, senderId, recieverId) => {
     messages: []
   }
 
+  let _senderId;
+  let _recieverId;
+
   try {
-    const _senderId = new ObjectId(senderId);
-    const _recieverId = new ObjectId(recieverId);
+    _senderId = new ObjectId(senderId);
+    _recieverId = new ObjectId(recieverId);
   } catch (error) {
     return 0;
   }
@@ -58,39 +61,41 @@ const createNewChat = async (db, senderId, recieverId) => {
 
 //ChatGPT use: NO
 const addChatToUser = async (db, userId, chatId) => {
+  let _id;
+
   try {
-    const id = new ObjectId(userId);
-
-    const user = await db.collection('users').findOne({ _id: id });
-
-    if (!user) {
-      return 0;
-    }
-
-    const chatsList = user.chats;
-
-    if (!chatsList) {
-      return 0;
-    }
-
-    chatsList.push(chatId);
-
-    const result = await db.collection('users').updateOne(
-      { _id: id },
-      { 
-        $set: {
-          chats: chatsList
-        } 
-      }
-    );
-
-    if (result.matchedCount === 0) {
-      return 0;
-    } else {
-      return 1;
-    }
+    _id = new ObjectId(userId);
   } catch (error) {
     return 0;
+  }
+
+  const user = await db.collection('users').findOne({ _id });
+
+  if (!user) {
+    return 0;
+  }
+
+  const chats = user.chats;
+
+  if (!chats) {
+    return 0;
+  }
+
+  chats.push(chatId);
+
+  const result = await db.collection('users').updateOne(
+    { _id: id },
+    { 
+      $set: {
+        chats
+      } 
+    }
+  );
+
+  if (result.matchedCount === 0) {
+    return 0;
+  } else {
+    return 1;
   }
 }
 

@@ -176,7 +176,7 @@ router.put('/editAnnouncement/:userId/:announcementId', async (req, res) => {
       { _id: id },
       { 
         $set: {
-          announcements: announcements
+          announcements
         } 
       }
     );
