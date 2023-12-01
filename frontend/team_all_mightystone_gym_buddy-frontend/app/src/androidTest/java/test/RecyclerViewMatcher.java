@@ -9,10 +9,10 @@ import org.hamcrest.TypeSafeMatcher;
 
 //Source: https://github.com/dannyroa/espresso-samples/blob/master/RecyclerView/app/src/androidTest/java/com/dannyroa/espresso_samples/recyclerview/RecyclerViewMatcher.java
 
-public class RecyclerViewMatcherTests {
+public class RecyclerViewMatcher {
     private final int recyclerViewId;
 
-    public RecyclerViewMatcherTests(int recyclerViewId) {
+    public RecyclerViewMatcher(int recyclerViewId) {
         this.recyclerViewId = recyclerViewId;
     }
 

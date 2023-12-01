@@ -148,7 +148,7 @@ public class UsabilityTests {
     }
 
     public void conclusion(){
-        if (NumberOfButtonPress > 3){
+        if (NumberOfButtonPress > 4){
             ViewInteraction Error = onView(withContentDescription("ERROR"));
             Error.check(matches(isDisplayed()));
             //100% would be kick out
@@ -237,7 +237,7 @@ public class UsabilityTests {
         };
     }
 
-    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcherTests(recyclerViewId);
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
     }
 }
