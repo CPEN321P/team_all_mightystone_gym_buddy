@@ -266,10 +266,6 @@ describe('Get a specific user by email', () => {
   // Expected behaviour: user not found
   // Expected output: error message
   it('Error retrieving user from database', async () => {
-    const mockUser = {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-    };
 
     const mockDB = {
         collection: jest.fn().mockReturnThis(),
@@ -1081,9 +1077,7 @@ describe('Update user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);

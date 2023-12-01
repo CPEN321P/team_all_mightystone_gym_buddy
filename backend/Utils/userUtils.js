@@ -2,7 +2,7 @@ const { ObjectId } = require('mongodb');
 const { createId } = require('./mongoUtils');
 
 const clearData = async (db, _id) => {
-  const user = await db.collection('users').findOne({ _id: _id });
+  const user = await db.collection('users').findOne({ _id });
 
   if (!user) {
     return 0;
@@ -31,7 +31,7 @@ const clearData = async (db, _id) => {
       continue;
     }
 
-    otherChats = otherUser.chats;
+    const otherChats = otherUser.chats;
 
     let i = -1;
     for (let j = 0; j < otherChats.length; j++) {
@@ -41,6 +41,15 @@ const clearData = async (db, _id) => {
       }
     }
     otherChats.splice(i, 1);
+
+    await db.collection('users').updateOne(
+      { _id: _otherMemberId },
+      { 
+        $set: {
+          chats: otherChats
+        } 
+      }
+    );
     
     await db.collection('chat').deleteOne({ _id: _chatId });
   }
@@ -192,7 +201,7 @@ const removeChatFromList = async (db, user1, chatId) => {
     { _id: user1._id },
     { 
       $set: {
-        chats: chats
+        chats
       } 
     }
   );
@@ -200,28 +209,24 @@ const removeChatFromList = async (db, user1, chatId) => {
 
 //ChatGPT use: NO
 const checkForChat = async (db, user1, user2) => {
-  try {
-    return db.collection('chat').findOne({ 
-      $and: [
-        {
-          members: {
-            $elemMatch: {
-              $eq: user1
-            }
-          }
-        },
-        {
-          members: {
-            $elemMatch: {
-              $eq: user2
-            }
+  return db.collection('chat').findOne({ 
+    $and: [
+      {
+        members: {
+          $elemMatch: {
+            $eq: user1
           }
         }
-      ]
-    });
-  } catch (error) {
-    return 0;
-  }
+      },
+      {
+        members: {
+          $elemMatch: {
+            $eq: user2
+          }
+        }
+      }
+    ]
+  });
 }
 
 module.exports = {clearData, unfriend, getSimilarity}

@@ -3,37 +3,67 @@ const { getDB } = require('./MongoDB/Connect.js');
 const { Server } = require('socket.io');
 
 const getChatByUserId = async (db, user1, user2) => {
-  try {
-    return db.collection('chat').findOne({ 
-      $and: [
-        {
-          members: {
-            $elemMatch: {
-              $eq: user1
-            }
-          }
-        },
-        {
-          members: {
-            $elemMatch: {
-              $eq: user2
-            }
+  return db.collection('chat').findOne({ 
+    $and: [
+      {
+        members: {
+          $elemMatch: {
+            $eq: user1
           }
         }
-      ]
-    });
-  } catch (error) {
-    return 0;
-  }
+      },
+      {
+        members: {
+          $elemMatch: {
+            $eq: user2
+          }
+        }
+      }
+    ]
+  });
 }
 
 const sendMessageById = async (db, chat, sender, message) => {
-  try {
+  const chatMessages = chat.messages;
+  const newMessage = {
+    schedule: 0,
+    sender,
+    body: message
+  }
+  chatMessages.push(newMessage);
+
+  const result = await db.collection('chat').updateOne(
+    { _id: chat._id },
+    { 
+      $set: {
+        messages: chatMessages
+      } 
+    }
+  );
+
+  if (result.matchedCount === 0) {
+    return 0;
+  } else {
+    let otherMember = chat.members[0];
+    if (otherMember == sender) {
+      otherMember = chat.members[1];
+    }
+
+    const res = await userMustHaveChat(db, chat);
+    if (!res) {
+      return 0;
+    }
+    
+    return 1;
+  }
+}
+
+const sendScheduleById = async (db, chat, sender, scheduleId) => {
     const chatMessages = chat.messages;
     const newMessage = {
-      schedule: 0,
-      sender: sender,
-      body: message
+      schedule: 1,
+      sender,
+      body: scheduleId
     }
     chatMessages.push(newMessage);
 
@@ -58,51 +88,9 @@ const sendMessageById = async (db, chat, sender, message) => {
       if (!res) {
         return 0;
       }
-      
-      return 1;
-    }
-  } catch (error) {
-    return 0;
-  }
-}
-
-const sendScheduleById = async (db, chat, sender, scheduleId) => {
-  try {
-    const chatMessages = chat.messages;
-    const newMessage = {
-      schedule: 1,
-      sender: sender,
-      body: scheduleId
-    }
-    chatMessages.push(newMessage);
-
-    const result = await db.collection('chat').updateOne(
-      { _id: id },
-      { 
-        $set: {
-          messages: chatMessages
-        } 
-      }
-    );
-
-    if (result.matchedCount === 0) {
-      return 0;
-    } else {
-      let otherMember = chat.members[0];
-      if (otherMember == sender) {
-        otherMember = chat.members[1];
-      }
-
-      const res = await userMustHaveChat(db, chat);
-      if (!res) {
-        return 0;
-      }
 
       return 1;
     }
-  } catch (error) {
-    return 0;
-  }
 }
 
 const userMustHaveChat = async (db, chat) => {

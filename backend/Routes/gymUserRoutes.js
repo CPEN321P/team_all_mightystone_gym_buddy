@@ -252,41 +252,44 @@ router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
 //ChatGPT use: NO
 // Update a gym user by ID
 router.put('/userId/:userId', async (req, res) => {
+  const db = getDB();
+  let id;
+
   try {
-    const db = getDB();
-    const id = new ObjectId(req.params.userId);
-
-    const gymUser = await db.collection('gymUsers').findOne({ _id: id });
-
-    if (!gymUser) {
-      res.status(404).send('Gym user not found');
-      return;
-    }
-
-    const updatedGymUser = {
-      name: req.body.name || gymUser.name,
-      username: req.body.username || gymUser.username,
-      gymId: req.body.gymId || gymUser.gymId,
-      phone: req.body.phone || gymUser.phone,
-      email: req.body.email || gymUser.email,
-      pfp: req.body.pfp || gymUser.pfp,
-      description: req.body.description || gymUser.description,
-      reported: req.body.reported || gymUser.reported,
-      announcements: req.body.announcements || gymUser.announcements
-    }
-
-    const result = await db.collection('gymUsers').updateOne(
-      { _id: id },
-      { $set: updatedGymUser }
-    );
-    
-    if (result.matchedCount === 0) {
-      res.status(404).send('Gym user not found');
-    } else {
-      res.status(200).json(updatedGymUser);
-    }
+    id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).send('Gym user updated');
+    return;
+  }
+
+  const gymUser = await db.collection('gymUsers').findOne({ _id: id });
+
+  if (!gymUser) {
+    res.status(404).send('Gym user not found');
+    return;
+  }
+
+  const updatedGymUser = {
+    name: req.body.name || gymUser.name,
+    username: req.body.username || gymUser.username,
+    gymId: req.body.gymId || gymUser.gymId,
+    phone: req.body.phone || gymUser.phone,
+    email: req.body.email || gymUser.email,
+    pfp: req.body.pfp || gymUser.pfp,
+    description: req.body.description || gymUser.description,
+    reported: req.body.reported || gymUser.reported,
+    announcements: req.body.announcements || gymUser.announcements
+  }
+
+  const result = await db.collection('gymUsers').updateOne(
+    { _id: id },
+    { $set: updatedGymUser }
+  );
+  
+  if (result.matchedCount === 0) {
+    res.status(404).send('Gym user not found');
+  } else {
+    res.status(200).json(updatedGymUser);
   }
 });
 

@@ -62,17 +62,17 @@ describe('Create a new schedule', () => {
   // Expected behavior: Schedule is added to the database successfully
   // Expected output: id of created schedule
   it('Schedule is created', async () => {
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         insertOne: jest.fn().mockReturnValue({ insertedId: 'mockedId' }),
     };
-      getDB.mockReturnValue(mockDB);
-    
-      const mockSchedule = {
-        userId: 12345,
-        date: 11212023,
-        exercises: []
-      };
+    getDB.mockReturnValue(mockDB);
+  
+    const mockSchedule = {
+      userId: 12345,
+      date: 11212023,
+      exercises: []
+    };
 
     const response = await request(app)
       .post('/schedules')
@@ -91,7 +91,7 @@ describe('Get a schedule by user id and date', () => {
   // Expected behavior: Schedule is not not found in the database
   // Expected output: Text "No Schedule Found"
   it('Schedule not retrieved', async () => {
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(null),
     };
@@ -111,7 +111,7 @@ describe('Get a schedule by user id and date', () => {
   // Expected behavior: Schedule is returned
   // Expected output: body contains schedule 
   it('Schedule retrieved', async () => {
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(1),
     };
@@ -135,7 +135,7 @@ describe('Get all schedules by user id', () => {
   // Expected output: Text "Schedules not retrieved"
   it('Schedules not retrieved', async () => {
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         toArray: jest.fn().mockReturnValue(null)
@@ -165,7 +165,7 @@ describe('Get all schedules by user id', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         toArray: jest.fn().mockReturnValue(mockSchedules)
@@ -194,7 +194,7 @@ describe('Edit a schedule by user id and date', () => {
       name: 1
     };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(null),
         updateOne: jest.fn().mockReturnValue({
@@ -222,7 +222,7 @@ describe('Edit a schedule by user id and date', () => {
       name: 1
     };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(mockSchedule),
         updateOne: jest.fn().mockReturnValue({
@@ -249,7 +249,7 @@ describe('Edit a schedule by user id and date', () => {
       userId: 1
     };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(mockSchedule),
         updateOne: jest.fn().mockReturnValue({
