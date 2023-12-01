@@ -37,7 +37,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
         ConnectionToBackend c = new ConnectionToBackend();
         Account otherAccount;
 
-        if(items.get(position).members.get(0) == myAccount.getUserId()){
+        if(items.get(position).members.get(0).equals(myAccount.getUserId())){
             otherAccount = c.getAccountInformation(items.get(position).members.get(1));
         } else {
             otherAccount = c.getAccountInformation(items.get(position).members.get(0));
