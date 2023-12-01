@@ -7,7 +7,6 @@ import static com.example.cpen321tutorial1.MainActivity.StringToInteger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;

@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -55,21 +54,11 @@ public class EditGymsProfile
             @Override
             public void onClick(View view) {
 
-                Account Owner = myAccount;
                 //ArrayList<Account> SubscribedUserss = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();
                 String InputPhone = Phone.getText().toString();
                 String InputDescription = Description.getText().toString();
-
-                String Json = "";
-                String JsonName = JsonFunctions.JsonName(InputName);
-                String JsonDescription = JsonFunctions.JsonDescription(InputDescription);
-                String JsonLocation = JsonFunctions.JsonLocation(InputLocation);
-                String JsonPhone = JsonFunctions.JsonPhone(InputPhone);
-
-                Json = "{" + JsonName + "," + JsonDescription +
-                        "," + JsonLocation + "," + JsonPhone + "}";
 
                 RequestBody body = new FormBody.Builder()
                         .add("name", InputName)

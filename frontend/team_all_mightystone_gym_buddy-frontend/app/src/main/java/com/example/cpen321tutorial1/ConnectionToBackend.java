@@ -5,8 +5,6 @@ import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 import static com.example.cpen321tutorial1.JsonFunctions.NumToLocalDate;
 import static com.example.cpen321tutorial1.JsonFunctions.NumToLocalTime;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

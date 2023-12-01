@@ -82,7 +82,7 @@ public class NewGyms
             @Override
             public void onClick(View view) {
 
-                Account Owner = myAccount;
+                //Account Owner = myAccount;
                 //ArrayList<Account> SubscribedUserss = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();

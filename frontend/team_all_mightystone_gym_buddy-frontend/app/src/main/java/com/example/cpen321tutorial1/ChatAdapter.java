@@ -3,7 +3,6 @@ package com.example.cpen321tutorial1;
 import static com.example.cpen321tutorial1.GlobalClass.myAccount;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
