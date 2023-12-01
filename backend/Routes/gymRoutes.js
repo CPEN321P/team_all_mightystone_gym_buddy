@@ -88,11 +88,16 @@ router.get('/byEmail/:email', async (req, res) => {
 //ChatGPT use: NO
 // Edit a gym by ID
 router.put('/gymId/:gymId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = createId(req.params.gymId);
+  const db = getDB();
+  let _id;
 
-    const gym = await db.collection('gyms').findOne({ _id: id });
+  try {
+    _id = createId(req.params.gymId);
+  } catch (error) {
+    res.status(500).json('Gym not updated');
+  }
+
+    const gym = await db.collection('gyms').findOne({ _id });
 
     if (!gym) {
       res.status(404).json('Gym not found');
@@ -110,7 +115,7 @@ router.put('/gymId/:gymId', async (req, res) => {
     }
 
     const result = await db.collection('gyms').updateOne(
-      { _id: id },
+      { _id },
       { $set: updatedGym }
     );
     
@@ -119,27 +124,25 @@ router.put('/gymId/:gymId', async (req, res) => {
     } else {
       res.status(200).json(updatedGym);
     }
-  } catch (error) {
-    res.status(500).json('Gym not updated');
-  }
 });
 
 //ChatGPT use: NO
 // Delete a gym by ID
 router.delete('/gymId/:gymId', async (req, res) => {
+  const db = getDB();
+  let _id;
   try {
-    const db = getDB();
-    const id = createId(req.params.gymId);
-    
-    const result = await db.collection('gyms').deleteOne({ _id: id });
-
-    if (result.deletedCount === 0) {
-      res.status(404).json('Gym not found');
-    } else {
-      res.status(200).json('Gym deleted successfully');
-    }
+    _id = createId(req.params.gymId);
   } catch (error) {
     res.status(500).json('Gym not deleted');
+  }
+
+  const result = await db.collection('gyms').deleteOne({ _id });
+
+  if (result.deletedCount === 0) {
+    res.status(404).json('Gym not found');
+  } else {
+    res.status(200).json('Gym deleted successfully');
   }
 });
 
