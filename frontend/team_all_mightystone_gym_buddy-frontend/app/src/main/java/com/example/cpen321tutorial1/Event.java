@@ -7,8 +7,6 @@ import static com.example.cpen321tutorial1.JsonFunctions.ConvertEventArrayListTo
 import static com.example.cpen321tutorial1.JsonFunctions.DateToStringNum;
 import static com.example.cpen321tutorial1.JsonFunctions.NewCallPost;
 
-import android.util.Log;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
