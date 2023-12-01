@@ -41,12 +41,9 @@ describe('Create a new schedule', () => {
         insertOne: jest.fn().mockReturnValue(null),
     };
     getDB.mockReturnValue(mockDB);
-
-    const date = 11212023;
     
     const mockSchedule = {
       userId: 12345,
-      date,
       exercises: []
     };
 
@@ -69,12 +66,9 @@ describe('Create a new schedule', () => {
         insertOne: jest.fn().mockReturnValue({ insertedId: 'mockedId' }),
     };
     getDB.mockReturnValue(mockDB);
-
-    const date = 11212023;
   
     const mockSchedule = {
       userId: 12345,
-      date,
       exercises: []
     };
 
