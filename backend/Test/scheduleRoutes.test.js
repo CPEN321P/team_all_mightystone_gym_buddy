@@ -44,7 +44,6 @@ describe('Create a new schedule', () => {
     
     const mockSchedule = {
       userId: 12345,
-      date: 11212023,
       exercises: []
     };
 
@@ -70,7 +69,6 @@ describe('Create a new schedule', () => {
   
     const mockSchedule = {
       userId: 12345,
-      date: 11212023,
       exercises: []
     };
 
