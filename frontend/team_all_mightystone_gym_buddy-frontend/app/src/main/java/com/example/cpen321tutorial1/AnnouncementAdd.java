@@ -39,8 +39,6 @@ public class AnnouncementAdd extends AppCompatActivity {
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Add Something");
-
                 String Title = Head.getText().toString();
                 String Body = Description.getText().toString();
 
@@ -76,7 +74,6 @@ public class AnnouncementAdd extends AppCompatActivity {
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Whatever");
                 finish();
                 //Put something into the backend
             }

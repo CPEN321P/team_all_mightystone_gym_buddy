@@ -36,8 +36,7 @@ public class JsonFunctions {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful())
                         throw new IOException("Unexpected code " + response);
-                    Log.d(TAG, "POST Something");
-                }
+                    }
             }
         });
     }
@@ -55,35 +54,29 @@ public class JsonFunctions {
     public static String JsonDate(LocalDate date){
         DecimalFormat formatter1 = new DecimalFormat("0000");
         DecimalFormat formatter2 = new DecimalFormat("00");
-        Log.d(TAG, "Test11");
         String YearString = formatter1.format(date.getYear());
         String MonthString = formatter2.format(date.getMonthValue());
         String DayString = formatter2.format(date.getDayOfMonth());
         String DateString = MonthString + DayString + YearString;
         String Json = "\"date\": \"" + DateString + "\"";
-        Log.d(TAG, Json);
         return Json;
     }
 
     public static String JsonStartTime(LocalTime time){
-        Log.d(TAG, "Test111");
         DecimalFormat formatter = new DecimalFormat("00");
         String HourString = formatter.format(time.getHour());
         String MinString = formatter.format(time.getMinute());
         String TimeString = HourString + MinString;
         String Json = "\"timeStart\": \"" + TimeString + "\"";
-        Log.d(TAG, Json);
         return Json;
     }
 
     public static String JsonEndTime(LocalTime time){
-        Log.d(TAG, "Test111");
         DecimalFormat formatter = new DecimalFormat("00");
         String HourString = formatter.format(time.getHour());
         String MinString = formatter.format(time.getMinute());
         String TimeString = HourString + MinString;
         String Json = "\"timeEnd\": \""+ TimeString + "\"";
-        Log.d(TAG, Json);
         return Json;
     }
 
@@ -270,7 +263,6 @@ public class JsonFunctions {
     }
 
     public static LocalTime NumToLocalTime(Long TimeNum){
-        Log.d(TAG, Long.toString(TimeNum));
         DecimalFormat formatter = new DecimalFormat("0000");
         char[] TimeArray = formatter.format(TimeNum).toCharArray();
         String Min = "";
@@ -299,7 +291,6 @@ public class JsonFunctions {
     public static String DateToStringNum(LocalDate date){
         DecimalFormat formatter1 = new DecimalFormat("0000");
         DecimalFormat formatter2 = new DecimalFormat("00");
-        Log.d(TAG, "Test11");
         String YearString = formatter1.format(date.getYear());
         String MonthString = formatter2.format(date.getMonthValue());
         String DayString = formatter2.format(date.getDayOfMonth());

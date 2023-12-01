@@ -43,7 +43,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
             otherAccount = c.getAccountInformation(items.get(position).members.get(0));
         }
 
-        Log.d("this", otherAccount.getUsername());
 
         holder.nameView.setText(otherAccount.getUsername());
         holder.usernameView.setText(otherAccount.getEmailAddress());

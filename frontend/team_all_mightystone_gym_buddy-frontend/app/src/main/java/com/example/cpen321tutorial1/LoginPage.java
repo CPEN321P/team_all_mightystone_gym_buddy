@@ -51,7 +51,6 @@ public class LoginPage extends AppCompatActivity {
 
                             Intent intent = activityResult.getData();
                             if (intent != null){
-                                Log.d(TAG, "User signed in");
                                 Task<GoogleSignInAccount> task = GoogleSignIn.
                                         getSignedInAccountFromIntent(intent);
                                 handleSignInResult(task);
@@ -74,7 +73,6 @@ public class LoginPage extends AppCompatActivity {
         ModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Trying to Switch to Manager Mode");
 
                 Intent LoginPageManagerIntent =
                         new Intent(LoginPage.this, LoginPageManager.class);
@@ -187,10 +185,8 @@ public class LoginPage extends AppCompatActivity {
         ArrayList<Event> TheEventsofThisAccount =
                 c.getScheduleByUser(myAccount.getUserId());
         if(TheEventsofThisAccount == null){
-            Log.d(TAG, "No Events Exist!!!");
             return false;
         }
-        Log.d(TAG, "We have something");
         MyeventsList = TheEventsofThisAccount;
         return true;
 
@@ -209,7 +205,6 @@ public class LoginPage extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Log.d(TAG, "Log out successful");
                     }
                 });
     }

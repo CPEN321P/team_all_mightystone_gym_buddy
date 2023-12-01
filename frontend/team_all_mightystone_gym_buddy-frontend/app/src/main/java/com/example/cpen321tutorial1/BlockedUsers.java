@@ -28,7 +28,6 @@ public class BlockedUsers extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
 
         ConnectionToBackend c = new ConnectionToBackend();
-        Log.d("HAHA","26");
         List<Account> items = c.getAllInList(myAccount.getUserId(), 1);
 
 

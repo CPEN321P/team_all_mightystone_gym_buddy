@@ -152,8 +152,6 @@ public class Event {
         for(Event event: MyeventsList)
         {
             if(event.getDate().equals(date)) {
-                Log.d(TAG + " EventDate: ", event.getDate().toString());
-                Log.d(TAG + " Today: ", date.toString());
                 MyeventsList.remove(count);
                 break;
             }
@@ -165,8 +163,6 @@ public class Event {
         String Json = ConvertEventArrayListToJson
                 (TodaysEvent, myAccount.getUserId(), date);
 
-        Log.d(TAG + " delete", Json);
-        Log.d(TAG + "1", Integer.toString(MyeventsList.size()));
 
         String DateString = DateToStringNum(date);
 

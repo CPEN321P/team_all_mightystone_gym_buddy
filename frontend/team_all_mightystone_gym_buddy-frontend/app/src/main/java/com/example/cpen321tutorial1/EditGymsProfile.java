@@ -62,16 +62,6 @@ public class EditGymsProfile
                 String InputPhone = Phone.getText().toString();
                 String InputDescription = Description.getText().toString();
 
-                Log.d(TAG, "Owner: " + Owner.getUsername());
-                Log.d(TAG, "Name: " + InputName);
-                Log.d(TAG, "Location: " + InputLocation);
-                Log.d(TAG, "Phone: " + InputPhone);
-                Log.d(TAG, "Description: " + InputDescription);
-
-                //Gym TheAddGym = new Gym( InputName,
-                //        InputLocation, InputAccessTime,
-                //        InputWebsite, InputTips);
-
                 String Json = "";
                 String JsonName = JsonFunctions.JsonName(InputName);
                 String JsonDescription = JsonFunctions.JsonDescription(InputDescription);
@@ -80,9 +70,6 @@ public class EditGymsProfile
 
                 Json = "{" + JsonName + "," + JsonDescription +
                         "," + JsonLocation + "," + JsonPhone + "}";
-
-                Log.d(TAG, Json);
-                Log.d(TAG, manager.getGymId());
 
                 RequestBody body = new FormBody.Builder()
                         .add("name", InputName)
@@ -98,8 +85,6 @@ public class EditGymsProfile
                         .build();
 
                 NewCallPost(client, putUserRequest);
-                Log.d(TAG,"DID PUT");
-
 
                 //////////////////////////////////////////////////
                 ///Upload the CurrentAccount information into database///

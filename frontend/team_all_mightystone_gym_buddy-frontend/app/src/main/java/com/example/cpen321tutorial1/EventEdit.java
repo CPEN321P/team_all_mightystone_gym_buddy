@@ -109,7 +109,6 @@ public class EventEdit
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Trying get Back");
                 finish();
             }
         });
@@ -137,9 +136,6 @@ public class EventEdit
                     //Compare the time to see is it excess 24:00
                     int value2 = EndTime.compareTo(StrTime);
                     //Compare the time to see is it excess 24:00
-                    Log.d(TAG, "Valid time starting: " + StrTime);
-                    Log.d(TAG, "Valid time ending: " + EndTime);
-                    Log.d(TAG, "Date: " + EventDate);
                     if((value2 < 0 && value1 > 0)){
                         Toast.makeText(EventEdit.this,
                                 "Invalid time for Start Time or End Time!",
@@ -148,7 +144,6 @@ public class EventEdit
                     }
 
                 } catch (DateTimeParseException | NullPointerException e) {
-                    Log.d(TAG, "Invalid time string for Start Time, End Time or Date!");
                     Toast.makeText(EventEdit.this,
                             "Invalid time for Start Time or End Time!",
                             Toast.LENGTH_SHORT).show();
@@ -202,7 +197,6 @@ public class EventEdit
                     String Json = "{" +  JsonUserId + "," +
                             JsonDate + "," + JsonSchedule + "}";
 
-                    Log.d(TAG, Json);
                     RequestBody body = RequestBody.create(Json,
                             MediaType.parse("application/json"));
 
@@ -217,8 +211,6 @@ public class EventEdit
                     ArrayList<Event> TodaysEvent = eventsForDate(EventDate);
                     String Json = ConvertEventArrayListToJson
                             (TodaysEvent, myAccount.getUserId(), EventDate);
-                    Log.d(TAG + " add", Json);
-                    Log.d(TAG + "1", Integer.toString(MyeventsList.size()));
 
                     String DateString = DateToStringNum(EventDate);
 
@@ -287,7 +279,6 @@ public class EventEdit
 
     public static String ConvertNumFormal (int num)
     {
-        Log.d(TAG, "TheNum: " + num);
         if (num == 1)
             return "01";
         if (num == 2)

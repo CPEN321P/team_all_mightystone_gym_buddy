@@ -59,11 +59,6 @@ public class PersonalProfileEdit
         Age.setText(Integer.toString(GlobalClass.myAccount.getAge()));
         Weight.setText(Integer.toString(GlobalClass.myAccount.getWeight()));
 
-        Log.d(TAG, GlobalClass.myAccount.getUsername());
-        Log.d(TAG, Integer.toString(GlobalClass.myAccount.getAge()));
-        Log.d(TAG, Integer.toString(GlobalClass.myAccount.getWeight()));
-        Log.d(TAG, GlobalClass.myAccount.getGender());
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource
                 (this, R.array.roles, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource
@@ -148,7 +143,6 @@ public class PersonalProfileEdit
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Cancel Editing");
                 finish();
             }
         });
@@ -189,7 +183,6 @@ public class PersonalProfileEdit
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // ...
-                        Log.d(TAG, "Log out successful");
                         Toast.makeText(PersonalProfileEdit.this,
                                 "Log out successful",
                                 Toast.LENGTH_SHORT).show();

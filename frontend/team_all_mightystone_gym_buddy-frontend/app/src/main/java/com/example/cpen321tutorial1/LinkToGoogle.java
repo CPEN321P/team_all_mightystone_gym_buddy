@@ -68,7 +68,6 @@ public class LinkToGoogle
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Trying to Sign in");
 
                 int NumberOfAge = StringToInteger(Age.getText().toString());
 
@@ -147,7 +146,6 @@ public class LinkToGoogle
                     Json = "{" + JsonName + "," + JsonEmail + "," +
                             JsonAge + "," + JsonWeight + "," + JsonGender + "}";
 
-                    Log.d(TAG, Json);
 
                 RequestBody body = RequestBody.create(Json,
                         MediaType.parse("application/json"));

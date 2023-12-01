@@ -325,12 +325,10 @@ public class ConnectionToBackend {
                     }
 
                     for(int i = 0; i<listOfFriends.size(); i++){
-                        Log.d("HAHA", "326");
                         listOfAllAccounts.add
                                 (setAccountInformationFromBackend(listOfFriends.get(i)));
 
                     }
-                    Log.d("HAHA", "330");
                     return listOfAllAccounts;
 
                 }
@@ -422,7 +420,6 @@ public class ConnectionToBackend {
 
                 try (ResponseBody responseBody = response.body()) {
                     String jsonResponse = responseBody.string();
-                    Log.d("chatmodel info", jsonResponse);
                     ChatModelFromBackend chatModelFromBackend =
                             new Gson().fromJson(jsonResponse,
                                     ChatModelFromBackend.class);
@@ -582,20 +579,16 @@ public class ConnectionToBackend {
                 new Callable<Gym>() {
                     @Override
                     public Gym call() throws Exception {
-                        Log.d("HAHAHAHA","Here 557");
                         Request getEventInformation = new Request.Builder()
                                 .url("https://20.172.9.70/gyms/gymId/" + Id)
                                 .build();
-                        Log.d("HAHAHAHA","Here 561");
                         Response response =
                                 client.newCall(getEventInformation).execute();
-                        Log.d("HAHAHAHA","Here 564");
                         if (!response.isSuccessful()) {
                             throw new IOException("Unexpected code " + response.code());
                         }
 
                         try (ResponseBody responseBody = response.body()) {
-                            Log.d("HAHAHAHA","Here 570");
                             String jsonResponse = responseBody.string();
                             GymModelFromBackend gymModelFromBackend =
                                     new Gson().fromJson(jsonResponse, GymModelFromBackend.class);
@@ -603,7 +596,6 @@ public class ConnectionToBackend {
                             if (gymModelFromBackend == null) {
                                 throw new IOException("Schedule model is null");
                             }
-                            Log.d("HAHAHAHA","Here 577");
 
                             return setGymInformationFromBackend(gymModelFromBackend);
                         }
