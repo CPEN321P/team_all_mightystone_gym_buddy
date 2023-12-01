@@ -192,6 +192,7 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
+    //test
     public static String getStringName(){
         return TheEmail;
     }
