@@ -4,7 +4,6 @@ import static com.example.cpen321tutorial1.GlobalClass.SelectedAnnouncement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
