@@ -296,9 +296,15 @@ router.put('/userId/:userId', async (req, res) => {
 //ChatGPT use: NO
 // Delete a gym user by ID
 router.delete('/userId/:userId', async (req, res) => {
+  const db = getDB();
+  let id;
+
   try {
-    const db = getDB();
-    const id = new ObjectId(req.params.userId);
+    id = new ObjectId(req.params.userId);
+  } catch (error) {
+    res.status(500).send('Gym user deleted');
+    return;
+  }
 
     const result = await db.collection('gymUsers').deleteOne({ _id: id });
 
@@ -307,9 +313,6 @@ router.delete('/userId/:userId', async (req, res) => {
     } else {
       res.status(200).send('Gym user deleted successfully');
     }
-  } catch (error) {
-    res.status(500).send('Gym user deleted');
-  }
 });
 
 //ChatGPT use: YES

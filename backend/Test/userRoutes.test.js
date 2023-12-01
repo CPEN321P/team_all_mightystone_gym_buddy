@@ -345,13 +345,6 @@ describe('Get recommended users', () => {
   // Expected behaviour: user not found
   // Expected output: error message
   it('User not found', async () => {
-    const mockUser = {
-      _id: 12345,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      blockedUsers: [],
-      friends: []
-    };
 
     const retrievedUsers = [
       {
@@ -1009,9 +1002,7 @@ describe('Update user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1573,9 +1564,7 @@ describe('Block user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);
