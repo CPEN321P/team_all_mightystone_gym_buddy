@@ -1255,9 +1255,7 @@ describe('Add friend', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1315,9 +1313,7 @@ describe('Add friend', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1497,9 +1493,7 @@ describe('Block user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1744,9 +1738,7 @@ describe('Unblock user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1809,9 +1801,7 @@ describe('Unblock user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1874,9 +1864,7 @@ describe('Unblock user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -2059,9 +2047,7 @@ describe('Delete a chat', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -2129,9 +2115,7 @@ describe('Delete a chat', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -2199,9 +2183,7 @@ describe('Delete a chat', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);

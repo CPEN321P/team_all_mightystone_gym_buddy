@@ -319,13 +319,9 @@ router.delete('/userId/:userId', async (req, res) => {
 // Delete all gym users
 //This is for debugging only (DEV USE)
 router.delete('/', async (req, res) => {
-  try {
-    const db = getDB();
-    await db.collection('gymUsers').deleteMany({});
-    res.status(200).send('Users deleted successfully');
-  } catch (error) {
-    res.status(500).send('All Users Not Deleted');
-  }
+  const db = getDB();
+  await db.collection('gymUsers').deleteMany({});
+  res.status(200).send('Users deleted successfully');
 });
 
 module.exports = router;
