@@ -89,12 +89,8 @@ public class Chat extends AppCompatActivity {
             options.forceNew = true;
             socket = IO.socket("https://tams.westus3.cloudapp.azure.com/", options);
             socket.connect();
-            Log.d("SOCKETTTT", "CONNECTED BROOOOO");
-        } catch (URISyntaxException e) {
-            Log.d("SOCKET ISSUES!", Log.getStackTraceString(e));
-        }
-
-        Log.d("SOCKETTTT", "connected");
+            } catch (URISyntaxException e) {
+            }
 
         //join room in socket
         JSONObject jsonJoinRoom = new JSONObject();
@@ -116,7 +112,6 @@ public class Chat extends AppCompatActivity {
             }
         });
 
-        Log.d("SOCKETTTTT", "joined room?");
 
         message_send_button.setOnClickListener((view -> {
             String message = chat_text_input.getText().toString().trim();
@@ -134,7 +129,6 @@ public class Chat extends AppCompatActivity {
             @Override
             public void call(Object... args) {
                 JSONObject messageObjReceived = (JSONObject) args[0];
-                Log.d("socket", "got inside new_message");
                 Chat.this.runOnUiThread(() -> {
                     try {
                         Long schedule = messageObjReceived.getLong("schedule");

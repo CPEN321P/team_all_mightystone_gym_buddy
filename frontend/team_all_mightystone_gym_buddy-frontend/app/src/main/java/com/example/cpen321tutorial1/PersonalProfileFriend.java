@@ -65,7 +65,6 @@ public class PersonalProfileFriend
 
         Intent i = getIntent();
 
-        Log.d(TAG, "Test111");
 
         String friendName = i.getStringExtra("Name");
         String friendId = i.getStringExtra("UserId");
@@ -73,10 +72,8 @@ public class PersonalProfileFriend
         //String friendWeight = i.getStringExtra("Weight");
         //String friendGender = i.getStringExtra("Gender");
 
-        Log.d(TAG, "Test222");
 
         Account TheAccount = GetAccountInfromation(friendId);
-        Log.d(TAG, friendId);
 
         Username.setText(TheAccount.getUsername());
         Email.setText(TheAccount.getEmailAddress());

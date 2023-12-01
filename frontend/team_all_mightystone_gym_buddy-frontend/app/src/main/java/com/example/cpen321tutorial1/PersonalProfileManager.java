@@ -98,16 +98,12 @@ public class PersonalProfileManager
 
                  */
                 if(!checkIfGymExists(manager.getEmail())){
-                    Log.d(TAG,
-                            "The Gym Does Not EXIST ON THE DATABASE");
                     Intent NewGymsIntent =
                             new Intent(PersonalProfileManager.this,
                                     NewGyms.class);
                     startActivity(NewGymsIntent);
 
                 } else {
-                    Log.d(TAG,
-                            "YIPPIEEEEE The Gym EXIST ON THE DATABASE");
                     Intent NewGymsIntent =
                             new Intent(PersonalProfileManager.this,
                                     GymsProfileManager.class);
@@ -151,7 +147,6 @@ public class PersonalProfileManager
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // ...
-                        Log.d(TAG, "Log out successful");
                         Toast.makeText(PersonalProfileManager.this,
                                 "Log out successful",
                                 Toast.LENGTH_SHORT).show();
@@ -170,7 +165,6 @@ public class PersonalProfileManager
         }
         myAccount.setMyGym(thisGymFromBackend);
         manager.setGymId(thisGymFromBackend.getGymId());
-        Log.d(TAG, thisGymFromBackend.getGymId());
         return true;
 
     }

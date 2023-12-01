@@ -50,25 +50,6 @@ public class Logo
                 Intent HomeIntent =
                         new Intent(Logo.this, Logo.class);
                 startActivity(HomeIntent);
-//
-//                Socket socket;
-//
-//                try {
-//                    // Replace "http://your-server-url" with the actual URL of your Socket.IO server
-//                    socket = IO.socket("https://20.172.9.70:443");
-//
-//                    socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-//                        @Override
-//                        public void call(Object... args) {
-//                            Log.d("SOCKETTTTT", "Connected to server");
-//                        }
-//                    });
-//
-//                    socket.connect();
-//                } catch (URISyntaxException e) {
-//                    e.printStackTrace();
-//                    throw new RuntimeException(e);
-//                }
             }
         });
 

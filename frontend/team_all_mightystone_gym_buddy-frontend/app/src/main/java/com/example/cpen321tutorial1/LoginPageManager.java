@@ -66,7 +66,6 @@ public class LoginPageManager
         ModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Trying to Switch to User Mode");
 
                 Intent LoginPageUserIntent =
                         new Intent(LoginPageManager.this,
@@ -135,11 +134,6 @@ public class LoginPageManager
             Log.d(TAG, "There is no user signed in!");
         }
         else {
-            Log.d(TAG, "Pref Name: " + account.getDisplayName());
-            Log.d(TAG, "Email: " + account.getEmail());
-            Log.d(TAG, "Given Name: " + account.getGivenName());
-            Log.d(TAG, "Family Name: " + account.getFamilyName());
-            Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
             manager.setEmail(account.getEmail());
 

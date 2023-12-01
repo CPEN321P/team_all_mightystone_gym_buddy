@@ -90,22 +90,6 @@ public class NewGyms
                 //String InputEmail = Email.getText().toString();
                 String InputDescription = Description.getText().toString();
 
-                Log.d(TAG, "Owner: " + Owner.getUsername());
-                Log.d(TAG, "Name: " + InputName);
-                Log.d(TAG, "Location: " + InputLocation);
-                Log.d(TAG, "Phone: " + InputPhone);
-                //Log.d(TAG, "Email: " + InputEmail);
-                Log.d(TAG, "Description: " + InputDescription);
-
-                /*
-                Gym TheAddGym = new Gym(InputName,
-                        InputLocation, InputAccessTime,
-                        InputWebsite, InputTips);
-
-                 */
-                //Gym.CurrentGym.clear();
-                //Gym.CurrentGym.add(TheAddGym);
-
                 String Json = "";
                 String JsonName = JsonFunctions.JsonName(InputName);
                 String JsonDescription = JsonFunctions.JsonDescription(InputDescription);
@@ -117,7 +101,6 @@ public class NewGyms
                         "," + JsonLocation + "," + JsonPhone +
                         "," + JsonEmail + "}";
 
-                Log.d(TAG, Json);
 
                 RequestBody body = RequestBody.create(Json,
                         MediaType.parse("application/json"));
@@ -138,7 +121,6 @@ public class NewGyms
                             if (!response.isSuccessful())
                                 throw new IOException("Unexpected code " + response);
                             manager.setGymId(responseBody.toString());
-                            Log.d(TAG, "Manager's gym id: "+ manager.getGymId());
                         }
                     }
                 });
@@ -177,7 +159,7 @@ public class NewGyms
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Cancel");
+
                 finish();
             }
         });

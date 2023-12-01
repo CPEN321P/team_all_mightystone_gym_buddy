@@ -47,8 +47,6 @@ public class GymProfile
         initWidgets();
         Intent i = getIntent();
 
-        Log.d(TAG, "Test1");
-
         String gymAddress = i.getStringExtra("GymAddress");
         String gymName = i.getStringExtra("GymName");
         String gymEmail = i.getStringExtra("GymEmail");
@@ -56,9 +54,6 @@ public class GymProfile
         String gymPhone = i.getStringExtra("GymPhone");
         String gymId = i.getStringExtra("GymId");
 
-        Log.d(TAG, "Test2");
-
-        //Log.d("HAHA", "address: " + gymAddress);
         Name.setText(gymName);
         Location.setText(gymAddress);
         Email.setText(gymEmail);
@@ -66,8 +61,6 @@ public class GymProfile
         Phone.setText(gymPhone);
 
         Announcement.setVisibility(View.GONE);
-
-        Log.d(TAG, "Test3");
 
         if(myAccount.getMyGym() != null){
             if(myAccount.getMyGym().getGymId().equals(gymId)){
@@ -78,8 +71,6 @@ public class GymProfile
         }
 
         //TEST
-
-        Log.d(TAG, "Test4");
 
         //Get the relative information from the database
         //ArrayList<Account> TheOldGymUserList =

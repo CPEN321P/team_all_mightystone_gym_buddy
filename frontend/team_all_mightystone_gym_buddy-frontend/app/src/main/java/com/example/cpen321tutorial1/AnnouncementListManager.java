@@ -47,7 +47,6 @@ public class AnnouncementListManager extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, TheList.get(i).toString());
                 SelectedAnnouncement = GlobalClass.AnnouncementList.get(i);
 
                 Intent Intent =
@@ -60,7 +59,6 @@ public class AnnouncementListManager extends AppCompatActivity {
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Trying get Back");
                 Intent Intent =
                         new Intent(AnnouncementListManager.this,
                                 PersonalProfileManager.class);
@@ -71,7 +69,6 @@ public class AnnouncementListManager extends AppCompatActivity {
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Add Announcement");
                 Intent Intent =
                         new Intent(AnnouncementListManager.this,
                                 AnnouncementAdd.class);
