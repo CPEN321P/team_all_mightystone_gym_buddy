@@ -76,16 +76,16 @@ router.get('/', async (req, res) => {
 router.get('/userId/:userId', async (req, res) => {
   const db = getDB();
 
-  let id;
+  let _id;
 
   try {
-    id = createId(req.params.userId);
+    _id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
   }
 
-  const user = await db.collection('users').findOne({ _id: id });
+  const user = await db.collection('users').findOne({ _id });
 
   if (user) {
     res.status(200).json(user);

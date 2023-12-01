@@ -1,5 +1,4 @@
 const express = require('express');
-const { ObjectId } = require('mongodb');
 const { getDB } = require('../MongoDB/Connect.js');
 const { createId} = require('../Utils/mongoUtils.js');
 
@@ -15,28 +14,23 @@ const router = express.Router();
 //ChatGPT use: NO
 // Create a new gym
 router.post('/', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const newGym = {
-      name: req.body.name || "",
-      description: req.body.description || "",
-      location: req.body.location || "",
-      phone: req.body.phone || "",
-      email: req.body.email || "",
-      images: req.body.images || []
-      // hours
-    }
+  const newGym = {
+    name: req.body.name || "",
+    description: req.body.description || "",
+    location: req.body.location || "",
+    phone: req.body.phone || "",
+    email: req.body.email || "",
+    images: req.body.images || []
+  }
 
-    const result = await db.collection('gyms').insertOne(newGym);
+  const result = await db.collection('gyms').insertOne(newGym);
 
-    if (result && result.insertedId) {
-      res.status(200).json(result.insertedId.toString());
-    }
-    else {
-      res.status(500).json("Gym not added to the database");
-    }
-  } catch (error) {
+  if (result && result.insertedId) {
+    res.status(200).json(result.insertedId.toString());
+  }
+  else {
     res.status(500).json("Gym not added to the database");
   }
 });

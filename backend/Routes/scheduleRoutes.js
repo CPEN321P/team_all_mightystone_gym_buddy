@@ -1,5 +1,4 @@
 const express = require('express');
-const { ObjectId } = require('mongodb');
 const { getDB } = require('../MongoDB/Connect.js');
 
 const router = express.Router();
@@ -64,9 +63,9 @@ router.get('/byUser/:userId/:date', async (req, res) => {
 // Get all schedules by user id
 router.get('/byUser/:userId', async (req, res) => {
   const db = getDB();
-  const userId = req.params.userId;
+  const id = req.params.userId;
 
-  const schedules = await db.collection('schedules').find({ userId: userId }).toArray();
+  const schedules = await db.collection('schedules').find({ userId: id }).toArray();
 
   if (schedules) {
     res.status(200).json(schedules);

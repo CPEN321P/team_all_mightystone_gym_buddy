@@ -18,30 +18,26 @@ const router = express.Router();
 //ChatGPT use: NO
 // Create a new gym user
 router.post('/', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const newGymUser = {
-      name: req.body.name || "",
-      username: req.body.username || "",
-      gymId: req.body.gymId || "",
-      phone: req.body.phone || "",
-      email: req.body.email || "",
-      pfp: req.body.pfp || "",
-      description: req.body.description || "",
-      reported: req.body.reported || 0,
-      announcements: req.body.announcements || [],
-    }
+  const newGymUser = {
+    name: req.body.name || "",
+    username: req.body.username || "",
+    gymId: req.body.gymId || "",
+    phone: req.body.phone || "",
+    email: req.body.email || "",
+    pfp: req.body.pfp || "",
+    description: req.body.description || "",
+    reported: req.body.reported || 0,
+    announcements: req.body.announcements || [],
+  }
 
-    const result = await db.collection('gymUsers').insertOne(newGymUser);
+  const result = await db.collection('gymUsers').insertOne(newGymUser);
 
-    if (result && result.insertedId) {
-      res.status(200).json(result.insertedId.toString());
-    }
-    else {
-      res.status(500).json("Gym user not added to the database");
-    }
-  } catch (error) {
+  if (result && result.insertedId) {
+    res.status(200).json(result.insertedId.toString());
+  }
+  else {
     res.status(500).json("Gym user not added to the database");
   }
 });
@@ -116,8 +112,8 @@ router.put('/makeAnnouncement/:userId', async (req, res) => {
       return;
     }
 
-    const announcements = gymUser.announcements;
-    announcements.push({
+    const announcementsList = gymUser.announcements;
+    announcementsList.push({
       _id: announcementId,
       header: announcement.header,
       body: announcement.body
@@ -127,7 +123,7 @@ router.put('/makeAnnouncement/:userId', async (req, res) => {
       { _id: id },
       { 
         $set: {
-          announcements: announcements
+          announcements: announcementsList
         } 
       }
     );
@@ -135,7 +131,7 @@ router.put('/makeAnnouncement/:userId', async (req, res) => {
     if (result.matchedCount === 0) {
       res.status(500).send('Announcement not made');
     } else {
-      res.status(200).json(announcements);
+      res.status(200).json(announcementsList);
     }
   } catch (error) {
     res.status(500).send('Announcement not made');
@@ -312,7 +308,7 @@ router.delete('/userId/:userId', async (req, res) => {
 router.delete('/', async (req, res) => {
   try {
     const db = getDB();
-    const result = await db.collection('gymUsers').deleteMany({});
+    await db.collection('gymUsers').deleteMany({});
     res.status(200).send('Users deleted successfully');
   } catch (error) {
     res.status(500).send('All Users Not Deleted');

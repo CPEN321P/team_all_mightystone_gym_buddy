@@ -15,45 +15,45 @@ const router = express.Router();
 // - check for chat 
 
 const createNewChat = async (db, senderId, recieverId) => {
-  try {
-    const newChat = {
-      members: [
-        senderId,
-        recieverId
-      ],
-      messages: []
-    }
+  const newChat = {
+    members: [
+      senderId,
+      recieverId
+    ],
+    messages: []
+  }
 
+  try {
     const _senderId = new ObjectId(senderId);
     const _recieverId = new ObjectId(recieverId);
-
-    const senderUser = await db.collection('users').findOne({ _id: _senderId });
-    const recieverUser = await db.collection('users').findOne({ _id: _recieverId });
-
-    if (!senderUser || !recieverUser) {
-      return 0;
-    }
-
-    const result = await db.collection('chat').insertOne(newChat);
-
-    if (!result || !result.insertedId) {
-      return 0;
-    }
-
-    const resSender = await addChatToUser(db, senderId, result.insertedId.toString());
-    if (!resSender) {
-      return 0;
-    }
-
-    const resReciever = await addChatToUser(db, recieverId, result.insertedId.toString());
-    if (!resReciever) {
-      return 0;
-    }
-
-    return result.insertedId.toString();
   } catch (error) {
     return 0;
   }
+
+  const senderUser = await db.collection('users').findOne({ _id: _senderId });
+  const recieverUser = await db.collection('users').findOne({ _id: _recieverId });
+
+  if (!senderUser || !recieverUser) {
+    return 0;
+  }
+
+  const result = await db.collection('chat').insertOne(newChat);
+
+  if (!result || !result.insertedId) {
+    return 0;
+  }
+
+  const resSender = await addChatToUser(db, senderId, result.insertedId.toString());
+  if (!resSender) {
+    return 0;
+  }
+
+  const resReciever = await addChatToUser(db, recieverId, result.insertedId.toString());
+  if (!resReciever) {
+    return 0;
+  }
+
+  return result.insertedId.toString();
 }
 
 //ChatGPT use: NO
