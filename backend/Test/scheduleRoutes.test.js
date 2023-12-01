@@ -84,7 +84,7 @@ describe('Create a new schedule', () => {
 
 // ChatGPT use: No
 describe('Get a schedule by user id and date', () => {
-  // Input: none
+  // Input: User Id and Date
   // Expected status code: 404
   // Expected behavior: Schedule is not not found in the database
   // Expected output: Text "No Schedule Found"
@@ -104,7 +104,7 @@ describe('Get a schedule by user id and date', () => {
     expect(response.body).toBe("No Schedule Found");
   });
 
-  // Input: none
+  // Input: User Id and Date
   // Expected status code: 200
   // Expected behavior: Schedule is returned
   // Expected output: body contains schedule 
@@ -127,7 +127,7 @@ describe('Get a schedule by user id and date', () => {
 
 // ChatGPT use: No
 describe('Get all schedules by user id', () => {
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behavior: Schedules are not not found in the database
   // Expected output: Text "Schedules not retrieved"
@@ -149,7 +149,7 @@ describe('Get all schedules by user id', () => {
     expect(response.body).toBe("Schedules not retrieved");
   });
 
-  // Input: none
+  // Input: User Id 
   // Expected status code: 200
   // Expected behavior: Schedules are returned for the user
   // Expected output: Array of schedules
@@ -183,7 +183,7 @@ describe('Get all schedules by user id', () => {
 
 // ChatGPT use: No
 describe('Edit a schedule by user id and date', () => {
-  // Input: none
+  // Input: User Id and Date
   // Expected status code: 404
   // Expected behavior: Schedules are not not found in the database
   // Expected output: Text "Schedule not found"
@@ -211,7 +211,7 @@ describe('Edit a schedule by user id and date', () => {
     expect(response.body).toBe("Schedule not found");
   });
 
-  // Input: none
+  // Input: User Id and Date
   // Expected status code: 500
   // Expected behavior: Schedules are not not updated because no match in db
   // Expected output: Text "Schedules not updated"
@@ -238,7 +238,7 @@ describe('Edit a schedule by user id and date', () => {
     expect(response.statusCode).toBe(500);
     expect(response.body).toBe("Schedule not updated");
   });
-  // Input: none
+  // Input: User Id and Date
   // Expected status code: 200
   // Expected behavior: Schedule updated in the db
   // Expected output: Response body contains schedule

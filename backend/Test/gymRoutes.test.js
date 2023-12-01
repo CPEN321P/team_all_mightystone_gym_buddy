@@ -147,7 +147,7 @@ expect.extend({
 
   //ChatGPT use: No
   describe('Get a specific gym by ID', () => {
-    // Input: None
+    // Input: Gym Id
     // Expected status code: 200
     // Expected behavior: Gym retrieved
     // Expected output: Gym object
@@ -177,7 +177,7 @@ expect.extend({
       expect(response.body.email).toBe(mockGym.email);
     });
 
-    // Input: None
+    // Input: Gym Id
     // Expected status code: 500
     // Expected behavior: Error thrown by createId()
     // Expected output: Error message
@@ -206,7 +206,7 @@ expect.extend({
         expect(response.body).toBe('Invalid gym ID');
       });
   
-    // Input: None
+    // Input: Gym Id
     // Expected status code: 404
     // Expected behavior: Gym not retieved 
     // Expected output: Error message
@@ -234,7 +234,7 @@ expect.extend({
 
   //ChatGPT use: No
   describe('Get a specific gym by email', () => {
-    // Input: None
+    // Input: Gym Email
     // Expected status code: 200
     // Expected behavior: Gym retrieved
     // Expected output: Gym object
@@ -260,7 +260,7 @@ expect.extend({
       expect(response.body.email).toBe(mockGym.email);
     });
   
-    // Input: None
+    // Input: Gym Email
     // Expected status code: 404
     // Expected behavior: Gym not found
     // Expected output: Error message
@@ -283,7 +283,7 @@ expect.extend({
 
   //ChatGPT use: No
   describe('Update gym', () => {
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 500
     // Expected behavior: Failure because of invalid Id
     // Expected output: Text "Gym not updated"
@@ -335,7 +335,7 @@ expect.extend({
       expect(response.body).toBe('Gym not updated');
     });
   
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 404
     // Expected behavior: Failure because gym not found
     // Expected output: Text "Gym not found"
@@ -387,7 +387,7 @@ expect.extend({
       expect(response.body).toBe('Gym not found');
     });
   
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 404
     // Expected behavior: Failure because gym not found
     // Expected output: Text "Gym not found"
@@ -440,7 +440,7 @@ expect.extend({
       expect(response.body).toBe('Gym not found');
     });
   
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 200
     // Expected behavior: Success: gym updated
     // Expected output: Updated gym
@@ -498,7 +498,7 @@ expect.extend({
 
   //ChatGPT use: No
   describe('Delete gym', () => {
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 500
     // Expected behavior: Failure because of invalid Id
     // Expected output: Text "Gym not deleted"
@@ -521,7 +521,7 @@ expect.extend({
       expect(response.body).toBe('Gym not deleted');
     });
     
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 404
     // Expected behavior: Failure because gym not found
     // Expected output: Text "Gym not found"
@@ -547,7 +547,7 @@ expect.extend({
       expect(response.body).toBe('Gym not found');
     });
     
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 404
     // Expected behavior: Failure because gym not found
     // Expected output: Text "Gym not found"
@@ -573,7 +573,7 @@ expect.extend({
       expect(response.body).toBe('Gym not found');
     });
   
-    // Input: none
+    // Input: Gym Id
     // Expected status code: 200
     // Expected behavior: Success: gym deleted
     // Expected output: Text "Gym deleted successfully"
