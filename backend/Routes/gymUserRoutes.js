@@ -315,13 +315,4 @@ router.delete('/userId/:userId', async (req, res) => {
     }
 });
 
-//ChatGPT use: YES
-// Delete all gym users
-//This is for debugging only (DEV USE)
-router.delete('/', async (req, res) => {
-  const db = getDB();
-  await db.collection('gymUsers').deleteMany({});
-  res.status(200).send('Users deleted successfully');
-});
-
 module.exports = router;
