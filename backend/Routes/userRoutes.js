@@ -12,15 +12,9 @@ const router = express.Router();
 // - Get specific user by email
 // - Get recommended users by ID
 // - Get friends by id
-// - Get friend requests by id 
 // - Get blocked users
 // - Update by id 
-// - Add friend (for MVP only)
-// - Send Friend Requests
-// - Unsend friend request
-// - Accept friend requests 
-// - Decline friend requests
-// - Unfriend 
+// - Add friend 
 // - Block users 
 // - Unblock users 
 // - Delete chat
@@ -76,16 +70,16 @@ router.get('/', async (req, res) => {
 router.get('/userId/:userId', async (req, res) => {
   const db = getDB();
 
-  let id;
+  let _id;
 
   try {
-    id = createId(req.params.userId);
+    _id = createId(req.params.userId);
   } catch (error) {
     res.status(500).json('Invalid user ID');
     return;
   }
 
-  const user = await db.collection('users').findOne({ _id: id });
+  const user = await db.collection('users').findOne({ _id });
 
   if (user) {
     res.status(200).json(user);
@@ -112,7 +106,6 @@ router.get('/userEmail/:userEmail', async (req, res) => {
 // Get recommended users by ID
 router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   const db = getDB();
-  var myHomeGym;
   var user;
   var id
   
@@ -130,7 +123,6 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
     return;
   } 
 
-  myHomeGym = user.homeGym;
   const recommendedUsers = await db.collection('users').find({}).toArray();
   
   const filteredRecommendedUsers = recommendedUsers.filter(recommendedUser => {
@@ -138,7 +130,7 @@ router.get('/userId/:userId/recommendedUsers', async (req, res) => {
   });
 
   filteredRecommendedUsers.forEach(rec_user => {
-    var similarity = getSimilarity(user, rec_user);
+    getSimilarity(user, rec_user);
   });
 
   filteredRecommendedUsers.sort((userA, userB) => getSimilarity(user, userB) - getSimilarity(user, userA));
@@ -267,7 +259,7 @@ router.put('/userId/:userId', async (req, res) => {
 });
 
 //ChatGPT use: PARTIAL
-//Add Friend. ONLY FOR MVP, TO BE CHANGED LATER
+//Add Friend.
 router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
   const db = getDB();
   let recieverId;
@@ -317,6 +309,10 @@ router.put('/addFriend/:senderId/:recieverId', async (req, res) => {
       } 
     }
   );
+
+  if (!result || !result2) {
+    res.status(500).json('Friend not added');
+  }
   res.status(200).json('Friend added');
 });
 
@@ -488,7 +484,7 @@ router.delete('/userId/:userId', async (req, res) => {
     return;
   }
 
-  const result = await db.collection('users').deleteOne({ _id: _id });
+  const result = await db.collection('users').deleteOne({ _id });
 
   if (result.deletedCount === 0) {
     res.status(404).json('User not deleted');

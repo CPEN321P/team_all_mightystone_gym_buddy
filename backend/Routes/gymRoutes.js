@@ -1,5 +1,4 @@
 const express = require('express');
-const { ObjectId } = require('mongodb');
 const { getDB } = require('../MongoDB/Connect.js');
 const { createId} = require('../Utils/mongoUtils.js');
 
@@ -15,28 +14,23 @@ const router = express.Router();
 //ChatGPT use: NO
 // Create a new gym
 router.post('/', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const newGym = {
-      name: req.body.name || "",
-      description: req.body.description || "",
-      location: req.body.location || "",
-      phone: req.body.phone || "",
-      email: req.body.email || "",
-      images: req.body.images || []
-      // hours
-    }
+  const newGym = {
+    name: req.body.name || "",
+    description: req.body.description || "",
+    location: req.body.location || "",
+    phone: req.body.phone || "",
+    email: req.body.email || "",
+    images: req.body.images || []
+  }
 
-    const result = await db.collection('gyms').insertOne(newGym);
+  const result = await db.collection('gyms').insertOne(newGym);
 
-    if (result && result.insertedId) {
-      res.status(200).json(result.insertedId.toString());
-    }
-    else {
-      res.status(500).json("Gym not added to the database");
-    }
-  } catch (error) {
+  if (result && result.insertedId) {
+    res.status(200).json(result.insertedId.toString());
+  }
+  else {
     res.status(500).json("Gym not added to the database");
   }
 });
@@ -44,66 +38,66 @@ router.post('/', async (req, res) => {
 //ChatGPT use: NO
 // Get all gyms
 router.get('/', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const gyms = await db.collection('gyms').find().toArray();
+  const gyms = await db.collection('gyms').find().toArray();
 
-    if (gyms) {
-      res.status(200).json(gyms);
-    } else {
-      res.status(404).json("No gyms found");
-    }
-  } catch (error) {
-    res.status(500).json("Could not retrieve data from the database");
+  if (gyms) {
+    res.status(200).json(gyms);
+  } else {
+    res.status(404).json("No gyms found");
   }
 });
 
 //ChatGPT use: NO
 // Get a gym by id
 router.get('/gymId/:gymId', async (req, res) => {
+  const db = getDB();
+  let _id;
+
   try {
-    const db = getDB();
-    const id = createId(req.params.gymId);
-
-    const gym = await db.collection('gyms').findOne({ _id: id });
-
-    if (gym) {
-      res.status(200).json(gym);
-    } else {
-      res.status(404).json('Gym not found');
-    }
-  } catch (error) {
+    _id = createId(req.params.gymId);
+  } catch (err) {
     res.status(500).json('Invalid gym ID');
+    return;
+  }
+
+  const gym = await db.collection('gyms').findOne({ _id });
+
+  if (gym) {
+    res.status(200).json(gym);
+  } else {
+    res.status(404).json('Gym not found');
   }
 });
 
 //ChatGPT use: NO
 // Get a gym by email
 router.get('/byEmail/:email', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const gym = await db.collection('gyms').findOne({ email: req.params.email });
+  const gym = await db.collection('gyms').findOne({ email: req.params.email });
 
-    if (gym) {
-      res.status(200).json(gym);
-    } else {
-      res.status(404).json('Gym not found');
-    }
-  } catch (error) {
-    res.status(500).json('Could not retrieve data from the database');
+  if (gym) {
+    res.status(200).json(gym);
+  } else {
+    res.status(404).json('Gym not found');
   }
 });
 
 //ChatGPT use: NO
 // Edit a gym by ID
 router.put('/gymId/:gymId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = createId(req.params.gymId);
+  const db = getDB();
+  let _id;
 
-    const gym = await db.collection('gyms').findOne({ _id: id });
+  try {
+    _id = createId(req.params.gymId);
+  } catch (error) {
+    res.status(500).json('Gym not updated');
+  }
+
+    const gym = await db.collection('gyms').findOne({ _id });
 
     if (!gym) {
       res.status(404).json('Gym not found');
@@ -121,7 +115,7 @@ router.put('/gymId/:gymId', async (req, res) => {
     }
 
     const result = await db.collection('gyms').updateOne(
-      { _id: id },
+      { _id },
       { $set: updatedGym }
     );
     
@@ -130,27 +124,25 @@ router.put('/gymId/:gymId', async (req, res) => {
     } else {
       res.status(200).json(updatedGym);
     }
-  } catch (error) {
-    res.status(500).json('Gym not updated');
-  }
 });
 
 //ChatGPT use: NO
 // Delete a gym by ID
 router.delete('/gymId/:gymId', async (req, res) => {
+  const db = getDB();
+  let _id;
   try {
-    const db = getDB();
-    const id = createId(req.params.gymId);
-    
-    const result = await db.collection('gyms').deleteOne({ _id: id });
-
-    if (result.deletedCount === 0) {
-      res.status(404).json('Gym not found');
-    } else {
-      res.status(200).json('Gym deleted successfully');
-    }
+    _id = createId(req.params.gymId);
   } catch (error) {
     res.status(500).json('Gym not deleted');
+  }
+
+  const result = await db.collection('gyms').deleteOne({ _id });
+
+  if (result.deletedCount === 0) {
+    res.status(404).json('Gym not found');
+  } else {
+    res.status(200).json('Gym deleted successfully');
   }
 });
 
