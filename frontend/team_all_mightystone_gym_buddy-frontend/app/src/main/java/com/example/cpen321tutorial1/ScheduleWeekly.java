@@ -68,8 +68,8 @@ public class ScheduleWeekly
         NextWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarUtils.selectedDate =
-                        CalendarUtils.selectedDate.plusWeeks(1);
+                selectedDate =
+                        selectedDate.plusWeeks(1);
                 setWeekView();
             }
         });
@@ -168,7 +168,7 @@ public class ScheduleWeekly
 
     private void setEventAdapter() {
         ArrayList<Event> dailyEvents =
-                Event.eventsForDate(selectedDate);
+                eventsForDate(selectedDate);
         EventAdapter eventAdapter =
                 new EventAdapter(getApplicationContext(), dailyEvents);
         eventList.setAdapter(eventAdapter);

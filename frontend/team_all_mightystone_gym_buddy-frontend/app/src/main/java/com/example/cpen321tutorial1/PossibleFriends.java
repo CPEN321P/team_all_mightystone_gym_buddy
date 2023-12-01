@@ -45,7 +45,7 @@ public class PossibleFriends
         ConnectionToBackend c = new ConnectionToBackend();
         ArrayList<Account> items = c.getAllInList(myAccount.getUserId(), 2);
 
-        ArrayList<Account> Frienditems = myAccount.getFriendsList();
+        //ArrayList<Account> Frienditems = myAccount.getFriendsList();
 
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));
