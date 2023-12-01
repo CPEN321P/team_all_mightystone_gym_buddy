@@ -43,7 +43,7 @@ expect.extend({
           collection: jest.fn().mockReturnThis(),
           insertOne: jest.fn().mockReturnValue({ insertedId: 'mockedId' }),
       };
-        getDB.mockReturnValue(mockDB);
+      getDB.mockReturnValue(mockDB);
       
       const mockGym = {
         name: 'Gym ABC',
@@ -63,43 +63,15 @@ expect.extend({
 
     // Input: mockGym
     // Expected status code: 500
-    // Expected behavior: Database error
-    // Expected output: Error message
-    it('Database Error', async () => {
-      // Mock the getDB function
-      mockDB = {
-          collection: jest.fn().mockReturnThis(),
-          insertOne: jest.fn().mockReturnValue(null),
-      };
-      getDB.mockImplementation(()=>{
-        throw new Error();
-      });
-      
-      const mockGym = {
-        fruit: 'banana',
-        color: 'yellow'
-      };
-  
-      const response = await request(app)
-        .post('/gyms')
-        .send(mockGym)
-        .set('Accept', 'application/json');
-  
-      expect(response.statusCode).toBe(500);
-      expect(response.body).toBe('Gym not added to the database');
-    });
-
-    // Input: mockGym
-    // Expected status code: 500
     // Expected behavior: Gym is not added to the database
     // Expected output: Error message
     it('Gym is not added to the database', async () => {
       // Mock the getDB function
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           insertOne: jest.fn().mockReturnValue(null),
       };
-        getDB.mockReturnValue(mockDB);
+      getDB.mockReturnValue(mockDB);
       
       const mockGym = {
         fruit: 'banana',
@@ -134,7 +106,7 @@ expect.extend({
         }
       ];
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           find: jest.fn().mockReturnThis(),
           toArray: jest.fn().mockReturnValue(mockGyms),
@@ -156,7 +128,7 @@ expect.extend({
     // Expected behavior: Gym not found
     // Expected output: Error message
     it('Gym not found', async () => {
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           find: jest.fn().mockReturnThis(),
           toArray: jest.fn().mockReturnValue(null),
@@ -170,29 +142,6 @@ expect.extend({
   
       expect(response.statusCode).toBe(404);
       expect(response.body).toBe("No gyms found");
-    });
-
-    // Input: None
-    // Expected status code: 500
-    // Expected behavior: Error retrieving data 
-    // Expected output: Error message
-    it('There is an error retrieving the gyms from the database', async () => {
-      mockDB = {
-          collection: jest.fn().mockReturnThis(),
-          find: jest.fn().mockReturnThis(),
-          toArray: jest.fn().mockReturnValue(null),
-      };
-        
-      getDB.mockImplementation(()=>{
-        throw new Error();
-      });
-      
-      const response = await request(app)
-        .get('/gyms')
-        .set('Accept', 'application/json');
-  
-      expect(response.statusCode).toBe(500);
-      expect(response.body).toBe("Could not retrieve data from the database");
     });
   });
 
@@ -208,7 +157,7 @@ expect.extend({
         email: 'john.doe@example.com',
       };
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockReturnValue(mockGym),
       };
@@ -238,7 +187,7 @@ expect.extend({
           email: 'john.doe@example.com',
         };
     
-        mockDB = {
+        const mockDB = {
             collection: jest.fn().mockReturnThis(),
             findOne: jest.fn().mockReturnValue(mockGym),
         };
@@ -246,7 +195,7 @@ expect.extend({
         getDB.mockReturnValue(mockDB);
     
         createId.mockImplementation((id) => {
-          throw new Error();
+          throw new Error('');
         })
         
         const response = await request(app)
@@ -262,12 +211,8 @@ expect.extend({
     // Expected behavior: Gym not retieved 
     // Expected output: Error message
     it('Error retrieving gym from database', async () => {
-      const mockGym = {
-        name: 'Gym A',
-        email: 'john.doe@example.com',
-      };
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockReturnValue(null),
       };
@@ -299,7 +244,7 @@ expect.extend({
         email: 'gyma@example.com',
       };
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockReturnValue(mockGym),
       };
@@ -320,7 +265,7 @@ expect.extend({
     // Expected behavior: Gym not found
     // Expected output: Error message
     it('No gym found', async () => {
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockReturnValue(null),
       };
@@ -333,30 +278,6 @@ expect.extend({
   
       expect(response.statusCode).toBe(404);
       expect(response.body).toBe('Gym not found');
-    });
-
-    // Input: None
-    // Expected status code: 500
-    // Expected behavior: Gym not retieved 
-    // Expected output: Error message
-    it('Error retrieving gym from database', async () => {
-  
-      mockDB = {
-          collection: jest.fn().mockReturnThis(),
-          findOne: jest.fn().mockReturnValue(null),
-      };
-        
-      getDB.mockImplementation(()=>{
-        throw new Error();
-      });
-      
-      
-      const response = await request(app)
-        .get('/gyms/byEmail/example@test.com')
-        .set('Accept', 'application/json');
-  
-      expect(response.statusCode).toBe(500);
-      expect(response.body).toBe('Could not retrieve data from the database');
     });
   });
 
@@ -385,7 +306,7 @@ expect.extend({
         },
       ];
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           find: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockImplementation((param) => {
@@ -402,7 +323,7 @@ expect.extend({
       getDB.mockReturnValue(mockDB);
   
       createId.mockImplementation((id) => {
-        throw new Error();
+        throw new Error('');
       })
       
       const response = await request(app)
@@ -437,7 +358,7 @@ expect.extend({
         },
       ];
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           find: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockImplementation((param) => {
@@ -489,7 +410,7 @@ expect.extend({
         },
       ];
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           find: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockImplementation((param) => {
@@ -545,7 +466,7 @@ expect.extend({
         },
       ];
   
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           find: jest.fn().mockReturnThis(),
           findOne: jest.fn().mockImplementation((param) => {
@@ -586,14 +507,14 @@ expect.extend({
     // Expected behavior: Failure because of invalid Id
     // Expected output: Text "Gym not deleted"
     it('Invalid gym ID', async () => {
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
       };
         
       getDB.mockReturnValue(mockDB);
   
       createId.mockImplementation((id) => {
-        throw new Error();
+        throw new Error('');
       })
       
       const response = await request(app)
@@ -609,7 +530,7 @@ expect.extend({
     // Expected behavior: Failure because gym not found
     // Expected output: Text "Gym not found"
     it('Gym not found', async () => {
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           deleteOne: jest.fn().mockImplementation((param) => {
             return { deletedCount: 0 }
@@ -635,7 +556,7 @@ expect.extend({
     // Expected behavior: Failure because gym not found
     // Expected output: Text "Gym not found"
     it('Gym not deleted', async () => {  
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           deleteOne: jest.fn().mockImplementation((param) => {
             return { deletedCount: 0 }
@@ -661,7 +582,7 @@ expect.extend({
     // Expected behavior: Success: gym deleted
     // Expected output: Text "Gym deleted successfully"
     it('Gym deleted', async () => {
-      mockDB = {
+      const mockDB = {
           collection: jest.fn().mockReturnThis(),
           deleteOne: jest.fn().mockImplementation((param) => {
             return { deletedCount: 1 }

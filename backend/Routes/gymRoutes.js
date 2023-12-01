@@ -53,9 +53,16 @@ router.get('/', async (req, res) => {
 // Get a gym by id
 router.get('/gymId/:gymId', async (req, res) => {
   const db = getDB();
-  const id = createId(req.params.gymId);
+  let _id;
 
-  const gym = await db.collection('gyms').findOne({ _id: id });
+  try {
+    _id = createId(req.params.gymId);
+  } catch (err) {
+    res.status(500).json('Invalid gym ID');
+    return;
+  }
+
+  const gym = await db.collection('gyms').findOne({ _id });
 
   if (gym) {
     res.status(200).json(gym);
@@ -67,18 +74,14 @@ router.get('/gymId/:gymId', async (req, res) => {
 //ChatGPT use: NO
 // Get a gym by email
 router.get('/byEmail/:email', async (req, res) => {
-  try {
-    const db = getDB();
+  const db = getDB();
 
-    const gym = await db.collection('gyms').findOne({ email: req.params.email });
+  const gym = await db.collection('gyms').findOne({ email: req.params.email });
 
-    if (gym) {
-      res.status(200).json(gym);
-    } else {
-      res.status(404).json('Gym not found');
-    }
-  } catch (error) {
-    res.status(500).json('Could not retrieve data from the database');
+  if (gym) {
+    res.status(200).json(gym);
+  } else {
+    res.status(404).json('Gym not found');
   }
 });
 

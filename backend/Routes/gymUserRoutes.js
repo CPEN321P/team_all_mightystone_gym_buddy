@@ -59,17 +59,19 @@ router.get('/', async (req, res) => {
 //ChatGPT use: NO
 // Get a specific gym user by ID
 router.get('/userId/:userId', async (req, res) => {
-  try {
-    const db = getDB();
-    const id = new ObjectId(req.params.userId);
+  const db = getDB();
+  let _id;
 
-    const gymUser = await db.collection('gymUsers').findOne({ _id: id });
-    if (gymUser) {
-      res.status(200).json(gymUser);
-    } else {
-      res.status(404).send('Gym user not found');
-    }
+  try {
+    _id = new ObjectId(req.params.userId);
   } catch (error) {
+    res.status(500).send("Invalid Id");
+  }
+
+  const gymUser = await db.collection('gymUsers').findOne({ _id });
+  if (gymUser) {
+    res.status(200).json(gymUser);
+  } else {
     res.status(404).send('Gym user not found');
   }
 });
@@ -77,18 +79,14 @@ router.get('/userId/:userId', async (req, res) => {
 //ChatGPT use: NO
 // Get a specific gym user by email
 router.get('/userEmail/:userEmail', async (req, res) => {
-  try {
-    const db = getDB();
-    const userEmail = req.params.userEmail;
+  const db = getDB();
+  const userEmail = req.params.userEmail;
 
-    const gymUser = await db.collection('gymUsers').findOne({ email: userEmail });
-    if (gymUser) {
-      res.status(200).json(gymUser);
-    } else {
-      res.status(404).send('User not found');
-    }
-  } catch (error) {
-    res.status(404).send('Gym user not found');
+  const gymUser = await db.collection('gymUsers').findOne({ email: userEmail });
+  if (gymUser) {
+    res.status(200).json(gymUser);
+  } else {
+    res.status(404).send('User not found');
   }
 });
 
