@@ -281,23 +281,24 @@ public class EventEdit
     {
         if (num == 1)
             return "01";
-        if (num == 2)
+        else if (num == 2)
             return "02";
-        if (num == 3)
+        else if (num == 3)
             return "03";
-        if (num == 4)
+        else if (num == 4)
             return "04";
-        if (num == 5)
+        else if (num == 5)
             return "05";
-        if (num == 6)
+        else if (num == 6)
             return "06";
-        if (num == 7)
+        else if (num == 7)
             return "07";
-        if (num == 8)
+        else if (num == 8)
             return "08";
-        if (num == 9)
+        else if (num == 9)
             return "09";
-        return Integer.toString(num);
+        else
+            return Integer.toString(num);
 
     }
 
@@ -338,11 +339,8 @@ public class EventEdit
         ConnectionToBackend c = new ConnectionToBackend();
         ArrayList<Event> TheEventsofThisAccount =
                 c.getScheduleByUser(myAccount.getUserId(), Today);
-        if(TheEventsofThisAccount == null){
-            return false;
-        }
-        return true;
 
+        return TheEventsofThisAccount != null;
     }
 
 

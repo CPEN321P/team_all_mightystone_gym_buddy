@@ -62,12 +62,10 @@ public class GymProfile
 
         Announcement.setVisibility(View.GONE);
 
-        if(myAccount.getMyGym() != null){
-            if(myAccount.getMyGym().getGymId().equals(gymId)){
-                isSubscribed = true;
-                Subscribe.setText("Unsubscribe");
-                Announcement.setVisibility(View.VISIBLE);
-            }
+        if((myAccount.getMyGym() != null) && (myAccount.getMyGym().getGymId().equals(gymId))){
+            isSubscribed = true;
+            Subscribe.setText("Unsubscribe");
+            Announcement.setVisibility(View.VISIBLE);
         }
 
         //TEST

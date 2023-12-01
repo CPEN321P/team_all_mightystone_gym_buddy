@@ -16,9 +16,9 @@ import java.util.List;
 
 public class BlockedUsers extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    RecyclerView recyclerView;
 
-    private Button Cancel;
+    Button Cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

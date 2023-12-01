@@ -19,7 +19,7 @@ public class AnnouncementList extends AppCompatActivity {
 
     private ArrayList<String> TheList = new ArrayList<String>();
 
-    private ListView listView;
+    ListView listView;
 
     private Button Cancel;
 
