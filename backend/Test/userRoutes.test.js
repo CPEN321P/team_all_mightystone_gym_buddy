@@ -39,7 +39,7 @@ describe('Create a new user', () => {
   // Expected behaviour: user added to database
   // Expected output: the inserted Id of the new user
   it('User is added to the database', async () => {
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         insertOne: jest.fn().mockReturnValue({ insertedId: 'mockedId' }),
     };
@@ -64,7 +64,7 @@ describe('Create a new user', () => {
   // Expected behaviour: user not added to database
   // Expected output: error message
   it('User is not added to the database', async () => {
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         insertOne: jest.fn().mockReturnValue(null),
     };
@@ -103,7 +103,7 @@ describe('Get all users', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         toArray: jest.fn().mockReturnValue(mockUsers),
@@ -125,7 +125,7 @@ describe('Get all users', () => {
   // Expected behaviour: all users not retrieved
   // Expected output: error message
   it('There is an error retrieving the users from the database', async () => {
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         toArray: jest.fn().mockReturnValue(null),
@@ -154,7 +154,7 @@ describe('Get a specific user by ID', () => {
       email: 'john.doe@example.com',
     };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(mockUser),
     };
@@ -184,7 +184,7 @@ describe('Get a specific user by ID', () => {
       email: 'john.doe@example.com',
     };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(mockUser),
     };
@@ -192,7 +192,7 @@ describe('Get a specific user by ID', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -208,12 +208,8 @@ describe('Get a specific user by ID', () => {
   // Expected behaviour: user not found
   // Expected output: error message
   it('Error retrieving user from database', async () => {
-    const mockUser = {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-    };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(null),
     };
@@ -245,7 +241,7 @@ describe('Get a specific user by email', () => {
       email: 'john.doe@example.com',
     };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(mockUser),
     };
@@ -270,12 +266,8 @@ describe('Get a specific user by email', () => {
   // Expected behaviour: user not found
   // Expected output: error message
   it('Error retrieving user from database', async () => {
-    const mockUser = {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-    };
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(null),
     };
@@ -327,7 +319,7 @@ describe('Get recommended users', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(mockUser),
@@ -337,7 +329,7 @@ describe('Get recommended users', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -353,13 +345,6 @@ describe('Get recommended users', () => {
   // Expected behaviour: user not found
   // Expected output: error message
   it('User not found', async () => {
-    const mockUser = {
-      _id: 12345,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      blockedUsers: [],
-      friends: []
-    };
 
     const retrievedUsers = [
       {
@@ -378,7 +363,7 @@ describe('Get recommended users', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(null),
@@ -429,7 +414,7 @@ describe('Get recommended users', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockReturnValue(mockUser),
@@ -486,7 +471,7 @@ describe('Get friends', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -503,7 +488,7 @@ describe('Get friends', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id)=>{
-      throw new error();
+      throw new Error('');
     });
     
     const response = await request(app)
@@ -546,7 +531,7 @@ describe('Get friends', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -609,7 +594,7 @@ describe('Get friends', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -673,7 +658,7 @@ describe('Get blocked users', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -690,7 +675,7 @@ describe('Get blocked users', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -739,7 +724,7 @@ describe('Get blocked users', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -807,7 +792,7 @@ describe('Get blocked users', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -875,7 +860,7 @@ describe('Update user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -892,7 +877,7 @@ describe('Update user', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -940,7 +925,7 @@ describe('Update user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1005,7 +990,7 @@ describe('Update user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1017,9 +1002,7 @@ describe('Update user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1073,7 +1056,7 @@ describe('Update user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1085,9 +1068,7 @@ describe('Update user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1141,7 +1122,7 @@ describe('Add friend', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1158,7 +1139,7 @@ describe('Add friend', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -1201,7 +1182,7 @@ describe('Add friend', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1262,7 +1243,7 @@ describe('Add friend', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1274,9 +1255,7 @@ describe('Add friend', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1322,7 +1301,7 @@ describe('Add friend', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1334,9 +1313,7 @@ describe('Add friend', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1385,7 +1362,7 @@ describe('Block user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1402,7 +1379,7 @@ describe('Block user', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -1442,7 +1419,7 @@ describe('Block user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1504,7 +1481,7 @@ describe('Block user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1516,9 +1493,7 @@ describe('Block user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1571,7 +1546,7 @@ describe('Block user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1583,9 +1558,7 @@ describe('Block user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1634,7 +1607,7 @@ describe('Unblock user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1651,7 +1624,7 @@ describe('Unblock user', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -1691,7 +1664,7 @@ describe('Unblock user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1753,7 +1726,7 @@ describe('Unblock user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1765,9 +1738,7 @@ describe('Unblock user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1818,7 +1789,7 @@ describe('Unblock user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1830,9 +1801,7 @@ describe('Unblock user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1883,7 +1852,7 @@ describe('Unblock user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1895,9 +1864,7 @@ describe('Unblock user', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -1946,7 +1913,7 @@ describe('Delete a chat', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -1963,7 +1930,7 @@ describe('Delete a chat', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -2003,7 +1970,7 @@ describe('Delete a chat', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2068,7 +2035,7 @@ describe('Delete a chat', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2080,9 +2047,7 @@ describe('Delete a chat', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -2138,7 +2103,7 @@ describe('Delete a chat', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2150,9 +2115,7 @@ describe('Delete a chat', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 0 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -2208,7 +2171,7 @@ describe('Delete a chat', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2220,9 +2183,7 @@ describe('Delete a chat', () => {
           }
           return null;
         }),
-        updateOne: jest.fn().mockImplementation((param) => {
-          return { matchedCount: 1 }
-        })
+        updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
     };
       
     getDB.mockReturnValue(mockDB);
@@ -2271,7 +2232,7 @@ describe('Delete a user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2288,7 +2249,7 @@ describe('Delete a user', () => {
     getDB.mockReturnValue(mockDB);
 
     createId.mockImplementation((id) => {
-      throw new error();
+      throw new Error('');
     })
     
     const response = await request(app)
@@ -2331,7 +2292,7 @@ describe('Delete a user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2391,7 +2352,7 @@ describe('Delete a user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2403,9 +2364,7 @@ describe('Delete a user', () => {
           }
           return null;
         }),
-        deleteOne: jest.fn().mockImplementation((param) => {
-          return { deletedCount: 0 }
-        }),
+        deleteOne: jest.fn().mockReturnValue({ deletedCount: 0 }),
         deleteMany: jest.fn().mockReturnValue(true)
     };
       
@@ -2473,7 +2432,7 @@ describe('Delete a user', () => {
       }
     ];
 
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         find: jest.fn().mockReturnThis(),
         findOne: jest.fn().mockImplementation((param) => {
@@ -2485,9 +2444,7 @@ describe('Delete a user', () => {
           }
           return null;
         }),
-        deleteOne: jest.fn().mockImplementation((param) => {
-          return { deletedCount: 1 }
-        }),
+        deleteOne: jest.fn().mockReturnValue({ deletedCount: 1 }),
     };
     clearData.mockImplementation((db,id)=>{
       return true;

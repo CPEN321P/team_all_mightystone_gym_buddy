@@ -15,109 +15,110 @@ const router = express.Router();
 // - check for chat 
 
 const createNewChat = async (db, senderId, recieverId) => {
+  const newChat = {
+    members: [
+      senderId,
+      recieverId
+    ],
+    messages: []
+  }
+
+  let _senderId;
+  let _recieverId;
+
   try {
-    const newChat = {
-      members: [
-        senderId,
-        recieverId
-      ],
-      messages: []
-    }
-
-    const _senderId = new ObjectId(senderId);
-    const _recieverId = new ObjectId(recieverId);
-
-    const senderUser = await db.collection('users').findOne({ _id: _senderId });
-    const recieverUser = await db.collection('users').findOne({ _id: _recieverId });
-
-    if (!senderUser || !recieverUser) {
-      return 0;
-    }
-
-    const result = await db.collection('chat').insertOne(newChat);
-
-    if (!result || !result.insertedId) {
-      return 0;
-    }
-
-    const resSender = await addChatToUser(db, senderId, result.insertedId.toString());
-    if (!resSender) {
-      return 0;
-    }
-
-    const resReciever = await addChatToUser(db, recieverId, result.insertedId.toString());
-    if (!resReciever) {
-      return 0;
-    }
-
-    return result.insertedId.toString();
+    _senderId = new ObjectId(senderId);
+    _recieverId = new ObjectId(recieverId);
   } catch (error) {
     return 0;
   }
+
+  const senderUser = await db.collection('users').findOne({ _id: _senderId });
+  const recieverUser = await db.collection('users').findOne({ _id: _recieverId });
+
+  if (!senderUser || !recieverUser) {
+    return 0;
+  }
+
+  const result = await db.collection('chat').insertOne(newChat);
+
+  if (!result || !result.insertedId) {
+    return 0;
+  }
+
+  const resSender = await addChatToUser(db, senderId, result.insertedId.toString());
+  if (!resSender) {
+    return 0;
+  }
+
+  const resReciever = await addChatToUser(db, recieverId, result.insertedId.toString());
+  if (!resReciever) {
+    return 0;
+  }
+
+  return result.insertedId.toString();
 }
 
 //ChatGPT use: NO
 const addChatToUser = async (db, userId, chatId) => {
+  let _id;
+
   try {
-    const id = new ObjectId(userId);
-
-    const user = await db.collection('users').findOne({ _id: id });
-
-    if (!user) {
-      return 0;
-    }
-
-    const chatsList = user.chats;
-
-    if (!chatsList) {
-      return 0;
-    }
-
-    chatsList.push(chatId);
-
-    const result = await db.collection('users').updateOne(
-      { _id: id },
-      { 
-        $set: {
-          chats: chatsList
-        } 
-      }
-    );
-
-    if (result.matchedCount === 0) {
-      return 0;
-    } else {
-      return 1;
-    }
+    _id = new ObjectId(userId);
   } catch (error) {
     return 0;
+  }
+
+  const user = await db.collection('users').findOne({ _id });
+
+  if (!user) {
+    return 0;
+  }
+
+  const chats = user.chats;
+
+  if (!chats) {
+    return 0;
+  }
+
+  chats.push(chatId);
+
+  const result = await db.collection('users').updateOne(
+    { _id },
+    { 
+      $set: {
+        chats
+      } 
+    }
+  );
+
+  if (result.matchedCount === 0) {
+    return 0;
+  } else {
+    return 1;
   }
 }
 
 //ChatGPT use: NO
 const checkForChat = async (db, user1, user2) => {
-  try {
-    return db.collection('chat').findOne({ 
-      $and: [
-        {
-          members: {
-            $elemMatch: {
-              $eq: user1
-            }
-          }
-        },
-        {
-          members: {
-            $elemMatch: {
-              $eq: user2
-            }
+  return db.collection('chat').findOne({ 
+    $and: [
+      {
+        members: {
+          $elemMatch: {
+            $eq: user1
           }
         }
-      ]
-    });
-  } catch (error) {
-    return 0;
-  }
+      },
+      {
+        members: {
+          $elemMatch: {
+            $eq: user2
+          }
+        }
+      }
+    ]
+  });
 }
 
 //ChatGPT use: NO

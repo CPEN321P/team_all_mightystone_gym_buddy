@@ -8,12 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PossibleFriends
         extends AppCompatActivity {
@@ -47,7 +45,7 @@ public class PossibleFriends
         ConnectionToBackend c = new ConnectionToBackend();
         ArrayList<Account> items = c.getAllInList(myAccount.getUserId(), 2);
 
-        ArrayList<Account> Frienditems = myAccount.getFriendsList();
+        //ArrayList<Account> Frienditems = myAccount.getFriendsList();
 
         recyclerView.setLayoutManager
                 (new LinearLayoutManager(this));

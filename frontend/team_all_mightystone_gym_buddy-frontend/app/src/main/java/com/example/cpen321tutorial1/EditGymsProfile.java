@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import okhttp3.FormBody;
-import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
@@ -56,7 +55,7 @@ public class EditGymsProfile
             @Override
             public void onClick(View view) {
 
-                Account Owner = GlobalClass.myAccount;
+                Account Owner = myAccount;
                 //ArrayList<Account> SubscribedUserss = new ArrayList<>();
                 String InputName = Name.getText().toString();
                 String InputLocation = Location.getText().toString();

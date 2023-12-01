@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +28,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import okhttp3.MediaType;
@@ -312,6 +310,7 @@ public class EventEdit
 
     }
 
+    /*
     private String getMonthFormat(int month) {
         if (month == 1)
             return "JAN";
@@ -340,6 +339,8 @@ public class EventEdit
 
         return "NON";
     }
+
+     */
 
 
     private boolean checkIfSingleEventsExists(LocalDate Today) {

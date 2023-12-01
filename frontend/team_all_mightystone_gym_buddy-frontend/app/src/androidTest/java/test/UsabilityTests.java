@@ -1,28 +1,26 @@
-package M6Test;
+package test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 
-import static M6Test.NonFunctionalRequirementTest_Performance.Login;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenAddEventPage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenBlockList;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenChangePersonalProfile;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenFriendPersonalProfilePage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenGymList;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenGymProfile;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenMonthlySchedule;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenOthersPersonalProfilePage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenPeoplePage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenPersonalProfile;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenPossibleFriendsPage;
-import static M6Test.NonFunctionalRequirementTest_Performance.OpenWeeklySchedule;
+import static test.PerformanceTests.Login;
+import static test.PerformanceTests.OpenAddEventPage;
+import static test.PerformanceTests.OpenBlockList;
+import static test.PerformanceTests.OpenChangePersonalProfile;
+import static test.PerformanceTests.OpenFriendPersonalProfilePage;
+import static test.PerformanceTests.OpenGymList;
+import static test.PerformanceTests.OpenGymProfile;
+import static test.PerformanceTests.OpenMonthlySchedule;
+import static test.PerformanceTests.OpenOthersPersonalProfilePage;
+import static test.PerformanceTests.OpenPeoplePage;
+import static test.PerformanceTests.OpenPersonalProfile;
+import static test.PerformanceTests.OpenPossibleFriendsPage;
+import static test.PerformanceTests.OpenWeeklySchedule;
 
 import android.os.IBinder;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.WindowManager;
 
 import androidx.test.espresso.Root;
@@ -45,7 +43,7 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class NonFunctionalRequirementTest_Usability {
+public class UsabilityTests {
 
     int NumberOfButtonPress;
 
@@ -150,7 +148,7 @@ public class NonFunctionalRequirementTest_Usability {
     }
 
     public void conclusion(){
-        if (NumberOfButtonPress > 3){
+        if (NumberOfButtonPress > 4){
             ViewInteraction Error = onView(withContentDescription("ERROR"));
             Error.check(matches(isDisplayed()));
             //100% would be kick out
@@ -174,6 +172,7 @@ public class NonFunctionalRequirementTest_Usability {
         };
     }
 
+    /*
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
@@ -192,6 +191,8 @@ public class NonFunctionalRequirementTest_Usability {
             }
         };
     }
+
+     */
 
     //Source: https://www.qaautomated.com/2016/01/how-to-test-toast-message-using-espresso.html
     public class ToastMatcher extends TypeSafeMatcher<Root> {

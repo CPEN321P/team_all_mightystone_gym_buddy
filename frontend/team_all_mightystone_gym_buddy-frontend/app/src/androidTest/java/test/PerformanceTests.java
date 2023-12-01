@@ -1,4 +1,4 @@
-package M6Test;
+package test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -36,7 +36,6 @@ import com.example.cpen321tutorial1.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -49,7 +48,7 @@ import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
-public class NonFunctionalRequirementTest_Performance {
+public class PerformanceTests {
 
     LocalTime StartTime;
 
@@ -327,12 +326,7 @@ public class NonFunctionalRequirementTest_Performance {
 
     public static void OpenWeeklySchedule(){
         ViewInteraction ScheduleWeekly = onView(
-                allOf(withId(R.id.Weekly), withText("Weekly "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.ScheduleDaily),
-                                        0),
-                                1),
+                allOf(withId(R.id.Weekly),
                         isDisplayed()));
         ScheduleWeekly.perform(click());
         onView(withId(R.id.ScheduleWeekly)).check(matches(isDisplayed()));
@@ -340,10 +334,10 @@ public class NonFunctionalRequirementTest_Performance {
 
     public static void OpenAddEventPage(){
         ViewInteraction AddEvent = onView(
-                Matchers.allOf(withId(R.id.AddEvent), withText("New Event"),
+                allOf(withId(R.id.AddEvent), withText("New Event"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("android.widget.LinearLayout")),
+                                        withClassName(is("android.widget.LinearLayout")),
                                         4),
                                 0),
                         isDisplayed()));
@@ -392,7 +386,7 @@ public class NonFunctionalRequirementTest_Performance {
 
     public static void OpenOthersPersonalProfilePage(){
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(matches(isDisplayed()));
