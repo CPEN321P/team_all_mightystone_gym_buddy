@@ -144,7 +144,7 @@ describe('Get all users', () => {
 
 // ChatGPT use: No
 describe('Get a specific user by ID', () => {
-  // Input: none
+  // Input: User Id
   // Expected status code: 200
   // Expected behaviour: user retrieved
   // Expected output: user object
@@ -174,7 +174,7 @@ describe('Get a specific user by ID', () => {
     expect(response.body.email).toBe(mockUser.email);
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -203,7 +203,7 @@ describe('Get a specific user by ID', () => {
     expect(response.body).toBe('Invalid user ID');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -231,7 +231,7 @@ describe('Get a specific user by ID', () => {
 
 // ChatGPT use: No
 describe('Get a specific user by email', () => {
-  // Input: none
+  // Input: User Email
   // Expected status code: 200
   // Expected behaviour: user retrieved
   // Expected output: user object
@@ -261,7 +261,7 @@ describe('Get a specific user by email', () => {
     expect(response.body.email).toBe(mockUser.email);
   });
 
-  // Input: none
+  // Input: User Email
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -289,7 +289,7 @@ describe('Get a specific user by email', () => {
 
 // ChatGPT use: No
 describe('Get recommended users', () => {
-  // Input: none
+  // Input: User Id
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -340,7 +340,7 @@ describe('Get recommended users', () => {
     expect(response.body).toBe('Users not retrieved');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -384,7 +384,7 @@ describe('Get recommended users', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 200
   // Expected behaviour: user retrieved
   // Expected output: user object
@@ -439,7 +439,7 @@ describe('Get recommended users', () => {
 
 // ChatGPT use: No
 describe('Get friends', () => {
-  // Input: none
+  // Input: User Id
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -499,7 +499,7 @@ describe('Get friends', () => {
     expect(response.body).toBe('Invalid user Id');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -563,7 +563,7 @@ describe('Get friends', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 200
   // Expected behaviour: users friends list retrieved
   // Expected output: user object
@@ -626,7 +626,7 @@ describe('Get friends', () => {
 
 // ChatGPT use: No
 describe('Get blocked users', () => {
-  // Input: none
+  // Input: User Id
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -686,7 +686,7 @@ describe('Get blocked users', () => {
     expect(response.body).toBe('Invalid user Id');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -753,7 +753,7 @@ describe('Get blocked users', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 200
   // Expected behaviour: users blocked list retrieved
   // Expected output: user object
@@ -824,7 +824,7 @@ describe('Get blocked users', () => {
 
 // ChatGPT use: No
 describe('Update user', () => {
-  // Input: none
+  // Input: User Id
   // Expected status code: 500
   // Expected behaviour: error thrown by ObjectId()
   // Expected output: error message
@@ -889,7 +889,7 @@ describe('Update user', () => {
     expect(response.body).toBe('Invalid user Id');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -954,7 +954,7 @@ describe('Update user', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: user not updated
   // Expected output: error message
@@ -1020,7 +1020,7 @@ describe('Update user', () => {
     expect(response.body).toBe('User not updated');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 200
   // Expected behaviour: user updated
   // Expected output: updated user object
@@ -1089,7 +1089,7 @@ describe('Update user', () => {
 
 // ChatGPT use: No
 describe('Add friend', () => {
-  // Input: none
+  // Input: User Ids
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -1150,7 +1150,7 @@ describe('Add friend', () => {
     expect(response.body).toBe('Invalid user Id');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -1210,7 +1210,7 @@ describe('Add friend', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 500
   // Expected behaviour: user not friended
   // Expected output: error message
@@ -1272,7 +1272,7 @@ describe('Add friend', () => {
     expect(response.body).toBe('Already friends');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 200
   // Expected behaviour: friend added
   // Expected output: success message
@@ -1333,7 +1333,7 @@ describe('Add friend', () => {
 
 // ChatGPT use: No
 describe('Block user', () => {
-  // Input: none
+  // Input: User Ids
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -1390,7 +1390,7 @@ describe('Block user', () => {
     expect(response.body).toBe('Invalid user ID');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -1447,7 +1447,7 @@ describe('Block user', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 500
   // Expected behaviour: user not blocked
   // Expected output: error message
@@ -1510,7 +1510,7 @@ describe('Block user', () => {
     expect(response.body).toBe('User not blocked');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 200
   // Expected behaviour: user blocked
   // Expected output: error message
@@ -1578,7 +1578,7 @@ describe('Block user', () => {
 
 // ChatGPT use: No
 describe('Unblock user', () => {
-  // Input: none
+  // Input: User Ids
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -1635,7 +1635,7 @@ describe('Unblock user', () => {
     expect(response.body).toBe('Invalid user ID');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -1692,7 +1692,7 @@ describe('Unblock user', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 500
   // Expected behaviour: user not in blocked list
   // Expected output: error message
@@ -1755,7 +1755,7 @@ describe('Unblock user', () => {
     expect(response.body).toBe('User not in blocked list');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 500
   // Expected behaviour: user not unblocked
   // Expected output: error message
@@ -1818,7 +1818,7 @@ describe('Unblock user', () => {
     expect(response.body).toBe('User not unblocked');
   });
 
-  // Input: none
+  // Input: User Ids
   // Expected status code: 200
   // Expected behaviour: user unblocked
   // Expected output: success message
@@ -1884,7 +1884,7 @@ describe('Unblock user', () => {
 
 // ChatGPT use: No
 describe('Delete a chat', () => {
-  // Input: none
+  // Input: User Id, Chat Id
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -1941,7 +1941,7 @@ describe('Delete a chat', () => {
     expect(response.body).toBe('Invalid user ID');
   });
 
-  // Input: none
+  // Input: User Id, Chat Id
   // Expected status code: 404
   // Expected behaviour: user not found
   // Expected output: error message
@@ -1998,7 +1998,7 @@ describe('Delete a chat', () => {
     expect(response.body).toBe('User not found');
   });
 
-  // Input: none
+  // Input: User Id, Chat Id
   // Expected status code: 404
   // Expected behaviour: chat not is user chats list
   // Expected output: error message
@@ -2064,7 +2064,7 @@ describe('Delete a chat', () => {
     expect(response.body).toBe('Chat not in list');
   });
 
-  // Input: none
+  // Input: User Id, Chat Id
   // Expected status code: 500
   // Expected behaviour: chat not deleted
   // Expected output: error message
@@ -2132,7 +2132,7 @@ describe('Delete a chat', () => {
     expect(response.body).toBe('Chat not deleted');
   });
 
-  // Input: none
+  // Input: User Id, Chat Id
   // Expected status code: 200
   // Expected behaviour: chat deleted
   // Expected output: success message
@@ -2203,7 +2203,7 @@ describe('Delete a chat', () => {
 
 // ChatGPT use: No
 describe('Delete a user', () => {
-  // Input: none
+  // Input: User Id
   // Expected status code: 500
   // Expected behaviour: error thrown by createId()
   // Expected output: error message
@@ -2260,7 +2260,7 @@ describe('Delete a user', () => {
     expect(response.body).toBe('Invalid user Id');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 500
   // Expected behaviour: user not found
   // Expected output: error message
@@ -2320,7 +2320,7 @@ describe('Delete a user', () => {
     expect(response.body).toBe('User data not cleared');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 404
   // Expected behaviour: user not deleted
   // Expected output: error message
@@ -2386,7 +2386,7 @@ describe('Delete a user', () => {
     expect(response.body).toBe('User not deleted');
   });
 
-  // Input: none
+  // Input: User Id
   // Expected status code: 200
   // Expected behaviour: user deleted
   // Expected output: success message
