@@ -36,17 +36,17 @@ describe('Create a new schedule', () => {
     // Expected behavior: Schedule is not added to the database because insert fails
     // Expected output: Text "Schedule not added to the database"
   it('Schedule is not created', async () => {
-    mockDB = {
+    const mockDB = {
         collection: jest.fn().mockReturnThis(),
         insertOne: jest.fn().mockReturnValue(null),
     };
-      getDB.mockReturnValue(mockDB);
+    getDB.mockReturnValue(mockDB);
     
-      const mockSchedule = {
-        userId: 12345,
-        date: 11212023,
-        exercises: []
-      };
+    const mockSchedule = {
+      userId: 12345,
+      date: 11212023,
+      exercises: []
+    };
 
     const response = await request(app)
       .post('/schedules')
@@ -134,14 +134,6 @@ describe('Get all schedules by user id', () => {
   // Expected behavior: Schedules are not not found in the database
   // Expected output: Text "Schedules not retrieved"
   it('Schedules not retrieved', async () => {
-    const mockSchedules = [
-      {
-        name: 1
-      },
-      {
-        name: 2
-      }
-    ];
 
     mockDB = {
         collection: jest.fn().mockReturnThis(),

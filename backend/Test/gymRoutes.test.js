@@ -422,9 +422,7 @@ expect.extend({
             }
             return null;
           }),
-          updateOne: jest.fn().mockImplementation((param) => {
-            return { matchedCount: 0 }
-          })
+          updateOne: jest.fn().mockReturnValue({ matchedCount: 0 })
       };
 
       getDB.mockReturnValue(mockDB);
@@ -478,9 +476,7 @@ expect.extend({
             }
             return null;
           }),
-          updateOne: jest.fn().mockImplementation((param) => {
-            return { matchedCount: 1 }
-          })
+          updateOne: jest.fn().mockReturnValue({ matchedCount: 1 })
       };
         
       getDB.mockReturnValue(mockDB);

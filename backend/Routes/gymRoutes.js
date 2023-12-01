@@ -95,6 +95,7 @@ router.put('/gymId/:gymId', async (req, res) => {
     _id = createId(req.params.gymId);
   } catch (error) {
     res.status(500).json('Gym not updated');
+    return;
   }
 
     const gym = await db.collection('gyms').findOne({ _id });
@@ -135,6 +136,7 @@ router.delete('/gymId/:gymId', async (req, res) => {
     _id = createId(req.params.gymId);
   } catch (error) {
     res.status(500).json('Gym not deleted');
+    return;
   }
 
   const result = await db.collection('gyms').deleteOne({ _id });

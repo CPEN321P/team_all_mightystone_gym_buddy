@@ -122,7 +122,7 @@ router.put('/makeAnnouncement/:userId', async (req, res) => {
   });
 
   const result = await db.collection('gymUsers').updateOne(
-    { _id: id },
+    { _id },
     { 
       $set: {
         announcements: announcementsList
@@ -197,51 +197,55 @@ router.put('/editAnnouncement/:userId/:announcementId', async (req, res) => {
 //ChatGPT use: NO
 // Delete an announcement
 router.put('/deleteAnnouncement/:userId/:announcementId', async (req, res) => {
+  const db = getDB();
+  let id;
+  
   try {
-    const db = getDB();
-    const id = new ObjectId(req.params.userId);
-    const announcementId = req.params.announcementId;
-
-    const gymUser = await db.collection('gymUsers').findOne({ _id: id });
-
-    if (!gymUser) {
-      res.status(404).send('Gym user not found');
-      return;
-    }
-
-    const announcements = gymUser.announcements;
-    
-    let i = -1;
-    for (let j = 0; j < announcements.length; j++) {
-      if (announcements[j]._id == announcementId) {
-        i = j;
-        break;
-      }
-    }
-
-    if (i == -1) {
-      res.status(404).send('Announcement not found');
-      return;
-    }
-
-    announcements.splice(i,1);
-
-    const result = await db.collection('gymUsers').updateOne(
-      { _id: id },
-      { 
-        $set: {
-          announcements
-        } 
-      }
-    );
-
-    if (result.matchedCount === 0) {
-      res.status(500).send('Announcement not deleted');
-    } else {
-      res.status(200).send('Announcement deleted');
-    }
+    id = new ObjectId(req.params.userId);
   } catch (error) {
     res.status(500).send('Announcement not deleted');
+    return;
+  }
+
+  const announcementId = req.params.announcementId;
+
+  const gymUser = await db.collection('gymUsers').findOne({ _id: id });
+
+  if (!gymUser) {
+    res.status(404).send('Gym user not found');
+    return;
+  }
+
+  const announcements = gymUser.announcements;
+  
+  let i = -1;
+  for (let j = 0; j < announcements.length; j++) {
+    if (announcements[j]._id == announcementId) {
+      i = j;
+      break;
+    }
+  }
+
+  if (i == -1) {
+    res.status(404).send('Announcement not found');
+    return;
+  }
+
+  announcements.splice(i,1);
+
+  const result = await db.collection('gymUsers').updateOne(
+    { _id: id },
+    { 
+      $set: {
+        announcements
+      } 
+    }
+  );
+
+  if (result.matchedCount === 0) {
+    res.status(500).send('Announcement not deleted');
+  } else {
+    res.status(200).send('Announcement deleted');
   }
 });
 
