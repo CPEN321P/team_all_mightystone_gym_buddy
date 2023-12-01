@@ -326,12 +326,7 @@ public class PerformanceTests {
 
     public static void OpenWeeklySchedule(){
         ViewInteraction ScheduleWeekly = onView(
-                allOf(withId(R.id.Weekly), withText("Weekly "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.ScheduleDaily),
-                                        0),
-                                1),
+                allOf(withId(R.id.Weekly),
                         isDisplayed()));
         ScheduleWeekly.perform(click());
         onView(withId(R.id.ScheduleWeekly)).check(matches(isDisplayed()));
@@ -391,7 +386,7 @@ public class PerformanceTests {
 
     public static void OpenOthersPersonalProfilePage(){
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(matches(isDisplayed()));
@@ -483,7 +478,7 @@ public class PerformanceTests {
         };
     }
 
-    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcherTests(recyclerViewId);
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
     }
 }

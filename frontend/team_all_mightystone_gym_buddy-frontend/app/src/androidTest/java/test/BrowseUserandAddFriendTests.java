@@ -132,7 +132,7 @@ public class BrowseUserandAddFriendTests {
 
     public void LoginAsOthers(){
         ConnectionToBackend c = new ConnectionToBackend();
-        Account thisAccount = c.getAccountInformation("savitoj2019@gmail.com");
+        Account thisAccount = c.getAccountInformation("thetysonbrown@gmail.com");
         myAccount = thisAccount;
 
         ArrayList<Event> TheEventsofThisAccount = c.getScheduleByUser(thisAccount.getUserId());
@@ -246,7 +246,7 @@ public class BrowseUserandAddFriendTests {
         recyclerView.check(matches(isDisplayed()));
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(matches(isDisplayed()));
@@ -272,7 +272,7 @@ public class BrowseUserandAddFriendTests {
 
     public void GoToPersonalProfileFriends(){
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(matches(isDisplayed()));
@@ -304,7 +304,7 @@ public class BrowseUserandAddFriendTests {
     public void CheckFriendsListFromAnotherAccount(){
         GoToPeople();
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Zheng"),
+                allOf(withId(R.id.name), withText("Zheng Xu"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(matches(isDisplayed()));
@@ -371,7 +371,7 @@ public class BrowseUserandAddFriendTests {
     public void CheckBlock(){
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(doesNotExist());
@@ -417,7 +417,7 @@ public class BrowseUserandAddFriendTests {
 
     public void UnBlock(){
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(matches(isDisplayed()));
@@ -440,7 +440,7 @@ public class BrowseUserandAddFriendTests {
 
     public void CheckUnblock(){
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
         textView.check(doesNotExist());
@@ -551,7 +551,7 @@ public class BrowseUserandAddFriendTests {
         };
     }
 
-    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcherTests(recyclerViewId);
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
     }
 }

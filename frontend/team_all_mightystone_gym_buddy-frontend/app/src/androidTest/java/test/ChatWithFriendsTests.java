@@ -40,6 +40,7 @@ import com.example.cpen321tutorial1.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,6 +48,7 @@ import org.junit.runners.MethodSorters;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @LargeTest
@@ -93,7 +95,8 @@ public class ChatWithFriendsTests {
         GoToPersonalProfileFriendsFromAnother();
         CheckMessageButtonIsThere();
         ClickMessageButton();
-        CheckMessage();
+        //CheckMessage();
+        CheckMessageFromOthers();
     }
 
     public void Login(){
@@ -159,10 +162,10 @@ public class ChatWithFriendsTests {
 
     public void GoToPersonalProfileOthers(){
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Sav"),
+                allOf(withId(R.id.name), withText("Tyson Brown"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
-        textView.check(matches(withText("Sav")));
+        textView.check(matches(withText("Tyson Brown")));
 
         textView.perform(click());
 
@@ -182,10 +185,10 @@ public class ChatWithFriendsTests {
 
     public void GoToPersonalProfileFriendsFromAnother(){
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("Zheng"),
+                allOf(withId(R.id.name), withText("Zheng Xu"),
                         withParent(withParent(withId(R.id.recyclerview))),
                         isDisplayed()));
-        textView.check(matches(withText("Zheng")));
+        textView.check(matches(withText("Zheng Xu")));
 
         textView.perform(click());
         onView(withId(R.id.PersonalProfileFriend)).check(matches(isDisplayed()));
@@ -230,12 +233,35 @@ public class ChatWithFriendsTests {
                                 0),
                         isDisplayed()));
         appCompatEditText.perform(replaceText(inputString), closeSoftKeyboard());
+
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withId(R.id.message_send_button),
+                        childAtPosition(
+                                allOf(withId(R.id.bottom_layout),
+                                        childAtPosition(
+                                                withId(R.id.Chat),
+                                                2)),
+                                1),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
     }
 
     public void CheckMessage(){
         ViewInteraction SentMessage = onView(
-                allOf(withId(R.id.recyclerview)));
+                allOf(withId(R.id.right_chat_text), withText(inputString),
+                        withParent(allOf(withId(R.id.right_chat_layout),
+                                withParent(IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class)))),
+                        isDisplayed()));
+        SentMessage.check(matches(withText(inputString)));
+    }
 
+    public void CheckMessageFromOthers(){
+        ViewInteraction SentMessage = onView(
+                allOf(withId(R.id.left_chat_text), withText(inputString),
+                        withParent(allOf(withId(R.id.left_chat_layout),
+                                withParent(IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class)))),
+                        isDisplayed()));
         SentMessage.check(matches(withText(inputString)));
     }
 
@@ -318,7 +344,7 @@ public class ChatWithFriendsTests {
         };
     }
 
-    public static RecyclerViewMatcherTests withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcherTests(recyclerViewId);
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
     }
 }
